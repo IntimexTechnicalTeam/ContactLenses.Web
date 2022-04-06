@@ -4,43 +4,44 @@
     <div id="main-content">
       <div class="favorite-box order-box">
         <div class="favorite-box-top">
-          <div class="login-register-title">{{$t('Shoppingcart.ShoppingcartTitle')}}</div>
+          <div class="login-register-title">{{$t('Shoppingcart.ShoppingcartTitle')}}    •</div>
           <div class="clear"></div>
         </div>
         <div class="favorite-box-content">
           <div class="order-one shoppingcart-one">
-            <div class="order-one-title shoppingcart-one-title">
-              <!-- <span class="order-merchant">{{$t('Shoppingcart.Merchant')}}</span> -->
+            <!-- <div class="order-one-title shoppingcart-one-title">
+              <span class="order-merchant">{{$t('Shoppingcart.Merchant')}}</span>
               <span class="order-product-name">{{$t('Shoppingcart.Product')}}</span>
               <span class="order-quantity">{{$t('Shoppingcart.Quantity')}}</span>
               <span class="order-price">{{$t('Shoppingcart.Price')}}</span>
               <div class="clear"></div>
-            </div>
+            </div> -->
             <div class="favorite-one merchant-one" v-for="(one,index) in items" :key="index">
               <a class="product-img" v-bind:href="'/product/Detail/'+one.Product.Sku">
                 <img v-bind:src="one.Product.Img_M" alt />
               </a>
               <div class="favorite-one-messge">
-                <p class="product-title">{{one.Product.Name}}</p>
-                <p class="product-code">{{one.Product.Code}}</p>
-                <p class="product-code">
+                <p class="product-code">{{$t('product.ProductCode')}}：{{one.Product.Code}}</p>
+                <p class="product-title">{{$t('product.ProductName')}}：{{one.Product.Name}}</p>
+                <!-- <p class="product-code">
                   <span v-if="one.AttrName1">{{one.AttrTypeName1}}：{{one.AttrName1}}</span>&nbsp;
                   <span v-if="one.AttrName2">{{one.AttrTypeName2}}：{{one.AttrName2}}</span>&nbsp;
                   <span v-if="one.AttrName3">{{one.AttrTypeName3}}：{{one.AttrName3}}</span>&nbsp;
-                </p>
-                <p class="product-price">
+                </p> -->
+               <!--  <p class="product-price">
                   <span
                     class="p-price-discount"
                   >{{Currency.Code}} {{(one.Product.SalePrice) | PriceFormat}}</span>
-                </p>
+                </p> -->
               </div>
               <div class="merchant-one-calc">
+                <p class="quantity">{{$t('product.Quantity')}}</p>
                 <div class="common-num">
-                  <a
+                  <!-- <a
                     class="reduce-num"
                     href="javascript:;"
                     v-on:click=" minusQty(one,one.Id,$event);"
-                  >-</a>
+                  >-</a> -->
                   <div class="num-content">
                     <input
                       class="input-text"
@@ -51,15 +52,19 @@
                       v-on:change="updateQty(one,one.Id,$event)"
                     />
                   </div>
-                  <a class="add-num" href="javascript:;" v-on:click="plusQty(one,one.Id,$event);" :class="{'disabled':one.IsAdd}">+</a>
+                  <!-- <a class="add-num" href="javascript:;" v-on:click="plusQty(one,one.Id,$event);" :class="{'disabled':one.IsAdd}">+</a> -->
                   <div class="clear"></div>
                 </div>
               </div>
-              <div class="merchant-total-price">
+              <!-- <div class="merchant-total-price">
                 <p>{{Currency.Code}} {{(one.Product.SalePrice * one.Qty) | PriceFormat}}</p>
-              </div>
+              </div> -->
               <div class="merchant-del-box">
-                <b class="cart-delete" v-on:click="removeItem(index)">X</b>
+                <b class="cart-delete" v-on:click="removeItem(index)">{{$t('product.Delete')}}</b>
+                <button @click="boxShow(index)" class="edit">{{$t('product.EditDetails')}}</button>
+              </div>
+              <div class="edit-box" v-show="index.boxshow">
+                <span class="edit_title">{{$t('product.RequiredInformation')}}</span>
               </div>
               <div class="clear"></div>
             </div>
@@ -94,6 +99,7 @@ class Update {
 export default class InsShoppingcart extends Vue {
   private ShoppingCart:ShopCart = new ShopCart();
   prodcutSrc: string = require('@/assets/Images/270_b.jpg');
+  boxshow = false;
   step: number = 1;
   totalAmount: number = 0;
   // itemsAmount: number = 0;
@@ -109,6 +115,7 @@ export default class InsShoppingcart extends Vue {
   isAdd:boolean = false;
   mounted () {
     // this.loadItems();
+    this.loadHotProducts();
   }
   created () {
     this.load().then(() => { this.$HiddenLayer(); });
@@ -126,6 +133,11 @@ export default class InsShoppingcart extends Vue {
     this.loadItems();
     return load;
   }
+  loadHotProducts () {
+      this.$Api.shoppingCart.shoppingGet().then((result) => {
+        console.log(result);
+        });
+    }
   loadItems () {
     var _this = this;
     var itemsprice = 0;
@@ -150,6 +162,12 @@ export default class InsShoppingcart extends Vue {
     this.$Api.shoppingCart.removeItem(item.Id).then(result => {
       this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
     });
+  }
+  boxShow(one) {
+    var temp = this.items;
+    console.log(temp);
+    /* temp[index].boxshow = !temp[index].boxshow;
+    this.items = temp; */
   }
   next () {
     // if (!this.items || this.items.length === 0) {
@@ -255,29 +273,32 @@ export default class InsShoppingcart extends Vue {
 }
 .num-content .input-text {
   display: inline-block;
+  font-size: 18px;
   width: 38px;
   height: 30px;
   line-height: 30px;
   text-align: center;
   border: none;
-  color: #999999;
+  color: #000;
   outline: none;
-  border-left: 1px solid #e0e0e0;
-  border-right: 1px solid #e0e0e0;
+  font-weight: bold;
+  background-color: #fff;
 }
-.favorite-one-messge .product-title {
+.favorite-one-messge .product-title,
+.favorite-one-messge .product-code {
   color: #333;
   font-size: 18px;
+  margin: 15px 0;
+  font-weight: bold;
 }
-.favorite-one-messge .product-code {
+/* .favorite-one-messge .product-code {
   color: #b2b2b2;
   font-size: 14px;
-  margin: 15px 0;
-}
-.favorite-one-messge .product-code {
-  color: #b2b2b2;
-  font-size: 14px;
-  margin: 15px 0;
+} */
+.merchant-one-calc .quantity{
+  color: #333;
+  font-size: 18px;
+  font-weight: bold;
 }
 .order-one .product-price {
   margin-top: 14px;
@@ -354,29 +375,30 @@ export default class InsShoppingcart extends Vue {
 
 .merchant-one {
   border-top: 0;
-  border-bottom: 1px solid #e6e6e6;
   cursor: pointer;
 }
 
-.merchant-one:hover {
-  border-bottom: 1px solid #e6e6e6;
+/* .merchant-one:hover {
   background: #efefef;
-}
+} */
 
 .merchant-one .favorite-one-messge {
   width: 38.7%;
 }
 
 .merchant-one-calc {
-  width: 11.2%;
+  width: 10%;
   margin-left: 4.3%;
   float: left;
   text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
 }
 
 .merchant-one-calc .common-num {
   display: inline-block;
-  border: 1px solid #e0e0e0;
   border-radius: 3px;
 }
 
@@ -407,9 +429,28 @@ export default class InsShoppingcart extends Vue {
 }
 
 .merchant-del-box {
-  float: right;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
 }
 
+.edit-box{
+  width: 98%;
+  z-index: 99999;
+  background-color: #fff;
+  padding: 30px 1%;
+  overflow: hidden;
+}
+.edit_title{
+  height: 50px;
+  line-height: 50px;
+  font-size: 25px;
+  font-weight: bold;
+  color:#0e579c;
+  border-bottom: 1px solid #0e579c;
+}
 .shoppingcart-handle {
   text-align: right;
 }
@@ -451,20 +492,23 @@ export default class InsShoppingcart extends Vue {
 .cart-delete:hover {
   background-color: #fa4343;
 }
-.cart-delete {
+.cart-delete,
+.edit {
   display: inline-block;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
   text-align: center;
-  background-color: #d9d9d9;
+  background-color: #0e579c;
   color: #fff;
-  border-radius: 50%;
-  font-size: 12px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  border:none;
 }
 .favorite-box .login-register-title {
   margin-left: 0;
@@ -476,22 +520,16 @@ export default class InsShoppingcart extends Vue {
   line-height: 45px;
   margin-left: 160px;
   text-align: center;
-  color: #fff;
-  font-size: 26px;
-  background-color: @primary_color;
-  clip-path: polygon(30px 0, 300px 0, 270px 45px, 0 45px);
-  -webkit-clip-path: polygon(30px 0, 300px 0, 270px 45px, 0 45px);
-  -moz-clip-path: polygon(30px 0, 300px 0, 270px 45px, 0 45px);
-  -ms-clip-path: polygon(30px 0, 300px 0, 270px 45px, 0 45px);
+  color:#0b57a3;
+  font-weight: bold;
+  font-size: 2rem;
 }
 .merchant-one {
   border-top: 0;
-  border-bottom: 1px solid #e6e6e6;
 }
 .favorite-one {
   box-sizing: border-box;
   padding: 30px 20px;
-  border-top: 1px solid #e6e6e6;
   transition: 0.5s ease;
   -webkit-transition: 0.5s ease;
   -moz-transition: 0.5s ease;

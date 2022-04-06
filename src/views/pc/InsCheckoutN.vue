@@ -14,12 +14,12 @@
              @getRemark="showRemark"
             @expressChange="(value)=>{this.express = value;}"
             :lockFare="!checkouting" />
-            <div class="coupon_warpper" v-if="promotionCode === '' && coupon.length > 0 && FrontE.version !== 1">
+            <div class="coupon_warpper" v-if="promotionCode === '' && coupon.length > 0">
                   <div class="coupon_alltitle">{{$t('MyCoupon.Coupon')}}</div>
                   <div class="coupon_main">
                     <div v-if="checkouting">
-                        <el-checkbox-group size="mini" v-model="delete1">
-                            <el-checkbox v-for="(item,index) in coupon" :key="index" :min="0" :max="100" :label="item.Id" :disabled="item.canCheck" @change="checkChange(item)">
+                        <CheckboxGroup size="mini" v-model="delete1">
+                            <Checkbox v-for="(item,index) in coupon" :key="index" :min="0" :max="100" :label="item.Id" :disabled="item.canCheck" @change="checkChange(item)">
                               <div class="coupon_item">
                                 <div class="coupon_title">{{item.Title}}</div>
                                 <div class="coupon_remark" v-if="!item.IsDiscount">{{$t('Order.Full')}} {{item.MeetAmount}} {{$t('Order.Minus')}} {{item.DiscountAmount}}</div>
@@ -29,12 +29,12 @@
                                   <span class="valid_content">{{ !item.canCheck ? $t('MyCoupon.NotUse') : $t('MyCoupon.DoNotUse') }}</span>
                                 </div>
                               </div>
-                            </el-checkbox>
-                        </el-checkbox-group>
+                            </Checkbox>
+                        </CheckboxGroup>
                     </div>
                     <div v-else>
-                      <el-checkbox-group size="mini" v-model="delete1">
-                          <el-checkbox v-for="(item,index) in selectedCoupon" :key="index" :min="0" :max="100" :label="item.Id" :disabled="true" >
+                      <CheckboxGroup size="mini" v-model="delete1">
+                          <Checkbox v-for="(item,index) in selectedCoupon" :key="index" :min="0" :max="100" :label="item.Id" :disabled="true" >
                             <div class="coupon_item">
                               <div class="coupon_title">{{item.Title}}</div>
                               <div class="coupon_remark" v-if="!item.IsDiscount">{{$t('Order.Full')}} {{item.MeetAmount}} {{$t('Order.Minus')}} {{item.DiscountAmount}}</div>
@@ -44,18 +44,18 @@
                                 <span class="valid_content">{{ !item.canCheck ? $t('MyCoupon.NotUse') : $t('MyCoupon.DoNotUse') }}</span>
                               </div>
                             </div>
-                          </el-checkbox>
-                      </el-checkbox-group>
+                          </Checkbox>
+                      </CheckboxGroup>
                     </div>
                   </div>
             </div>
 
             <div v-else-if="promotionCode !== '' && coupon.length > 0" class="candp">{{this.$t('CheckOut.CandP')}}</div>
-            <div class="payment_warpper" v-else-if='coupon.length === 0 || FrontE.version === 1'>
+            <div class="payment_warpper" v-else-if='coupon.length === 0'>
                 <div class="payment_main">
                   <div class="payment_title">{{$t('CheckOut.PayBy')}}</div>
                   <div class="payment_item" v-for="(pay, index) in payments" :key="index">
-                    <el-radio v-model="payment" :label="pay" :disabled="Shoppcart.Currency.Code === 'RMB' && pay.Code === 'Stripe'"><img v-bind:src="pay.Img" /><span v-show="pay.Code==='FPS'">{{pay.Desc}}</span></el-radio>
+                    <Radio v-model="payment" :label="pay" :disabled="Shoppcart.Currency.Code === 'RMB' && pay.Code === 'Stripe'"><img v-bind:src="pay.Img" /><span v-show="pay.Code==='FPS'">{{pay.Desc}}</span></Radio>
 
                     <p class="noRMBStripe" v-if="Shoppcart.Currency.Code === 'RMB' && pay.Code === 'Stripe'">{{$t('Message.noRMBStripe')}}</p>
                   </div>
@@ -100,11 +100,11 @@
                   <span>{{Shoppcart.DefaultCurrency.Code}} {{(totalAmount) | PriceFormat}}</span>
                 </div>
               </div>
-              <div class="discount" v-if="FrontE.version !== 1">
+              <div class="discount">
                 <p class="price_item" v-show="checkouting">
                   <span>{{$t('CheckOut.Couponcode')}}</span>
                   <span style="flex-shrink:0;">
-                    <el-input :placeholder="$t('CheckOut.Couponcode')" class="input-text promotion_code" v-bind:disabled="orderSure" v-model="promotionCode" clearable></el-input>
+                    <ElInput :placeholder="$t('CheckOut.Couponcode')" class="input-text promotion_code" v-bind:disabled="orderSure" v-model="promotionCode" clearable></ElInput>
                     <a
                       href="javascript:;"
                       class="promotion-code-btn"
@@ -133,11 +133,11 @@
                 </div>
               </div>
             </div>
-            <div v-if="coupon.length > 0 && FrontE.version !== 1" class="payment_warpper">
+            <div v-if="coupon.length > 0" class="payment_warpper">
                 <div class="payment_main">
                   <div class="payment_title">{{$t('CheckOut.PayBy')}}</div>
                   <div class="payment_item" v-for="(pay, index) in payments" :key="index">
-                    <el-radio v-model="payment" :label="pay" :disabled="Shoppcart.Currency.Code === 'RMB' && pay.Code === 'Stripe'"><img v-bind:src="pay.Img" /><span v-show="pay.Code==='FPS'">{{pay.Desc}}</span></el-radio>
+                    <Radio v-model="payment" :label="pay" :disabled="Shoppcart.Currency.Code === 'RMB' && pay.Code === 'Stripe'"><img v-bind:src="pay.Img" /><span v-show="pay.Code==='FPS'">{{pay.Desc}}</span></Radio>
 
                     <p class="noRMBStripe" v-if="Shoppcart.Currency.Code === 'RMB' && pay.Code === 'Stripe'">{{$t('Message.noRMBStripe')}}</p>
                   </div>
@@ -161,12 +161,17 @@ import PickupAddress from '@/model/pickupAddress';
 import PromotionDiscount from '@/model/PromotionDiscount';
 import Express from '@/model/express';
 import Coupon from '@/model/coupon';
+import { CheckboxGroup, Checkbox, Radio, Input as ElInput } from 'element-ui';
 @Component({ components: {
   ShoppingCartItem: () => import(/* webpackChunkName: "checkout" */ '@/components/business/pc/account/InsShoppingcartItem.vue'),
   Collaspe: () => import(/* webpackChunkName: "checkout" */ '@/components/service/Collapse.vue'),
   InsExpressWay: () => import(/* webpackChunkName: "checkout" */ '@/components/temp/InsExpressWay.vue'),
   InsCoupon: () => import(/* webpackChunkName: "checkout" */ '@/components/temp/InsCoupon.vue'),
-  InsButton: () => import(/* webpackChunkName: "checkout" */ '@/components/base/pc/InsButton.vue')
+  InsButton: () => import(/* webpackChunkName: "checkout" */ '@/components/base/pc/InsButton.vue'),
+  CheckboxGroup,
+  Checkbox,
+  Radio,
+  ElInput
 } })
 export default class InsCheckoutN extends Vue {
     private Shoppcart:ShopCart = new ShopCart();
@@ -518,6 +523,7 @@ export default class InsCheckoutN extends Vue {
                  element.DiscountVal = 0;
           });
       this.$emit('promotionCode', '');
+      this.promotionCode = '';
       this.showDistcount = false;
       this.$message({
         message: this.$t('Message.SuccessfullyDeleted') as string,

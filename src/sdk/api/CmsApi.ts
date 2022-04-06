@@ -86,17 +86,8 @@ export class CmsApi extends WSAPI {
     });
   };
 
-  // 根据CatIds或者GroupIds，查询获取相应的Contents
-  getContents (pas: any) {
+  search (pas: any) {
     return this.instance.post(this.apiPath + '/cms/GetContents',
-      pas).then((result) => {
-      return result.data;
-    });
-  };
-
-  // 根据ContentTitle获取CmsContent List
-  getContentsByTitle (pas: any) {
-    return this.instance.post(this.apiPath + '/cms/GetContentsByTitle',
       pas).then((result) => {
       return result.data;
     });

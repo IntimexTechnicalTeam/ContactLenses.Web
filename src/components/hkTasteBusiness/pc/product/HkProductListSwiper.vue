@@ -2,12 +2,11 @@
   <div class="productSearchSwiper">
     <div class="swiper-container swiper-container-hot">
         <swiper :options="swiperOption" ref="mySwiper">
-        <!-- slides -->
         <swiperSlide v-for="(slide, index) in hotProducts" :key="index">
           <img :src="slide.Image" class="BannerImg">
         </swiperSlide>
         </swiper>
-        <div class="TitleBg"><div class="innerBoxText">{{TitleName}}</div></div>
+        <div class="TitleBg"><div class="innerBoxText">{{$t('Cms.ProductList')}}</div></div>
     </div>
   </div>
 </template>
@@ -31,6 +30,9 @@ export default class PkProductListSwiper extends Vue {
           this.hotProducts = result.Promotion.BannerList;
         }
       });
+    }
+    get lang() {
+      return this.$Storage.get('locale');
     }
     mounted () {
       this.loadHotProducts();

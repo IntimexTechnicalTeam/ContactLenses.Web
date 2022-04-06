@@ -1,6 +1,6 @@
 <template>
   <div class="in_select_container" :style="styla" v-if="items.length>0">
-    <div class="in_select_label">{{items[0].Type.Name}}</div>
+    <!-- <div class="in_select_label">{{items[0].Type.Name}}</div> -->
     <div class="in_select_warpper">
       <input type="text" style="display:none;" v-model="Value" />
       <div
@@ -64,6 +64,7 @@ export default class InsSelect extends Vue {
   created () {
     if (this.items.length > 0) {
       this.Value = this.items[0].Name;
+      console.log('this');
       this.RealValue = this.items[0].Id;
       this.AdditionalPrice = {
         TypeId: this.items['0'].Type.TypeId,
@@ -94,6 +95,7 @@ export default class InsSelect extends Vue {
   margin-top: 20px;
   margin-bottom: 20px;
   user-select: none;
+  width: 100%;
 }
 .in_select_label {
   width: 100px;
@@ -104,7 +106,7 @@ export default class InsSelect extends Vue {
 }
 .in_select_warpper {
   box-sizing: border-box;
-  width: 200px;
+  width: 90%;
   height: 40px;
   position: relative;
 
@@ -117,43 +119,48 @@ export default class InsSelect extends Vue {
   text-align: left;
 }
 .in_select_main {
-  font-size: 12px;
+  font-size: 16px;
   height: 100%;
   line-height: 32px;
   color: rgba(0, 0, 0, 0.2);
   padding: 0 20px;
   border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  box-shadow: 0 0 5px #dedede;
+  width: 100%;
 }
 .in_select_main::after {
-  content: " ";
+  content: "\25BC";
   position: absolute;
-  right: 20px;
-  top: 10px;
+  right: 0;
+  top: 2px;
   height: 8.4px;
   width: 8.4px;
-  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  /* border-left: 1px solid rgba(0, 0, 0, 0.2);
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   transform-origin: 25% 75%;
-  transform: rotateZ(-45deg);
+  transform: rotateZ(-45deg); */
 }
 .in_select_dropdown {
   position: absolute;
   overflow: hidden;
   box-sizing: border-box;
-  width: 200px;
+  width: 100%;
   background-color: white;
   border-left: 1px solid rgba(0, 0, 0, 0.2);
   border-right: 1px solid rgba(0, 0, 0, 0.2);
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   z-index: 2019;
+  margin:0 auto;
 }
 .in_select_dropdown li {
-  font-size: 12px;
+  font-size: 16px;
   height: 32px;
   line-height: 32px;
   padding: 0 20px;
+  color:#0e579c;
+  text-align: center;
 }
 .in_select_dropdown li:hover {
   background: rgba(0, 0, 0, 0.1);
@@ -166,8 +173,10 @@ export default class InsSelect extends Vue {
   box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
 }
 .choised {
-  color: rgba(0, 0, 0, 1);
+  color: #0e579c;
   line-height: 40px;
+  text-align: center;
+  font-weight: bold;
 }
 .fade-enter-active,
 .fade-leave-active {

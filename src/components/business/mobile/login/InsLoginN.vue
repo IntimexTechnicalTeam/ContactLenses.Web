@@ -60,10 +60,14 @@
                 <InsInput2 :placeholder="$t('Register.UserEmail')" v-model="registerForm.email" width="100%" type="email" />
                 </InsForm>
                 <!-- <div></div> -->
-                <el-checkbox-group v-model="terms" style="margin: 20px 0 20px 0">
-                    <el-checkbox name="type"></el-checkbox><span><a href="/CMS/content/20298" target="_blank" style="font-size: 14px;padding-left: 14px;color: #666666;
+                <CheckboxGroup v-model="terms" style="margin: 20px 0 20px 0">
+                    <Checkbox name="type"></Checkbox><span><a href="/CMS/content/20298" target="_blank" style="font-size: 14px;padding-left: 14px;color: #666666;
     text-decoration: none;">{{$t('Register.RegisterAgree')}}</a></span>
-                </el-checkbox-group>
+                </CheckboxGroup>
+                <CheckboxGroup v-model="registerForm.OptOutReceiving" style="margin: 10px 0 20px 0">
+                    <Checkbox name="type"></Checkbox><span><a href="javascript:;" style="font-size: 14px;padding-left: 14px;color: #666666;
+    text-decoration: none;">{{$t('Register.promotionalinformation')}}</a></span>
+                </CheckboxGroup>
               </div>
               <InsButton :nama="$t('Forgetpassword.NextStep')" @click="register" size="huge"  class="loginBtn"/>
           </div>
@@ -77,7 +81,8 @@ import { Vue, Prop, Component, Watch } from 'vue-property-decorator';
 import InsInput2 from '@/components/base/pc/InsInput2.vue';
 import InsButton from '@/components/base/mobile/InsButton.vue';
 import InsForm from '@/components/base/pc/InsForm.vue';
-@Component({ components: { InsInput2, InsButton, InsForm } })
+import { Checkbox, CheckboxGroup } from 'element-ui';
+@Component({ components: { InsInput2, InsButton, InsForm, Checkbox, CheckboxGroup } })
 export default class InsLoginN extends Vue {
     private terms: boolean = true;
     tabIndex: number = 1;
@@ -94,7 +99,8 @@ export default class InsLoginN extends Vue {
       lastName: '',
       confirmPassword: '',
       Language: '',
-      Mobile: ''
+      Mobile: '',
+      OptOutReceiving: true
     }
     toggleTab (index) {
       this.tabIndex = index;

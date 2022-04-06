@@ -27,6 +27,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Loading } from 'element-ui';
 @Component
 export default class InsCatLayout1 extends Vue {
     @Prop({ default: () => [] }) private cmsData!: object[]; // cms内容列表数据
@@ -37,7 +38,7 @@ export default class InsCatLayout1 extends Vue {
 
     loading (e) {
       if (this.tips) {
-        this.LoadingInstance = this.$loading({
+        this.LoadingInstance = Loading.service({
           target: this.$refs.load as any,
           fullscreen: false,
           // spinner: 'el-icon-loading',

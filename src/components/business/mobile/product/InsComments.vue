@@ -10,11 +10,11 @@
                                 <!-- <img :src="item.icon" > -->
                                 <div class="sender_name">
                                     <div class="ShopperName">{{item.ShopperName}}
-                                    <el-rate
+                                    <Rate
                                     disabled
                                     v-model="item.Sorce"
                                     :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
-                                    </el-rate>
+                                    </Rate>
                                     </div>
                                     <div class="CommentDate">{{item.CommentDate}}</div>
                                 </div>
@@ -51,7 +51,8 @@
 import { Vue, Prop, Component, Watch } from 'vue-property-decorator';
 import Comments from '@/model/Comments';
 import inPage from '@/components/base/mobile/InsPage.vue';
-@Component({ components: { inPage } })
+import { Loading, Rate } from 'element-ui';
+@Component({ components: { Rate, inPage } })
 export default class InsComments extends Vue {
     @Prop() ProductSku!: string;
     // private items: Comments[] = [];
@@ -91,7 +92,7 @@ export default class InsComments extends Vue {
     }
     handleLoad (e) {
       if (!this.tips) return;
-      this.LoadingInstance = this.$loading({
+      this.LoadingInstance = Loading.service({
         target: this.$refs.load as any,
         fullscreen: false,
         spinner: 'el-icon-loading'

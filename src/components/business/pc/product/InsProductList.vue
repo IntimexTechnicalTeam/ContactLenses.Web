@@ -2,12 +2,15 @@
     <div class="products_container">
         <inProductWindow v-for="item in allItems" :key="item.id" :item="item"
         class="product_item"></inProductWindow>
+        <HkMap />
     </div>
 </template>
 <script lang="ts">
 import { Vue, Prop, Component, Watch } from 'vue-property-decorator';
 import Product from '@/model/youWouldLike';
-@Component({ components: { inProductWindow: () => import(/* webpackChunkName: "product" */ '@/components/hkTasteBusiness/pc/product/HkProductWindow.vue') } })
+@Component({ components: {
+    inProductWindow: () => import(/* webpackChunkName: "product" */ '@/components/hkTasteBusiness/pc/product/HkProductWindow.vue')
+    } })
 export default class InsProductList extends Vue {
     @Prop() private readonly column!: number;
     @Prop() private readonly allItems!: Product[];

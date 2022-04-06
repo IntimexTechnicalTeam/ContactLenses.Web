@@ -1,14 +1,15 @@
 <template>
   <div class="in_num_warpper" :style="styla">
     <div class="in_num_main">
-      <div class="in_num_label" v-if="label">{{label}}</div>
-      <el-input-number v-model="value" @input="onValueChange" :min="min" :max="max === 0 ? Infinity : max" :size="size" :disabled="lock"></el-input-number>
+     <!--  <div class="in_num_label" v-if="label">{{label}}</div> -->
+      <InputNumber v-model="value" @input="onValueChange" :min="min" :max="max === 0 ? Infinity : max" :size="size" :disabled="lock"></InputNumber>
     </div>
   </div>
 </template>
 <script lang="ts">
 import { Vue, Prop, Component, Watch } from 'vue-property-decorator';
-@Component
+import { InputNumber } from 'element-ui';
+@Component({ components: { InputNumber } })
 export default class InsNum extends Vue {
   @Prop() private readonly label!: string;
   @Prop() private readonly styla!: string;
@@ -37,6 +38,9 @@ export default class InsNum extends Vue {
 }
 </style>
 <style scoped>
+.in_num_warpper{
+  margin-top: 50px;
+}
 .in_num_main {
   user-select: none;
   font-size: 16px;

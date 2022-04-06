@@ -1,8 +1,12 @@
 <template>
 <div class="pcVersionCat">
-    <div class="ProducBanner">
+    <!-- <div class="ProducBanner">
         <ProductListSwiper class="innerBanner" />
-  </div>
+    </div> -->
+      <div class="productmenutree">
+        <h2 class="product_list">{{$t('Cms.ProductList')}}    &#8226;</h2>
+        <ProductMenuTree />
+      </div>
       <div class="product_warpper">
         <inProductCat :column="3" :pageNum="16"></inProductCat>
       </div>
@@ -17,7 +21,7 @@ import YouWouldLike from '@/model/youWouldLike';
   components: {
     inPage,
     inProductCat,
-    productMenuTree: () => import(/* webpackChunkName: "product" */ '@/components/business/pc/product/InsProductCatTree.vue'),
+    ProductMenuTree: () => import(/* webpackChunkName: "product" */ '@/components/business/pc/product/InsProductCatTree.vue'),
     ProductListSwiper: () => import(/* webpackChunkName: "product" */ '@/components/hkTasteBusiness/pc/product/HkProductListSwiper.vue')
   }
 })
@@ -34,6 +38,9 @@ export default class InsProduct extends Vue {
   @Watch('$route', { deep: true })
   onRouteChange (n, o) {
     this.$store.dispatch('setCatId', this.$route.query.catId);
+  }
+  get lang() {
+    return this.$Storage.get('locale');
   }
 }
 </script>
@@ -52,10 +59,14 @@ export default class InsProduct extends Vue {
     }
   }
 .pcVersionCat{
-  background: url('/images/pc/productlist_bg.jpg') no-repeat center center;
-  background-size: 100% 100%;
-  display: inline-block;
-  width: 100%;
+  //background: url('/images/pc/productlist_bg.jpg') no-repeat center center;
+  //background-size: 100% 100%;
+  display: flex;
+  width: 1200px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin:50px auto;
 }
 .product_catalogs {
   width: 20%;
@@ -65,8 +76,11 @@ export default class InsProduct extends Vue {
 div{
   text-align: center;
 }
+.product_list{
+  color:#0e559c;
+}
 .product_warpper{
-  width: 1200px;
+  width: 1000px;
   margin:50px auto;
 }
 .products_container{

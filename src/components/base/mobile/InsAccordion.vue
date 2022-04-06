@@ -1,25 +1,26 @@
 <template>
     <div class="accordion_warrper">
-        <el-collapse v-model="activeNames" :value="[0]">
-        <el-collapse-item v-if="contents.Detail" :title="$t('product.detail')" name="1" class="accordion_title">
+        <Collapse v-model="activeNames" :value="[0]">
+        <CollapseItem v-if="contents.Detail" :title="$t('product.detail')" name="1" class="accordion_title">
             <div class="accordion_content" v-html="contents.Detail"></div>
-        </el-collapse-item>
-        <el-collapse-item v-if="contents.Specification" :title="$t('product.overView')" name="2" class="accordion_title">
+        </CollapseItem>
+        <CollapseItem v-if="contents.Specification" :title="$t('product.overView')" name="2" class="accordion_title">
             <div class="accordion_content" v-html="contents.Specification"></div>
-        </el-collapse-item>
-        <el-collapse-item v-if="contents.OverView" :title="$t('product.specification')" name="3" class="accordion_title">
+        </CollapseItem>
+        <CollapseItem v-if="contents.OverView" :title="$t('product.specification')" name="3" class="accordion_title">
             <div class="accordion_content" v-html="contents.OverView"></div>
-        </el-collapse-item>
-        <el-collapse-item v-if="slotF" :title="slotTitle" name="4" class="accordion_title">
+        </CollapseItem>
+        <CollapseItem v-if="slotF" :title="slotTitle" name="4" class="accordion_title">
             <slot></slot>
-        </el-collapse-item>
-        </el-collapse>
+        </CollapseItem>
+        </Collapse>
     </div>
 </template>
 <script lang="ts">
 import { Vue, Prop, Component } from 'vue-property-decorator';
+import { Collapse, CollapseItem } from 'element-ui';
 import Tab from '@/model/Tab';
-@Component
+@Component({ components: { Collapse, CollapseItem } })
 export default class InsAccordion extends Vue {
     @Prop({ default: new Tab('none') }) private contents!:Tab;
     @Prop({ default: false }) private slotF!:boolean;

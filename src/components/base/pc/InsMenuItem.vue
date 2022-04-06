@@ -17,9 +17,12 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+// import { MenuItem as ElMenuItem, Submenu } from 'element-ui';
 @Component({
   name: 'MenuItem',
   components: {
+    // ElMenuItem,
+    // Submenu
   }
 })
 export default class InsMenuItem extends Vue {

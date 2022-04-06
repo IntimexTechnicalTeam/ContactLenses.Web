@@ -8,7 +8,7 @@
             <div class="join_form-title">{{$t('Register.RegisterTitle')}}</div>
             <div class="clear"></div>
           </div>
-          <el-form
+          <ElForm
             :model="regForm"
             status-icon
             :rules="rules"
@@ -18,99 +18,99 @@
           >
             <div class="login-register-content register-content">
               <div class="step_content">
-                <el-form-item :label="$t('Register.UserEmail')" prop="Email">
-                  <el-input
+                <FormItem :label="$t('Register.UserEmail')" prop="Email">
+                  <ElInput
                     autocomplete="off"
                     prefix-icon="el-icon-message"
                     :placeholder="$t('Register.UserEmail')"
                     v-model="regForm.Email"
-                  ></el-input>
-                </el-form-item>
-                <el-form-item :label="$t('Register.UserRegPassword')" prop="Password">
-                  <el-input
+                  ></ElInput>
+                </FormItem>
+                <FormItem :label="$t('Register.UserRegPassword')" prop="Password">
+                  <ElInput
                     type="password"
                     v-model="regForm.Password"
                     prefix-icon="el-icon-view"
                     autocomplete="off"
                     :placeholder="$t('Register.UserRegTips')"
-                  ></el-input>
-                </el-form-item>
+                  ></ElInput>
+                </FormItem>
 
-                <el-form-item
+                <FormItem
                   :label="$t('Register.UserConfirmPassword')"
                   prop="ConfirmPassword"
                 >
-                  <el-input
+                  <ElInput
                     type="password"
                     v-model="regForm.ConfirmPassword"
                     :placeholder="$t('Register.UserConfirmPassword')"
                     autocomplete="off"
                     prefix-icon="el-icon-view"
-                  ></el-input>
-                </el-form-item>
+                  ></ElInput>
+                </FormItem>
               </div>
               <div class="step_content">
-                <el-form-item :label="$t('Register.UserFirstName')" prop="FirstName">
-                  <el-input
+                <FormItem :label="$t('Register.UserFirstName')" prop="FirstName">
+                  <ElInput
                     v-model="regForm.FirstName"
                     prefix-icon="el-icon-user"
                     :placeholder="$t('Register.UserFirstName')"
-                  ></el-input>
-                </el-form-item>
+                  ></ElInput>
+                </FormItem>
 
-                <el-form-item :label="$t('Register.UserLastName')" prop="LastName">
-                  <el-input
+                <FormItem :label="$t('Register.UserLastName')" prop="LastName">
+                  <ElInput
                     v-model="regForm.LastName"
                     :placeholder="$t('Register.UserLastName')"
                     prefix-icon="el-icon-collection-tag"
-                  ></el-input>
-                </el-form-item>
-                <el-form-item prop="Mobile" :label="$t('Register.UserContactNumber')">
-                  <el-input
+                  ></ElInput>
+                </FormItem>
+                <FormItem prop="Mobile" :label="$t('Register.UserContactNumber')">
+                  <ElInput
                     v-model="regForm.Mobile"
                     prefix-icon="el-icon-phone"
                     :placeholder="$t('Register.UserContactNumber')"
-                  ></el-input>
-                </el-form-item>
-                 <el-form-item prop="BirthMD" :label="$t('Register.UserBirthDate')">
-                  <el-input
+                  ></ElInput>
+                </FormItem>
+                 <FormItem prop="BirthMD" :label="$t('Register.UserBirthDate')">
+                  <ElInput
                     v-model="regForm.BirthMD"
                     prefix-icon="el-icon-date"
                     :placeholder="$t('Register.UserBirthDate')"
-                  ></el-input>
-                </el-form-item>
-                <el-form-item :label="$t('Register.UserGender')" prop="Gender">
-                  <el-radio-group v-model="regForm.Gender">
-                    <el-radio :label="$t('Register.UserMale')"></el-radio>
-                    <el-radio :label="$t('Register.UserFemale')"></el-radio>
-                  </el-radio-group>
-                </el-form-item>
-                <el-form-item :label="$t('Register.UserLanguage')" prop="Language">
-                  <el-select
+                  ></ElInput>
+                </FormItem>
+                <FormItem :label="$t('Register.UserGender')" prop="Gender">
+                  <RadioGroup v-model="regForm.Gender">
+                    <Radio :label="$t('Register.UserMale')"></Radio>
+                    <Radio :label="$t('Register.UserFemale')"></Radio>
+                  </RadioGroup>
+                </FormItem>
+                <FormItem :label="$t('Register.UserLanguage')" prop="Language">
+                  <Select
                     v-model="regForm.Language"
                     :placeholder="$t('Register.UserLanguage')"
                     style="width: 100%;"
                   >
-                    <el-select :label="$t('Register.UserLanguageT')" value="1"></el-select>
-                    <el-select :label="$t('Register.UserLanguageE')" value="2"></el-select>
-                  </el-select>
-                </el-form-item>
+                    <Select :label="$t('Register.UserLanguageT')" value="1"></Select>
+                    <Select :label="$t('Register.UserLanguageE')" value="2"></Select>
+                  </Select>
+                </FormItem>
               </div>
             </div>
             <div class="login-register-handle">
-              <el-checkbox-group v-model="regForm.type">
-                  <el-checkbox :label="$t('Register.RegisterAgree')" name="type"></el-checkbox>
-                </el-checkbox-group>
+              <CheckboxGroup v-model="regForm.type">
+                  <Checkbox :label="$t('Register.RegisterAgree')" name="type"></Checkbox>
+                </CheckboxGroup>
               <div class="clear"></div>
               <div class="btn-box">
-                <el-button
+                <ElButton
                   type="primary"
                   @click="submitForm('regForm')"
-                >{{$t('Register.RegisterBtn')}}</el-button>
+                >{{$t('Register.RegisterBtn')}}</ElButton>
               </div>
             </div>
             <div class="clear"></div>
-          </el-form>
+          </ElForm>
         </div>
       </div>
     </div>
@@ -119,9 +119,22 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Form as ElForm, Input as ElInput, FormItem, RadioGroup, Radio, Select, Option, CheckboxGroup, Checkbox, Button as ElButton } from 'element-ui';
 import sdk from '@/sdk/InstoreSdk';
-import { ElForm } from 'element-ui/types/form';
-@Component
+@Component({
+  components: {
+    ElForm,
+    ElInput,
+    FormItem,
+    RadioGroup,
+    Radio,
+    Select,
+    Option,
+    CheckboxGroup,
+    Checkbox,
+    ElButton
+  }
+})
 export default class InsRegister extends Vue {
   checkEmail (rule, value, callback) {
     const mailReg = /^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/;

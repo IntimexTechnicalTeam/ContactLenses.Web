@@ -1,9 +1,10 @@
 <template>
-  <el-tree icon-class="el-icon-arrow-right" :default-expand-all="expandAll" :data="data" :node-key="nodeKey" :show-checkbox="showCheckbox" :props="props" @node-click="handleNodeClick" @check-change="handleCheckChange" @check="check" :check-strictly="!multiSelect" ref="tree"></el-tree>
+  <Tree icon-class="el-icon-arrow-right" :default-expand-all="expandAll" :data="data" :node-key="nodeKey" :show-checkbox="showCheckbox" :props="props" @node-click="handleNodeClick" @check-change="handleCheckChange" @check="check" :check-strictly="!multiSelect" ref="tree"></Tree>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-@Component
+import { Tree } from 'element-ui';
+@Component({ components: { Tree } })
 export default class InsTree extends Vue {
     @Prop({ default: '' }) private title!: string;
     @Prop({ default: () => [] }) private data!: object[];

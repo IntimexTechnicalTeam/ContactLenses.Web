@@ -3,23 +3,10 @@
         <div class="header_logo" v-if="!this.FrontE.slideMenu.Embedded">
             <i class="el-icon-close" @click="closeSlideMenu"></i>
         </div>
-
-        <div class="search-box">
-            <el-select v-model="searchType" placeholder="please select">
-                <el-option
-                v-for="item in typeList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-                </el-option>
-            </el-select>
-
-            <div class="search-input">
-                <input type="text" v-model="key" @keyup.enter="search" />
-                <span class="searchBtn" @click="search"><img src="/images/mobile/searchbtn.png"></span>
-            </div>
+        <div class="searchBox">
+            <input type="text" v-model="searchKey" />
+            <span class="search_btn"  @click="searchFun(searchKey)"><img src="/images/mobile/searchbtn.png"></span>
         </div>
-
         <div id="menu">
             <Menu :backColor="'@base_color'" :textColor="'#fff'" :uniqueOpened="true" />
         </div>
@@ -45,17 +32,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 })
 export default class InsMenuLayout extends Vue {
   showMemNav: boolean = false;
-  private key: string = '';
-
-  private typeList: any[] = [{
-    value: 0,
-    label: 'Product'
-  }, {
-    value: 1,
-    label: 'CMS'
-  }];
-
-  private searchType: number = 0;
+  searchKey: string = '';
 
   handleOpen (key, keyPath) {
     console.log(key, keyPath);
@@ -68,45 +45,23 @@ export default class InsMenuLayout extends Vue {
     this.$store.dispatch('isShowMenu', false);
   }
 
-  search () {
-    switch (this.searchType) {
-      case 0:
-        this.searchPro();
-        break;
-      case 1:
-        this.searchCms();
-        break;
-    }
-  }
-
-  searchPro () {
-    this.$store.dispatch('setSearchKey', this.key);
-    this.$store.dispatch('isShowMenu', false);
-    if (this.key !== '') {
+  searchFun (key) {
+    this.$store.dispatch('setSearchKey', key);
+    if (key !== '') {
       this.$router.push({
         path: '/product/search',
         name: 'productSearch',
         params: {
-          key: this.key
+          key: key
         }
       });
+      this.$store.dispatch('isShowMenu', !this.$store.state.isShowMenu);
     } else {
-        this.$store.dispatch('isShowMenu', false);
       this.$router.push({
         path: '/product/search/-'
       });
+      this.$store.dispatch('isShowMenu', !this.$store.state.isShowMenu);
     }
-  }
-
-  searchCms () {
-    this.$store.dispatch('isShowMenu', false);
-    this.$router.push({
-      path: '/cms/search',
-      name: 'cmsSearch',
-      params: {
-        key: this.key
-      }
-    });
   }
 
   get user () {
@@ -151,8 +106,7 @@ export default class InsMenuLayout extends Vue {
 .innerShare a img {
     width: 3rem;
 }
-
-.search-box {
+.searchBox{
     width: 90%;
     height: 4rem;
     margin: 0 auto;
@@ -160,51 +114,21 @@ export default class InsMenuLayout extends Vue {
     position: relative;
     overflow: hidden;
     margin-bottom: 2rem;
-    border: 1px solid #666666;
-
-  /deep/ .el-select {
-    width: 20%;
-    position: absolute;
-    left: 0;
-    top: 0;
-
-    .el-input__inner {
+    border:1px solid #666666;
+    input{
+        width: calc(100% - 10px);
         height: 4rem;
-        border: 0;
-        border-right: 1px solid #DCDFE6;
-        border-radius: 0;
-        padding: 0 2rem 0 0.5rem;
+        margin: 0 auto;
+        text-indent: 10px;
+        border:none;
     }
-
-    .el-input__icon {
-      line-height: 4rem;
-      font-size: 1rem;
-    }
-  }
-
-  .search-input {
-    width: 100%;
-    height: 100%;
-
-    > input {
-        width: 100%;
-        height: 100%;
-        border: 0;
-        padding: 0 20% 0 22%;
-        box-sizing: border-box;
-        font-size: 1.2rem;
-        outline: none;
-    }
-
-    .searchBtn{
+    .search_btn{
+        position: absolute;
+        right: 0px;
+        top:0rem;
         width: 4rem;
         height: 4rem;
         background: #666666;
-        display: inline-block;
-        cursor: pointer;
-        position: absolute;
-        right: 0;
-        top: 0;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -214,9 +138,7 @@ export default class InsMenuLayout extends Vue {
             display: block;
         }
     }
-  }
 }
-
 #menu {
     .el-submenu__icon-arrow {
         display: none;
@@ -301,6 +223,47 @@ export default class InsMenuLayout extends Vue {
 }
 #menu .is-opened > .el-submenu__title .el-submenu__icon-arrow{
     color:#fff!important;
+}
+.footer-menu {
+    > ul{
+        width:100%!important;
+        > li{
+            width:100%!important;
+            margin-bottom: 0!important;
+            > a{
+                border:none!important;
+                background-color: #0e579c!important;
+                padding-top: 1rem!important;
+                padding-bottom: 1rem!important;
+                > b{
+                    color:#fff!important;
+                }
+            }
+        }
+    }
+    .el-submenu__title{
+        border:none!important;
+        padding: 0!important;
+        > span{
+            background-color: #0e579c!important;
+            width:100%!important;
+            height: auto;
+            display: block;
+            padding-top: 1rem!important;
+            padding-bottom: 1rem!important;
+            color: #fff!important;
+        }
+    }
+    .is-opened{
+        >ul {
+            width:100%!important;
+            margin-top: 0!important;
+            margin-bottom: 0!important;
+            > li{
+                margin-bottom:0!important;
+            }
+        }
+    }
 }
 </style>
 

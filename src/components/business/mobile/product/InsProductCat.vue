@@ -20,6 +20,8 @@
 import { Vue, Prop, Component, Watch } from 'vue-property-decorator';
 import inProductWindow from '@/components/hkTasteBusiness/mobile/product/HkProductWindow.vue';
 import YouWouldLike from '@/model/youWouldLike';
+import { Loading } from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 @Component({ components: { inProductWindow } })
 export default class InsProductCat extends Vue {
     private LoadingInstance!: any;
@@ -69,7 +71,7 @@ export default class InsProductCat extends Vue {
     }
     loading (e) {
       if (this.tips) {
-        this.LoadingInstance = this.$loading({
+        this.LoadingInstance = Loading.service({
           target: this.$refs.load as any,
           fullscreen: false,
           spinner: 'el-icon-loading'

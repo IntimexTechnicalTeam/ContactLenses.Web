@@ -2,7 +2,7 @@
   <div class="in_panel_warpper PcVersion" :style="warpperStyle">
     <div class="in_panel_content">
       <inSelect
-        v-for="(item,index) in panelDetail.AttrList"
+        v-for="(item,index) in panelDetail.LensMaterial"
         :items="item"
         :key="index"
         placeholder="请选择"
@@ -19,22 +19,22 @@
       </div>
     </div>
     <!-- <div class="in_panel_footer">
-      <el-button @click="click('addToCart')" class="actionBtn addToCart" :loading="Loading">{{$t('product.addToCart')}}</el-button>
-      <el-button @click="click('buy')" class="actionBtn buyNow" :loading="buyLoading">{{$t('product.buy')}}</el-button>
+      <ElButton @click="click('addToCart')" class="actionBtn addToCart" :loading="Loading">{{$t('product.addToCart')}}</ElButton>
+      <ElButton @click="click('buy')" class="actionBtn buyNow" :loading="buyLoading">{{$t('product.buy')}}</ElButton>
     </div> -->
-    <div class="in_panel_footer" v-if="panelDetail.ProductStatus!==-1 && panelDetail.SoldOutAttrComboList.length===0">
+    <div class="in_panel_footer none-error" v-if="panelDetail.ProductStatus!==-1 && panelDetail.SoldOutAttrComboList.length===0">
       <inButton
         v-for="item in panelDetail.button"
        :loading="(item.action === 'addToCart')?Loading:buyLoading"
         :nama="$i18n.t('product.'+item.nama)"
         :key="item.nama"
-        width="48%"
+        width="90%"
         :type="(item.action === 'addToCart' || item.action === 'favorite' || item.action === 'buy') ? 'primary' : 'error'"
         :action="item.action"
         @click="click"
       ></inButton>
     </div>
-    <div class="in_panel_footer" v-else>
+    <div class="in_panel_footer none-error" v-else>
         <button type="button" :disabled="SoldOutAttr" @click="click('addToCart')" class="CartBtn">{{$t('product.addToCart')}}</button>
         <button type="button" :disabled="SoldOutAttr" @click="click('buy')" class="BuyBtn">{{$t('product.buy')}}</button>
     </div>
@@ -47,12 +47,13 @@ import PanelDetail from '@/model/PanelDetail';
 import ProductAttr from '@/model/ProductAttr';
 import Button from '@/model/Button';
 import inNum from '@/components/base/pc/InsNum.vue';
-import inSelect from '@/components/base/pc/InsRadio.vue';
+import inSelect from '@/components/base/pc/InsSelect3.vue';
 import inButton from '@/components/base/pc/InsButton.vue';
 import inPrices from '@/components/base/pc/InsPrices.vue';
 import inRecommend from '@/components/business/pc/product/InsRecommend.vue';
 import ShopCartItem from '@/model/shopCartItem';
-@Component({ components: { inNum, inSelect, inButton, inPrices, inRecommend } })
+import { Button as ElButton } from 'element-ui';
+@Component({ components: { inNum, inSelect, inButton, inPrices, inRecommend, ElButton } })
 export default class Panel extends Vue {
   @Prop() private panelDetail!: PanelDetail;
   @Prop() private readonly width!: string;
@@ -264,13 +265,19 @@ export default class Panel extends Vue {
 }
 .PcVersion  .el-input-number__decrease,.PcVersion .el-input-number__increase{
     width: 2rem !important;
-    border: 1px solid #000;
-    border-radius: 5px;
+    border: 2px solid #0e579c;
+    border-radius: 50%;
     height: 2rem;
     line-height: 2rem;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .PcVersion .el-input-number__decrease i, .el-input-number__increase i{
   color:#000;
+  font-weight: bold;
+  font-size: 16px;
 }
 .PcVersion  .el-input-number{
   width: auto!important;
@@ -328,6 +335,10 @@ export default class Panel extends Vue {
 }
 .in_panel_content {
   min-height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 .in_panel_footer {
   display: flex;
@@ -429,18 +440,21 @@ export default class Panel extends Vue {
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        border: 1px solid @base_color;
-        background-color: unset;
-        border-radius: 5px;
+        background-color: #0e579c;
+        border-radius: 30px;
         transition: .1s;
+        margin:0 auto;
         &:hover{
           transform: translateY(-3px);
         }
         &:first-child {
-          background-color: @base_color;
           color: #fff;
-          margin-right: 4%;
         }
+      }
+    }
+    .none-error{
+      .in_btn:nth-child(2){
+        display: none;
       }
     }
 </style>

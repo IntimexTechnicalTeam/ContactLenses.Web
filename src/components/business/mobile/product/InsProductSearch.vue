@@ -11,6 +11,8 @@
 import { Vue, Prop, Component, Watch } from 'vue-property-decorator';
 import inProductWindow from '@/components/business/mobile/product/InsProductWindow.vue';
 import YouWouldLike from '@/model/youWouldLike';
+import { Loading } from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 @Component({ components: { inProductWindow } })
 export default class InsProductSearch extends Vue {
     private ShowItems: YouWouldLike[] = [];
@@ -81,7 +83,7 @@ export default class InsProductSearch extends Vue {
     }
     loading (e) {
       if (this.tips) {
-        this.LoadingInstance = this.$loading({
+        this.LoadingInstance = Loading.service({
           target: this.$refs.load as any,
           fullscreen: false,
           spinner: 'el-icon-loading'

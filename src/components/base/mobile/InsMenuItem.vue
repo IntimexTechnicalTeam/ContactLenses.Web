@@ -1,5 +1,5 @@
 <template>
-    <el-submenu :index="item.Name" v-if="item.Childs && item.Childs.length">
+    <el-submenu :index="item.Name" v-if="item.Childs && item.Childs.length" class="f-menu">
         <template slot="title">
             <span class="name" @click="toUrl(item)">{{item.Name}}</span>
         </template>
@@ -17,10 +17,12 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+// import { MenuItem as ElMenuItem, Submenu } from 'element-ui';
 @Component({
   name: 'MenuItem',
   components: {
-
+    // ElMenuItem,
+    // Submenu
   }
 })
 export default class InsMenuItem extends Vue {
@@ -66,6 +68,17 @@ export default class InsMenuItem extends Vue {
   a {
     font-size: 1.12rem;
     line-height: 3rem;
+  }
+}
+.footer-menu {
+  > ul{
+    > li{
+      > a{
+        > b{
+          font-size: 20px;
+        }
+      }
+    }
   }
 }
 </style>

@@ -2,35 +2,37 @@
 <div class="InsSelectSearch">
     <template v-if="type === 0">
     <p class="title">{{data.Desc}}</p>
-    <el-select v-model="value" placeholder="请选择" :multiple="multiple" clearable @change="changeSelect">
-        <el-option
+    <Select v-model="value" placeholder="请选择" :multiple="multiple" clearable @change="changeSelect">
+        <Option
         v-for="item in data.AttrValues"
         :key="item.Id"
         :label="item.Name"
         :value="item.Id">
-        </el-option>
-    </el-select>
+        </Option>
+    </Select>
     </template>
 
     <template v-if="type === 1">
     <p class="title">产品目录</p>
-    <el-select v-model="value" placeholder="请选择" :multiple="multiple" @change="changeSelect">
-        <el-option
+    <Select v-model="value" placeholder="请选择" :multiple="multiple" @change="changeSelect">
+        <Option
         v-for="item in data"
         :key="item.Id"
         :label="item.Name"
         :value="item.Id">
-        </el-option>
-    </el-select>
+        </Option>
+    </Select>
     </template>
 </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Select, Option } from 'element-ui';
 @Component({
   name: 'InsSelectSearch',
   components: {
+    Select, Option
   }
 })
 export default class InsSelectSearch extends Vue {

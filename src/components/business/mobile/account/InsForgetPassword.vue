@@ -7,28 +7,28 @@
     <div class="ForgetPassMain">
       <div style="margin-top: 15px;" v-if="ResetPwd">
         <h2 class="ResetPwdTips">{{$t('Forgetpassword.ResetPwdTips')}}</h2>
-        <el-form
+        <ElForm
           :model="ruleForm"
           :rules="rules"
           ref="ruleForm"
           label-width="auto"
           class="demo-ruleForm"
         >
-          <el-form-item prop="UserEmail">
-            <el-input
+          <FormItem prop="UserEmail">
+            <ElInput
               :placeholder="$t('Forgetpassword.LoginNameEmail')"
               v-model="ruleForm.UserEmail"
               prefix-icon="el-icon-message"
               clearable
             >
-              <el-button
+              <ElBotton
                 slot="append"
                 icon="el-icon-arrow-right"
                 @click="SubmitForm"
-              >{{$t('Forgetpassword.NextStep')}}</el-button>
-            </el-input>
-          </el-form-item>
-        </el-form>
+              >{{$t('Forgetpassword.NextStep')}}</ElBotton>
+            </ElInput>
+          </FormItem>
+        </ElForm>
       </div>
       <!-- 输入正确的Email后，弹窗 -->
       <div class="EmailSuccess" v-if="!ResetPwd">
@@ -50,10 +50,15 @@
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import sdk from '@/sdk/InstoreSdk';
+import { Form as ElForm, Input as ElInput, Message, FormItem, Button as ElBotton } from 'element-ui';
 
 @Component({
   components: {
-    InsBanner: () => import('@/components/base/mobile/InsBanner.vue')
+    InsBanner: () => import('@/components/base/mobile/InsBanner.vue'),
+    ElForm,
+    ElInput,
+    FormItem,
+    ElBotton
   }
 })
 export default class InsForgetPassword extends Vue {
@@ -84,18 +89,19 @@ export default class InsForgetPassword extends Vue {
   }
   // 检查表单
   SubmitForm (ruleForm) {
-    let _this = this;
+    let that = this;
     this.$nextTick(function () {
-      (_this.$refs.ruleForm as HTMLFormElement).validate(valid => {
+      (that.$refs.ruleForm as HTMLFormElement).validate(valid => {
         if (valid) {
-          sdk.api.member.resetPassword(_this.ruleForm.UserEmail).then(
+          var that = this;
+          sdk.api.member.resetPassword(that.ruleForm.UserEmail).then(
             function (success) {
               if (success) {
-                _this.ResetPwd = !_this.ResetPwd;
+                that.ResetPwd = !that.ResetPwd;
               }
             },
             function (success) {
-              _this.$message({
+              Message({
                 message: success.Message,
                 type: 'error'
               });

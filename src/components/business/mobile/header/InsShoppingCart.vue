@@ -50,6 +50,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Message } from 'element-ui';
 import ShopCart from '@/model/ShopCart';
 @Component
 export default class InsShoppingCart extends Vue {
@@ -77,7 +78,7 @@ export default class InsShoppingCart extends Vue {
     this.$Api.shoppingCart.removeItem(id).then((result) => {
       this.getShopCart();
     }).catch(() => {
-      this.$message({
+      Message({
         message: '移除失败！',
         type: 'error'
       });
@@ -108,6 +109,10 @@ export default class InsShoppingCart extends Vue {
 <style scoped lang="less">
 .attrList{
   font-size: 1rem;
+}
+.el-dropdown-menu {
+  padding: 0;
+  border: 0;
 }
 .cart-icon-hover{
   background: url("/static/Image/home/cartFull_hover.png") no-repeat center center;

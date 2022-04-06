@@ -5,52 +5,52 @@
       <p class="pageTitle">{{ $t("Notification.MyMessages") }}</p>
       <div id="main-content">
         <!-- 信箱选项栏 -->
-        <el-card shadow="hover" class="MessageHeader">
-          <el-row class="MessageRow">
-            <el-col :md="16" :xs="16"
+        <Card shadow="hover" class="MessageHeader">
+          <Row class="MessageRow">
+            <ElCol :md="16" :xs="16"
               >{{ $t("Notification.TotalRecQtyWithSymbol") }}{{ TotalNum }}
-              {{ $t("Notification.UnreadWithSymbol") }}{{ MessageQty }}</el-col
+              {{ $t("Notification.UnreadWithSymbol") }}{{ MessageQty }}</ElCol
             >
-            <el-col :span="8">
-              <el-button type="success" @click="changeStatus()">{{
+            <ElCol :span="8">
+              <ElButton type="success" @click="changeStatus()">{{
                 $t("Notification.MsgMarkAsRead")
-              }}</el-button>
-            </el-col>
-          </el-row>
-        </el-card>
+              }}</ElButton>
+            </ElCol>
+          </Row>
+        </Card>
         <!-- 信箱列表开始 -->
-        <el-card shadow="hover">
-          <el-table
+        <Card shadow="hover">
+          <Table
             :data="allMessage"
             style="width: 100%"
             :header-cell-style="tableHeader"
             :empty-text="$t('Input.nomessage')"
           >
-            <el-table-column type="expand">
+            <TableColumn type="expand">
               <template slot-scope="props">
-                <el-form label-position="left" inline class="demo-table-expand">
-                  <el-form-item>
+                <ElForm label-position="left" inline class="demo-table-expand">
+                  <FormItem>
                     <span>{{ props.row.Subject }}</span>
-                  </el-form-item>
-                  <el-form-item>
+                  </FormItem>
+                  <FormItem>
                     <span v-html="props.row.Content"></span>
-                  </el-form-item>
-                </el-form>
+                  </FormItem>
+                </ElForm>
               </template>
-            </el-table-column>
-            <el-table-column
+            </TableColumn>
+            <TableColumn
               :label="$t('Notification.Check')"
               min-width="60"
               align="center"
             >
               <template slot-scope="props">
-                <el-checkbox
+                <Checkbox
                   @change="!markMsgAsRead(props.row.Id)"
                   prop="Id"
-                ></el-checkbox>
+                ></Checkbox>
               </template>
-            </el-table-column>
-            <el-table-column
+            </TableColumn>
+            <TableColumn
               :label="$t('Notification.Id')"
               align="center"
               width="100"
@@ -60,20 +60,20 @@
                   >{{ props.$index + (CurrentPage - 1) * pageNumber + 1 }}
                 </span></template
               >
-            </el-table-column>
-            <el-table-column
+            </TableColumn>
+            <TableColumn
               :label="$t('Notification.MsgSender')"
               prop="FromDisplay"
-            ></el-table-column>
-            <el-table-column
+            ></TableColumn>
+            <TableColumn
               :label="$t('Notification.MsgSubject')"
               prop="Subject"
-            ></el-table-column>
-            <el-table-column
+            ></TableColumn>
+            <TableColumn
               :label="$t('Notification.MsgSenderDate')"
               prop="CreateDateStr"
-            ></el-table-column>
-            <el-table-column
+            ></TableColumn>
+            <TableColumn
               :label="$t('Notification.MsgReadStatus')"
               prop="IsRead"
               :formatter="IsReadFilter"
@@ -83,8 +83,8 @@
               ]"
               :filter-method="filterTag"
               filter-placement="bottom-end"
-            ></el-table-column>
-          </el-table>
+            ></TableColumn>
+          </Table>
           <inPage
             v-model="CurrentPage"
             :total="TotalRecord"
@@ -92,7 +92,7 @@
             styla="margin-top:20px;"
             v-show="TotalRecord > 0"
           ></inPage>
-        </el-card>
+        </Card>
         <!-- 信箱列表结束 -->
       </div>
     </div>
@@ -100,11 +100,32 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import {
+  Loading,
+  Card,
+  Row,
+  Col as ElCol,
+  Table,
+  TableColumn,
+  FormItem,
+  Button as ElButton,
+  Form as ElForm,
+  Checkbox
+} from 'element-ui';
 @Component({
   components: {
     accountHeader: () =>
       import('@/components/hkTasteBusiness/pc/account/accountHeader.vue'),
-    inPage: () => import('@/components/base/pc/InsPage.vue')
+    inPage: () => import('@/components/base/pc/InsPage.vue'),
+    Card,
+    Row,
+    ElCol,
+    Table,
+    TableColumn,
+    FormItem,
+    ElButton,
+    ElForm,
+    Checkbox
   }
 })
 export default class InsNotification extends Vue {

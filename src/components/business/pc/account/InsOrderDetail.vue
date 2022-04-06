@@ -8,28 +8,28 @@
           <div class="OrderMain">
             <!-- 订单详情列表开始 -->
             <div>
-              <el-row class="OrderHeadTitle">
-                <el-col :span="24">{{$t('Order.OrderDateTime')}}:{{OrderDetail.CreateAt}}</el-col>
-              </el-row>
-              <el-row class="OrderHeadTitle">
-                <el-col :xs="4" :md="4">{{OrderDetail.OrderItems.length}}{{$t('Order.Items')}}</el-col>
-                <el-col :xs="20" :md="20">{{$t('Order.OrderNumber')}}:{{OrderDetail.InvoiceNO}}</el-col>
-              </el-row>
+              <Row class="OrderHeadTitle">
+                <ElCol :span="24">{{$t('Order.OrderDateTime')}}:{{OrderDetail.CreateAt}}</ElCol>
+              </Row>
+              <Row class="OrderHeadTitle">
+                <ElCol :xs="4" :md="4">{{OrderDetail.OrderItems.length}}{{$t('Order.Items')}}</ElCol>
+                <ElCol :xs="20" :md="20">{{$t('Order.OrderNumber')}}:{{OrderDetail.InvoiceNO}}</ElCol>
+              </Row>
               <div>
                 <div>
-                  <el-card shadow="hover" class="OrderCard" body-style="padding:10px;">
-                    <el-row
+                  <Card shadow="hover" class="OrderCard" body-style="padding:10px;">
+                    <Row
                       :gutter="15"
                       class="OrderPer"
                       v-for="(item,index) in OrderDetail.OrderItems"
                       :key="index"
                     >
-                      <el-col :xs="3" :md="3">
+                      <ElCol :xs="3" :md="3">
                         <router-link class="product-img" :to="'/product/detail/'+item.Sku">
                           <img v-bind:src="item.Product.Images[2]" alt />
                         </router-link>
-                      </el-col>
-                      <el-col :xs="21" :md="21" class="OrderListDetail">
+                      </ElCol>
+                      <ElCol :xs="21" :md="21" class="OrderListDetail">
                         <p class="product-title">{{item.Product.Name}}</p>
                            <p class="product-code">{{$t('product.ProductCode')}}:{{item.Product.Code}}&nbsp;&nbsp;{{$t('product.countTitle')}}:{{item.Qty}}</p>
                         <p class="product-code">
@@ -40,45 +40,45 @@
                         <p class="product-price">
                           <span class="p-price-discount">{{CurrencyCode}} {{(item.Product.SalePrice + item.Attr1Price  + item.Attr2Price + item.Attr3Price)*item.Qty | PriceFormat}}</span>
                         </p>
-                      </el-col>
-                    </el-row>
-                  </el-card>
+                      </ElCol>
+                    </Row>
+                  </Card>
                 </div>
               </div>
               <!-- 统计价钱开始 -->
-              <el-row :gutter="20">
-                <el-col :xs="20" :md="20" class="OrderBottomP1">{{$t('Order.CartSubtotal')}}</el-col>
-                <el-col :xs="4" :md="4" class="OrderBottomP2">{{CurrencyCode}} {{(OrderDetail.ItemsAmount) | PriceFormat}}</el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :xs="20" :md="20" class="OrderBottomP1">{{$t('Order.DeliveryCharge')}}</el-col>
-                <el-col :xs="4" :md="4" class="OrderBottomP2">{{CurrencyCode}} {{(OrderDetail.DeliveryCharge) | PriceFormat}}</el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :xs="20" :md="20" class="OrderBottomP1">{{$t('Shoppingcart.Total')}}</el-col>
-                <el-col :xs="4" :md="4" class="OrderBottomP2">{{CurrencyCode}} {{(OrderDetail.TotalAmount) | PriceFormat}}</el-col>
-              </el-row>
-              <el-row :gutter="20">
-                <el-col :xs="20" :md="20" class="OrderBottomP1">{{$t('Order.OrderStatus')}}</el-col>
-                <el-col :xs="4" :md="4" class="OrderBottomP2">{{OrderDetail.StatusName}}</el-col>
-              </el-row>
+              <Row :gutter="20">
+                <ElCol :xs="20" :md="20" class="OrderBottomP1">{{$t('Order.CartSubtotal')}}</ElCol>
+                <ElCol :xs="4" :md="4" class="OrderBottomP2">{{CurrencyCode}} {{(OrderDetail.ItemsAmount) | PriceFormat}}</ElCol>
+              </Row>
+              <Row :gutter="20">
+                <ElCol :xs="20" :md="20" class="OrderBottomP1">{{$t('Order.DeliveryCharge')}}</ElCol>
+                <ElCol :xs="4" :md="4" class="OrderBottomP2">{{CurrencyCode}} {{(OrderDetail.DeliveryCharge) | PriceFormat}}</ElCol>
+              </Row>
+              <Row :gutter="20">
+                <ElCol :xs="20" :md="20" class="OrderBottomP1">{{$t('Shoppingcart.Total')}}</ElCol>
+                <ElCol :xs="4" :md="4" class="OrderBottomP2">{{CurrencyCode}} {{(OrderDetail.TotalAmount) | PriceFormat}}</ElCol>
+              </Row>
+              <Row :gutter="20">
+                <ElCol :xs="20" :md="20" class="OrderBottomP1">{{$t('Order.OrderStatus')}}</ElCol>
+                <ElCol :xs="4" :md="4" class="OrderBottomP2">{{OrderDetail.StatusName}}</ElCol>
+              </Row>
               <!-- 统计价钱结束 -->
             </div>
             <!-- 订单详情列表结束 -->
 
             <!-- 支付按钮和关闭开始 -->
-            <el-row :gutter="20" class="OrderBtnGroup">
-              <el-col :xs="16" :md="16" :offset="8" class="OrderBottomBtn"  >
-                <el-button type="success" round @click="PayNow(OrderDetail)" v-show="OrderDetail.StatusCode=='0' && !OrderDetail.OffLinePay">
+            <Row :gutter="20" class="OrderBtnGroup">
+              <ElCol :xs="16" :md="16" :offset="8" class="OrderBottomBtn"  >
+                <ElButton type="success" round @click="PayNow(OrderDetail)" v-show="OrderDetail.StatusCode=='0' && !OrderDetail.OffLinePay">
                   <i class="el-icon-bank-card"></i>
                   <span>{{$t('Order.OrderPay')}}</span>
-                </el-button>
-                <el-button type="info" round @click="closePage">
+                </ElButton>
+                <ElButton type="info" round @click="closePage">
                   <i class="el-icon-switch-button"></i>
                   <span>{{$t('DeliveryAddress.CloseBtn')}}</span>
-                </el-button>
-              </el-col>
-            </el-row>
+                </ElButton>
+              </ElCol>
+            </Row>
             <!-- 支付按钮和关闭结束 -->
           </div>
     </div>
@@ -92,9 +92,14 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Row, Col as ElCol, Card, Button as ElButton } from 'element-ui';
 @Component({
   components: {
-    accountHeader: () => import('@/components/hkTasteBusiness/pc/account/accountHeader.vue')
+    accountHeader: () => import('@/components/hkTasteBusiness/pc/account/accountHeader.vue'),
+    Row,
+    ElCol,
+    Card,
+    ElButton
   }
 })
 export default class InsOrderDetail extends Vue {

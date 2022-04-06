@@ -6,19 +6,21 @@
 
     <template v-if="ui === 'tree'">
       <!-- <p class="Title" v-if="title">{{title}}</p> -->
-      <el-tree icon-class="el-icon-arrow-right" :default-expand-all="expandAll" :data="attrData" node-key="keyValue" :show-checkbox="showCheckbox" :props="props" @check="changeCSelect" @node-click="handleNodeClick" :check-strictly="!multiSelect" ref="tree"></el-tree>
+      <Tree icon-class="el-icon-arrow-right" :default-expand-all="expandAll" :data="attrData" node-key="keyValue" :show-checkbox="showCheckbox" :props="props" @check="changeCSelect" @node-click="handleNodeClick" :check-strictly="!multiSelect" ref="tree"></Tree>
     </template>
   </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Tree } from 'element-ui';
 export interface attrItem {
   Id: number,
   Vals: number[]
 }
 @Component({
   components: {
-    InsSelectSearch: () => import('@/components/base/mobile/InsSelectSearch.vue')
+    InsSelectSearch: () => import('@/components/base/mobile/InsSelectSearch.vue'),
+    Tree
   }
 })
 export default class InsPoductAttrsTree extends Vue {

@@ -1,12 +1,12 @@
 const path = require('path');
 const fs = require('fs');
 const resolve = dir => path.join(__dirname, dir);
-let apiServer = 'http://api.dev.in-store.hk:84';
-let AdminServer = 'http://admin.dev.in-store.hk:84';
+let apiServer = 'http://contactlenses.api.dev.intimex.hk:84';
+let AdminServer = 'http://contactlenses.admin.dev.in-store.hk:84';
 let param = getArgList();
 if (param === 'dev') {
-  apiServer = 'http://api.dev.in-store.hk:84';
-  AdminServer = 'http://admin.dev.in-store.hk:84';
+  apiServer = 'http://contactlenses.api.dev.intimex.hk:84';
+  AdminServer = 'http://contactlenses.admin.dev.in-store.hk:84';
 } else if (param === 'uat') {
   apiServer = 'https://api.uat2.intimex.hk';
   AdminServer = 'https://admin.uat2.intimex.hk';

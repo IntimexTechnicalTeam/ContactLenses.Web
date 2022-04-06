@@ -141,4 +141,28 @@ ul {
       }
     }
   }
+.footermenuul li{
+  width: 115px;
+  >a{
+  font-weight: bold;
+  color: #0059b4;
+  font-size: 18px;
+  }
+  >ul{
+    background-color: #fff;
+    >li{
+      width:100%;
+      border:none;
+      >a{
+        width: 100%;
+      }
+    }
+  }
+  &:hover{
+    background-color: #429cd8;
+    > a{
+      color: #fff;
+    }
+  }
+}
 </style>

@@ -1,13 +1,13 @@
 <template>
   <div class="insLogin_warrper">
-      <div style="min-height:131px;" v-if="!isIe && FrontE.version !== 1">
-        <div class="insLogin_title">
+      <div style="min-height:131px;">
+        <div class="insLogin_title" v-if="!isIe">
           <div class="facebook_login" @click="fbLogin">
             <img src="/static/facebook.png" />
             <span>{{$t('Login.FaceBookUse')}}</span>
           </div>
         </div>
-        <div class="insLogin_divide">
+        <div class="insLogin_divide" v-if="!isIe">
             <div class="divide"></div>
             <div class="divide_or">{{$t('Register.or')}}</div>
             <div class="divide"></div>
@@ -53,10 +53,14 @@
                 <InsInput2 :placeholder="$t('Register.UserEmail')" v-model="registerForm.email" width="100%" type="email" />
                 </InsForm>
                 <!-- <div></div> -->
-                <el-checkbox-group v-model="terms" style="margin: 10px 0 0 0">
-                    <el-checkbox name="type"></el-checkbox><span><router-link to="/CMS/content/20298" target="_blank" style="font-size: 14px;padding-left: 14px;color: #666666;
+                <CheckboxGroup v-model="terms" style="margin: 10px 0 0 0">
+                    <Checkbox name="type"></Checkbox><span><router-link to="/CMS/content/20298" target="_blank" style="font-size: 14px;padding-left: 14px;color: #666666;
     text-decoration: none;">{{$t('Register.RegisterAgree')}}</router-link></span>
-                </el-checkbox-group>
+                </CheckboxGroup>
+                <CheckboxGroup v-model="registerForm.OptOutReceiving" style="margin: 10px 0 20px 0">
+                    <Checkbox name="type"></Checkbox><span><a href="javascript:;" style="font-size: 14px;padding-left: 14px;color: #666666;
+    text-decoration: none;">{{$t('Register.promotionalinformation')}}</a></span>
+                </CheckboxGroup>
               </div>
               <InsButton :nama="$t('Forgetpassword.NextStep')" @click="register" style="margin-top:.4rem;" />
           </div>
@@ -69,7 +73,8 @@ import { Vue, Prop, Component } from 'vue-property-decorator';
 import InsInput2 from '@/components/base/pc/InsInput2.vue';
 import InsButton from '@/components/base/pc/InsButton.vue';
 import InsForm from '@/components/base/pc/InsForm.vue';
-@Component({ components: { InsInput2, InsButton, InsForm } })
+import { CheckboxGroup, Checkbox } from 'element-ui';
+@Component({ components: { InsInput2, InsButton, InsForm, CheckboxGroup, Checkbox } })
 export default class InsLoginN extends Vue {
     private terms: boolean = true;
     faceBookLogin:string='';
@@ -85,7 +90,8 @@ export default class InsLoginN extends Vue {
       lastName: '',
       confirmPassword: '',
       Language: '',
-      Mobile: ''
+      Mobile: '',
+      OptOutReceiving: true
     }
     get currentlang () {
       return this.$Storage.get('locale');

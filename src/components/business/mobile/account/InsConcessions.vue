@@ -26,15 +26,15 @@
             <div class="promotion_code item">
                 <div>{{$t('Order.PromotionCode')}}:</div>
                 <div>
-                    <el-input :placeholder="$t('Order.PromotionCode')" v-model="promotionCode" class="input-with-select">
-                        <el-button slot="append" @click="searchCoupon" >&nbsp;&nbsp;{{$t('Message.Confirm')}}&nbsp;&nbsp;</el-button>
-                    </el-input>
+                    <ElInput :placeholder="$t('Order.PromotionCode')" v-model="promotionCode" class="input-with-select">
+                        <ElButton slot="append" @click="searchCoupon" >&nbsp;&nbsp;{{$t('Message.Confirm')}}&nbsp;&nbsp;</ElButton>
+                    </ElInput>
                 </div>
             </div>
             <div class="coupon_warpper" v-if="$store.state.discount.Id === '-1'">
                 <div>
-                    <el-checkbox-group size="mini" v-model="delete1">
-                        <el-checkbox v-for="(item,index) in coupon" :key="index" :min="0" :max="100" :label="item.Id" :disabled="item.canCheck" @change="checkChange">
+                    <CheckboxGroup size="mini" v-model="delete1">
+                        <Checkbox v-for="(item,index) in coupon" :key="index" :min="0" :max="100" :label="item.Id" :disabled="item.canCheck" @change="checkChange">
                           <div class="coupon_item">
                             <div class="coupon_title">{{item.Title}}</div>
                             <div class="coupon_remark">{{item.Remark}}</div>
@@ -45,8 +45,8 @@
                               <span class="valid_content">{{$t('MyCoupon.NotUse')}}</span>
                             </div>
                           </div>
-                        </el-checkbox>
-                    </el-checkbox-group>
+                        </Checkbox>
+                    </CheckboxGroup>
                 </div>
             </div>
             <div v-else class="candp">{{this.$t('CheckOut.CandP')}}</div>
@@ -57,7 +57,8 @@
 import { Vue, Prop, Component, Watch } from 'vue-property-decorator';
 import Coupon from '@/model/coupon';
 import PromotionDiscount from '@/model/PromotionDiscount';
-@Component
+import { Input as ElInput, CheckboxGroup, Checkbox, Button as ElButton } from 'element-ui';
+@Component({ components: { ElInput, CheckboxGroup, Checkbox, ElButton } })
 export default class InsConcessions extends Vue {
     private totalAmount:number = 0;
     private total:number = 0;

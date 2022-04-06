@@ -1,95 +1,99 @@
 <template>
-  <div class="MemberInfo">
-    <div class="mid-box">
+  <div class="MemberPc">
+    <div class="MemberInfoMain">
         <!-- 用户账号 -->
-          <el-form
+          <ElForm
             :model="ruleForm"
             :rules="rules"
-            :label-position="'right'"
-            label-width="120px"
             ref="ruleForm"
             class="demo-ruleForm"
           >
-            <el-form-item :label="$t('Register.UserEmail')" prop="Email">
-              <el-input
+            <FormItem :label="$t('Register.UserEmail')" prop="Email">
+              <ElInput
                  v-model="ruleForm.Email"
                 prefix-icon="el-icon-message"
                 :placeholder="$t('Register.UserEmail')"
                 disabled
-              ></el-input>
-            </el-form-item>
-            <el-form-item :label="$t('Register.UserFirstName')" prop="FirstName">
-              <el-input
+              ></ElInput>
+            </FormItem>
+            <FormItem :label="$t('Register.UserFirstName')" prop="FirstName">
+              <ElInput
                 v-model="ruleForm.FirstName"
                 prefix-icon="el-icon-user"
                 :placeholder="$t('Register.UserFirstName')"
                 clearable
-              ></el-input>
-            </el-form-item>
-            <el-form-item :label="$t('Register.UserLastName')" prop="LastName">
-              <el-input
+              ></ElInput>
+            </FormItem>
+            <FormItem :label="$t('Register.UserLastName')" prop="LastName">
+              <ElInput
                 v-model="ruleForm.LastName"
                 :placeholder="$t('Register.UserLastName')"
                 prefix-icon="el-icon-collection-tag"
                 clearable
-              ></el-input>
-            </el-form-item>
-            <el-form-item prop="Mobile" :label="$t('DeliveryAddress.Mobile')">
-              <el-input
+              ></ElInput>
+            </FormItem>
+            <FormItem prop="Mobile" :label="$t('DeliveryAddress.Mobile')">
+              <ElInput
                 v-model="ruleForm.Mobile"
                 prefix-icon="el-icon-phone"
                 :placeholder="$t('DeliveryAddress.Mobile')"
                 clearable
-              ></el-input>
-            </el-form-item>
-               <el-form-item prop="BirthDateString" :label="$t('Register.UserBirthDate')">
-                <el-input
+              ></ElInput>
+            </FormItem>
+               <FormItem prop="BirthDateString" :label="$t('Register.UserBirthDate')">
+                <ElInput
                 v-model="ruleForm.BirthDateString"
                 prefix-icon="el-icon-date"
                 :placeholder="$t('MemberInfo.DDMM')"
                 clearable
-              ></el-input>
-                </el-form-item>
-            <el-form-item :label="$t('Register.UserGender')" prop="Gender">
-              <el-radio-group v-model="ruleForm.Gender">
-                <el-radio label="0">{{$t('Register.UserMale')}}</el-radio>
-                <el-radio label="1">{{$t('Register.UserFemale')}}</el-radio>
-              </el-radio-group>
-            </el-form-item>
-            <el-form-item :label="$t('Register.UserLanguage')" prop="Language">
-              <el-select
+              ></ElInput>
+                </FormItem>
+            <FormItem :label="$t('Register.UserGender')" prop="Gender">
+              <RadioGroup v-model="ruleForm.Gender">
+                <Radio label="0">{{$t('Register.UserMale')}}</Radio>
+                <Radio label="1">{{$t('Register.UserFemale')}}</Radio>
+              </RadioGroup>
+            </FormItem>
+            <FormItem :label="$t('Register.UserLanguage')" prop="Language">
+              <Select
                 v-model="ruleForm.Language"
                 :placeholder="$t('Register.UserLanguage')"
                 style="width: 100%;"
               >
-                <el-option :value="1" :label="$t('Register.UserLanguageT')">{{$t('Register.UserLanguageT')}}</el-option>
-                <el-option :value="0" :label="$t('Register.UserLanguageE')">{{$t('Register.UserLanguageE')}}</el-option>
-                <el-option :value="2" :label="$t('Register.UserLanguageS')">{{$t('Register.UserLanguageS')}}</el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item>
-              <el-button
-                round
+                <Option :value="1" :label="$t('Register.UserLanguageT')">{{$t('Register.UserLanguageT')}}</Option>
+                <Option :value="0" :label="$t('Register.UserLanguageE')">{{$t('Register.UserLanguageE')}}</Option>
+                <Option :value="2" :label="$t('Register.UserLanguageS')">{{$t('Register.UserLanguageS')}}</Option>
+              </Select>
+            </FormItem>
+            <FormItem>
+              <ElButton
                 type="primary"
-                class="submit-btn"
                 @click="SubmitForm('ruleForm')"
-              >{{$t('DeliveryAddress.SaveBtn')}}</el-button>
-            </el-form-item>
-          </el-form>
+              >{{$t('DeliveryAddress.SaveBtn')}}</ElButton>
+            </FormItem>
+          </ElForm>
     </div>
     </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Form, Input, Message, FormItem, Radio, RadioGroup, Option, Select, Button } from 'element-ui';
 import { MemberResult } from '@/model/memberResult';
 import sdk from '@/sdk/InstoreSdk';
 import Cookie from 'js-cookie';
 import lang from '@/lang';
 import storage from '@/sdk/common/Storage';
-import { ElForm } from 'element-ui/types/form';
 @Component({
   components: {
-    accountHeader: () => import('@/components/hkTasteBusiness/pc/account/accountHeader.vue')
+    accountHeader: () => import('@/components/hkTasteBusiness/pc/account/accountHeader.vue'),
+    Form,
+    Input,
+    FormItem,
+    Radio,
+    RadioGroup,
+    Option,
+    Select,
+    Button
   }
 })
 export default class InsMemberInfo extends Vue {
@@ -201,7 +205,7 @@ export default class InsMemberInfo extends Vue {
       that.ruleForm.Gender = 1;
     }
     // that.$nextTick(function () {
-    (that.$refs.ruleForm as ElForm).validate(valid => {
+    (that.$refs.ruleForm as Form).validate(valid => {
       if (valid) {
         sdk.api.member.updateProfile(that.ruleForm).then(
           async function (response) {
@@ -229,7 +233,7 @@ export default class InsMemberInfo extends Vue {
   }
   // 重置用户信息表单
   ResetForm (ruleForm) {
-    (this.$refs.ruleForm as ElForm).resetFields();
+    (this.$refs.ruleForm as Form).resetFields();
   }
   // 打开地址
   openlink (link) {
@@ -237,51 +241,102 @@ export default class InsMemberInfo extends Vue {
   }
 }
 </script>
-
 <style lang="less">
 .messageboxNoraml{
   z-index: 1000000000!important;
 }
 </style>
-
+<style lang="less">
+#container .el-form-item__content{
+  text-align: left!important;
+}
+.MemberPc .MemberInfoMain .el-button--primary span{
+  font-size: 20px!important;
+}
+.MemberPc  .el-checkbox__label{
+    display: inline-block;
+    padding-left: 10px;
+    line-height: 19px;
+    font-size: 14px;
+    word-break: break-all;
+    vertical-align: text-top;
+}
+.MemberPc .el-checkbox, .el-checkbox__input{
+  white-space: unset;
+}
+.MemberPc .el-form{
+  width: 80%;
+  margin: 0 auto;
+}
+.MemberPc .el-form .el-input{
+  width: 60%!important;
+}
+.MemberPc .el-form .el-select{
+  width: 60%!important;
+}
+.MemberPc .el-form .el-select .el-input{
+    width: 100%!important;
+}
+.MemberPc .el-form .el-radio__input.is-checked .el-radio__inner{
+    border-color: #333333;
+    background: #333333;
+}
+.MemberPc .el-form .el-form-item__label{
+    width: 25%;
+    float: left;
+    color: #161616 !important;
+    padding: 0px;
+    padding-right: 10px;
+    line-height: inherit;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+}
+.MemberPc .el-select .el-input__suffix{
+  background: #333333;
+  color:#fff;
+  right: 0px!important;
+}
+.MemberPc .el-select .el-input .el-select__caret{
+  color:#fff!important;
+}
+.MemberPc .el-form-item__error{
+      left: 25%;
+}
+</style>
 <style lang="less" scoped>
-.MemberInfo {
-  .mid-box {
-    padding: 50px;
-
-    /deep/ .el-form {
-      width: 60%;
-      margin: 0 auto;
-
-      .el-radio__input {
-        .el-radio__inner {
-          outline: none;
-          box-shadow: none;
-
-          &:hover {
-            border-color: #333333;
-          }
-        }
-        
-        &.is-checked .el-radio__inner {
-          border-color: #333333;
-          background: #333333;
-        }
-
-        &.is-checked+.el-radio__label {
-          color: #333333;
-        }
-      }
-
-      .submit-btn {
-        display: block;
-        width: 100%;
-        background: #333;
-        border: none;
-        font-size: 20px;
-        margin-top: 20px;
-      }
-    }
-  }
+#container {
+  width: 100%;
+  display: inline-block;
+}
+.MemberInfoMain {
+  width: 1200px;
+  margin: 0 auto;
+  margin-top: 1rem;
+  padding:2.5%;
+}
+.MemberInfoMain .el-tabs__nav {
+  height: 50px;
+  line-height: 50px;
+}
+.MemberInfoMain .el-tabs__content {
+  text-align: left;
+}
+.MemberInfoMain .el-input__icon {
+  font-size: 16px;
+}
+.MemberInfoMain .el-form-item__content,.MemberInfoMain .el-form-item__label-wrap{
+  margin-left: 0px!important;
+}
+.MemberInfoMain .el-button{
+    background: #333333;
+    border: none;
+    display: block;
+    border-radius: 20px;
+    width: 60%;
+    float: left;
+    margin-left: 25%;
 }
 </style>

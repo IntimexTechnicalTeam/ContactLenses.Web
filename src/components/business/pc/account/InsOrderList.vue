@@ -6,8 +6,8 @@
      <transition name="slide">
       <div key="1" v-if="!waiting">
               <div class="OrderMain OrderPc">
-                <el-card shadow="hover" class="OrderCard">
-                  <el-row
+                <Card shadow="hover" class="OrderCard">
+                  <Row
                     :gutter="20"
                     v-for="(d,index) in OrderList"
                     :key="index"
@@ -15,17 +15,17 @@
                     style="padding:10px;"
                   >
                     <!-- 列表循环开始 -->
-                      <el-row :gutter="0" class="OrderPer">
-                        <el-col :xs="12" :md="12" class="CreateTime">{{d.CreateAt}}</el-col>
-                        <el-col :xs="12" :md="12" class="OrderStatus">{{d.StatusName}}</el-col>
-                      </el-row>
-                      <el-row :gutter="10" >
-                          <el-col :xs="3" :md="3">
+                      <Row :gutter="0" class="OrderPer">
+                        <ElCol :xs="12" :md="12" class="CreateTime">{{d.CreateAt}}</ElCol>
+                        <ElCol :xs="12" :md="12" class="OrderStatus">{{d.StatusName}}</ElCol>
+                      </Row>
+                      <Row :gutter="10" >
+                          <ElCol :xs="3" :md="3">
                             <router-link class="product-img" :to="'/product/detail/'+d.OrderItems[0].Sku">
                               <img v-bind:src="d.OrderItems[0].Product.Images[2]" alt />
                             </router-link>
-                          </el-col>
-                          <el-col :xs="18" :md="18" class="OrderListDetail">
+                          </ElCol>
+                          <ElCol :xs="18" :md="18" class="OrderListDetail">
                           <p class="product-title">{{d.OrderItems[0].Product.Name}}</p>
                           <p>
                             <span class="order-items" v-if="d.OrderItems[0].AttrName1">{{d.OrderItems[0].AttrType1.Name}}:{{d.OrderItems[0].AttrName1}}</span>
@@ -36,39 +36,39 @@
                           <p class="product-price">
                               <span class="p-price-discount">{{$t('CheckOut.Total')}}&nbsp;{{d.Currency.Code}} {{(d.TotalAmount) | PriceFormat}}</span>
                             </p>
-                          </el-col>
-                          <el-col :xs="3" :md="3">
-                            <el-button
+                          </ElCol>
+                          <ElCol :xs="3" :md="3">
+                            <ElButton
                               type="info"
                               icon="el-icon-document"
                               class="OrderBtn"
                               @click="ShowDetail(d)"
-                            >{{$t('Order.OrderDetail')}}</el-button>
-                            <el-button
+                            >{{$t('Order.OrderDetail')}}</ElButton>
+                            <ElButton
                               type="success"
                               icon="el-icon-money"
                               class="OrderBtn"
                               @click="Evidence(d)"
                               v-show="d.OffLinePay  && d.StatusCode=='0'"
-                            >{{$t('Message.Evidence')}}</el-button>
-                            <el-button
+                            >{{$t('Message.Evidence')}}</ElButton>
+                            <ElButton
                               type="success"
                               icon="el-icon-money"
                               class="OrderBtn"
                               @click="PayNow(d)"
                               v-show="!d.OffLinePay && d.StatusCode=='0'"
-                            >{{$t('Order.OrderPay')}}</el-button>
-                            <el-button
+                            >{{$t('Order.OrderPay')}}</ElButton>
+                            <ElButton
                               type="success"
                               icon="el-icon-money"
                               class="OrderBtn"
                               @click="OrderComment(d)"
-                              v-show="d.StatusCode=='5' && FrontE.version !== 1"
-                            >{{$t('Order.OrderComment')}}</el-button>
-                        </el-col>
-                      </el-row>
-                  </el-row>
-                </el-card>
+                              v-show="d.StatusCode=='5'"
+                            >{{$t('Order.OrderComment')}}</ElButton>
+                        </ElCol>
+                      </Row>
+                  </Row>
+                </Card>
                   <!-- 列表循环结束 -->
                   <!-- 分页开始 -->
                   <inPage v-model="CurrentPage" :total="TotalRecord" :pageNum="pageNumber" styla="margin-top:20px;" v-show="TotalRecord>0"></inPage>
@@ -85,10 +85,15 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Loading, Card, Row, Col as ElCol, Button as ElButton } from 'element-ui';
 @Component({
   components: {
     accountHeader: () => import('@/components/hkTasteBusiness/pc/account/accountHeader.vue'),
-    inPage: () => import('@/components/base/pc/InsPage.vue')
+    inPage: () => import('@/components/base/pc/InsPage.vue'),
+    Card,
+    Row,
+    ElCol,
+    ElButton
   }
 })
 export default class InsOrderList extends Vue {

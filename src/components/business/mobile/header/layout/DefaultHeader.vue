@@ -1,18 +1,21 @@
 <template>
     <div class="header-box">
-      <div class="headerTop">
-          <ins-login />
+      <!-- <div class="headerTop">
           <ins-fav  />
           <shopcart class="shoppingcart" />
-          <CodeSelect class="header-code" v-if="FrontE.version !== 1" />
+          <CodeSelect class="header-code" />
           <ins-lang-switch class="headerLang" />
-      </div>
+      </div> -->
         <div class="flex-box">
-        <ins-logo />
-        <!-- <ins-menu /> -->
-        <!-- <ins-menu :layout="1" /> -->
           <img class="slide-menu" src="/images/mobile/Mobile-index_05.png" @click="showSlideMenu" v-show="!this.$store.state.isShowMenu" />
           <img class="close-meun" src="/images/mobile/out.png" @click="showSlideMenu" v-show="this.$store.state.isShowMenu"  />
+        <ins-logo />
+        <ins-login />
+        <div class="search">
+          <img src="/images/mobile/search.png" @click="showSlideMenu" class="search">
+        </div>
+        <!-- <ins-menu /> -->
+        <!-- <ins-menu :layout="1" /> -->
         </div>
     </div>
 </template>
@@ -69,7 +72,7 @@ export default class DefaultHeader extends Vue {
 
         .logo {
           width: 15rem;
-          margin: 0 auto;
+          margin: 0 auto 0 3rem;
         }
 
         .slide-menu {

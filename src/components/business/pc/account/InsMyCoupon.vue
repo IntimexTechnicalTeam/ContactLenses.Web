@@ -6,22 +6,22 @@
     <p class="pageTitle">{{$t('MyCoupon.MyCoupon')}}</p>
     <div id="main-content">
       <!-- 头部筛选框 -->
-      <el-card shadow="hover" class="couponHeader">
-        <el-form ref="form" :model="form">
-          <el-row>
-            <el-col :md="8" :xs="8" class="couponStatus">
-              <el-form-item :label="$t('MyCoupon.CouponStatus')">
-                <el-select
+      <Card shadow="hover" class="couponHeader">
+        <ElForm ref="form" :model="form">
+          <Row>
+            <ElCol :md="8" :xs="8" class="couponStatus">
+              <FormItem :label="$t('MyCoupon.CouponStatus')">
+                <Select
                   :placeholder="$t('MyCoupon.SelectCouponStatus')"
                   filterable
                   v-model="status"
                 >
-                  <el-option :label="$t('MyCoupon.NotUse')" :value="2"></el-option>
-                  <el-option :label="$t('MyCoupon.All')" :value="3"></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
-            <el-col :span="16" class="couponTips">
+                  <Option :label="$t('MyCoupon.NotUse')" :value="2"></Option>
+                  <Option :label="$t('MyCoupon.All')" :value="3"></Option>
+                </Select>
+              </FormItem>
+            </ElCol>
+            <ElCol :span="16" class="couponTips">
               {{$t('MyCoupon.TotalNum')}}
               <span>{{AllRecord}}</span>
               {{$t('MyCoupon.Piece')}}&nbsp;{{$t('MyCoupon.Coupon')}}，&nbsp;{{$t('MyCoupon.Among')}}
@@ -29,37 +29,37 @@
               {{$t('MyCoupon.Piece')}}&nbsp;{{$t('MyCoupon.NotUse')}}，
               <span>{{AllRecord - ActiveRecord}}</span>
               {{$t('MyCoupon.Piece')}}&nbsp;{{$t('MyCoupon.Used')}}
-            </el-col>
-          </el-row>
-        </el-form>
-      </el-card>
+            </ElCol>
+          </Row>
+        </ElForm>
+      </Card>
 
       <!-- 优惠券列表 -->
-      <el-card
+      <Card
         shadow="hover"
         v-for="(item,index) in NewArarry"
         :key="index"
         class="couponMain"
       >
-        <el-row class="couponList" v-if="couponsLength">
-          <el-col :md="6" :xs="6">
+        <Row class="couponList" v-if="couponsLength">
+          <ElCol :md="6" :xs="6">
             <p class="couponTitle">{{item.Title}}</p>
             <p class="couponRemark">{{item.Remark}}</p>
-          </el-col>
-          <el-col :span="18">
+          </ElCol>
+          <ElCol :span="18">
             {{$t('MyCoupon.PeriodOfValidity')}}: {{item.EffectiveDate}} - {{item.ExpiryDate}}
             <span
               class="coupon-status"
               :style="{background:(item.IsUsed == false && item.IsExpiry==false?'#000':'#ccc')}"
             >{{item.IsUsed == false && item.IsExpiry==false ?$t('MyCoupon.NotUse') : $t('MyCoupon.Used')}}</span>
-          </el-col>
-        </el-row>
-        <el-row class="couponList" v-else>
-          <el-col :span="24">
+          </ElCol>
+        </Row>
+        <Row class="couponList" v-else>
+          <ElCol :span="24">
             <p class="couponTitle">{{$t('MyCoupon.NoCoupon')}}</p>
-          </el-col>
-        </el-row>
-      </el-card>
+          </ElCol>
+        </Row>
+      </Card>
       <inPage v-model="CurrentPage" :total="TotalRecord" :pageNum="pageNumber" styla="margin:0;" v-show="TotalRecord>0"></inPage>
     </div>
     <!--main-content-->
@@ -68,10 +68,18 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Card, Form as ElForm, Row, Col as ElCol, Select, Option, FormItem } from 'element-ui';
 @Component({
   components: {
     accountHeader: () => import('@/components/hkTasteBusiness/pc/account/accountHeader.vue'),
-    inPage: () => import('@/components/base/pc/InsPage.vue')
+    inPage: () => import('@/components/base/pc/InsPage.vue'),
+    ElCol,
+    Select,
+    Option,
+    FormItem,
+    Card,
+    ElForm,
+    Row
   }
 })
 export default class InsMyCoupon extends Vue {

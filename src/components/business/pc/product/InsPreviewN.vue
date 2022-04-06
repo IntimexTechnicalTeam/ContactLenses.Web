@@ -15,8 +15,8 @@
               </div>
             </swiperSlide>
           </swiper>
-            <div class="swiper-button-prev" slot="button-prev"></div>
-            <div class="swiper-button-next" slot="button-next"></div>
+            <div class="swiper-button-prev swiper-btn" slot="button-prev"></div>
+            <div class="swiper-button-next swiper-btn" slot="button-next"></div>
           </div>
           <div v-if="!isClick">
             <Viewer :images="ShowItems[0]"
@@ -213,12 +213,18 @@ SwiperOption: object = {
 .PcVersionPreview .swiper-button-next{
     background-image:url('/images/pc/pright.png')!important;
     right:0px!important;
+    left: 195%;
+}
+.PcVersionPreview .swiper-btn{
+  opacity: 1;
 }
 .PcVersionPreview  .swiper-button-prev, .PcVersionPreview  .swiper-button-next{
-    width: 40px!important;
-    height: 40px!important;
+    width: 50px!important;
+    height: 50px!important;
     background-size:100%!important;
     outline: 0;
+    position: absolute;
+    top:-370%;
 }
 .PcVersionPreview{
   .swiper-father{

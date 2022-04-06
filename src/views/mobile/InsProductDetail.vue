@@ -9,14 +9,14 @@
     <div class="productDetail_main" :style="'flex-wrap: wrap;'">
       <ProductSwiper width="100%"  :imgList="ImgList" :ProductTitleName="ProductTitleName"></ProductSwiper>
       <PkProductInfo :panelDetail="PanelDetail"  :ProductSku="ProductSku" :AddPrice="getNewsPrice" width="100%" style="margin-top:2rem;"></PkProductInfo>
-      <div class="ProductRate"><el-rate  v-model="Score" disabled  disabled-void-color="#5f6548" disabled-void-icon-class="el-icon-star-off"></el-rate></div>
+      <div class="ProductRate"><Rate  v-model="Score" disabled  disabled-void-color="#5f6548" disabled-void-icon-class="el-icon-star-off"></Rate></div>
       <PkProductDetailCate :source="ExtAttrList" :cateTree="CatalogTree" width="100%" style="margin-top:2rem;"></PkProductDetailCate>
       <inPanel :panelDetail="PanelDetail" width="100%" :ProductSku="ProductSku"  @getPrice="showPrice" itemscopestyle="margin-top:2rem;"></inPanel>
     </div>
     <div class="tab_warpper">
       <div class="tab_header">
         <div class="detail_title" @click="IsDetail=true" v-bind:class="{isActive:IsDetail}">{{$t('product.ProductIntroduction')}}</div>
-        <div class="comment_title" @click="IsDetail=false" v-bind:class="{isActive:!IsDetail}" v-if="FrontE.version !== 1">{{$t('product.comments.title')}}</div>
+        <div class="comment_title" @click="IsDetail=false" v-bind:class="{isActive:!IsDetail}">{{$t('product.comments.title')}}</div>
       </div>
       <div class="clear"></div>
       <div class="product_detail" v-html="Tabs.Detail" v-show="IsDetail && Tabs.Detail!=''"></div>
@@ -50,6 +50,7 @@ import inAccordion from '@/components/base/mobile/InsAccordion.vue';
 import inComments from '@/components/business/mobile/product/InsComments.vue';
 import inProductUpOrDown from '@/components/business/mobile/product/InsProductUpOrDown.vue';
 import ProductListSwiper from '@/components/hkTasteBusiness/mobile/product/HkProductListSwiper.vue';
+import { Rate } from 'element-ui';
 @Component({ components: {
   inPreview,
   inPanel,
@@ -61,7 +62,8 @@ import ProductListSwiper from '@/components/hkTasteBusiness/mobile/product/HkPro
   PkProductDetailCate,
   PkProductInfo,
   inProductUpOrDown,
-  ProductListSwiper
+  ProductListSwiper,
+  Rate
 } })
 export default class ProductDetail extends Vue {
   private Slider: YouWouldLike[] = [];

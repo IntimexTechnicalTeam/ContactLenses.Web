@@ -1,30 +1,34 @@
 <template>
-    <el-menu :default-active="defaultActive ? MenuList[0].Name : ''" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :mode="mode" :background-color="backColor" :text-color="textColor" :active-text-color="activeTextColor" :unique-opened="uniqueOpened">
+    <Menu :default-active="defaultActive ? MenuList[0].Name : ''" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :mode="mode" :background-color="backColor" :text-color="textColor" :active-text-color="activeTextColor" :unique-opened="uniqueOpened">
       <!-- <menuItem v-for="item in MenuList" :key="item.id" :item = "item" /> -->
 
       <!-- 递归子组件 -->
       <template v-for="(item,index) in MenuList">
-        <el-submenu :index="item.Name" v-if="item.Childs && item.Childs.length" :key="index">
+        <Submenu :index="item.Name" v-if="item.Childs && item.Childs.length" :key="index">
           <template slot="title">
               <span>{{item.Name}}</span>
           </template>
           <menu-item v-for="(child,index2) in item.Childs" :key="index2" :item="child" />
-        </el-submenu>
+        </Submenu>
 
-        <el-menu-item :index="item.Name" v-else :key="index">
+        <ElMenuItem :index="item.Name" v-else :key="index">
             <router-link :to="item.Type === 0 ? item.Url : item.Type === 1 ? '/cms/catDetail/' + item.Value.Id : item.Type === 2 ? '/CMS/content/' + item.Value.Id : item.Type === 3 ? '/RegNPay/Form/' + item.Value.Id : item.Type === 4 ? '/product/cat/' + item.Value.Id : item.Type === 5 ? '/product/search/-' : '/product/search/-'" slot="title">
                 {{item.Name}} (无子集)
             </router-link>
-        </el-menu-item>
+        </ElMenuItem>
       </template>
-    </el-menu>
+    </Menu>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { MenuItem as ElMenuItem, Submenu, Menu } from 'element-ui';
 @Component({
   components: {
-    menuItem: () => import('@/components/base/pc/InsMenuItem.vue')
+    menuItem: () => import('@/components/base/pc/InsMenuItem.vue'),
+    ElMenuItem,
+    Submenu,
+    Menu
   }
 })
 export default class InsElMenu extends Vue {

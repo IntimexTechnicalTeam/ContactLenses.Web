@@ -8,52 +8,52 @@
         <div id="main-content">
           <div class="favorite-box">
             <div class="favorite-box-content">
-              <el-row
+              <Row
                 :gutter="0"
                 v-for="(d,index) in favoriteList.slice((currentPage- 1)*pagesize,currentPage*pagesize)"
                 :key="index"
                 class="Favormain"
               >
                 <!-- 列表循环开始 -->
-                <el-card shadow="hover" class="FavorCard">
-                  <el-row :gutter="10" class="OrderPer">
-                  <el-col :xs="8" :md="8">
+                <Card shadow="hover" class="FavorCard">
+                  <Row :gutter="10" class="OrderPer">
+                  <ElCol :xs="8" :md="8">
                     <router-link class="product-img" :to="'/product/detail/'+d.Sku">
                       <img v-bind:src="d.Img_M" alt />
                   </router-link>
-                  </el-col>
-                  <el-col :xs="16" :md="16" class="OrderListDetail">
+                  </ElCol>
+                  <ElCol :xs="16" :md="16" class="OrderListDetail">
                     <p class="product-title">{{d.Name}}</p>
                     <p class="product-code">{{d.Code}}</p>
                     <p class="product-price">
                       <span class="p-price-discount">{{d.Currency.Code}} {{(d.SalePrice) | PriceFormat}}</span>
                     </p>
-                  </el-col>
-                  </el-row>
-                  <el-row :gutter="20" class="bottom_btn">
-                  <el-col :xs="12" :md="12">
-                    <el-button
+                  </ElCol>
+                  </Row>
+                  <Row :gutter="20" class="bottom_btn">
+                  <ElCol :xs="12" :md="12">
+                    <ElButton
                       round
                       icon="el-icon-document"
                       class="OrderBtnDelete"
                       @click="ShowDetail(d.Sku)"
-                    >{{$t('MyFavorite.LearnMore')}}</el-button>
-                    </el-col>
-                    <el-col :xs="12" :md="12">
-                    <el-button
+                    >{{$t('MyFavorite.LearnMore')}}</ElButton>
+                    </ElCol>
+                    <ElCol :xs="12" :md="12">
+                    <ElButton
                       type="info"
                       round
                       icon="el-icon-delete"
                       class="OrderBtn"
                       @click="removeFavorite(d.Sku)"
-                    >{{$t('MyFavorite.RemoveProduct')}}</el-button>
-                  </el-col>
-                  </el-row>
-                </el-card>
-              </el-row>
+                    >{{$t('MyFavorite.RemoveProduct')}}</ElButton>
+                  </ElCol>
+                  </Row>
+                </Card>
+              </Row>
               <!-- 列表循环结束 -->
               <!-- 分页开始 -->
-              <el-pagination
+              <Pagination
                 layout="prev, pager, next"
                 :page-size="pagesize"
                 @current-change="currentChange"
@@ -63,7 +63,7 @@
                 :pager-count="5"
                 v-if="FavoriteLength>1"
                 background
-              ></el-pagination>
+              ></Pagination>
               <!-- 分页结束 -->
             </div>
           </div>
@@ -79,9 +79,17 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Form as ElForm, Input, Row, Col, Card, Pagination, Button } from 'element-ui';
 @Component({
   components: {
-    accountHeader: () => import('@/components/hkTasteBusiness/mobile/account/accountHeader.vue')
+    accountHeader: () => import('@/components/hkTasteBusiness/mobile/account/accountHeader.vue'),
+    ElForm,
+    Input,
+    Row,
+    Col,
+    Card,
+    Pagination,
+    Button
   }
 })
 export default class InsMyFavorite extends Vue {

@@ -1,35 +1,26 @@
 <template>
   <div class="home" v-cloak>
-    <HomeBanner :page="'Home'" />
-    <HkPromotion />
-    <HkBranch />
-    <HkLiveBox v-if="FrontE.version !== 1" />
-
-    <div class="activity" v-if="FrontE.version !== 1 && FrontE.calendar">
-      <div class="TitleBg"><div class="innerBox">{{$t('home.Activity')}}</div></div>
-      <ins-full-calendar />
-      <!-- <ins-calendar /> -->
-    </div>
-
-    <InsBaiduMap :lng="113.090191" :lat="22.601079" markText="markText" v-if="AreaCode === 'CN'" />
-
-    <div class="map-main googleMap" v-else>
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3690.524633715289!2d114.15097431550411!3d22.333810985306158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x340400ad2b69d883%3A0x7c2d810e7fef31f0!2sIntimex+Business+Solutions+Co.%2C+Ltd.!5e0!3m2!1sen!2shk!4v1476954339617" width="100%" height="500" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+    <HomeBanner :initOptions="swiperOption" :page="'Home'" :initSwiper="true" class="banner" />
+    <div class="content-box">
+      <div class="content">
+        <HkPromotion />
+        <!-- <HkBranch /> -->
+        <HkLiveBox />
+        <!-- <HkMap /> -->
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import api from '@/sdk/api/Api.ts';
 @Component({
   components: {
-    HomeBanner: () => import('@/components/base/pc/InsBanner.vue'),
-    HkPromotion: () => import('@/components/hkTasteBusiness/pc/home/HkPromotion.vue'),
-    HkBranch: () => import('@/components/hkTasteBusiness/pc/home/HkBranch.vue'),
-    HkLiveBox: () => import('@/components/hkTasteBusiness/pc/home/HkLiveBox.vue'),
-    InsFullCalendar: () => import('@/components/business/pc/home/InsFullCalendar.vue'),
-    InsCalendar: () => import('@/components/business/pc/home/InsCalendar.vue'),
-    InsBaiduMap: () => import('@/components/business/pc/promotion/InsBaiduMap.vue')
+    HomeBanner: () => import(/* webpackChunkName: "home" */ '@/components/base/pc/InsBanner.vue'),
+    HkPromotion: () => import(/* webpackChunkName: "home" */ '@/components/hkTasteBusiness/pc/home/HkPromotion.vue'),
+    HkBranch: () => import(/* webpackChunkName: "home" */ '@/components/hkTasteBusiness/pc/home/HkBranch.vue'),
+    HkLiveBox: () => import(/* webpackChunkName: "home" */ '@/components/hkTasteBusiness/pc/home/HkLiveBox.vue')
   }
 })
 export default class InsHome extends Vue {
@@ -42,31 +33,43 @@ export default class InsHome extends Vue {
       clickable: true
     }
   };
-
-  get AreaCode () {
-    return localStorage.getItem('AreaCode') || '';
+  mounted () {
+    api
+      .getData(1, 1)
+      .then((res: any) => {
+        var _this = this;
+        this.$HiddenLayer();
+      })
+      .catch((err: any) => {
+        // 请求失败后的处理函数
+        console.log(err);
+      });
   }
-
-  mounted () { }
+  created () {
+    // let keywords = document.createElement('meta');
+    // keywords.setAttribute('name', 'keywords');
+    // keywords.setAttribute('content', require('../../sdk/common/SeoData').seoItem['home'].keyword);
+    // document.head.appendChild(keywords);
+    // let description = document.createElement('meta');
+    // description.setAttribute('name', 'description');
+    // description.setAttribute('content', require('../../sdk/common/SeoData').seoItem['home'].description);
+    // document.head.appendChild(description);
+    // document.dispatchEvent(new Event('render-event'));
+  }
 }
 </script>
 
 <style lang="less" scoped>
+.content{
+  width: 1200px;
+  margin:0 auto;
+  overflow: hidden;
+}
 v-cloak{
   display: none;
 }
-
-/deep/ .banner {
-  .swiper-pagination-bullet{
-    width: 12px!important;
-    height: 12px!important;
-    background: #fff;
-    opacity: 1;
-  }
-
-  .swiper-pagination-bullet-active{
-    background: #666666!important;
-  }
+.mainbanner {
+  height: 200px;
 }
 
 .about-main {
@@ -389,38 +392,8 @@ v-cloak{
     }
   }
 }
-
-.activity {
-  margin: 100px auto;
-
-  .TitleBg{
-    width: 500px;
-    height: 70px;
-    border:1px solid #4d4d4d;
-    margin: 0 auto;
-    padding: 10px;
-    margin-bottom: 100px;
-    .innerBox{
-      width: 100%;
-      height: 100%;
-      background:#4d4d4d;
-      color: #FFF;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      font-weight: 700;
-      font-family: 'Arial';
-    }
-  }
-}
-
-.ins-fullCalendar {
-  width: 50%;
-  margin: 0 auto;
-}
-
-.ins-calendar {
-  margin: 50px auto;
+.content-box{
+  background: url(/images/pc/pc_background.jpg) no-repeat center center;
+  background-size: cover;
 }
 </style>

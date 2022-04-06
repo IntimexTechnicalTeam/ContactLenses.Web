@@ -7,9 +7,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+// import { Menu } from 'element-ui';
 @Component({
   components: {
     menuItem: () => import('@/components/base/mobile/InsMenuItem.vue')
+    // Menu
   }
 })
 export default class InsElMenu extends Vue {
@@ -37,4 +39,13 @@ export default class InsElMenu extends Vue {
 </script>
 
 <style scoped lang="less">
+/* .footer-menu{
+  > ul{
+    > li{
+      width: 100%;
+      text-align: center;
+      background-color: #429cd8;
+    }
+  }
+} */
 </style>

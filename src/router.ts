@@ -62,6 +62,12 @@ export const pRoutes = [
         component: () =>
           import(/* webpackChunkName: "product" */ './views/pc/InsProductCat.vue')
       },
+      /* {
+        path: '/product/orderlist',
+        name: 'orderList',
+        component: () =>
+          import('./views/pc/InsOrderList.vue')
+      }, */
       {
         path: '/cms/content/:id',
         name: 'cmsContent',
@@ -76,14 +82,6 @@ export const pRoutes = [
         component: () =>
           import(
             /* webpackChunkName: "cms" */ './components/business/pc/cms/InsCatDetail.vue'
-          )
-      },
-      {
-        path: '/cms/search/:key',
-        name: 'cmsSearch',
-        component: () =>
-          import(
-            /* webpackChunkName: "cms" */ './views/pc/CmsSearch.vue'
           )
       },
       {
@@ -330,38 +328,6 @@ export const pRoutes = [
         path: 'admin',
         name: 'admin',
         component: () => import(/* webpackChunkName: "main" */ '@/views/pc/InsAdmin.vue')
-      },
-      {
-        path: '/event/list/:date',
-        name: 'eventList',
-        component: () =>
-          import(
-          /* webpackChunkName: "rnp" */ './views/pc/eventList.vue'
-          )
-      },
-      {
-        path: '/event/detail/:id',
-        name: 'eventDetail',
-        component: () =>
-          import(
-          /* webpackChunkName: "rnp" */ './views/pc/eventDetail.vue'
-          )
-      },
-      {
-        path: '/photo/album',
-        name: 'photoAlbum',
-        component: () =>
-          import(
-          /* webpackChunkName: "rnp" */ './views/pc/photoAlbum.vue'
-          )
-      },
-      {
-        path: '/photo/list/:id',
-        name: 'photoList',
-        component: () =>
-          import(
-          /* webpackChunkName: "rnp" */ './views/pc/photoListN.vue'
-          )
       }
     ]
   }
@@ -640,14 +606,6 @@ export const mRoutes = [
           )
       },
       {
-        path: '/cms/search/:key',
-        name: 'cmsSearch',
-        component: () =>
-          import(
-            /* webpackChunkName: "cms" */ './views/mobile/CmsSearch.vue'
-          )
-      },
-      {
         path: '/regnpay/form/:id',
         name: 'regnpay',
         component: () =>
@@ -683,38 +641,6 @@ export const mRoutes = [
         path: 'admin',
         name: 'admin',
         component: () => import(/* webpackChunkName: "main" */ '@/views/mobile/InsAdmin.vue')
-      },
-      {
-        path: '/event/list/:date',
-        name: 'eventList',
-        component: () =>
-          import(
-          /* webpackChunkName: "rnp" */ './views/mobile/eventList.vue'
-          )
-      },
-      {
-        path: '/event/detail/:id',
-        name: 'eventDetail',
-        component: () =>
-          import(
-          /* webpackChunkName: "rnp" */ './views/mobile/eventDetail.vue'
-          )
-      },
-      {
-        path: '/photo/album',
-        name: 'photoAlbum',
-        component: () =>
-          import(
-          /* webpackChunkName: "rnp" */ './views/mobile/photoAlbum.vue'
-          )
-      },
-      {
-        path: '/photo/list/:id',
-        name: 'photoList',
-        component: () =>
-          import(
-          /* webpackChunkName: "rnp" */ './views/mobile/photoListN.vue'
-          )
       }
     ]
   }

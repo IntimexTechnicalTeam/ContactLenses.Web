@@ -25,6 +25,11 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { MemberResult } from '@/model/memberResult';
+import sdk from '@/sdk/InstoreSdk';
+import Cookie from 'js-cookie';
+import lang from '@/lang';
+import storage from '@/sdk/common/Storage';
 @Component({
   components: {
     accountHeader: () => import('@/components/hkTasteBusiness/mobile/account/accountHeader.vue')

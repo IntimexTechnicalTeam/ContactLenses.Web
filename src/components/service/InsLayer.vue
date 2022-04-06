@@ -8,6 +8,8 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { Loading } from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 import { FrontE } from '@/sdk/common/SysConst';
 import lang from '@/lang';
 import storage from '@/sdk/common/Storage';
@@ -21,7 +23,7 @@ export default class InsLayer extends Vue {
   }
   mounted () {
     if (this.$refs.layerbody) {
-      this.$loading({
+      Loading.service({
         target: this.$refs.layerbody as any,
         text: '',
         fullscreen: false,
@@ -32,7 +34,7 @@ export default class InsLayer extends Vue {
   }
   updated () {
     if (this.$refs.layerbody) {
-      this.$loading({
+      Loading.service({
         target: this.$refs.layerbody as any,
         text: '',
         fullscreen: false,

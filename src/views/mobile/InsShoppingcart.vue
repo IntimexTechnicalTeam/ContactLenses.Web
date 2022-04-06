@@ -46,7 +46,7 @@
         </div>
         <div>
           <div class="shoppingcart_total1">{{Currency.Code}} {{(totalAmount) | PriceFormat}}</div>
-          <div class="shoppingcart_total"><el-button type="success" @click="submit"><span style="font-size:1.5rem;">{{ $t('Shoppingcart.Checkout') }}</span></el-button></div>
+          <div class="shoppingcart_total"><ElButton type="success" @click="submit"><span style="font-size:1.5rem;">{{ $t('Shoppingcart.Checkout') }}</span></ElButton></div>
         </div>
     <!--main-content-->
   </div>
@@ -56,6 +56,7 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import ShopCart from '../../model/ShopCart';
 import ShopCartItem from '../../model/shopCartItem';
 import Currency from '../../model/currency';
+import { Button as ElButton } from 'element-ui';
 class Update {
   itemId!: string;
   qty!: number;
@@ -64,7 +65,7 @@ class Update {
     this.qty = qty;
   }
 }
-@Component
+@Component({ components: { ElButton } })
 export default class InsShoppingcart extends Vue {
   private ShoppingCart:ShopCart = new ShopCart();
   prodcutSrc: string = require('@/assets/Images/270_b.jpg');

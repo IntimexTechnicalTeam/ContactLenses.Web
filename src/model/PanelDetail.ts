@@ -1,4 +1,5 @@
 import ProductAttr from './ProductAttr';
+import LensMaterial from './LensMaterial';
 import Button from './Button';
 import Currency from './currency';
 import Catelog from './catalog';
@@ -69,6 +70,13 @@ export default class PanelDetail {
   }
   public set AttrList (v : ProductAttr[][]) {
     this._AttrList = v;
+  }
+  private _LensMaterial : LensMaterial[];
+  public get LensMaterial () : LensMaterial[] {
+    return this._LensMaterial;
+  }
+  public set LensMaterial (v : LensMaterial[]) {
+    this._LensMaterial = v;
   }
   private _ExtAttrList : ProductAttr[][];
   public get ExtAttrList () : ProductAttr[][] {
@@ -190,7 +198,7 @@ export default class PanelDetail {
     this._Permission = v;
   }
   public button: Button[] = [];
-  constructor (sku:string, name:string, code:string, Permission:string, listPrice:number, salePrice:number, DefaultListPrice:number, DefaultSalePrice:number, _YoutubeLink:string, overView:string = '', attrList:ProductAttr[][] = [], extAttrList:ProductAttr[][] = [], productStatus:number = 3, currency:Currency = new Currency(), DefaultCurrency:Currency = new Currency(), _MaxPurQty:number = 0, _MinPurQty:number = 1, _CatId = 0, _CatalogTree = [], _IsFavorite:boolean = false, _Score:number = 0, _UnitInfo:object = {}, _SoldOutAttrComboList = [], _AttrComboImgList = []) {
+  constructor (sku:string, name:string, code:string, Permission:string, listPrice:number, salePrice:number, DefaultListPrice:number, DefaultSalePrice:number, _YoutubeLink:string, overView:string = '', attrList:ProductAttr[][] = [], _LensMaterial = [], extAttrList:ProductAttr[][] = [], productStatus:number = 3, currency:Currency = new Currency(), DefaultCurrency:Currency = new Currency(), _MaxPurQty:number = 0, _MinPurQty:number = 1, _CatId = 0, _CatalogTree = [], _IsFavorite:boolean = false, _Score:number = 0, _UnitInfo:object = {}, _SoldOutAttrComboList = [], _AttrComboImgList = []) {
     this._Name = name;
     this._Sku = sku;
     this._Code = code;
@@ -199,6 +207,7 @@ export default class PanelDetail {
     this._ProductStatus = productStatus;
     this._OverView = overView;
     this._AttrList = attrList;
+    this._LensMaterial = _LensMaterial;
     this._ExtAttrList = extAttrList;
     this._Currency = currency;
     this._MaxPurQty = _MaxPurQty;

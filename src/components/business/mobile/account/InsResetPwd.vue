@@ -9,7 +9,7 @@
             </div>
             <div class="login-register-handle">
               <div class="btn-box">
-                <el-button type="primary" @click="submitForm('pwdForm')" class="resetBtn">{{$t('DeliveryAddress.SaveBtn')}}</el-button>
+                <ElButton type="primary" @click="submitForm('pwdForm')" class="resetBtn">{{$t('DeliveryAddress.SaveBtn')}}</ElButton>
               </div>
             </div>
           </InsForm>
@@ -21,8 +21,12 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import sdk from '@/sdk/InstoreSdk';
 import InsInput2 from '@/components/base/pc/InsInput2.vue';
 import InsForm from '@/components/base/pc/InsForm.vue';
+import { Input as ElInput, Message, FormItem, Button as ElButton } from 'element-ui';
 @Component({
   components: {
+    ElInput,
+    FormItem,
+    ElButton,
     InsForm,
     InsInput2
   }

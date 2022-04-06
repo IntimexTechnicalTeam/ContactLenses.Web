@@ -8,6 +8,7 @@ import InsLayer from '@/components/service/InsLayer.vue';
 import InstoreSdk from './sdk/InstoreSdk';
 import InLogin from '@/components/business/pc/login/InsLoginFlow.ts';
 import storage from '@/sdk/common/Storage';
+import message from 'element-ui/lib/message';
 import language from '@/lang/index';
 import { FrontE } from '@/sdk/common/SysConst';
 import { LoadScript } from './assets/scripts/common';
@@ -221,6 +222,7 @@ const util = {
     Vue.prototype.Reload = function () {
       window.location.reload();
     };
+    Vue.prototype.$message = message;
     Vue.prototype.priceFormat = function (num) {
       let r = Number(num);
       if (isNaN(r)) return 0;

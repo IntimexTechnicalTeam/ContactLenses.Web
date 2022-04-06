@@ -31,6 +31,8 @@
 <script lang="ts">
 import { Vue, Prop, Component, Watch } from 'vue-property-decorator';
 import YouWouldLike from '@/model/youWouldLike';
+import { Loading } from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 @Component({
   components: {
     InsProductList: () => import('@/components/hkTasteBusiness/mobile/product/HkProductWindow.vue'),
@@ -129,7 +131,7 @@ export default class InsProductSearch extends Vue {
 
   loading (e) {
     if (this.tips) {
-      this.LoadingInstance = this.$loading({
+      this.LoadingInstance = Loading.service({
         target: this.$refs.load as any,
         fullscreen: false,
         // spinner: 'el-icon-loading',

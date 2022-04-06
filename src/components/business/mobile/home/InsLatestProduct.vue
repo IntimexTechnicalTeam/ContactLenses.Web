@@ -21,6 +21,7 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Message } from 'element-ui';
 import InsProductWindow from '@/components/business/mobile/product/InsProductWindow.vue';
 import YouWouldLike from '@/model/youWouldLike';
 @Component({ components: { InsProductWindow } })
@@ -38,16 +39,16 @@ export default class InsLatesProduct extends Vue {
     this.$Api.shoppingCart.LoadData().then((result) => {
       console.log(result, '购物车信息');
       this.$store.dispatch('setShopCart', result);
-      this.$message({
+      Message({
         message: '成功加入购物车',
-        type: 'success',
+        type: 'success', 
         customClass: 'messageboxNoraml'
       });
     }).catch((err: any) => {
       console.log(err);
-      this.$message({
+      Message({
         message: '加入购物车失败！',
-        type: 'error',
+        type: 'error', 
         customClass: 'messageboxNoraml'
       });
     });

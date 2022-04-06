@@ -1,7 +1,7 @@
 <template>
   <div class="liveBox mobileVersion" style="text-align: center;">
     <div class="liveBox_in">
-        <div class="TitleBg"><div class="innerBox">{{$t('Cms.WhatNews')}}</div></div>
+        <!-- <div class="TitleBg"><div class="innerBox">{{$t('Cms.WhatNews')}}</div></div> -->
         <div class="videoBg">
             <p v-html="videoContent.Body"></p>
         </div>
@@ -79,7 +79,6 @@ export default class PkLiveBox extends Vue {
 .liveBox {
     width: 100%;
     padding-bottom: 4.5rem;
-    background: url('/images/mobile/Mobile-index_04.jpg') no-repeat center center;
     background-size: 100% 100%;
     .liveBox_in{
     width: 90%;

@@ -1,20 +1,20 @@
 <template>
-  <div class="DeliveryAddress" v-cloak>
+  <div class="MemberPc deliverPc" v-cloak>
     <!--main-content-->
-    <div class="mid-box">
+    <div id="main-content">
       <div class="favorite-box order-box">
         <div class="delivery-address member-delivery-address">
           <div class="select-delivery-address">
             <div class="select-delivery-box">
-            <el-row
+            <Row
              v-for="(one,index) in addressList"
              :key="index"
              class="select-delivery-one"
              >
                   <!-- 列表循环开始 -->
-                    <el-card shadow="hover" class="OrderCard">
+                    <Card shadow="hover" class="OrderCard">
 
-                      <el-col :xs="18" :md="18" class="left-part">
+                      <ElCol :xs="18" :md="18" class="left-part">
                          <p>
                             <span>{{$t('Register.UserFirstName')}}:</span>
                             <span>{{one.FirstName}}&nbsp;{{one.LastName}}</span>
@@ -27,26 +27,26 @@
                             <span>{{$t('DeliveryAddress.Address')}} :</span>
                             <span>{{one.Address}}</span>
                           </p>
-                      </el-col>
-                      <el-col :xs="3" :md="3" class="right-part">
-                        <el-button
+                      </ElCol>
+                      <ElCol :xs="3" :md="3" class="right-part">
+                        <ElButton
                          type="warning"
                           round
                           icon="el-icon-document"
                           class="OrderBtn"
                           v-on:click="editAddr(index,'#addressPos')"
-                        >{{$t('DeliveryAddress.EditBtn')}}</el-button>
+                        >{{$t('DeliveryAddress.EditBtn')}}</ElButton>
 
-                        <el-button
+                        <ElButton
                           type="info"
                           round
                           icon="el-icon-delete"
                            class="red-btn"
                            v-on:click="removeAddr(one.DeliveryId)"
-                        >{{$t('DeliveryAddress.DeleteBtn')}}</el-button>
-                      </el-col>
-                    </el-card>
-             </el-row>
+                        >{{$t('DeliveryAddress.DeleteBtn')}}</ElButton>
+                      </ElCol>
+                    </Card>
+             </Row>
             </div>
           </div>
           <div class="new-address">
@@ -54,111 +54,111 @@
             <p class="common-title">{{$t('DeliveryAddress.AddDeliveryAddress')}}</p>
             <div class="clear"></div>
             <div  class="MemberInfoMain">
-                <el-form
+                <ElForm
                   :model="AddForm"
                   status-icon
                   :rules="newaddress"
-                  :label-position="'right'"
-                  label-width="220px"
                   ref="AddForm"
                   class="login-form"
                 >
                 <input type="hidden" id="editDeliveryId" runat="server" />
-                <el-form-item :label="$t('DeliveryAddress.AddFirstName')" prop="FirstName">
-                  <el-input
+                <FormItem :label="$t('DeliveryAddress.AddFirstName')" prop="FirstName">
+                  <ElInput
                     v-model="AddForm.FirstName"
                     prefix-icon="el-icon-user"
                     :placeholder="$t('DeliveryAddress.AddFirstName')"
                     clearable
-                  ></el-input>
-                </el-form-item>
+                  ></ElInput>
+                </FormItem>
 
-                 <el-form-item :label="$t('DeliveryAddress.AddLastName')" prop="LastName">
-                  <el-input
+                 <FormItem :label="$t('DeliveryAddress.AddLastName')" prop="LastName">
+                  <ElInput
                     v-model="AddForm.LastName"
                     prefix-icon="el-icon-user"
                     :placeholder="$t('DeliveryAddress.AddLastName')"
                     clearable
-                  ></el-input>
-                </el-form-item>
+                  ></ElInput>
+                </FormItem>
 
-                <el-form-item :label="$t('DeliveryAddress.PostalCode')" prop="PostalCode">
-                  <el-input
+                <FormItem :label="$t('DeliveryAddress.PostalCode')" prop="PostalCode">
+                  <ElInput
                     v-model="AddForm.PostalCode"
                     prefix-icon="el-icon-tickets"
                     :placeholder="$t('DeliveryAddress.PostalCode')"
                     clearable
-                  ></el-input>
-                </el-form-item>
-                <el-form-item :label="$t('DeliveryAddress.Mobile')" prop="Mobile">
-                  <el-input
+                  ></ElInput>
+                </FormItem>
+                <FormItem :label="$t('DeliveryAddress.Mobile')" prop="Mobile">
+                  <ElInput
                     v-model="AddForm.Mobile"
                     prefix-icon="el-icon-phone"
                     :placeholder="$t('DeliveryAddress.Mobile')"
                     clearable
-                  ></el-input>
-                </el-form-item>
-                <el-form-item :label="$t('DeliveryAddress.Area')" prop="CountryId">
-                  <el-select
+                  ></ElInput>
+                </FormItem>
+                <FormItem :label="$t('DeliveryAddress.Area')" prop="CountryId">
+                  <Select
                     v-model="AddForm.CountryId"
                      value-key="Id"
                     :placeholder="$t('DeliveryAddress.Area')"
+                    style="width: 100%;"
                     v-on:change="selectCountry($event)"
                   >
-                    <el-option
+                    <Option
                     :label="country.Name"
                     v-for="(country,index) in countryList"
                     :key="index"
                      v-bind:value="(country.Id).toString()"
-                    ></el-option>
+                    ></Option>
 
-                  </el-select>
-                </el-form-item>
+                  </Select>
+                </FormItem>
                 <div v-show="provinceList.length>0">
-                  <el-form-item :label="$t('DeliveryAddress.Province')" prop="Province">
-                    <el-select
+                  <FormItem :label="$t('DeliveryAddress.Province')" prop="Province">
+                    <Select
                       v-model="AddForm.Province"
                       :placeholder="$t('DeliveryAddress.Province')"
+                      style="width: 100%;"
                       value-key="Id"
                     >
-                      <el-option
+                      <Option
                       v-bind:value="(province.Id).toString()"
                       v-for="(province,index) in provinceList"
                       :label="province.Name"
                       :key="index"
-                      ></el-option>
+                      ></Option>
 
-                    </el-select>
-                </el-form-item>
+                    </Select>
+                </FormItem>
                 </div>
-                  <el-form-item :label="$t('DeliveryAddress.Address')" prop="Address">
-                  <el-input
+                  <FormItem :label="$t('DeliveryAddress.Address')" prop="Address">
+                  <ElInput
                     v-model="AddForm.Address"
                     prefix-icon="el-icon-location-outline"
                     :placeholder="$t('DeliveryAddress.Address')"
                     clearable
-                  ></el-input>
-                </el-form-item>
+                  ></ElInput>
+                </FormItem>
 
-                <el-form-item :label="$t('DeliveryAddress.DefaultAddress')" >
-                  <el-select
+                <FormItem :label="$t('DeliveryAddress.DefaultAddress')" >
+                  <Select
                     :placeholder="$t('DeliveryAddress.DefaultAddress')"
+                    style="width: 100%;"
                     v-model="AddForm.Default"
                   >
-                  <el-option :label="$t('DeliveryAddress.YesBtn')" :value="true"></el-option>
-                  <el-option :label="$t('DeliveryAddress.NoBtn')" :value="false"></el-option>
-                  </el-select>
-                </el-form-item>
+                  <Option :label="$t('DeliveryAddress.YesBtn')" :value="true"></Option>
+                  <Option :label="$t('DeliveryAddress.NoBtn')" :value="false"></Option>
+                  </Select>
+                </FormItem>
 
-                 <el-form-item>
-                    <el-button
-                      round
+                 <FormItem>
+                    <ElButton
                       type="primary"
-                      class="submit-btn"
                       @click="saveAddress('AddForm')"
-                    >{{$t('DeliveryAddress.SaveBtn')}}</el-button>
-                  </el-form-item>
-               </el-form>
+                      style="margin-top: 10px;"
+                    >{{$t('DeliveryAddress.SaveBtn')}}</ElButton>
+                  </FormItem>
+               </ElForm>
             </div>
           </div>
         </div>
@@ -169,15 +169,24 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Form, Input, Row, Col, Button, Select, Option, FormItem, Card } from 'element-ui';
 import Address from '@/model/address';
 import { Country } from '@/model/country';
 import { Province } from '@/model/province';
 import lang from '@/lang';
 import storage from '@/sdk/common/Storage';
-import { ElForm } from 'element-ui/types/form';
 @Component({
   components: {
-    accountHeader: () => import('@/components/hkTasteBusiness/pc/account/accountHeader.vue')
+    accountHeader: () => import('@/components/hkTasteBusiness/pc/account/accountHeader.vue'),
+    Form,
+    Input,
+    Row,
+    Col,
+    Button,
+    Select,
+    Option,
+    FormItem,
+    Card
   }
 })
 export default class InsDeliveryAddress extends Vue {
@@ -338,10 +347,9 @@ export default class InsDeliveryAddress extends Vue {
     if (!this.AddForm.Province) {
       this.AddForm.Province = '0';
     }
-    (this.$refs.AddForm as ElForm).validate(valid => {
+    (this.$refs.AddForm as Form).validate(valid => {
       if (valid) {
         this.$Api.delivery.saveAddress(this.AddForm).then((result) => {
-          (this.$refs['AddForm'] as ElForm).resetFields();
           this.getAddress();
           this.AddForm = {
             FirstName: '',
@@ -376,132 +384,248 @@ export default class InsDeliveryAddress extends Vue {
   }
 }
 </script>
-
+<style lang="less">
+.messageBoxMobile{
+      z-index: 100000!important;
+}
+#container .el-form-item__content{
+  text-align: left!important;
+}
+.MemberPc .input_outer{
+  padding-top: 0px!important;
+}
+.MemberPc .MemberInfoMain .el-button--primary span{
+  font-size: 20px!important;
+}
+.MemberPc  .el-checkbox__label{
+    display: inline-block;
+    padding-left: 10px;
+    line-height: 19px;
+    font-size: 14px;
+    word-break: break-all;
+    vertical-align: text-top;
+}
+.MemberPc .el-checkbox, .el-checkbox__input{
+  white-space: unset;
+}
+.MemberPc .el-form{
+  width: 80%;
+  margin: 0 auto;
+}
+.MemberPc .el-form .el-input{
+  width: 60%!important;
+}
+.MemberPc .el-form .el-select{
+  width: 60%!important;
+}
+.MemberPc .el-form .el-select .el-input{
+    width: 100%!important;
+}
+.MemberPc .el-form .el-radio__input.is-checked .el-radio__inner{
+    border-color: #333333;
+    background: #333333;
+}
+.MemberPc .el-form .el-form-item__label{
+    width: 25%;
+    float: left;
+    color: #161616 !important;
+    padding: 0px;
+    padding-right: 10px;
+    line-height: inherit;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+}
+.MemberPc .el-select .el-input__suffix{
+  background: #333333;
+  color:#fff;
+  right: 0px!important;
+}
+.MemberPc .el-select .el-input .el-select__caret{
+  color:#fff!important;
+}
+.deliverPc .el-form-item__error{
+      left: 25%!important;
+}
+.deliverPc .el-form-item{
+  margin-bottom: 20px;
+}
+</style>
 <style lang="less" scoped>
-.DeliveryAddress {
-  .mid-box {
-    padding: 50px;
+.OrderBtn{
+  background: @base_color!important;
+  border:@base_color!important;
+}
+/*我的最爱*/
+#main-content {
+  width: 1200px;
+  margin: 0 auto;
+  margin-top: 60px;
+}
+/*checkout第三步*/
+.new-address {
+  margin-top: 40px;
+  background: #FFF;
+}
+.new-address-content {
+    width: 100%;
+    margin: 0 auto;
+    padding-bottom: 50px;
+    padding-top: 50px;
+}
 
-    .select-delivery-address {
-      .select-delivery-one {
-        box-sizing: border-box;
-        padding: 10px;
+.login-register-title {
+     float: left;
+    width: 300px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    color: #fff;
+    font-size: 23px;
+    background-color: @primary_color;
+}
 
-        .OrderCard {
-          display: inline-block;
-          width: 100%;
-          padding-top: 20px;
-          padding-bottom: 20px;
-        }
+.login-form {
+  margin-top: 40px;
+}
 
-        .left-part {
-          float: left;
-          width: 63%;
-          text-align: left;
+.login-register-content .form-group .input-text:focus {
+  border-bottom: 1px solid #88bd43;
+}
 
-          p {
-            margin-top: 15px;
+.btn-box {
+  margin-top: 55px;
+  display: flex;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -mz-flex;
+  justify-content: space-between;
+}
 
-            &:nth-of-type(1) {
-              margin-top: 0;
-            }
+.btn-box .login-btn {
+  background-color: #000;
+  border: 1px solid #000;
+}
 
-            span {
-              display: inline-block;
-              font-size: 16px;
-              color: #999;
+.btn-box .fb-login-btn {
+  background-color: #365899;
+  border: 1px solid #365899;
+}
 
-              &:nth-of-type(1) {
-                width: 20%;
-                margin-right: 2%;
-                text-align: right;
-              }
+.new-address .common-title {
+    color: #fff;
+    font-size: 22px;
+    background-color: #666;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    width: 100%;
+    text-indent: 15px;
+}
 
-              &:nth-of-type(2) {
-                color: #666;
-                width: 77%;
-              }
-            }
-          }
-        }
+.select-delivery-address .common-title {
+  font-size: 22px;
+  color: #666;
+  margin-bottom: 30px;
+}
 
-        .right-part {
-          float: right;
+.select-delivery-one {
+  box-sizing: border-box;
+  padding: 10px;
 
-          .el-button {
-            width: 100%;
-            margin-bottom: 20px;
-            margin-left: 0;
+}
+.OrderCard {
+  display: inline-block;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
 
-            &.OrderBtn {
-              background: @base_color!important;
-              border:@base_color!important;
-            }
-          }
-        }
-      }
-    }
+.el-button.is-round {
+  width: 100%;
+  margin-bottom: 20px;
+  margin-left: 0px;
+}
+.select-delivery-one .left-part {
+  float: left;
+  width: 63%;
+  text-align: left;
+}
 
-    .new-address {
-      margin-top: 40px;
-      background: #FFF;
+.select-delivery-one .right-part {
+  float: right;
+}
 
-      .common-title {
-        color: #fff;
-        font-size: 22px;
-        background-color: #666;
-        height: 40px;
-        line-height: 40px;
-        cursor: pointer;
-        width: 100%;
-        text-indent: 15px;
-      }
+.select-delivery-one .left-part p {
+  margin-top: 15px;
+}
 
-      /deep/ .el-form {
-        width: 60%;
-        margin: 50px auto;
+.select-delivery-one .left-part p:nth-of-type(1) {
+  margin-top: 0;
+}
 
-        .el-form-item {
-          margin-left: -100px;
+.select-delivery-one .left-part p span {
+  display: inline-block;
+  font-size: 16px;
+  color: #999;
+}
 
-          .el-select {
-            width: 100%;
-          }
-        }
+.select-delivery-one .left-part p span:nth-of-type(1) {
+  width: 20%;
+  margin-right: 2%;
+  text-align: right;
+}
+.pickupName,
+.pickupPhone {
+  line-height: 30px;
+  text-indent: 10px;
+  width: 100%;
+}
+.select-delivery-one .left-part p span:nth-of-type(2) {
+  color: #666;
+  width: 77%;
+}
 
-        .el-radio__input {
-          .el-radio__inner {
-            outline: none;
-            box-shadow: none;
-
-            &:hover {
-              border-color: #333333;
-            }
-          }
-          
-          &.is-checked .el-radio__inner {
-            border-color: #333333;
-            background: #333333;
-          }
-
-          &.is-checked+.el-radio__label {
-            color: #333333;
-          }
-        }
-
-        .submit-btn {
-          display: block;
-          width: 100%;
-          background: #333;
-          border: none;
-          margin-top: 20px;
-
-          > span {
-            font-size: 20px;
-          }
-        }
-      }
-    }
-  }
+.btn-box .el-button {
+    background: #333333;
+    border: none;
+    display: block;
+    border-radius: 20px;
+    width: 60%;
+    float: left;
+    margin-left: 25%;
+}
+#container {
+  width: 100%;
+  display: inline-block;
+}
+.MemberInfoMain {
+  width: 1200px;
+  margin: 0 auto;
+  padding-top: 2.5%;
+}
+.MemberInfoMain .el-tabs__nav {
+  height: 50px;
+  line-height: 50px;
+}
+.MemberInfoMain .el-tabs__content {
+  text-align: left;
+}
+.MemberInfoMain .el-input__icon {
+  font-size: 16px;
+}
+.MemberInfoMain .el-form-item__content,.MemberInfoMain .el-form-item__label-wrap{
+  margin-left: 0px!important;
+}
+.MemberInfoMain .el-button{
+    background: #333333;
+    border: none;
+    display: block;
+    border-radius: 20px;
+    width: 60%;
+    float: right;
+    margin-right: 15%;
 }
 </style>

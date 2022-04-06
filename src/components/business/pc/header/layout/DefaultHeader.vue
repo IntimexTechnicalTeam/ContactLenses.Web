@@ -2,49 +2,53 @@
 <div class="header-layout"  v-cloak>
   <div class="headerBg">
       <div class="headerTop">
-          <div class="inner">
-              <!-- 搜索框开始 -->
-              <div class="search-box">
-                <el-select v-model="searchType" placeholder="please select">
+        <!-- logo开始 -->
+        <div class="logoBox" v-if="!showInFixed">
+            <a href="/"><img src="/images/pc/Tailor-logo.png"></a>
+        </div>
+        <!-- logo结束 -->
+        <div class="inner">
+            <!-- 会员登陆开始 -->
+            <InsLogin class="memberLogin"></InsLogin>
+            <!-- 会员登陆结束 -->
+            <!-- 切换语言开始 -->
+            <!-- <CodeSelect v-if="FrontE.version !== 1" /> -->
+            <div class="langBox">
+                <InsLangSwitch></InsLangSwitch>
+            </div>
+            <!-- 切换语言结束 -->
+            <!-- 购物车开始 -->
+              <Shopcart class="memberLogin"></Shopcart>
+              <!-- 购物车结束 -->
+            <!-- 搜索框开始 -->
+            <div class="search-box">
+                <!-- <el-select v-model="searchType" placeholder="please select">
                   <el-option
                     v-for="item in typeList"
                     :key="item.value"
                     :label="item.label"
                     :value="item.value">
                   </el-option>
-                </el-select>
+                </el-select> -->
 
                 <div class="search-input">
                   <input type="text" v-model="key" @keyup.enter="search" />
                   <span class="searchBtn" @click="search"></span>
                 </div>
-              </div>
-              <!--搜索框结束  -->
-              <!-- 会员登陆开始 -->
-              <InsLogin class="memberLogin"></InsLogin>
-              <!-- 我的喜爱开始 -->
-              <div class="cartTop">
-                  <router-link to="/account/MyFavorite">
-                          <i class="handle-icon fav-icon"></i>
-                  </router-link>
-              </div>
-              <!-- 我的喜爱结束 -->
-              <!-- 购物车开始 -->
-              <Shopcart class="memberLogin"></Shopcart>
-              <!-- 购物车结束 -->
-              <!-- 切换语言开始 -->
-              <CodeSelect v-if="FrontE.version !== 1" />
-              <div class="langBox">
-                  <InsLangSwitch></InsLangSwitch>
-              </div>
-              <!-- 切换语言结束 -->
-          </div>
+            </div>
+            <!--搜索框结束  -->
+            <!-- 我的喜爱开始 -->
+            <!-- <div class="cartTop">
+                <router-link to="/account/MyFavorite">
+                        <i class="handle-icon fav-icon"></i>
+                </router-link>
+            </div> -->
+            <!-- 我的喜爱结束 -->
+            <!-- 购物车开始 -->
+            <!-- <Shopcart class="memberLogin"></Shopcart> -->
+            <!-- 购物车结束 -->
+        </div>
       </div>
-      <!-- logo开始 -->
-      <div class="logoBox" v-if="!showInFixed">
-          <a href="/"><img src="/images/pc/pcindex_09.png"></a>
-      </div>
-      <!-- logo结束 -->
       <!-- 导航栏开始 -->
       <Menu />
       <!-- 导航栏结束 -->
@@ -180,11 +184,31 @@ export default class DefaultHeader extends Vue {
 .headerTop{
     width: 1200px;
     margin: 0 auto;
-    padding-top: 10px;
-    height: 34px;
+    padding-top: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
 }
-.headerTop .inner{
-    float: right;
+.logoBox{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logoBox a{
+    display: flex;
+}
+.logoBox a img{
+   width: 100%;
+}
+
+.inner{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .memberLogin{
@@ -192,7 +216,9 @@ export default class DefaultHeader extends Vue {
     float: left;
     align-items: center;
     position: relative;
-    margin-right: 10px;
+}
+.handle-one{
+  margin-right: 30px;
 }
 .cartTop{
     display: flex;
@@ -207,7 +233,6 @@ export default class DefaultHeader extends Vue {
     align-items: center;
     position: relative;
     justify-content: center;
-    margin-left: 20px;
 }
 .langBox a{
    color:#323232;
@@ -225,20 +250,6 @@ export default class DefaultHeader extends Vue {
     background: #808080;
     color:#FFF!important;
 }
-.logoBox{
-    width: 100%;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 40px;
-}
-.logoBox a{
-    display: flex;
-}
-.logoBox a img{
-   width: 100%;
-}
 
 .fav-icon {
     background: url('/images/pc/pcindex_08.png') no-repeat center center;
@@ -251,20 +262,25 @@ export default class DefaultHeader extends Vue {
 // new css
 .header-layout {
  /deep/ .header_menu {
-   width: 1200px;
+   width: 1464px;
    margin: 30px auto 10px;
    > ul {
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
+     align-items: center;
      > li {
-      float: left;
+      /* float: left; */
       display: flex;
       align-items: center;
       position: relative;
-      width: 14.28%;
+      /* width: 14.28%; */
+      width:244px;
 
       > a {
         width: 100%;
         font-size: 20px;
-        color: #666666;
+        color: #000;
         display: block;
         text-align: center;
         font-weight: 500;
@@ -274,7 +290,7 @@ export default class DefaultHeader extends Vue {
 
       &:hover{
         > a  {
-          background: @base_color;
+          background: #429cd8;
           color: #fff;
         }
       }
@@ -286,7 +302,7 @@ export default class DefaultHeader extends Vue {
           border: 0;
           > a {
             font-size: 18px;
-            color: #666666;
+            color: #429cd8;
             display: block;
             text-align: center;
             font-weight: 500;
@@ -296,7 +312,7 @@ export default class DefaultHeader extends Vue {
 
           &:hover{
              > a {
-              background: @base_color;
+              background: #429cd8;
               color: #fff;
             }
           }
@@ -327,12 +343,14 @@ export default class DefaultHeader extends Vue {
   }
 
   .search-input {
-    border: 1px solid #808080;
     width: 340px;
     display: flex;
     float: left;
     align-items: center;
     margin-right: 20px;
+    border-radius: 14px;
+    box-shadow: 5px 5px 8px #c1c1c1;
+    padding: 5px 0;
 
     > input {
       width: 305px;
@@ -342,15 +360,16 @@ export default class DefaultHeader extends Vue {
       line-height: 30px;
       text-indent: 10px;
       outline: 0;
+      border-right: 2px solid #0e559c;
     }
 
     .searchBtn{
-      width: 25px;
+      width: 50px;
       height: 25px;
       display: inline-block;
       background: url('/images/pc/pcindex_03.png') no-repeat center center;
-      background-size: 100%;
       cursor: pointer;
+      background-size: 55%;
     }
   }
 }

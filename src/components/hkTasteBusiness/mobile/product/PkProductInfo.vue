@@ -7,7 +7,7 @@
     <div class="in_panel_product">
         <div class="ProductCode">
             <div class="leftpart">{{$t("product.ProductCode")}}:{{panelDetail.Code}}</div>
-            <div class="rightpart" v-if="FrontE.version !== 1">{{$t("Action.Share")}}:<HkProductShare></HkProductShare></div>
+            <div class="rightpart">{{$t("Action.Share")}}:<HkProductShare></HkProductShare></div>
         </div>
     </div>
 </div>

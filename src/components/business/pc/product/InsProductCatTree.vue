@@ -6,21 +6,23 @@
 
       <template v-if="direction === 'column'">
         <p class="Title" v-if="title">{{title}}</p>
-        <el-tree icon-class="el-icon-arrow-right" :default-expand-all="expandAll" :data="catalogs" node-key="Id" :show-checkbox="treeType === 1 ? false : showCheckbox" :props="props" @node-click="handleNodeClick" @check="changeCSelect" :check-strictly="!multiSelect" ref="tree"></el-tree>
+        <Tree icon-class="el-icon-caret-right" :default-expand-all="expandAll" :data="catalogs" node-key="Id" :show-checkbox="treeType === 1 ? false : showCheckbox" :props="props" @node-click="handleNodeClick" @check="changeCSelect" :check-strictly="!multiSelect" ref="tree"></Tree>
       </template>
     </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Tree } from 'element-ui';
 @Component({
   components: {
-    InsSelectSearch: () => import(/* webpackChunkName: "product" */ '@/components/base/pc/InsSelectSearch.vue')
+    InsSelectSearch: () => import(/* webpackChunkName: "product" */ '@/components/base/pc/InsSelectSearch.vue'),
+    Tree
   }
 })
 export default class InsProductCatTree extends Vue {
     @Prop({ default: '' }) private title!: string;
     @Prop({ default: 'column' }) private direction!: string;
-    @Prop({ default: 0 }) private treeType!: number; // 树形控件类型区分（0->产品属性，1->菜单）
+    @Prop({ default: 1 }) private treeType!: number; // 树形控件类型区分（0->产品属性，1->菜单）
     @Prop({ default: true }) private multiSelect!: boolean; // 是否为多选
     @Prop({ default: false }) private showCheckbox!: boolean; // 节点是否可被选择
     @Prop({ default: false }) private expandAll!: boolean; // 是否默认展开所有节点
@@ -104,4 +106,79 @@ export default class InsProductCatTree extends Vue {
         padding: 20px 10px;
     }
 }
+</style>
+<style lang="less">
+  .productmenutree{
+    width:170px;
+    .productMenuTree{
+      border:none;
+      margin-top: 40px;
+      .el-tree{
+        background: none;
+        color:#fff;
+        .el-tree-node{
+          text-align: center;
+          width:100%;
+          .el-tree-node__content{
+            width: 100%;
+              height:45px;
+            .el-tree-node__expand-icon{
+              color:#0e559c;
+              position: relative;
+              left: 70%;
+            }
+            .el-tree-node__label{
+              font-size: 18px;
+              color:#0e559c;
+              display: block;
+              width: 100%;
+              text-align: center;
+              font-weight: bold;
+              height:45px;
+              line-height: 45px;
+            }
+          }
+          .el-tree-node__children{
+            .el-tree-node__expand-icon{
+              color: #fff;
+              display: none;
+            }
+          }
+        }
+        .is-expanded{
+          .el-tree-node__children{
+            .el-tree-node__expand-icon{
+              display: none;
+            }
+            .el-tree-node__content{
+              padding-left: 0!important;
+            }
+          }
+        }
+        .el-tree-node__content:hover{
+          border-radius: 15px;
+          overflow: hidden;
+        }
+        .el-tree-node__content:hover .el-tree-node__expand-icon{
+          color:#fff;
+        }
+        .el-tree-node:focus>.el-tree-node__content{
+          background-color: #0e559c;
+          border-radius: 15px;
+        }
+        .el-tree-node:focus>.el-tree-node__content>.el-tree-node__label{
+          color: #fff;
+        }
+        .el-tree-node:focus>.el-tree-node__content>.el-tree-node__expand-icon{
+          color: #fff;
+        }
+        .el-tree-node__content:hover{
+          background-color: #0e559c;
+          .el-tree-node__label{
+            color:#fff;
+          }
+        }
+      }
+    }
+  }
 </style>

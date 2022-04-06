@@ -1,26 +1,26 @@
 <template>
 <div class="recommend_warrper">
-    <el-button type="success" @click="openDialog">{{$t('product.Recommend')}}</el-button>
-    <el-dialog :title="$t('product.Recommend')" :visible.sync="dialogFormVisible" style="width: 1024px;margin: 0 auto;" @close="beforeClose">
+    <ElButton type="success" @click="openDialog">{{$t('product.Recommend')}}</ElButton>
+    <Dialog :title="$t('product.Recommend')" :visible.sync="dialogFormVisible" style="width: 1024px;margin: 0 auto;" @close="beforeClose">
         <Form :model="form" :rules="rules" ref="form">
-            <el-form-item :label="$t('Register.UserEmail')" :label-width="formLabelWidth" prop="ToEmail">
-                <el-input v-model="form.ToEmail" auto-complete="off"></el-input>
-            </el-form-item>
-            <el-form-item :label="$t('product.Remarks')" :label-width="formLabelWidth" prop="Remark">
-                <el-input type="textarea" v-model="form.Remark"></el-input>
-            </el-form-item>
+            <FormItem :label="$t('Register.UserEmail')" :label-width="formLabelWidth" prop="ToEmail">
+                <ElInput v-model="form.ToEmail" auto-complete="off"></ElInput>
+            </FormItem>
+            <FormItem :label="$t('product.Remarks')" :label-width="formLabelWidth" prop="Remark">
+                <ElInput type="textarea" v-model="form.Remark"></ElInput>
+            </FormItem>
         </Form>
         <div slot="footer" class="dialog-footer">
-            <el-button @click="cancel">{{$t('Message.Cancel')}}</el-button>
-            <el-button type="primary" @click="confirm(form.ToEmail, form.Remark)">{{$t('Message.Confirm')}}</el-button>
+            <ElButton @click="cancel">{{$t('Message.Cancel')}}</ElButton>
+            <ElButton type="primary" @click="confirm(form.ToEmail, form.Remark)">{{$t('Message.Confirm')}}</ElButton>
         </div>
-    </el-dialog>
+    </Dialog>
 </div>
 </template>
 <script lang="ts">
-import { ElForm } from 'element-ui/types/form';
 import { Vue, Prop, Component, Watch } from 'vue-property-decorator';
-@Component
+import { Form, FormItem, Input as ElInput, Button as ElButton, Dialog } from 'element-ui';
+@Component({ components: { Form, FormItem, ElInput, ElButton, Dialog } })
 export default class Recommend extends Vue {
       @Prop() private Skus!:string;
       private rules = {
@@ -69,7 +69,7 @@ export default class Recommend extends Vue {
         this.dialogFormVisible = true;
       }
       beforeClose () {
-        (this.$refs['form'] as ElForm).resetFields();
+        (this.$refs['form'] as Form).resetFields();
       }
 }
 </script>

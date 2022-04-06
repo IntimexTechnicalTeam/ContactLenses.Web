@@ -7,7 +7,7 @@
                         <div class="comments_date">{{item.CommentDate}}</div>
                     </div>
                     <div class="rightside">
-                        <el-rate disabled v-model="item.Sorce" :colors="['#ccc', '#F7BA2A', '#FF9900']"></el-rate>
+                        <Rate disabled v-model="item.Sorce" :colors="['#ccc', '#F7BA2A', '#FF9900']"></Rate>
                     </div>
                 <div class="clear"></div>
                 <div class="bottomside">
@@ -40,7 +40,8 @@
 import { Vue, Prop, Component, Watch } from 'vue-property-decorator';
 // import Comments from '@/model/Comments';
 import inPage from '@/components/base/pc/InsPage.vue';
-@Component({ components: { inPage } })
+import { Rate } from 'element-ui';
+@Component({ components: { inPage, Rate } })
 export default class InsComments extends Vue {
     @Prop() ProductSku!: string;
     private CurrentPage: number = 1;

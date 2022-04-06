@@ -132,6 +132,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import api from '@/sdk/api/Api.ts';
 import Menu from '@/components/business/pc/header/InsMenu.vue';
 import logo from '@/components/base/pc/InsLogo.vue';
 @Component({
@@ -722,7 +723,8 @@ v-cloak{
   -webkit-transform: translateX(-50%);
   width: 100%;
   background-color: #eee;
-  padding-top: 90px;
+  /* padding-top: 90px; */
+  margin-top: 50px;
   padding-bottom: 120px;
   z-index: 1;
 }

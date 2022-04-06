@@ -14,7 +14,7 @@
        </div>
        <div class="ItemOne">
             <p class="leftside">{{$t('Message.Image')}}：</p>
-            <el-upload
+            <Upload
               :action="uploadUrl"
               list-type="picture-card"
               :limit="1"
@@ -22,7 +22,7 @@
               :on-success="handleSuccess"
               :headers="{Authorization: 'bearer ' + token}">
               <i class="el-icon-plus"></i>
-            </el-upload>
+            </Upload>
        </div>
         <div style="text-align:left;padding-left:200px;">
             <input type="button" :value="$t('DeliveryAddress.SaveBtn')" v-on:click="save" class="SaveBtn" />
@@ -33,10 +33,12 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Upload } from 'element-ui';
 import Cookie from 'js-cookie';
 @Component({
   components: {
-    accountHeader: () => import('@/components/hkTasteBusiness/pc/account/accountHeader.vue')
+    accountHeader: () => import('@/components/hkTasteBusiness/pc/account/accountHeader.vue'),
+    Upload
   }
 })
 export default class InsOrderEvidence extends Vue {

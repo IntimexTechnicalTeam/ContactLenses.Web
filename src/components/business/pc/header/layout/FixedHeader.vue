@@ -45,7 +45,7 @@ export default class FixedHeader extends Vue {
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 999;
+  z-index: 9999;
   box-shadow: 0 0 10px 0 #d4d5d1;
 }
 

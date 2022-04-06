@@ -2,8 +2,8 @@
   <div>
     <div class="coupon_warpper" v-if="promotionCode === ''">
                 <div v-if="checkouting">
-                    <el-checkbox-group size="mini" v-model="delete1">
-                        <el-checkbox v-for="(item,index) in coupon" :key="index" :min="0" :max="100" :label="item.Id" :disabled="item.canCheck" @change="checkChange(item)">
+                    <CheckboxGroup size="mini" v-model="delete1">
+                        <Checkbox v-for="(item,index) in coupon" :key="index" :min="0" :max="100" :label="item.Id" :disabled="item.canCheck" @change="checkChange(item)">
                           <div class="coupon_item">
                             <div class="coupon_title">{{item.Title}}</div>
                             <div class="coupon_remark">{{item.Remark}}</div>
@@ -14,12 +14,12 @@
                               <span class="valid_content">valid</span>
                             </div>
                           </div>
-                        </el-checkbox>
-                    </el-checkbox-group>
+                        </Checkbox>
+                    </CheckboxGroup>
                 </div>
                 <div v-else>
-                 <el-checkbox-group size="mini" v-model="delete1">
-                    <el-checkbox v-for="(item,index) in selectedCoupon" :key="index" :min="0" :max="100" :label="item.Id" :disabled="true" >
+                 <CheckboxGroup size="mini" v-model="delete1">
+                    <Checkbox v-for="(item,index) in selectedCoupon" :key="index" :min="0" :max="100" :label="item.Id" :disabled="true" >
                       <div class="coupon_item">
                         <div class="coupon_title">{{item.Title}}</div>
                         <div class="coupon_remark">{{item.Remark}}</div>
@@ -30,8 +30,8 @@
                           <span class="valid_content">valid</span>
                         </div>
                       </div>
-                    </el-checkbox>
-                 </el-checkbox-group>
+                    </Checkbox>
+                 </CheckboxGroup>
                 </div>
     </div>
     <div v-else class="candp">{{this.$t('CheckOut.CandP')}}</div>
@@ -41,7 +41,8 @@
 <script lang="ts">
 import { Vue, Prop, Component, Watch } from 'vue-property-decorator';
 import Coupon from '@/model/coupon';
-@Component
+import { CheckboxGroup, Checkbox } from 'element-ui';
+@Component({ components: { CheckboxGroup, Checkbox } })
 export default class InsCoupon extends Vue {
   private coupon:Coupon[] = [];
   private delete1: any = [];

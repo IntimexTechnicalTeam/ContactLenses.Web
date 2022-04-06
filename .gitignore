@@ -24,3 +24,4 @@ public/images/mobile/mobileIndex_29 - 副本 - 副本.png
 public/images/pc/index_32 - 副本.png
 src/model/unitInfo.ts
 src/sdk/common/ApiAndAdminServer.ts
+node_modules

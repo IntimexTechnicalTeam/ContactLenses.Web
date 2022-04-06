@@ -4,13 +4,13 @@
         <div class="input_label">{{label}}<span v-if="must" style="color:red;">*</span></div>
         <div class="input_main">
             <input v-model="Value" @blur="blur" v-if="type!=='date'" class="my_input" :type="type === 'password' ? 'password' : 'text'">
-            <el-date-picker
+            <DatePicker
               v-else
               v-model="Value"
               type="date"
               value-format="yyyy-MM-dd"
               placeholder="">
-            </el-date-picker>
+            </DatePicker>
         </div>
     </div>
     <transition-group name="iefade">
@@ -22,7 +22,8 @@
 
 <script lang="ts">
 import { Vue, Prop, Component, Watch } from 'vue-property-decorator';
-@Component
+import { DatePicker } from 'element-ui';
+@Component({ components: { DatePicker } })
 export default class InsInput extends Vue {
     @Prop({ default: 'label' }) private label!:string;
     @Prop({ default: '' }) private value!:string;

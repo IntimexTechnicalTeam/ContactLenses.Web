@@ -18,8 +18,8 @@
       </div>
     </div>
     <!-- <div class="in_panel_footer">
-      <el-button @click="click('addToCart')" class="actionBtn addToCart" :loading="Loading">{{$t('product.addToCart')}}</el-button>
-      <el-button @click="click('buy')" class="actionBtn buyNow" :loading="buyLoading">{{$t('product.buy')}}</el-button>
+      <ElButton @click="click('addToCart')" class="actionBtn addToCart" :loading="Loading">{{$t('product.addToCart')}}</ElButton>
+      <ElButton @click="click('buy')" class="actionBtn buyNow" :loading="buyLoading">{{$t('product.buy')}}</ElButton>
     </div> -->
     <div class="in_panel_footer" v-if="panelDetail.ProductStatus!==-1 && panelDetail.SoldOutAttrComboList.length===0">
       <inButton
@@ -47,7 +47,8 @@ import inButton from '@/components/base/pc/InsButton.vue';
 import inPrices from '@/components/base/mobile/InsPrices.vue';
 import HkProductShare from '@/components/hkTasteBusiness/mobile/product/HkProductShare.vue';
 import ShopCartItem from '@/model/shopCartItem';
-@Component({ components: { inNum, inSelect, inButton, inPrices, HkProductShare } })
+import { Button as ElButton } from 'element-ui';
+@Component({ components: { inNum, inSelect, inButton, inPrices, HkProductShare, ElButton } })
 export default class InsPanel extends Vue {
   @Prop() private readonly width!: string;
   @Prop() private readonly height!: string;

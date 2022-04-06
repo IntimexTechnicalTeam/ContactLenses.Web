@@ -1,39 +1,64 @@
 <template>
-  <div class="banner" v-loading="loading">
-    <swiper class="swiper-no-swiping" :options="swiperOption" ref="mySwiper" v-if="bannerList.length">
-      <!-- slides -->
-      <swiper-slide v-for="(slide, index) in bannerList" :key="index">
-        <a :href="slide.Url || 'javascript:;'" :target="slide.Url ? slide.IsRedirect ? '_blank' : '_self' : ''">
-          <img :src="slide.Image" />
-        </a>
-      </swiper-slide>
-      <!-- Optional controls -->
-      <div class="swiper-pagination" slot="pagination" v-if="swiperOption.pagination"></div>
-      <div class="swiper-button-prev" slot="button-prev" v-if="swiperOption.navigation && swiperOption.navigation.nextEl"></div>
-      <div class="swiper-button-next" slot="button-next" v-if="swiperOption.navigation && swiperOption.navigation.prevEl"></div>
-    </swiper>
+  <div class="banner pcbanner">
+    <transition name="slide">
+      <div key="1" v-if="!waiting" style="display:flex;">
+        <div class="swiperbg">
+          <swiper :options="swiperOption" v-if="initSwiper">
+            <!-- slides -->
+            <swiperSlide
+              v-for="(slide, index) in bannerList"
+              :key="index"
+              class="swiper-container-indexMain"
+            >
+            <a :href="slide.Url || 'javascript:;'" :target="slide.Url ? '_blank' : '_self'">
+              <img :src="slide.Image"/>
+            </a>
+            </swiperSlide>
+            <!-- Optional controls -->
+            <div class="swiper-pagination" slot="pagination"></div>
+            <div
+              class="swiper-button-prev"
+              slot="button-prev"
+              v-if="swiperOption.navigation && swiperOption.navigation.nextEl"
+            ></div>
+            <div
+              class="swiper-button-next"
+              slot="button-next"
+              v-if="swiperOption.navigation && swiperOption.navigation.prevEl"
+            ></div>
+          </swiper>
+        </div>
+      </div>
+    </transition>
+    <transition name="slide">
+      <div class="faker" key="2" v-if="waiting" v-loading="true">
+      </div>
+    </transition>
   </div>
 </template>
-
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-
+import sdk from '@/sdk/InstoreSdk';
+import { Message, Loading } from 'element-ui';
+import animate from 'animate.css';
+import { swiper, swiperSlide } from 'vue-awesome-swiper/src';
 // banner组件通信传值设定：
 // initOptions：swiper初始化相关参数
-// page：getBanner的传参
+// page：getHeaderBanner的传参
+// initSwiper：是否为轮播，默认非轮播
 // data：自定义banner数据
 
-@Component
-export default class Banner extends Vue {
+@Component({ components: { swiper, swiperSlide } })
+export default class InsBanner extends Vue {
+  private waiting: boolean = true;
   @Prop() private initOptions!: object;
   @Prop({ default: '' }) private page!: string;
+  @Prop({ default: false }) private initSwiper!: boolean;
   @Prop() private data!: any;
-
-  private bannerList: object[] = [];
-
-  private loading = true; // 數據加載過渡效果
-
-  swiperOption: any = {
+  bannerList: object[] = [];
+  bannerImg: string = '';
+  isload: boolean = false;
+  swiperOption: object = {
     autoplay: {
       disableOnInteraction: false
     },
@@ -41,25 +66,26 @@ export default class Banner extends Vue {
       el: '.swiper-pagination',
       clickable: true
     },
-    // navigation: {
-    //   nextEl: '.swiper-button-next',
-    //   prevEl: '.swiper-button-prev'
-    // },
-    autoHeight: true, // 高度随内容变化
-    observer: true, // 修改swiper自己或子元素时，自动初始化swiper
-    observeParents: true // 修改swiper的父元素时，自动初始化swiper
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev'
+    }
   };
+
+  // get swiper () {
+  //   return this.$refs.mySwiper.swiper;
+  // }
 
   getBanner () {
     let _this = this;
-
-    this.$Api.promotion.getHeaderBanner(this.page).then(
+    sdk.api.promotion.getHeaderBanner(this.page).then(
       function (data) {
         _this.bannerList = data;
-        _this.loading = false;
+        _this.bannerImg = data[0].Image;
+        _this.waiting = false;
       },
       function (data) {
-        _this.$message({
+        Message({
           message: data,
           type: 'error'
         });
@@ -71,30 +97,65 @@ export default class Banner extends Vue {
     if (this.initOptions) {
       this.swiperOption = this.initOptions;
     }
+  }
 
-    // banner有分頁器或前進後退按鈕時，僅有單張圖片的情況下允許滑动切換效果
-    if (this.swiperOption.pagination || this.swiperOption.navigation) {
-      this.swiperOption.noSwiping = false;
-    }
-
+  mounted () {
+    // if (this.bannerList.length === 1) {
+    // 只有1个slide，swiper会失效且隐藏切换按钮
+    // this.swiper.destroy(false);
+    // }
     if (this.page) {
       this.getBanner();
     } else {
-      this.bannerList = this.data;
-      this.loading = false;
+      this.waiting = false;
+      if (this.initSwiper) {
+        this.bannerList = this.data;
+        this.isload = true;
+      } else {
+        if (typeof this.data === 'object') {
+          this.bannerImg = this.data[0].Image;
+        } else if (typeof this.data === 'string') {
+          this.bannerImg = this.data;
+        }
+      }
     }
   }
 }
 </script>
+<style lang="less">
+.pcbanner .swiper-pagination-bullet{
+  width: 12px!important;
+  height: 12px!important;
+  border:1px solid #fff;
+  background: none;
+  opacity: 1;
+}
+.pcbanner .swiper-pagination-bullet-active{
+  background: #fff!important;
+}
+</style>
+<style scoped lang="less">
+.pcbanner{
+  min-width: 1200px;
+  min-height: 28.7vw;
+}
+.swiperbg {
+  width: 100%;
+  background:#FFF;
+  background-size: 100% 100%;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
 
-<style lang="less" scoped>
-.banner {
-  min-height: 30vw;
-
-  .swiper-slide {
-    img {
-      width: 100%;
-    }
-  }
+}
+.swiper-container-indexMain img {
+  width: 100%;
+  height: 500px;
+  min-height: 28.7vw;
+}
+.faker{
+  width: 100vw;
+  height: 28.7vw;
+  background-color: aliceblue;
 }
 </style>

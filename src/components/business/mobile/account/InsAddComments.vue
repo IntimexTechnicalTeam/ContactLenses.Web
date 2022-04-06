@@ -1,7 +1,7 @@
 <template>
     <div class="add_comments_warpper mobileComments">
         <div class="product_and_comments" >
-            <el-card :body-style="{ padding: '0px',margin:'0px' }" shadow="never" v-for="(item,index) in commentsList" :key="index">
+            <Card :body-style="{ padding: '0px',margin:'0px' }" shadow="never" v-for="(item,index) in commentsList" :key="index">
                 <div class="warpper">
                     <div class="product">
                         <div class="product_img"><img :src="item.ProductImg"></div>
@@ -14,7 +14,7 @@
                     </div>
                     <div class="comments">
                         <div class="upload_warpper">
-                            <el-upload
+                            <Upload
                             :action="uploadUrl"
                             list-type="picture-card"
                             :file-list="files[index]"
@@ -23,32 +23,33 @@
                             :on-remove="remove(index)"
                             :headers="{Authorization: 'bearer ' + token}">
                             <i class="el-icon-plus"></i>
-                            </el-upload>
+                            </Upload>
                         </div>
                         <div class="rate_warpper">
                             <div class="block">
-                            <el-rate
+                            <Rate
                                 v-model="item.Sorce"
                                 :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
-                            </el-rate>
+                            </Rate>
                             </div>
                         </div>
                         <div class="content_warpper">
-                            <el-input type="textarea" v-model="item.Content" :rows="4"></el-input>
+                            <ElInput type="textarea" v-model="item.Content" :rows="4"></ElInput>
                         </div>
                     </div>
                 </div>
-                <div class="btn_warpper"><el-button type="primary" @click="save(index)">{{$t('Message.Save')}}</el-button></div>
-            </el-card>
-            <div class="btn_warpper"><el-button type="primary" @click="saveAll">{{$t('Message.SaveAll')}}</el-button></div>
+                <div class="btn_warpper"><Button type="primary" @click="save(index)">{{$t('Message.Save')}}</Button></div>
+            </Card>
+            <div class="btn_warpper"><Button type="primary" @click="saveAll">{{$t('Message.SaveAll')}}</Button></div>
         </div>
     </div>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import Comments, { CommentImages } from '@/model/Comments';
+import { Card, Upload, Rate, Input as ElInput, Button } from 'element-ui';
 import Cookie from 'js-cookie';
-@Component
+@Component({ components: { Card, Upload, Rate, ElInput, Button } })
 export default class InsAddComments extends Vue {
     private commentsList: Comments[] = [];
     // private fileList: any[] = [];

@@ -130,31 +130,29 @@ input[type="number"]{
   line-height: 2.3rem;
   cursor: pointer;
   display: inline-block;
-  border: 1px solid @base_color;
   margin:0 .5rem;
   padding: 0 1rem;
 }
 .noClick{
-  color: black;
-  background: white;
+  color: #fff;
+  background: #0e559c;
   cursor: not-allowed;
-  border: 1px solid @base_color;
   line-height: 2.3rem;
   display: inline-block;
 }
 .selectPage{
-    border: 1px solid @base_color;
+    border: 1px solid #0e559c;
     height: 2.45rem;
     padding: 0 0.5rem;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     outline: 0;
-    background: @base_color;
-    color: #fff;
+    color: #0e559c;
 }
 .pageing{
   letter-spacing: 2px;
   margin-left: 5px;
   margin-right: 5px;
+  color: #0e559c;
 }
 </style>

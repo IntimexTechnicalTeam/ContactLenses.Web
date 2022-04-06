@@ -1,11 +1,11 @@
 <template>
-<div id="footer">
-  <div class="footbg">
+<div id="footer" class="footer">
+  <!-- <div class="footbg">
     <div class="footerMain">
-        <!-- <div class="footerTop">
+        <div class="footerTop">
             <p><span>whatsapp&nbsp;{{$t('home.Order')}}</span><b>6289 1789</b></p>
             <p><span>{{$t('home.TelSearch')}}</span><b>6289 1789</b></p>
-        </div> -->
+        </div>
         <div class="footerBotttom">
           <div class="footerLeft">
               <ul v-for="(n,index) in footerMenus" :key="index">
@@ -31,22 +31,17 @@
                <img src="/images/pc/footerlogo.png">
                </a>
               </span>
-             <span>
-                <p>{{$t('home.Weaccept')}}</p>
-                <div>
-                  <img src="/images/payment/stripe.png" />
-                  <img src="/images/payment/WeChatPay.png" />
-                  <img src="/images/payment/Alipay.png" />
-                  <img src="/images/payment/PayMe.png" />
-                  <img src="/images/payment/Paypal.png" />
-                  <img src="/images/payment/MasterCard.png" />
-                  <img src="/images/payment/VISA.png" />
-                </div>
+             <span>{{$t('home.Weaccept')}}
+               <img src="/images/pc/pcindex_15.png" />
               </span>
             </p>
         </div>
     </div>
-  </div>
+  </div> -->
+  <span class="currentyear">Copyright © {{currentYear}} | Dreimlens Corporation LTD | All Rights Reserved Eventizer
+    <a href="https://eventizer.hk/" target="_blank">
+    </a>
+  </span>
 </div>
 
 </template>
@@ -88,18 +83,17 @@ export default class InsFooterLayout1 extends Vue {
 
 <style scoped lang="less">
 /* 底部文件 */
-.footbg{
-    // background: #9f2f34 url('/images/pc/pcindex_05.jpg') no-repeat center bottom;
-    // background-size: cover;
+/* .footbg{
+    background: #9f2f34 url('/images/pc/pcindex_05.jpg') no-repeat center bottom;
+    background-size: cover;
     width: 100%;
     display: inline-block;
     padding-bottom: 10px;
-    // min-height: 278px;
-    background-color: #4d4d4d;
+    min-height: 278px;
 }
 .footerMain{
     width: 1200px;
-    margin: 30px auto 0;
+    margin: 0 auto;
 }
 .footerTop{
     text-align: center;
@@ -190,26 +184,29 @@ export default class InsFooterLayout1 extends Vue {
   display: inline-block;
   vertical-align:middle;
   padding-left: 10px;
-  height: 35px;
 }
 .footercopy span:nth-child(2){
   float: right;
   width: 40%;
-  // text-align: center;
+  text-align: center;
   color:#FFF;
   font-size: 14px;
-  display: flex;
-
-  >p{
-    flex-shrink: 0;
-    margin-top: 10px;
-    margin-right: 10px;
-  }
 }
 .footercopy span:nth-child(2) img{
   display: inline-block;
   vertical-align:middle;
-  margin: 5px;
-  height: 32px;
+  padding-left: 10px;
+} */
+.footer{
+  width:900px;
+  margin:0 auto;
+  border-top: 2px solid #429cd8;
+  text-align: center;
+  padding: 20px 0;
+}
+.currentyear{
+  color:#1254a0;
+  font-weight: bold;
+  font-size: 18px;
 }
 </style>

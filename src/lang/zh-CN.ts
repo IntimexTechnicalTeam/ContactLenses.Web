@@ -89,6 +89,7 @@ export default {
     RequiredText: '請檢查你的答案'
   },
   product: {
+    ProductName: '產品名稱',
     ProductCode: '產品代碼',
     buy: '立即購買',
     addToCart: '加入購物車',
@@ -120,6 +121,7 @@ export default {
     successInRemoving: '取消成功',
     ProductIntro: '產品介紹',
     ProductIntroduction: '產品介紹',
+    ProductInformation: '產品信息',
     UserReviews: '用戶評論',
     OwnerReply: '商家回復',
     per: '第',
@@ -133,7 +135,14 @@ export default {
     Total: '共',
     Product: '個產品',
     ProductDetail: '產品詳情',
-    Unit: '單位'
+    Unit: '單位',
+    Products: '產品',
+    Parameter: '參數',
+    Quantity: '數量',
+    Delete: '刪除',
+    EditDetails: '編輯',
+    RequiredInformation: '所需信息',
+    WearerName: '佩戴者姓名/號碼'
   },
   Shoppingcart: {
     ShoppingcartTitle: '購物車',
@@ -203,7 +212,8 @@ export default {
     RegisterWelcome: '恭喜您,註冊成功',
     RegisterTips: '此電子郵箱尚未註冊，請立即註冊成為會員！',
     Login: '跳轉登錄',
-    Registerdigital: '長度由8至20個字符 須包含大寫字母、小寫字母及數字'
+    Registerdigital: '長度由8至20個字符 須包含大寫字母、小寫字母及數字',
+    promotionalinformation: '我同意接收推廣資訊'
   },
   DeliveryAddress: {
     AddAddress: '新增地址',
@@ -295,7 +305,7 @@ export default {
     EnterUserLastName: '請輸入姓氏',
     EnterUserPhone: '請輸入聯係電話',
     EnterUserBrithDate: '請選擇出生日期',
-    EnterOldPwd: '請輸入舊密碼',
+    EnterOldPwd: '請輸入密碼',
     EnterNewPwd: '請輸入新密碼',
     EnterComfirmPwd: '請輸入確認密碼',
     EnterNumber: '請輸入數字',
@@ -452,7 +462,8 @@ export default {
     BusinessHours: '營業時間',
     BigSales: '熱銷產品',
     WhatNews: '今期流行',
-    PlsChoose: '請點擊選擇您想要查看的內容：'
+    PlsChoose: '請點擊選擇您想要查看的內容：',
+    ProductList: '產品列表'
   },
   promotion: {
     enter: '點擊進入',
@@ -480,10 +491,7 @@ export default {
     Resetall: '重置所有篩選條件',
     PriceHL: '價格從高至低',
     PriceLH: '價格從低至高',
-    Thatsall: '以上是全部內容',
-    Search: '搜索結果',
-    ReadMore: '更多',
-    Activity: '活動'
+    Thatsall: '以上是全部內容'
   },
   Action: {
     ReturnHomePage: '返回首頁',
@@ -523,15 +531,5 @@ export default {
     NoContent: '暫無內容',
     NoComments: '暫無評論',
     NoProduct: '對不起，沒有你搜索的產品'
-  },
-  photo: {
-    photo: '相片',
-    BackText: '返回上一級'
-  },
-  Calendar: {
-    KnowMore: '了解更多',
-    Time: '時間',
-    Venue: '地點',
-    NoEvent: '今日暫無活動'
   }
 };

@@ -89,6 +89,7 @@ export default {
     SISA: 'Succeed in Choosing'
   },
   product: {
+    ProductName: 'Product Name',
     ProductCode: 'Product Code',
     buy: 'Buy Now',
     addToCart: 'Add To Cart',
@@ -120,6 +121,7 @@ export default {
     successInRemoving: 'succeed in removing',
     ProductIntro: 'Product introduction',
     ProductIntroduction: 'Product introduction',
+    ProductInformation: 'Product Information',
     UserReviews: 'User reviews',
     OwnerReply: 'Owner reply',
     per: 'page',
@@ -133,7 +135,14 @@ export default {
     Total: 'Total',
     Product: 'Products',
     ProductDetail: 'Product Detail',
-    Unit: 'Unit'
+    Unit: 'Unit',
+    Products: 'Products',
+    Parameter: 'Parameter',
+    Quantity: 'Quantity',
+    Delete: 'Delete',
+    EditDetails: 'Edit Details',
+    RequiredInformation: 'Required Information',
+    WearerName: 'Wearer Name/number'
   },
   Shoppingcart: {
     ShoppingcartTitle: 'Shopping Cart ',
@@ -203,7 +212,8 @@ export default {
     RegisterWelcome: 'Congratulations on your successful registration',
     RegisterTips: 'This email address has not been registered, register to become a member immediately!',
     Login: 'Login now!',
-    Registerdigital: 'Length from 8 to 20 must contain uppercase letters, lowercase letters and numbers'
+    Registerdigital: 'Length from 8 to 20 must contain uppercase letters, lowercase letters and numbers',
+    promotionalinformation: 'I agree to receive promotional information'
   },
   DeliveryAddress: {
     AddAddress: 'Add address',
@@ -455,7 +465,8 @@ export default {
     BusinessHours: 'Business Hours',
     BigSales: 'BIG SALES',
     WhatNews: 'WHAT’S NEWS',
-    PlsChoose: 'Please click to select the content you want to view :'
+    PlsChoose: 'Please click to select the content you want to view :',
+    ProductList: 'ProductList'
   },
   promotion: {
     enter: 'enter',
@@ -483,10 +494,7 @@ export default {
     Resetall: 'Reset all filters',
     PriceHL: 'Price from high to low',
     PriceLH: 'Price from low  to high',
-    Thatsall: 'That is all',
-    Search: 'Search Results',
-    ReadMore: 'Read More',
-    Activity: 'Activity'
+    Thatsall: 'That is all'
   },
   Action: {
     ReturnHomePage: 'Return Homepage',
@@ -526,15 +534,5 @@ export default {
     NoContent: 'No Content',
     NoComments: 'No Comments',
     NoProduct: 'Sorry, there are no products you searched for'
-  },
-  photo: {
-    photo: 'photo',
-    BackText: 'Back to previous'
-  },
-  Calendar: {
-    KnowMore: 'Know More',
-    Time: 'Time',
-    Venue: 'Venue',
-    NoEvent: 'No activity today'
   }
 };

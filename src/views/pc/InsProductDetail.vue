@@ -10,22 +10,23 @@
   <div class="productDetail_container">
     <div class="productDetail_main">
       <inPreview style="width:50%" :imgList="ImgList" :pageNum="userAgent === 'mobile' ?  1 : 4" :ProductTitleName="ProductTitleName"></inPreview>
-      <div style="width:45%;margin-left:5%;float:right;">
+      <div style="width:30%;margin-left:5%;float:right;">
           <PkProductInfo :panelDetail.sync="PanelDetail"  :ProductSku="ProductCode" width="100%" :AddPrice="getNewsPrice" style="margin-top:4rem;margin-bottom: 2rem;"></PkProductInfo>
-          <div class="ProductRate"><el-rate  v-model="Score" disabled  disabled-void-color="#5f6548" disabled-void-icon-class="el-icon-star-off"></el-rate></div>
-          <PkProductDetailCate :source="ExtAttrList" :cateTree="CatalogTree"  width="100%" style="margin-top:2rem;"></PkProductDetailCate>
+          <!-- <div class="ProductRate"><Rate  v-model="Score" disabled  disabled-void-color="#5f6548" disabled-void-icon-class="el-icon-star-off"></Rate></div> -->
+          <!-- <PkProductDetailCate :source="ExtAttrList" :cateTree="CatalogTree"  width="100%" style="margin-top:2rem;"></PkProductDetailCate> -->
           <inPanel :panelDetail.sync="PanelDetail" :ProductSku="ProductCode" @getPrice="showPrice" width="100%"></inPanel>
       </div>
     </div>
-    <div class="tab_warpper">
+    <!-- <div class="tab_warpper">
       <div class="tab_header">
         <div class="detail_title" @click="IsDetail=true" v-bind:class="{isActive:IsDetail}">{{$t('product.ProductIntroduction')}}</div>
-        <div class="comment_title" @click="IsDetail=false" v-bind:class="{isActive:!IsDetail}" v-if="FrontE.version !== 1">{{$t('product.comments.title')}}</div>
+        <div class="comment_title" @click="IsDetail=false" v-bind:class="{isActive:!IsDetail}">{{$t('product.comments.title')}}</div>
       </div>
       <div class="product_detail" v-html="Tabs.Detail" v-show="IsDetail" v-if="Tabs.Detail!==''"></div>
       <div class="product_detail"  v-show="IsDetail" v-if="Tabs.Detail==''">{{$t('messageTips.NoContent')}}</div>
       <inComments :ProductSku="ProductCode" v-show="!IsDetail" style="background:#FFF;min-height: 300px;"></inComments>
-    </div>
+    </div> -->
+    <PkProductDetailCate :source="ExtAttrList" :cateTree="CatalogTree"  width="100%" style="margin-top:2rem;"></PkProductDetailCate>
   </div>
     <div class="commentsLine"></div>
     <div class="maincontent">
@@ -56,6 +57,7 @@ import inComments from '@/components/business/pc/product/InsComments.vue';
 import PkProductDetailCate from '@/components/hkTasteBusiness/pc/product/HkProductDetailCate.vue';
 import PkProductInfo from '@/components/hkTasteBusiness/pc/product/PkProductInfo.vue';
 import ProductListSwiper from '@/components/hkTasteBusiness/pc/product/HkProductListSwiper.vue';
+import { Rate } from 'element-ui';
 @Component({ components: {
   inPreview,
   inPanel,
@@ -65,7 +67,8 @@ import ProductListSwiper from '@/components/hkTasteBusiness/pc/product/HkProduct
   inProductUpOrDown,
   PkProductDetailCate,
   PkProductInfo,
-  ProductListSwiper
+  ProductListSwiper,
+  Rate
 } })
 export default class InsProductDetail extends Vue {
   private Slider: YouWouldLike[] = [];
@@ -247,7 +250,7 @@ export default class InsProductDetail extends Vue {
 .commentsLine{
     width: 100%;
     height: 1px;
-    background: #000;
+    /* background: #000; */
     margin-top: 100px;
 }
 .isActive{

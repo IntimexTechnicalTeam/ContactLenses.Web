@@ -9,30 +9,30 @@
           <div class="login-register-title">{{$t('Login.LoginTitle')}}</div>
           <div class="clear"></div>
         </div>
-        <el-form class="login-form" :model="ruleForm" status-icon :rules="rules" ref="ruleForm">
+        <ElForm class="login-form" :model="ruleForm" status-icon :rules="rules" ref="ruleForm">
           <div class="login-register-content">
             <!-- <p id="loginFailMsg"></p> -->
 
-              <el-form-item :label="$t('Register.UserEmail')" prop="username">
-                <el-input
+              <FormItem :label="$t('Register.UserEmail')" prop="username">
+                <ElInput
                  v-model="ruleForm.username"
                  prefix-icon="el-icon-message"
                  autocomplete="off"
                  :placeholder="$t('Register.UserEmail')"
                  style="width:65%!important"
-                 ></el-input>
-              </el-form-item>
+                 ></ElInput>
+              </FormItem>
               <div class="devide"></div>
-              <el-form-item :label="$t('Register.UserRegPassword')" prop="password">
-                <el-input
+              <FormItem :label="$t('Register.UserRegPassword')" prop="password">
+                <ElInput
                 type="password"
                 prefix-icon="el-icon-view"
                 v-model="ruleForm.password"
                 autocomplete="off"
                 :placeholder="$t('Register.UserRegPassword')"
                 style="width:65%!important"
-                ></el-input>
-              </el-form-item>
+                ></ElInput>
+              </FormItem>
 
           </div>
 
@@ -52,7 +52,7 @@
             <div class="clear"></div>
             <div class="btn-box">
               <!-- <a class="btn login-btn" v-on:click="signIn">{{$t('Login.LoginTitle')}}</a>   -->
-              <el-button type="primary" @click="submitForm('ruleForm')" >{{$t('Login.LoginTitle')}}</el-button>
+              <ElButton type="primary" @click="submitForm('ruleForm')" >{{$t('Login.LoginTitle')}}</ElButton>
 
             </div>
             <!-- <div class="btn-box">
@@ -69,7 +69,7 @@
             <span class="member_join_strong">{{$t('Login.RegNow')}}</span>
             </a>
           </div>
-        </el-form>
+        </ElForm>
        </div>
       </div>
     </div>
@@ -78,12 +78,15 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Form as ElForm, Input as ElInput, Button as ElButton, FormItem } from 'element-ui';
 import sdk from '@/sdk/InstoreSdk';
-import { ElForm } from 'element-ui/types/form';
 @Component({
   name: 'Login',
   components: {
-
+    ElForm,
+    ElInput,
+    ElButton,
+    FormItem
   }
 })
 export default class InsLogin extends Vue {

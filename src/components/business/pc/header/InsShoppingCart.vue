@@ -87,6 +87,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Message } from 'element-ui';
 import ShopCart from '@/model/ShopCart';
 @Component
 export default class InsShoppingCart extends Vue {
@@ -120,7 +121,7 @@ export default class InsShoppingCart extends Vue {
         this.getShopCart();
       })
       .catch(() => {
-        this.$message({
+        Message({
           message: '移除失败！',
           type: 'error'
         });
@@ -174,6 +175,10 @@ export default class InsShoppingCart extends Vue {
   display: block !important;
   right: 0px !important;
   animation: showcart 1s ease-out;
+}
+.el-dropdown-menu {
+  padding: 0;
+  border: 0;
 }
 .cart-close {
   position: absolute;

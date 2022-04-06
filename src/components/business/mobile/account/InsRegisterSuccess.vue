@@ -80,4 +80,9 @@ color: #67C23A;
 .eidt-success span {
 font-size: 2rem;
 }
+.el-breadcrumb__item:last-child .el-breadcrumb__inner, .el-breadcrumb__item:last-child .el-breadcrumb__inner a, .el-breadcrumb__item:last-child .el-breadcrumb__inner a:hover, .el-breadcrumb__item:last-child .el-breadcrumb__inner:hover {
+    font-weight: 400;
+    color: #FFF;
+    cursor: text;
+}
 </style>

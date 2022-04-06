@@ -5,7 +5,7 @@ import router from './router';
 import store from './store';
 import { setRem } from './rem';
 import MetaInfo from 'vue-meta-info';
-import Swiper from 'vue-awesome-swiper';
+import { getQueryString } from './assets/scripts/common';
 // import { ValidationProvider } from 'vee-validate';
 // 引入指令文件
 import * as directives from '@/directives/index';
@@ -23,16 +23,8 @@ import i18n from '@/lang';
 
 import Auth from './sdk/common/Auth';
 import Cookie from 'js-cookie';
-import { MapRegion } from './assets/scripts/map-region';
-import { getQueryString } from './assets/scripts/common';
-import { FrontE } from '@/sdk/common/SysConst';
-
-// import ElementUI from 'element-ui';
-// Vue.use(ElementUI);
-
-// 按需引入 Element 組件，减小项目体积，可自行在 element.js 進行修改
-import './plugins/element.js';
-
+import ElementUI from 'element-ui';
+Vue.use(ElementUI);
 (() => {
   if (
     navigator.userAgent.indexOf('iPhone') !== -1 ||
@@ -51,7 +43,6 @@ import './plugins/element.js';
 // };
 Vue.use(elLoading);
 Vue.use(MetaInfo);
-Vue.use(Swiper);
 //  批量注册全局指令
 Object.keys(directives).forEach(k => Vue.directive(k, directives[k]));
 // ValidationProvider
@@ -72,10 +63,6 @@ Auth.GetToken().then(() => {
   import('./init').then(async (result) => {
     Vue.use(result.default as any);
 
-    if (FrontE.MapRegion) {
-      await MapRegion();
-      console.log('区分地区完成');
-    }
     // 向後台傳遞前台默認貨幣設置
     let currency = Vue.prototype.$Storage.get('currency') || Vue.prototype.FrontE.defaultCurrency;
     await Vue.prototype.$Api.member.setCurrency(currency).then((result) => {

@@ -5,7 +5,7 @@
         <span class="payment_title">{{$t('CheckOut.PayBy')}} :</span>
         <span class="pay-select-method" v-show="checkouting">
           <label v-for="(pay, index) in paymentMethods" :key="index">
-            <el-radio v-model="radio" :label="pay"><img v-bind:src="pay.Img" /></el-radio>
+            <Radio v-model="radio" :label="pay"><img v-bind:src="pay.Img" /></Radio>
           </label>
         </span>
         <span class="pay-select-method" v-show="!checkouting">
@@ -19,7 +19,7 @@
       <p v-show="checkouting">
         <span>{{$t('CheckOut.Couponcode')}}</span>
         <span>
-          <el-input :placeholder="$t('CheckOut.Input')" class="input-text promotion_code" v-bind:disabled="orderSure" v-model="promotionCode" clearable></el-input>
+          <ElInput :placeholder="$t('CheckOut.Input')" class="input-text promotion_code" v-bind:disabled="orderSure" v-model="promotionCode" clearable></ElInput>
           <a
             href="javascript:;"
             class="promotion-code-btn"
@@ -49,7 +49,8 @@
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import Payment from '@/model/payment';
 import PromotionDiscount from '@/model/PromotionDiscount';
-@Component
+import { Radio, Input as ElInput } from 'element-ui';
+@Component({ components: { Radio, ElInput } })
 export default class InsPayment extends Vue {
   data () {
     return {

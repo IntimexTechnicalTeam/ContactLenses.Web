@@ -35,8 +35,9 @@ export default class ProductAttr {
   public set NameE (v : string) {
     this._NameE = v;
   }
-  constructor (Id: string, AdditionalPrice: string, Name: string, NameC:string, NameE:string) {
+  constructor (Id: string, Text: string, AdditionalPrice: string, Name: string, NameC:string, NameE:string) {
     this._Id = Id;
+    this._Text = Text;
     this._AdditionalPrice = AdditionalPrice;
     this._Name = Name;
     this._NameC = NameC;

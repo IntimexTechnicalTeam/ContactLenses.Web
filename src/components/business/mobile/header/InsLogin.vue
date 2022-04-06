@@ -50,7 +50,7 @@ export default class InsLangSwitch extends Vue {
     padding-right: 1rem;
     float: left;
     height: 3.5rem;
-    border-right: 1px solid #e6e6e6;
+    /* border-right: 1px solid #e6e6e6; */
     display: flex;
     align-items: center;
     justify-content: center;

@@ -8,20 +8,20 @@
         <span>{{$t('Login.LoginTitle')}}</span>
         <b></b>
       </div>
-      <el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" class="loginForm">
-        <el-form-item prop="user">
-          <el-input v-model="loginForm.user" autocomplete="off" :placeholder="$t('Login.EnterEmail')" @keyup.enter.native="submitForm"></el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input type="password" v-model="loginForm.password" autocomplete="off" :placeholder="$t('Register.UserRegPassword')" @keyup.enter.native="submitForm"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button class="loginBtn" @click="submitForm">{{$t('Login.doLogin')}}</el-button>
-          <a to="/account/forgetPassword" @click="ToUrl('/account/forgetPassword')"><el-button>{{$t('Login.ForgetPwd')}}</el-button></a>
-          <a to="/account/login" @click="ToUrl('/account/login')"><el-button>{{$t('Register.RegisterBtn')}}</el-button></a>
-        </el-form-item>
-      </el-form>
-      <div class="facebook_login" @click="fbLogin" v-if="!isIe && FrontE.version !== 1">
+      <ElForm :model="loginForm" status-icon :rules="rules" ref="loginForm" class="loginForm">
+        <FormItem prop="user">
+          <ElInput v-model="loginForm.user" autocomplete="off" :placeholder="$t('Login.EnterEmail')" @keyup.enter.native="submitForm"></ElInput>
+        </FormItem>
+        <FormItem prop="password">
+          <ElInput type="password" v-model="loginForm.password" autocomplete="off" :placeholder="$t('Register.UserRegPassword')" @keyup.enter.native="submitForm"></ElInput>
+        </FormItem>
+        <FormItem>
+          <ElButton class="loginBtn" @click="submitForm">{{$t('Login.doLogin')}}</ElButton>
+          <a to="/account/forgetPassword" @click="ToUrl('/account/forgetPassword')"><ElButton>{{$t('Login.ForgetPwd')}}</ElButton></a>
+          <a to="/account/login" @click="ToUrl('/account/login')"><ElButton>{{$t('Register.RegisterBtn')}}</ElButton></a>
+        </FormItem>
+      </ElForm>
+      <div class="facebook_login" @click="fbLogin" v-if="!isIe">
         <img src="/static/facebook.png" />
         <span>{{$t('Login.FaceBookUse')}}</span>
       </div>
@@ -61,12 +61,13 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Form as ElForm, Input as ElInput, Message, FormItem, Button as ElButton } from 'element-ui';
 import Auth from '@/sdk/common/Auth';
 import sdk from '@/sdk/InstoreSdk';
+import 'element-ui/lib/theme-chalk/index.css';
 
 import Cookie from 'js-cookie';
-import { ElForm } from 'element-ui/types/form';
-@Component
+@Component({ components: { ElForm, ElInput, FormItem, ElButton } })
 export default class InsLogin extends Vue {
   imgsrc: string = '@/assets/Images/void-cart.png';
   isShow: boolean = false;
@@ -138,7 +139,7 @@ export default class InsLogin extends Vue {
          console.log(_this.loginForm, '_this.loginForm');
          _this.resetForm();
          _this.$store.dispatch('doLogin');
-         _this.$message({
+         Message({
            message: _this.$t('Login.LoginSucceeded') as string,
            type: 'success',
            customClass: 'messageboxNoraml'
@@ -148,7 +149,7 @@ export default class InsLogin extends Vue {
          // _this.getProfile();
        },
        function (data) {
-         _this.$message({
+         Message({
            message: data.Message,
            type: 'error',
            customClass: 'messageboxNoraml'
@@ -196,7 +197,7 @@ export default class InsLogin extends Vue {
          Auth.GetToken();
        },
        function (data) {
-         _this.$message({
+         Message({
            message: data,
            type: 'error',
            customClass: 'messageboxNoraml'
@@ -221,7 +222,7 @@ export default class InsLogin extends Vue {
          }
        },
        function (data) {
-         _this.$message({
+         Message({
            message: data,
            type: 'error',
            customClass: 'messageboxNoraml'
@@ -296,6 +297,10 @@ export default class InsLogin extends Vue {
     vertical-align: middle;
   }
 }
+.el-dropdown-menu {
+  padding: 0;
+  border: 0;
+}
 
 .loginForm {
   margin-top: 20px;
@@ -326,8 +331,8 @@ export default class InsLogin extends Vue {
 /*头部登录弹框 css*/
 .handle-icon {
     display: block;
-    width:25px;
-    height: 25px;
+    width:35px;
+    height: 35px;
     color: #cccccc;
     -webkit-transition-duration: 0.1s;
     transition-duration: 0.1s;

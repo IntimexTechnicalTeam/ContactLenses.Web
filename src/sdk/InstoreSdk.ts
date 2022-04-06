@@ -17,9 +17,6 @@ import { PointsApi } from './api/PointsApi';
 import { ProdAttrApi } from './api/ProdAttrApi';
 import { CommentsApi } from './api/CommentsApi';
 import RegAndPayApi from './api/RegAndPayApi';
-import { CalendarApi } from './api/CalendarApi';
-import { IPAddress } from './api/IPAddress';
-import PhotoAlbumApi from './api/PhotoAlbumApi';
 
 export class Api {
 public product: ProductApi ;
@@ -37,9 +34,6 @@ public pointsApi: PointsApi;
 public prodAttrApi: ProdAttrApi;
 public comments: CommentsApi;
 public regAndPay: RegAndPayApi;
-public calendar: CalendarApi;
-public ipAddress: IPAddress;
-public PhotoAlbum: PhotoAlbumApi;
 constructor () {
   this.product = ProductApi.getInstance();
   this.shoppingCart = ShoppingCartApi.getInstance();
@@ -58,9 +52,6 @@ constructor () {
   this.comments = CommentsApi.getInstance();
   this.prodAttrApi = new ProdAttrApi();
   this.regAndPay = RegAndPayApi.getInstance();
-  this.calendar = CalendarApi.getInstance();
-  this.ipAddress = IPAddress.getInstance();
-  this.PhotoAlbum = PhotoAlbumApi.getInstance();
 }
 }
 

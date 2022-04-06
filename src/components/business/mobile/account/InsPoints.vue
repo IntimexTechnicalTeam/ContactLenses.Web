@@ -5,9 +5,9 @@
     <!--main-content-->
     <div id="main-content" class="memberPointsMain">
       <!-- 头部工具条 -->
-      <el-card shadow="hover">
-        <el-row>
-          <el-col :span="24" class="memberPointsCol">
+      <Card shadow="hover">
+        <Row>
+          <ElCol :span="24" class="memberPointsCol">
             <span>{{$t('MemberPoints.Hello')}},</span>
             <span>{{MemberName}}</span>
             <span>
@@ -15,73 +15,73 @@
               <i>{{TotalPoints}}</i>
             </span>
             <span>(1 HKD {{$t('MemberPoints.Equals')}} 1 {{$t('MemberPoints.Integral')}})</span>
-          </el-col>
-        </el-row>
-      </el-card>
+          </ElCol>
+        </Row>
+      </Card>
       <!-- 头部工具条结束 -->
 
       <!-- 积分列表开始 -->
       <div class="memberPointsList"></div>
-      <el-card shadow="hover">
-        <el-tabs v-model="activeName">
+      <Card shadow="hover">
+        <Tabs v-model="activeName">
           <!-- 积分详细开始 -->
-          <el-tab-pane :label="$t('MemberPoints.PointsDetail')" name="first">
-            <el-table
+          <TabPane :label="$t('MemberPoints.PointsDetail')" name="first">
+            <Table
               :data="PointsData"
               style="width: 100%"
               :default-sort="{prop: 'OrderNo', order: 'descending'}"
               :header-cell-style="tableHeader"
             >
-              <el-table-column prop="OrderNo" width="150" :label="$t('MemberPoints.OrderNo')" sortable></el-table-column>
-              <el-table-column prop="Points"  width="150" :label="$t('MemberPoints.Points')" sortable></el-table-column>
-              <el-table-column
+              <TableColumn prop="OrderNo" width="150" :label="$t('MemberPoints.OrderNo')" sortable></TableColumn>
+              <TableColumn prop="Points"  width="150" :label="$t('MemberPoints.Points')" sortable></TableColumn>
+              <TableColumn
                 prop="TypeName"
                 :label="$t('MemberPoints.PointsType')"
                 width="150"
-              ></el-table-column>
-              <el-table-column prop="ModeName"  width="150" :label="$t('MemberPoints.PointsMode')"></el-table-column>
-            </el-table>
-          </el-tab-pane>
+              ></TableColumn>
+              <TableColumn prop="ModeName"  width="150" :label="$t('MemberPoints.PointsMode')"></TableColumn>
+            </Table>
+          </TabPane>
           <!-- 积分详细结束 -->
           <!-- 积分收入开始 -->
-          <el-tab-pane :label="$t('MemberPoints.PointsIncome')" name="second">
-           <el-table
+          <TabPane :label="$t('MemberPoints.PointsIncome')" name="second">
+           <Table
               :data="IncomeData"
               style="width: 100%"
               :default-sort="{prop: 'OrderNo', order: 'descending'}"
               :header-cell-style="tableHeader"
             >
-               <el-table-column prop="OrderNo" width="150" :label="$t('MemberPoints.OrderNo')" sortable></el-table-column>
-              <el-table-column prop="Points"  width="150" :label="$t('MemberPoints.Points')" sortable></el-table-column>
-              <el-table-column
+               <TableColumn prop="OrderNo" width="150" :label="$t('MemberPoints.OrderNo')" sortable></TableColumn>
+              <TableColumn prop="Points"  width="150" :label="$t('MemberPoints.Points')" sortable></TableColumn>
+              <TableColumn
                 prop="TypeName"
                 :label="$t('MemberPoints.PointsType')"
                 width="150"
-              ></el-table-column>
-              <el-table-column prop="ModeName"  width="150" :label="$t('MemberPoints.PointsMode')"></el-table-column>
-            </el-table>
-          </el-tab-pane>
+              ></TableColumn>
+              <TableColumn prop="ModeName"  width="150" :label="$t('MemberPoints.PointsMode')"></TableColumn>
+            </Table>
+          </TabPane>
           <!-- 积分收入结束 -->
           <!-- 积分支出开始 -->
-          <el-tab-pane :label="$t('MemberPoints.PointsSpending')" name="third">
-             <el-table
+          <TabPane :label="$t('MemberPoints.PointsSpending')" name="third">
+             <Table
               :data="SpendingData"
               style="width: 100%"
               :default-sort="{prop: 'OrderNo', order: 'descending'}"
               :header-cell-style="tableHeader"
             >
-               <el-table-column prop="OrderNo" width="150" :label="$t('MemberPoints.OrderNo')" sortable></el-table-column>
-              <el-table-column prop="Points"  width="150" :label="$t('MemberPoints.Points')" sortable></el-table-column>
-              <el-table-column
+               <TableColumn prop="OrderNo" width="150" :label="$t('MemberPoints.OrderNo')" sortable></TableColumn>
+              <TableColumn prop="Points"  width="150" :label="$t('MemberPoints.Points')" sortable></TableColumn>
+              <TableColumn
                 prop="TypeName"
                 :label="$t('MemberPoints.PointsType')"
                 width="150"
-              ></el-table-column>
-              <el-table-column prop="ModeName"  width="150" :label="$t('MemberPoints.PointsMode')"></el-table-column>
-            </el-table>
-          </el-tab-pane>
+              ></TableColumn>
+              <TableColumn prop="ModeName"  width="150" :label="$t('MemberPoints.PointsMode')"></TableColumn>
+            </Table>
+          </TabPane>
           <!-- 积分支出结束 -->
-          <el-pagination
+          <Pagination
             layout="prev, pager, next"
             :page-size="pagesize"
             @current-change="currentChange"
@@ -92,13 +92,13 @@
             :pager-count="5"
             v-if="dataLength>1"
             background
-          ></el-pagination>
-        </el-tabs>
-      </el-card>
+          ></Pagination>
+        </Tabs>
+      </Card>
       <!-- 积分列表结束 -->
 
       <!-- 积分说明开始 -->
-      <el-card shadow="hover" class="pointsDetail">
+      <Card shadow="hover" class="pointsDetail">
         <h2>積分使用常見問題</h2>
         <p>1.積分的兌換比例</p>
         <p>積分和港幣兌換比例是1:1，即1積分相當於港幣1元。</p>
@@ -106,7 +106,7 @@
         <p>用戶在網上商城進行購物時，成功購買商品則獲得相應金額的積分。</p>
         <p>3.積分如何扣除</p>
         <p>用戶在網上商城進行購物時，使用積分抵扣。</p>
-      </el-card>
+      </Card>
       <!-- 积分说明结束 -->
     </div>
     <!--main-content-->
@@ -114,10 +114,19 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Card, Pagination, TableColumn, Tabs, TabPane, Table, Row, Col as ElCol } from 'element-ui';
 import sdk from '@/sdk/InstoreSdk';
 @Component({
   components: {
-    accountHeader: () => import('@/components/hkTasteBusiness/mobile/account/accountHeader.vue')
+    accountHeader: () => import('@/components/hkTasteBusiness/mobile/account/accountHeader.vue'),
+    Card,
+    Pagination,
+    TableColumn,
+    Tabs,
+    TabPane,
+    Table,
+    Row,
+    ElCol
   }
 })
 export default class InsPoints extends Vue {

@@ -7,8 +7,9 @@ export class ShoppingCartApi extends WSAPI {
   // @Proxy(Message)
   async addItem (sku: string, qty: number, attr1: number = 1, attr2: number = 1, attr3: number = 1) {
     let result = await this.instance.post(
-      this.apiPath + '/ShoppingCart',
+      this.apiPath + 'ShoppingCart/AddToCart',
       { Sku: sku, Attr1: attr1, Attr2: attr2, Attr3: attr3, qty: qty }
+     // console.log(this.apiPath + '/ShoppingCart/AddToCart')
     );
     // return result.data;
     return { Message: new Message(result.data.Message, result.data.ReturnValue, result.data.Succeeded) };
@@ -52,6 +53,22 @@ export class ShoppingCartApi extends WSAPI {
     // store.dispatch('setShopCart', result);
     return result;
   };
+  shoppingGet () {
+    let result = this.instance.get(this.apiPath + '/ShoppingCart/Get',
+      {}).then((result) => {
+      // do someting about check success
+      // return result.data;
+      /* let shopCart = new ShopCart();
+      Object.keys(shopCart).forEach((element) => {
+        element = element.replace('_', '');
+        shopCart[element] = result.data[element];
+      });
+      return { ShopCart: shopCart }; */
+      console.log('111', result);
+    });
+    // store.dispatch('setShopCart', result);
+    // return result;
+  };
 
   // @Proxy(Message)
   updateItemQty (itemId: string, qty: number) {
@@ -61,6 +78,11 @@ export class ShoppingCartApi extends WSAPI {
       return { Message: new Message(result.data.Message, result.data.ReturnValue, result.data.Succeeded) };
     });
   };
+  /* saveOrder() {
+    return this.instance.post(this.apiPath + '',{
+
+    })
+  }; */
   // @Proxy(Message)
   // removeItem (id: string) {
   //   return this.instance.get(

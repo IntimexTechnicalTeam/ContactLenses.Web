@@ -1,5 +1,5 @@
 const ana = require('./ApiAndAdminServer');
-const AppId = '723b44b3-7e36-468b-8c42-85c046b45af3';
+const AppId = '63ee5618-e5ef-4112-b0d0-bcab9399db95';
 // let AdminServer = 'http://admin.dev.in-store.hk:84'; // DEV
 // let AdminServer = 'https://admin.uat.intimex.hk'; // UAT
 let AdminServer = ana.AdminServer;
@@ -15,7 +15,7 @@ module.exports = {
   // api version for this app 統一配置Api版本號
   ApiVersion: 'V2',
   // api Authorization 身份认真，用于后端识别客户端
-  Authorization: 'NzIzYjQ0YjMtN2UzNi00NjhiLThjNDItODVjMDQ2YjQ1YWYzOjZlY2U5YTk3LTYzZmEtNGZmZi1iYTJmLTk5ZDQyNjkxOGNiYw==',
+  Authorization: 'NjNlZTU2MTgtZTVlZi00MTEyLWIwZDAtYmNhYjkzOTlkYjk1OmRiMDU5ZTFhLTNkZjMtNGVmMi1hYTU1LWY3ZmQyYjhiNzY0NA==',
   // admin server url, for login management platform 統一配置admin服務器
 
   AdminServer: AdminServer,
@@ -25,14 +25,10 @@ module.exports = {
   AdminLoginUrl: AdminServer + '/default/ClientLogin/' + AppId,
   // 前端默认配置
   FrontE: {
-    version: 1, // 網站版本 （1 => Plan A Startup Version 初創版, 2 => Plan B Enterprise Version 企業旗艦版, 3 => Plan C E-Commerce Version 品牌電商版）
-
     defaultLang: 'C',
     defaultCurrency: 1,
     mobileBuilding: false,
     pcBuilding: false,
-    MapRegion: true, // 地区区分加载開關，設置localStorage中的AreaCode（地區）和locale（語言）值
-    calendar: true, // 月曆開關，默認開關顯示首頁
     // 自定義語言列表 ps: 如有添加語言，請在目錄 /src/lang 下添加對應語言包文件和修改index.ts相關設置代碼
     langList: [{
       name: '繁',

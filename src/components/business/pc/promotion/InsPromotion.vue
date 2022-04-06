@@ -6,6 +6,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import sdk from '@/sdk/InstoreSdk';
+import { Message } from 'element-ui';
 
 @Component({
   components: {
@@ -119,7 +120,7 @@ export default class InsPromotion extends Vue {
           console.log(_this.PromotionData, 'promotion data');
         },
         function (data) {
-          _this.$message({
+          Message({
             message: data,
             type: 'error'
           });

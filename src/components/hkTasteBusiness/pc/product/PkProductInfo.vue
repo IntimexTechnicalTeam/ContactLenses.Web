@@ -2,14 +2,14 @@
 <div class="in_panel_header">
     <div class="p-name-box">
       <p style="width: 88%;">{{panelDetail.Name}}</p>
-      <div class="in_pannel_addtofav"><img :src="panelDetail.IsFavorite ? '/images/pc/productDetail_01.png': '/images/pc/productDetail_05.png'" @click="addFavorite"/></div>
+      <!-- <div class="in_pannel_addtofav"><img :src="panelDetail.IsFavorite ? '/images/pc/productDetail_01.png': '/images/pc/productDetail_05.png'" @click="addFavorite"/></div> -->
     </div>
-    <div class="in_panel_subTitle"><inPrices :primePrices="panelDetail.ListPrice+AddPrice" :currentPrices="panelDetail.SalePrice+AddPrice"  :currency="panelDetail.Currency" :DefaultListPrice="panelDetail.DefaultListPrice+AddPrice" :DefaultSalePrice="panelDetail.DefaultSalePrice+AddPrice" :DefaultCurrency="panelDetail.DefaultCurrency" size="huge" :heightLine="true" styla="margin: 1rem 0;" :max="panelDetail.MaxPurQty" :min="panelDetail.MinPurQty"></inPrices></div>
+    <!-- <div class="in_panel_subTitle"><inPrices :primePrices="panelDetail.ListPrice+AddPrice" :currentPrices="panelDetail.SalePrice+AddPrice"  :currency="panelDetail.Currency" :DefaultListPrice="panelDetail.DefaultListPrice+AddPrice" :DefaultSalePrice="panelDetail.DefaultSalePrice+AddPrice" :DefaultCurrency="panelDetail.DefaultCurrency" size="huge" :heightLine="true" styla="margin: 1rem 0;" :max="panelDetail.MaxPurQty" :min="panelDetail.MinPurQty"></inPrices></div> -->
     <div class="in_unitInfo" v-if="panelDetail.UnitInfo.Desc!==null">{{$t('product.Unit')}}:{{panelDetail.UnitInfo.Desc}}</div>
     <div class="in_panel_product">
         <div class="ProductCode">
-            <div class="leftpart">{{$t("product.ProductCode")}}:{{panelDetail.Code}}</div>
-            <div class="rightpart" v-if="FrontE.version !== 1"><HkProductShare></HkProductShare></div>
+            <h2 class="leftpart">{{$t("product.ProductCode")}}:{{panelDetail.Code}}</h2>
+            <div class="rightpart"><HkProductShare></HkProductShare></div>
         </div>
     </div>
 </div>
@@ -111,19 +111,20 @@ export default class PkProductInfo extends Vue {
 .in_panel_product{
     width: 100%;
     padding-bottom: 40px;
-    border-bottom: 1px solid #505050;
     padding-top: 30px;
     margin-bottom: 10px;
 }
 
 .in_panel_product .ProductCode{
     width: 100%;
-    display: block;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 .in_panel_product .ProductCode .leftpart{
-    width: 60%;
-    float: left;
-    font-size: 14px;
+    width: auto;
+    font-size: 20px;
     word-break: break-all;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -132,10 +133,11 @@ export default class PkProductInfo extends Vue {
     -ms-flex-align: center;
     align-items: center;
     padding-top: 0.5rem;
+    color: #0451a3;
+    border-bottom: 1px solid #0451a3;
 }
 .in_panel_product .ProductCode .rightpart{
     width: 40%;
-    float:left;
 }
 .in_panel_subTitle{
     font-size: 16px!important;
