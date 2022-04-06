@@ -142,7 +142,22 @@ export default {
     Delete: '删除',
     EditDetails: '编辑',
     RequiredInformation: '所需信息',
-    WearerName: '佩戴者姓名/号码'
+    WearerName: '佩戴者姓名/号码',
+    RefractionResult: '折射结果',
+    Left: '左',
+    Right: '右',
+    Keratometry: '角膜曲率',
+    LensMaterial: '透镜材料',
+    LensColor: '透镜顏色',
+    OverallDiameter: '总直径',
+    ToCustomise: '定制',
+    Prower: 'Prower',
+    BC: 'BC',
+    Diam: 'Diam',
+    OZ: 'OZ',
+    CT: 'CT',
+    Save: '保存',
+    Canel: '取消'
   },
   Shoppingcart: {
     ShoppingcartTitle: '购物车',

@@ -142,7 +142,22 @@ export default {
     Delete: 'Delete',
     EditDetails: 'Edit Details',
     RequiredInformation: 'Required Information',
-    WearerName: 'Wearer Name/number'
+    WearerName: 'Wearer Name/number',
+    RefractionResult: 'Refraction Result',
+    Left: 'L',
+    Right: 'R',
+    Keratometry: 'Keratometry K',
+    LensMaterial: 'Lens Material',
+    LensColor: 'Lens color',
+    OverallDiameter: 'Overall Diameter',
+    ToCustomise: 'To Customise(optional)',
+    Prower: 'Prower',
+    BC: 'BC',
+    Diam: 'Diam',
+    OZ: 'OZ',
+    CT: 'CT',
+    Save: 'Save',
+    Canel: 'Canel'
   },
   Shoppingcart: {
     ShoppingcartTitle: 'Shopping Cart ',

@@ -63,8 +63,33 @@
                 <b class="cart-delete" v-on:click="removeItem(index)">{{$t('product.Delete')}}</b>
                 <button @click="boxShow(index)" class="edit">{{$t('product.EditDetails')}}</button>
               </div>
-              <div class="edit-box" v-show="index.boxshow">
+              <div class="edit-box" v-show="boxshow">
                 <span class="edit_title">{{$t('product.RequiredInformation')}}</span>
+                <form action="">
+                  <div class="editinformation">
+                    <span class="edit-title">{{$t('product.WearerName')}}</span>
+                    <input type="text">
+                    <span class="edit-title">{{$t('product.RefractionResult')}}</span>
+                    <span class="edit-title">{{$t('product.Left')}}</span>
+                    <input type="text">
+                    <span class="edit-title">{{$t('product.Right')}}</span>
+                    <input type="text">
+                    <span class="edit-title">{{$t('product.Keratometry')}}</span>
+                    <input type="text">
+                    <span class="edit-title">{{$t('product.Left')}}</span>
+                    <input type="text">
+                    <span class="edit-title">{{$t('product.Right')}}</span>
+                    <input type="text">
+                    <span class="edit-title">{{$t('product.LensMaterial')}}</span>
+                    <input type="text">
+                    <span class="edit-title">{{$t('product.LensColor')}}</span>
+                    <input type="text">
+                    <span class="edit-title">{{$t('product.OverallDiameter')}}</span>
+                    <input type="text">
+                    <span class="edit-title">{{$t('product.Remarks')}}</span>
+                    <input type="text">
+                  </div>
+                </form>
               </div>
               <div class="clear"></div>
             </div>
@@ -99,7 +124,7 @@ class Update {
 export default class InsShoppingcart extends Vue {
   private ShoppingCart:ShopCart = new ShopCart();
   prodcutSrc: string = require('@/assets/Images/270_b.jpg');
-  boxshow = false;
+  boxshow = true;
   step: number = 1;
   totalAmount: number = 0;
   // itemsAmount: number = 0;
@@ -163,11 +188,10 @@ export default class InsShoppingcart extends Vue {
       this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
     });
   }
-  boxShow(one) {
-    var temp = this.items;
-    console.log(temp);
-    /* temp[index].boxshow = !temp[index].boxshow;
-    this.items = temp; */
+  boxShow(index) {
+    /* this.items[index].boxshow = false;
+    var items = this.items;
+    items[index].boxshow = this.items[index].boxshow; */
   }
   next () {
     // if (!this.items || this.items.length === 0) {
@@ -450,6 +474,18 @@ export default class InsShoppingcart extends Vue {
   font-weight: bold;
   color:#0e579c;
   border-bottom: 1px solid #0e579c;
+}
+.editinformation{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.edit-title{
+  color:#111;
+  font-size: 20px;
+  margin-right: 30px;
 }
 .shoppingcart-handle {
   text-align: right;
