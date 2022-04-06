@@ -7,7 +7,7 @@ export class ShoppingCartApi extends WSAPI {
   // @Proxy(Message)
   async addItem (sku: string, qty: number, attr1: number = 1, attr2: number = 1, attr3: number = 1) {
     let result = await this.instance.post(
-      this.apiPath + 'ShoppingCart/AddToCart',
+      this.apiPath + '/ShoppingCart/AddToCart',
       { Sku: sku, Attr1: attr1, Attr2: attr2, Attr3: attr3, qty: qty }
      // console.log(this.apiPath + '/ShoppingCart/AddToCart')
     );

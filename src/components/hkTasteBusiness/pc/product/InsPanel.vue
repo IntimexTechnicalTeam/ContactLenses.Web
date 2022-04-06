@@ -1,10 +1,9 @@
 <template>
   <div class="in_panel_warpper PcVersion" :style="warpperStyle">
+    <h1>1111</h1>
     <div class="in_panel_content">
       <inSelect
-        v-for="(item,index) in panelDetail.LensMaterial"
-        :items="item"
-        :key="index"
+        :items="panelDetail.LensMaterial"
         placeholder="请选择"
         v-model="ProductInfor['Attr'+(index+1)]"
         styla="padding: 0 10px;"

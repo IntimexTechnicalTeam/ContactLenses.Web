@@ -63,7 +63,7 @@
                 <b class="cart-delete" v-on:click="removeItem(index)">{{$t('product.Delete')}}</b>
                 <button @click="boxShow(index)" class="edit">{{$t('product.EditDetails')}}</button>
               </div>
-              <div class="edit-box" v-show="boxshow">
+              <div class="edit-box" v-show="items[index].boxshow">
                 <span class="edit_title">{{$t('product.RequiredInformation')}}</span>
                 <form action="">
                   <div class="editinformation">
@@ -124,7 +124,7 @@ class Update {
 export default class InsShoppingcart extends Vue {
   private ShoppingCart:ShopCart = new ShopCart();
   prodcutSrc: string = require('@/assets/Images/270_b.jpg');
-  boxshow = true;
+  // boxshow = true;
   step: number = 1;
   totalAmount: number = 0;
   // itemsAmount: number = 0;
@@ -189,9 +189,11 @@ export default class InsShoppingcart extends Vue {
     });
   }
   boxShow(index) {
-    /* this.items[index].boxshow = false;
-    var items = this.items;
-    items[index].boxshow = this.items[index].boxshow; */
+    console.dir(Vue);
+    Vue.set(this.items[index], 'boxshow', true);
+    // this.items[index].boxshow = true;
+    // var items = this.items;
+    // items[index].boxshow = this.items[index].boxshow;
   }
   next () {
     // if (!this.items || this.items.length === 0) {
