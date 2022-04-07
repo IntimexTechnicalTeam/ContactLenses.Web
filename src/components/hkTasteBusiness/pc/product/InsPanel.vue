@@ -1,15 +1,27 @@
 <template>
   <div class="in_panel_warpper PcVersion" :style="warpperStyle">
-    <h1>1111</h1>
     <div class="in_panel_content">
-      <inSelect
+      <!-- <div @click="getColor()">1111</div> -->
+      <!-- <div v-for="(item,index) in productColor" :key="index">{{item}}</div> -->
+      <!-- <inSelect
         :items="panelDetail.LensMaterial"
         placeholder="请选择"
         v-model="ProductInfor['Attr'+(index+1)]"
         styla="padding: 0 10px;"
         @input="changeAttr"
         @changePrice="AdditionalPrice"
+      ></inSelect> -->
+      <inSelect
+        :items="panelDetail.LensMaterial"
+        placeholder="请选择"
+        v-model="MId"
+        styla="padding: 0 10px;"
       ></inSelect>
+      <colorSelect
+        :items="colorList"
+        v-model="LensColor"
+        placeholder="请选择"
+      ></colorSelect>
       <inNum  :label="$i18n.t('product.countTitle')" v-model="ProductInfor.Qty" :v="ProductInfor.Qty" size="middle" :min="panelDetail.MinPurQty" :max="panelDetail.MaxPurQty" styla="padding: 0 10px;"></inNum>
       <div class="in_panel_iconList">
         <div v-for="item in panelDetail.icons" :key="item.id" class="in_panel_icon_warpper">
@@ -43,16 +55,18 @@
 <script lang="ts">
 import { Vue, Prop, Component, Watch } from 'vue-property-decorator';
 import PanelDetail from '@/model/PanelDetail';
+// import ProductColor from '@/model/GetColor';
 import ProductAttr from '@/model/ProductAttr';
 import Button from '@/model/Button';
 import inNum from '@/components/base/pc/InsNum.vue';
 import inSelect from '@/components/base/pc/InsSelect3.vue';
+import colorSelect from '@/components/base/pc/InsSelect4.vue';
 import inButton from '@/components/base/pc/InsButton.vue';
 import inPrices from '@/components/base/pc/InsPrices.vue';
 import inRecommend from '@/components/business/pc/product/InsRecommend.vue';
 import ShopCartItem from '@/model/shopCartItem';
 import { Button as ElButton } from 'element-ui';
-@Component({ components: { inNum, inSelect, inButton, inPrices, inRecommend, ElButton } })
+@Component({ components: { inNum, inSelect, colorSelect, inButton, inPrices, inRecommend, ElButton } })
 export default class Panel extends Vue {
   @Prop() private panelDetail!: PanelDetail;
   @Prop() private readonly width!: string;
@@ -68,6 +82,13 @@ export default class Panel extends Vue {
   private AttrArray:any = '';
   private AttrComboImgList:any ='';
   private AttrSelectImg:string ='';
+  private MId:string = '';
+  private LensColor:string = '';
+  data() {
+    return {
+      colorList: []
+    };
+  }
   get warpperStyle (): string {
     return 'width:' + this.width + ';height:' + this.height + ';';
   }
@@ -75,7 +96,7 @@ export default class Panel extends Vue {
     if (action) {
       if (action === 'addToCart') {
         this.Loading = true;
-        this.$Api.shoppingCart.addItem(this.ProductSku, this.ProductInfor.Qty, this.ProductInfor.Attr1, this.ProductInfor.Attr2, this.ProductInfor.Attr3)
+        this.$Api.shoppingCart.addItem(this.ProductSku, this.ProductInfor.Qty, this.ProductInfor.Attr1, this.ProductInfor.Attr2, this.ProductInfor.Attr3, this.MId, this.LensColor)
           .then(
             (result) => {
               this.$message({
@@ -89,7 +110,7 @@ export default class Panel extends Vue {
           }).catch();
       } else if (action === 'buy') {
         this.buyLoading = true;
-        this.$Api.shoppingCart.addItem(this.ProductSku, this.ProductInfor.Qty, this.ProductInfor.Attr1, this.ProductInfor.Attr2, this.ProductInfor.Attr3)
+        this.$Api.shoppingCart.addItem(this.ProductSku, this.ProductInfor.Qty, this.ProductInfor.Attr1, this.ProductInfor.Attr2, this.ProductInfor.Attr3, this.LensColor)
           .then(
             (result) => {
               this.buyLoading = false;
@@ -207,9 +228,16 @@ export default class Panel extends Vue {
     }
     this.$emit('getPrice', this.attrPrices);
   }
-  @Watch('panelDetail.AttrList', { deep: true })
+  /* @Watch('panelDetail.AttrList', { deep: true })
   onPAChange () {
     if (this.panelDetail.AttrList.length > 0 && this.panelDetail.AttrList[0].length === 0) this.changeAttr();
+  } */
+  @Watch('MId')
+  onColor () {
+    this.$Api.product.getColor(this.MId).then((result) => {
+      console.log(result);
+      this.colorList = result;
+    });
   }
 }
 </script>

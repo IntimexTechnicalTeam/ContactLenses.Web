@@ -67,28 +67,52 @@
                 <span class="edit_title">{{$t('product.RequiredInformation')}}</span>
                 <form action="">
                   <div class="editinformation">
-                    <span class="edit-title">{{$t('product.WearerName')}}</span>
-                    <input type="text">
-                    <span class="edit-title">{{$t('product.RefractionResult')}}</span>
-                    <span class="edit-title">{{$t('product.Left')}}</span>
-                    <input type="text">
-                    <span class="edit-title">{{$t('product.Right')}}</span>
-                    <input type="text">
-                    <span class="edit-title">{{$t('product.Keratometry')}}</span>
-                    <input type="text">
-                    <span class="edit-title">{{$t('product.Left')}}</span>
-                    <input type="text">
-                    <span class="edit-title">{{$t('product.Right')}}</span>
-                    <input type="text">
-                    <span class="edit-title">{{$t('product.LensMaterial')}}</span>
-                    <input type="text">
-                    <span class="edit-title">{{$t('product.LensColor')}}</span>
-                    <input type="text">
-                    <span class="edit-title">{{$t('product.OverallDiameter')}}</span>
-                    <input type="text">
-                    <span class="edit-title">{{$t('product.Remarks')}}</span>
-                    <input type="text">
+                    <span class="edit-title edit_name">{{$t('product.WearerName')}}</span>
+                    <input type="text" class="edit_input edit_name_input">
+                    <span class="edit-title edit_refraction">{{$t('product.RefractionResult')}}</span>
+                    <span class="edit-title edit_left">{{$t('product.Left')}}:</span>
+                    <input type="text" class="edit_input edit_position_input">
+                    <span class="edit-title positionRight">{{$t('product.Right')}}:</span>
+                    <input type="text" class="edit_input edit_position_input">
+                    <span class="edit-title edit_keratometry">{{$t('product.Keratometry')}}</span>
+                    <span class="edit-title edit_left">{{$t('product.Left')}}:</span>
+                    <input type="text" class="edit_input edit_position_input">
+                    <span class="edit-title positionRight">{{$t('product.Right')}}:</span>
+                    <input type="text" class="edit_input edit_position_input">
+                    <span class="edit-title edit_lensmaterial">{{$t('product.LensMaterial')}}</span>
+                    <input type="text" class="edit_input edit_stuff_input">
+                    <span class="edit-title edit_color">{{$t('product.LensColor')}}</span>
+                    <input type="text" class="edit_input edit_color_input">
+                    <span class="edit-title edit_overall">{{$t('product.OverallDiameter')}}</span>
+                    <input type="text" class="edit_input edit_diameter_input">
+                    <span class="edit-title edit_remarks">{{$t('product.Remarks')}}</span>
+                    <input type="text" class="edit_input edit_remarks_input">
                   </div>
+                <span class="edit_title">{{$t('product.ToCustomise')}}</span>
+                <table class="edit_table">
+                  <thead>
+                    <tr>
+                      <td>{{$t('product.Prower')}}</td>
+                      <td>{{$t('product.BC')}}</td>
+                      <td>{{$t('product.Diam')}}</td>
+                      <td>{{$t('product.OZ')}}</td>
+                      <td>{{$t('product.CT')}}</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><input type="text"></td>
+                      <td><input type="text"></td>
+                      <td><input type="text"></td>
+                      <td><input type="text"></td>
+                      <td><input type="text"></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="edit_btn_box">
+                  <button class="btn saveBtn">{{$t('product.Save')}}</button>
+                  <button class="btn canelBtn">{{$t('product.Canel')}}</button>
+                </div>
                 </form>
               </div>
               <div class="clear"></div>
@@ -463,7 +487,7 @@ export default class InsShoppingcart extends Vue {
 }
 
 .edit-box{
-  width: 98%;
+  width: 78%;
   z-index: 99999;
   background-color: #fff;
   padding: 30px 1%;
@@ -483,11 +507,120 @@ export default class InsShoppingcart extends Vue {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
+  span{
+    margin-top: 30px;
+  }
+  input{
+    margin-top: 30px;
+  }
 }
 .edit-title{
   color:#111;
   font-size: 20px;
   margin-right: 30px;
+  color: #010101;
+  font-weight: bold;
+}
+.edit_input{
+  border:1px solid #0d5bad;
+  padding: 5px 10px;
+  border-radius: 10px;
+  height: 30px;
+  line-height: 40px;
+}
+.edit_name{
+  width:36%;
+}
+.edit_name_input{
+  width: 55%;
+}
+.edit_refraction{
+  width:29%;
+}
+.edit_left{
+  width:4%;
+}
+.edit_position_input{
+  width:20.8%;
+}
+.positionRight{
+  width:4%;
+  margin-left: 30px;
+}
+.edit_keratometry{
+  width:29%;
+}
+.edit_lensmaterial{
+  width:26%;
+}
+.edit_stuff_input{
+  width: 65%;
+}
+.edit_color{
+  width:24%;
+}
+.edit_color_input{
+  width:67%;
+}
+.edit_overall{
+  width:29%;
+}
+.edit_diameter_input{
+  width:62%;
+}
+.edit_remarks{
+  width:20%;
+}
+.edit_remarks_input{
+  width: 71%;
+  height: 100px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+.edit_table{
+  thead{
+    tr{
+      td{
+        text-align: center;
+        background: #0e579c;
+        height: 60px;
+        line-height: 60px;
+        color: #fff;
+        font-size: 20px;
+      }
+    }
+  }
+  tbody{
+    tr{
+      td{
+        input{
+          border:1px solid #0e579c;
+          height: 60px;
+          line-height: 60px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+.edit_btn_box{
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  margin:30px auto;
+  overflow: hidden;
+  justify-content: space-between;
+  align-items: center;
+  .btn{
+    width: 45%;
+    height: 40px;
+    line-height: 40px;
+    background: #0e579c;
+    color: #fff;
+    border:none;
+    border-radius: 10px;
+    font-size: 20px;
+  }
 }
 .shoppingcart-handle {
   text-align: right;

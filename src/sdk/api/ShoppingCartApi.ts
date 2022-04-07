@@ -5,10 +5,10 @@ import ShopCart from '@/model/ShopCart';
 import store from '@/store';
 export class ShoppingCartApi extends WSAPI {
   // @Proxy(Message)
-  async addItem (sku: string, qty: number, attr1: number = 1, attr2: number = 1, attr3: number = 1) {
+  async addItem (sku: string, qty: number, attr1: number = 1, attr2: number = 1, attr3: number = 1, MId: string, lenscolor: string) {
     let result = await this.instance.post(
       this.apiPath + '/ShoppingCart/AddToCart',
-      { Sku: sku, Attr1: attr1, Attr2: attr2, Attr3: attr3, qty: qty }
+      { Sku: sku, Attr1: attr1, Attr2: attr2, Attr3: attr3, qty: qty, LensMaterial: MId, LensColor: lenscolor }
      // console.log(this.apiPath + '/ShoppingCart/AddToCart')
     );
     // return result.data;

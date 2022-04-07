@@ -58,6 +58,11 @@ export class ProductApi extends WSAPI {
    *        }
    * @param {Function} callback
    */
+  getColor (MId: string) {
+    return this.instance.get(this.apiPath + '/Product/GetColorById', { params: { MId: MId } }).then((result) => {
+      return result.data;
+    });
+  }
   @Proxy('{ "ReturnValue": 1 }')
   checkProductStatus (
     sku: string,
