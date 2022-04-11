@@ -156,8 +156,9 @@ export default {
     Diam: 'Diam',
     OZ: 'OZ',
     CT: 'CT',
+    CW: 'CW',
     Save: '保存',
-    Canel: '取消'
+    Reset: '重置'
   },
   Shoppingcart: {
     ShoppingcartTitle: '购物车',

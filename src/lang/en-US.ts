@@ -156,8 +156,9 @@ export default {
     Diam: 'Diam',
     OZ: 'OZ',
     CT: 'CT',
+    CW: 'CW',
     Save: 'Save',
-    Canel: 'Canel'
+    Reset: 'Reset'
   },
   Shoppingcart: {
     ShoppingcartTitle: 'Shopping Cart ',

@@ -1,9 +1,12 @@
 <template>
 <div class="mobileVersionCat">
+  <div class="productmenutree">
+        <h2 class="product_list">{{$t('Cms.ProductList')}}    &#8226;</h2>
+      </div>
     <div class="product_warpper">
-        <div class="ProducBanner">
+        <!-- <div class="ProducBanner">
             <ProductListSwiper />
-        </div>
+        </div> -->
       <!-- <div class="l2cats" @click="selectCatalogs">
         <div class="cat_item" v-for="(item,index) in catalogs" :key="index" :data-keys="item.Id">{{item.Name}}</div>
       </div> -->
@@ -67,11 +70,12 @@ export default class InsProductCat extends Vue {
 </script>
 <style scoped lang="less">
 .mobileVersionCat{
-  width: 100%;
-  background: url('/images/mobile/productbg.jpg') no-repeat center center;
+  width: 95%;
   background-size: 100% 100%;
   display: inline-block;
   box-sizing: border-box;
+  margin:0 auto;
+  padding: 0 2.5%;
 }
 .product_warpper{
   width: 100%;
@@ -86,6 +90,10 @@ export default class InsProductCat extends Vue {
 .products_container{
   display: flex;
   flex-wrap: wrap;
+}
+.product_list{
+  color:#0e559c;
+  font-size: 1.8rem;
 }
 .product_item{
   width:50%;

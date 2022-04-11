@@ -1,11 +1,11 @@
 <template>
   <div id="container">
-    <div class="ProducBanner">
+    <!-- <div class="ProducBanner">
       <ProductListSwiper
         class="innerBanner"
         :TitleName="$t('product.Producttitle')"
       />
-    </div>
+    </div> -->
     <div class="ProductSearch">
       <div class="SearchSlide">
         <div class="leftSide">

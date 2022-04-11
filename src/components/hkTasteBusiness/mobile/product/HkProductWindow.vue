@@ -4,9 +4,18 @@
         <div class="in_pdWindow_item_description">
              <router-link :to="'/product/detail/'+item.Sku" class="in_pdWindow_item_title" >&nbsp;{{item.Name}}</router-link >
             <!-- <div class="in_pdWindow_item_code">&nbsp;{{item.Code}}</div> -->
-            <div class="in_pdWindow_item_price">
+            <!-- <div class="in_pdWindow_item_price">
               <inPrices :primePrices="item.ListPrice" :currentPrices="item.SalePrice" :currency="item.Currency" :DefaultListPrice="item.DefaultListPrice" :DefaultSalePrice="item.DefaultSalePrice" :DefaultCurrency="item.DefaultCurrency" size="small"></inPrices>
+            </div> -->
+            <span class="in_pdWindow_item_code">{{item.Code}}</span>
+        </div>
+        <div class="imgbox">
+          <div class="shopMark">
+            <div class="innerBox">
+                <!-- <a  href="javascript:;"><i class="indexfav" v-bind:class="{'indexfav_hover':item.IsFavorite}"  v-on:click="addToFavorite(item)"></i><span v-on:click="addToFavorite(item)">{{$t('MyFavorite.MyFavorite')}}</span></a> -->
+                <a  href="javascript:;" ><span v-on:click="addCart(item)">{{$t('home.ViewDetail')}}</span></a>
             </div>
+          </div>
         </div>
     </div>
 </template>
@@ -40,6 +49,70 @@ export default class InsProductWindow extends Vue {
 }
 </script>
 <style lang="less">
+.imgbox{
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    /* overflow: hidden; */
+}
+
+.imgbox:hover .shopMark{
+    bottom: 0px;
+}
+.imgbox .shopMark{
+    /* position: absolute;
+    left: 0px;
+    bottom: -100%;
+    right: 0px;
+    height:100%;
+    background:rgba(0,0,0,.5);
+    transition: all .3s; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .innerBox{
+      width: 100%;
+      display: inline-block;
+    }
+}
+.imgbox .shopMark a{
+    text-align: center;
+    display: block;
+}
+.imgbox .shopMark a:hover{
+  transform: translateY(-3px);
+}
+.imgbox .shopMark a:nth-child(1){
+    // padding-top: 60px;
+    padding-bottom: 20px;
+}
+.imgbox .shopMark a span{
+    color: #FFF;
+    font-size: 16px;
+    margin-top: 2rem;
+    display: block;
+    background-color: #0e559c;
+    height: 40px;
+    line-height: 40px;
+}
+.imgbox .shopMark i{
+    width: 35px;
+    height: 35px;
+    display: block;
+    margin: 0 auto;
+}
+.imgbox .shopMark .indexfav{
+    background: url(/images/pc/index_42.png) no-repeat center center;
+    background-size: 100%;
+}
+.imgbox .shopMark .indexfav_hover{
+    background: url(/images/pc/index_42hover.png) no-repeat center center!important;
+    background-size: 100%;
+}
+.imgbox .shopMark .showDetail{
+    background: url(/images/pc/viewDetail.png) no-repeat center center;
+    background-size: 100%;
+}
 .in_pdWindow_item_price .currentPricesMain ,.in_pdWindow_item_price .primePricesMain{
   width: 100%;
   display: inline-block;
@@ -81,12 +154,18 @@ export default class InsProductWindow extends Vue {
 .height_line {
   border: 1px solid black !important;
 }
+.in_pdWindow_item_description{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .in_pdWindow_item_title {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     width: 90%;
     margin: 0 auto;
     text-align: center;
-    color: #0b0b0b;
+    color: #0e559c;
     line-height: 25px;
     overflow: hidden;
     display: -webkit-box;
@@ -95,10 +174,14 @@ export default class InsProductWindow extends Vue {
     word-break: break-word;
     margin-top: .5rem;
     margin-bottom: .5rem;
+    border: 1px solid #0e559c;
 }
 .in_pdWindow_item_code {
-  margin-top: 1rem;
-  color: #999999;
+  color: #0e559c;
   text-align: center;
+  border-bottom: 2px solid #0e559c;
+  width: auto;
+  margin:1rem auto 0 auto;
+  font-size: 1.3rem;
 }
 </style>

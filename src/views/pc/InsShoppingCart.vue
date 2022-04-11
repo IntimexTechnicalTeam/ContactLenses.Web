@@ -94,7 +94,7 @@
                   <FormItem :label="$t('product.OverallDiameter')" prop="OverallDiameter" class="edit-title edit_overall">
                     <ElInput v-model="editForm.OverallDiameter" clearable="" class="edit_input edit_diameter_input"></ElInput>
                   </FormItem>
-                  <FormItem :label="$t('product.Remarks')" prop="Remarks" class="edit-title edit_remarks">
+                  <FormItem :label="$t('product.Remarks')" class="edit-title edit_remarks">
                     <ElInput v-model="editForm.Remarks" clearable=""  class="edit_input edit_remarks_input"></ElInput>
                   </FormItem>
                   <span class="edit_title">{{$t('product.ToCustomise')}}</span>
@@ -114,11 +114,19 @@
                       <FormItem :label="$t('product.CT')" prop="CT">
                         <ElInput v-model="editForm.CT" clearable="" class="parameter_input"></ElInput>
                       </FormItem>
-                      <div v-for="(item,index) in (one.LensAttrView)" :key="index">{{item}}</div>
+                      <FormItem :label="$t('product.CW')" prop="CW">
+                        <ElInput v-model="editForm.CW" clearable="" class="parameter_input"></ElInput>
+                      </FormItem>
+                      <!-- <FormItem v-for="(item,index) in (one)" :key="index" :label="item">
+                        <ElInput v-model="item" clearable=""></ElInput>
+                      </FormItem> -->
+                      <FormItem v-for="(item,index) in (one.LensAttrView)" :key="index" :label="item.AttrName">
+                        <ElInput v-model="item.AttrValue" clearable=""></ElInput>
+                      </FormItem>
                   </div>
                   <div class="edit_btn_box">
-                    <b class="btn saveBtn" @click="saveItem(one,index,'editForm')">{{$t('product.Save')}}</b>
-                    <b class="btn canelBtn">{{$t('product.Canel')}}</b>
+                    <b class="btn saveBtn" @click="saveItem(index)">{{$t('product.Save')}}</b>
+                    <b class="btn canelBtn" @click="Reset(index)">{{$t('product.Reset')}}</b>
                   </div>
                 </ElForm>
               </div>
@@ -127,10 +135,10 @@
           </div>
         </div>
         <div class="shoppingcart-handle">
-          <p>
+          <!-- <p>
             <span>{{$t('Shoppingcart.Total')}}</span>
             <span class="total-price">{{Currency.Code}} {{(totalAmount) | PriceFormat}}</span>
-          </p>
+          </p> -->
           <a href="javascript:;" class="btn" @click="submit">{{$t('Shoppingcart.CheckoutList')}}</a>
         </div>
       </div>
@@ -180,8 +188,8 @@ editForm: any = {
     Diam: '',
     OZ: '',
     CT: '',
-    CW: ''
-
+    CW: '',
+    LensAttrView: {}
   }
   get edit () {
     return {
@@ -221,10 +229,10 @@ editForm: any = {
         require: true,
         tigger: 'blur'
       }],
-      Remarks: [{
+      /* Remarks: [{
         require: true,
         tigger: 'blur'
-      }],
+      }], */
       Prower: [{
         require: true,
         tigger: 'blur'
@@ -313,21 +321,28 @@ editForm: any = {
     });
   }
   boxShow(index) {
-    console.dir(Vue);
+    // console.dir(Vue);
     Vue.set(this.items[index], 'boxshow', true);
     // this.items[index].boxshow = true;
     // var items = this.items;
     // items[index].boxshow = this.items[index].boxshow;
   }
-  saveItem (one, index, editForm) {
-    this.editForm.ShoppingCartId = one.Id;
+  saveItem (index) {
+    // this.editForm = one;
+    /* this.editForm.ShoppingCartId = one.Id;
     this.editForm.Sku = one.Product.Sku;
+    this.editForm.LensAttrView = one.LensAttrView;
       this.$refs[editForm][index].validate(async (valid) => {
         this.$Api.order.saveOrder(this.editForm).then((result) => {
           console.log(result);
         });
       });
-    console.log(one.LensAttrView);
+    console.log(one.LensAttrView); */
+    Vue.set(this.items[index], 'boxshow', false);
+  }
+  Reset (index) {
+    console.log(this);
+    this.$refs.editForm[index].resetFields();
   }
   next () {
     // if (!this.items || this.items.length === 0) {

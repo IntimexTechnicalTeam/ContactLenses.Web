@@ -10,7 +10,7 @@
             <!-- <div class="in_pdWindow_item_price">
               <inPrices :primePrices="item.ListPrice" :currentPrices="item.SalePrice" :currency="item.Currency" :DefaultListPrice="item.DefaultListPrice" :DefaultSalePrice="item.DefaultSalePrice" :DefaultCurrency="item.DefaultCurrency" size="small"></inPrices>
             </div> -->
-            <h3 class="in_pdWindow_item_code">{{item.Code}}</h3>
+            <span class="in_pdWindow_item_code">{{item.Code}}</span>
         </div>
         <div class="imgbox">
           <div class="shopMark">
@@ -18,7 +18,7 @@
                 <!-- <a  href="javascript:;"><i class="indexfav" v-bind:class="{'indexfav_hover':item.IsFavorite}"  v-on:click="addToFavorite(item)"></i><span v-on:click="addToFavorite(item)">{{$t('MyFavorite.MyFavorite')}}</span></a> -->
                 <a  href="javascript:;" ><span v-on:click="addCart(item)">{{$t('home.ViewDetail')}}</span></a>
             </div>
-        </div>
+          </div>
         </div>
     </div>
   </div>
@@ -209,6 +209,12 @@ export default class InsProductWindow extends Vue {
   width:80%;
   margin:0 auto;
 }
+.in_pdWindow_item_description{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .in_pdWindow_item_title {
     font-size: 1.3rem;
     width: 90%;
@@ -233,7 +239,6 @@ export default class InsProductWindow extends Vue {
   color: #0e559c;
   text-align: center;
   border-bottom: 1px solid #0e559c;
-  width: 75px;
   margin:1rem auto 0 auto;
 }
 </style>
