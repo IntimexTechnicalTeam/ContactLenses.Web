@@ -39,6 +39,9 @@ export default class InsProductWindow extends Vue {
         }
       });
     }
+    addCart (val) {
+      this.$router.push('/product/detail/' + val.Sku);
+    }
     click (e) {
       let target = e.target as HTMLElement;
       if (target.nodeName === 'IMG') { this.$router.push('/product/detail/' + target.dataset.key); };
