@@ -66,73 +66,28 @@
               <div class="edit-box" v-show="items[index].boxshow">
                 <span class="edit_title">{{$t('product.RequiredInformation')}}</span>
                 <ElForm :model="editForm" :rules="edit" ref="editForm">
-                  <FormItem :label="$t('product.WearerName')" prop="CustomerCode" class="edit-title edit_name">
-                    <ElInput v-model="editForm.CustomerCode" clearable="" class="edit_input edit_name_input"></ElInput>
-                  </FormItem>
-                  <FormItem :label="$t('product.RefractionResult')" prop="RefractionResult" class="edit-title edit_refraction">
-                  </FormItem>
-                  <FormItem :label="$t('product.Left')" prop="ResultLeft"  class="edit-title edit_left">
-                    <ElInput v-model="editForm.ResultLeft" clearable="" class="edit_input edit_position_input"></ElInput>
-                  </FormItem>
-                  <FormItem :label="$t('product.Right')" prop="ResultRight" class="edit-title positionRight">
-                    <ElInput v-model="editForm.ResultRight" clearable="" class="edit_input edit_position_input"></ElInput>
-                  </FormItem>
-                  <FormItem :label="$t('product.Keratometry')" prop="Keratometry" class="edit-title edit_keratometry">
-                  </FormItem>
-                  <FormItem :label="$t('product.Left')" prop="CorneaLeft" class="edit-title edit_left">
-                    <ElInput v-model="editForm.CorneaLeft" clearable="" class="edit_input edit_position_input"></ElInput>
-                  </FormItem>
-                  <FormItem :label="$t('product.Right')" prop="CorneaRight" class="edit-title positionRight">
-                    <ElInput v-model="editForm.CorneaRight" clearable="" class="edit_input edit_position_input"></ElInput>
-                  </FormItem>
-                  <FormItem :label="$t('product.LensMaterial')" prop="LensMaterial" class="edit-title edit_lensmaterial">
-                    <ElInput v-model="editForm.LensMaterial" clearable="" class="edit_input edit_stuff_input"></ElInput>
-                  </FormItem>
-                  <FormItem :label="$t('product.LensColor')" prop="LensColor" class="edit-title edit_color">
-                    <ElInput v-model="editForm.LensColor" clearable="" class="edit_input edit_color_input"></ElInput>
-                  </FormItem>
-                  <FormItem :label="$t('product.OverallDiameter')" prop="OverallDiameter" class="edit-title edit_overall">
-                    <ElInput v-model="editForm.OverallDiameter" clearable="" class="edit_input edit_diameter_input"></ElInput>
-                  </FormItem>
-                  <FormItem :label="$t('product.Remarks')" class="edit-title edit_remarks">
-                    <ElInput v-model="editForm.Remarks" clearable=""  class="edit_input edit_remarks_input"></ElInput>
+                  <FormItem v-for="(item,index) in (one.LensExtAttrItem)" :key="index" :label="item.Id">
+                    <ElInput v-model="item.Text" clearable=""></ElInput>
                   </FormItem>
                   <span class="edit_title">{{$t('product.ToCustomise')}}</span>
                   <div class="parameter_table">
-                      <FormItem :label="$t('product.Prower')" prop="Prower">
-                        <ElInput v-model="editForm.Prower" clearable="" class="parameter_input"></ElInput>
-                      </FormItem>
-                      <FormItem :label="$t('product.BC')" prop="BC">
-                        <ElInput v-model="editForm.BC" clearable="" class="parameter_input"></ElInput>
-                      </FormItem>
-                      <FormItem :label="$t('product.Diam')" prop="Diam">
-                        <ElInput v-model="editForm.Diam" clearable="" class="parameter_input"></ElInput>
-                      </FormItem>
-                      <FormItem :label="$t('product.OZ')" prop="OZ">
-                        <ElInput v-model="editForm.OZ" clearable="" class="parameter_input"></ElInput>
-                      </FormItem>
-                      <FormItem :label="$t('product.CT')" prop="CT">
-                        <ElInput v-model="editForm.CT" clearable="" class="parameter_input"></ElInput>
-                      </FormItem>
-                      <FormItem :label="$t('product.CW')" prop="CW">
-                        <ElInput v-model="editForm.CW" clearable="" class="parameter_input"></ElInput>
-                      </FormItem>
-                      <!-- <FormItem v-for="(item,index) in (one)" :key="index" :label="item">
-                        <ElInput v-model="item" clearable=""></ElInput>
-                      </FormItem> -->
-                      <FormItem v-for="(item,index) in (one.LensAttrView)" :key="index" :label="item.AttrName">
-                        <ElInput v-model="item.AttrValue" clearable=""></ElInput>
-                      </FormItem>
+                    <FormItem v-for="(item,index) in (one.LensAttrView)" :key="index" :label="item.AttrName">
+                     <ElInput v-model="item.AttrValue" clearable=""></ElInput>
+                    </FormItem>
                   </div>
                   <div class="edit_btn_box">
                     <b class="btn saveBtn" @click="saveItem(index)">{{$t('product.Save')}}</b>
                     <b class="btn canelBtn" @click="Reset(index)">{{$t('product.Reset')}}</b>
-                  </div>
+                    </div>
                 </ElForm>
               </div>
               <div class="clear"></div>
             </div>
           </div>
+        </div>
+        <div class="address" v-for="(item, index) in addressList" :key="index" :class="activeIndex === index ? 'active' : ''" @click="changeList(index)">
+          <div>{{item.Country.Name}}</div>
+          <div>{{item.DeliveryId}}</div>
         </div>
         <div class="shoppingcart-handle">
           <!-- <p>
@@ -153,6 +108,7 @@ import ShopCart from '../../model/ShopCart';
 import ShopCartItem from '../../model/shopCartItem';
 import Currency from '../../model/currency';
 import Order from '@/model/order';
+import Address from '../../model/address';
 class Update {
   itemId!: string;
   qty!: number;
@@ -174,22 +130,14 @@ export default class InsShoppingcart extends Vue {
 editForm: any = {
     ShoppingCartId: '',
     Sku: '',
-    CustomerCode: '',
-    ResultLeft: '',
-    ResultRight: '',
-    CorneaLeft: '',
-    CorneaRight: '',
-    LensMaterial: '',
-    LensColor: '',
-    OverallDiameter: '',
-    Remarks: '',
-    Prower: '',
-    BC: '',
-    Diam: '',
-    OZ: '',
-    CT: '',
-    CW: '',
-    LensAttrView: {}
+    LensExtAttrItem: [
+      {
+        Id: 'CustomerCode',
+        Text: ''
+        }
+    ],
+    LensAttrView: {},
+    AddressId: ''
   }
   get edit () {
     return {
@@ -267,13 +215,11 @@ editForm: any = {
   // currentCode: any = '';
   items: any[] = [
   ];
+  activeIndex = null;
   itemQty:number=0;
   private UpdateQueQue:Update[] = [];
   isAdd:boolean = false;
-  mounted () {
-    // this.loadItems();
-    this.loadHotProducts();
-  }
+  addressList: Address[] = [];
   created () {
     this.load().then(() => { this.$HiddenLayer(); });
   }
@@ -285,16 +231,32 @@ editForm: any = {
       this.items.forEach(v => {
         this.$set(v, 'IsAdd', false);
       });
+      if (this.ShoppingCart.Items.length > 0) {
+        this.address();
+      }
       if (this.ShoppingCart.Items.length === 0) this.$Confirm(this.$t('Message.Message'), this.$t('Shoppingcart.None'), () => { this.$router.push('/product/search/-'); }, () => { this.$router.push('/'); });
     });
     this.loadItems();
     return load;
   }
-  loadHotProducts () {
-      this.$Api.shoppingCart.shoppingGet().then((result) => {
-        console.log(result);
-        });
-    }
+  address () {
+    this.$Api.delivery.getAddress().then((result) => {
+    this.addressList = result.data;
+      // console.log(result.data);
+    });
+  }
+  changeList(index) {
+    // this.activeIndex = index;
+    this.activeIndex = index;
+    /* if (this.activeIndex === index) {
+      console.log(this.addressList[index].DeliveryId);
+    } else {
+      console.log('error');
+    } */
+    this.editForm.AddressId = this.addressList[index].DeliveryId;
+    // console.log(this.editForm);
+    console.log(this.addressList[index].DeliveryId);
+  }
   loadItems () {
     var _this = this;
     var itemsprice = 0;
@@ -329,15 +291,7 @@ editForm: any = {
   }
   saveItem (index) {
     // this.editForm = one;
-    /* this.editForm.ShoppingCartId = one.Id;
-    this.editForm.Sku = one.Product.Sku;
-    this.editForm.LensAttrView = one.LensAttrView;
-      this.$refs[editForm][index].validate(async (valid) => {
-        this.$Api.order.saveOrder(this.editForm).then((result) => {
-          console.log(result);
-        });
-      });
-    console.log(one.LensAttrView); */
+    // console.log(one.LensAttrView);
     Vue.set(this.items[index], 'boxshow', false);
   }
   Reset (index) {
@@ -399,7 +353,7 @@ editForm: any = {
     // }
   }
   submit () {
-    let temp = {};
+    /* let temp = {};
     let item:Update;
     let waittingList = [Promise.resolve('head')];
     while (this.UpdateQueQue.length !== 0) {
@@ -416,7 +370,29 @@ editForm: any = {
         // this.$Login(() => { this.$ShowLayer(); this.load().then(() => { this.$HiddenLayer(); }); });
         this.$router.push('/account/login?returnurl=/account/checkout');
       }
+    }); */
+    /* console.log('22' + this.items);
+    this.editForm.shoppingCart = this.items.Id;
+    this.editForm.Sku = this.items.Product.Sku;
+    console.log('11' + this.editForm.shoppingCart);
+    this.$Api.order.saveOrder(this.items).then((result) => {
+      console.log(result);
+    }); */
+    // console.log(this.editForm);
+    console.log(this.items, 'iii');
+    console.log(this.editForm.AddressId);
+    // console.log(this.editForm, '222');
+    let temp = {
+      AddressId: this.editForm.AddressId,
+      Items: this.items
+    };
+    /* this.$Api.order.saveOrder(this.items).then((result) => {
+      console.log(result);
+    }); */
+    this.$Api.order.saveOrder(temp).then((result) => {
+      console.log(result);
     });
+    console.log(temp);
   }
 }
 </script>
@@ -826,5 +802,8 @@ editForm: any = {
   -webkit-transition: 0.5s ease;
   -moz-transition: 0.5s ease;
   -ms-transition: 0.5s ease;
+}
+.active{
+  background: #6c6c6c;
 }
 </style>

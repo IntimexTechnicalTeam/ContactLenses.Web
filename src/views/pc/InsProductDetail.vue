@@ -259,7 +259,7 @@ export default class InsProductDetail extends Vue {
   border:1px solid #262626;
 }
 .productDetail_container {
-  margin:0 auto;
+  margin:50px auto 0 auto;
   width:1200px;
   display: block;
   .tab_warpper{

@@ -224,7 +224,7 @@ SwiperOption: object = {
     background-size:100%!important;
     outline: 0;
     position: absolute;
-    top:-370%;
+    top:-426%;
 }
 .PcVersionPreview{
   .swiper-father{
