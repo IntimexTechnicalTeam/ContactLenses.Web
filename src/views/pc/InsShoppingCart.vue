@@ -246,15 +246,8 @@ editForm: any = {
     });
   }
   changeList(index) {
-    // this.activeIndex = index;
     this.activeIndex = index;
-    /* if (this.activeIndex === index) {
-      console.log(this.addressList[index].DeliveryId);
-    } else {
-      console.log('error');
-    } */
     this.editForm.AddressId = this.addressList[index].DeliveryId;
-    // console.log(this.editForm);
     console.log(this.addressList[index].DeliveryId);
   }
   loadItems () {
@@ -283,16 +276,15 @@ editForm: any = {
     });
   }
   boxShow(index) {
-    // console.dir(Vue);
     Vue.set(this.items[index], 'boxshow', true);
-    // this.items[index].boxshow = true;
-    // var items = this.items;
-    // items[index].boxshow = this.items[index].boxshow;
   }
   saveItem (index) {
-    // this.editForm = one;
-    // console.log(one.LensAttrView);
     Vue.set(this.items[index], 'boxshow', false);
+    Vue.set(this.items[index], 'ShoppingCartId', this.items[index].Id);
+    Vue.set(this.items[index], 'Sku', this.items[index].Product.Sku);
+    for (var i = 0; i < this.items[index].LensExtAttrItem.length; i++) {
+      Vue.set(this.items[index], this.items[index].LensExtAttrItem[i].Id, this.items[index].LensExtAttrItem[i].Text);
+    }
   }
   Reset (index) {
     console.log(this);
@@ -378,19 +370,23 @@ editForm: any = {
     this.$Api.order.saveOrder(this.items).then((result) => {
       console.log(result);
     }); */
-    // console.log(this.editForm);
-    console.log(this.items, 'iii');
-    console.log(this.editForm.AddressId);
-    // console.log(this.editForm, '222');
     let temp = {
       AddressId: this.editForm.AddressId,
       Items: this.items
     };
-    /* this.$Api.order.saveOrder(this.items).then((result) => {
-      console.log(result);
-    }); */
     this.$Api.order.saveOrder(temp).then((result) => {
-      console.log(result);
+      if (result.Succeeded) {
+        /* this.$message({
+          message: '创建订单成功',
+          type: 'success'
+        }); */
+        this.$router.push('/order/List');
+      } else {
+        this.$message({
+          message: result.Message,
+          type: 'error'
+        });
+      }
     });
     console.log(temp);
   }

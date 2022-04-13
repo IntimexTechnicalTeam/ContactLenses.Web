@@ -357,7 +357,8 @@ export default {
     Discount: 'Discount Price',
     Cancel: 'Cancel',
     Paid: 'Paid',
-    Unpaid: 'Unpaid'
+    Unpaid: 'Unpaid',
+    OrderList: 'Order list'
 
   },
   Payment: {

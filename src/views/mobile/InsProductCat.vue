@@ -2,6 +2,7 @@
 <div class="mobileVersionCat">
   <div class="productmenutree">
         <h2 class="product_list">{{$t('Cms.ProductList')}}    &#8226;</h2>
+        <ProductMenuTree />
       </div>
     <div class="product_warpper">
         <!-- <div class="ProducBanner">
@@ -21,7 +22,12 @@ import inProductCat from '@/components/business/mobile/product/InsProductCat.vue
 import ProductListSwiper from '@/components/hkTasteBusiness/mobile/product/HkProductListSwiper.vue';
 import YouWouldLike from '@/model/youWouldLike';
 import Catalogs from '@/model/Catalogs';
-@Component({ components: { inProductCat, ProductListSwiper } })
+@Component({ components: {
+    inProductCat,
+    ProductListSwiper,
+    ProductMenuTree: () => import(/* webpackChunkName: "product" */ '@/components/business/mobile/product/InsProductCatTree2.vue')
+  }
+})
 export default class InsProductCat extends Vue {
   // private catalogs: Catalogs[] = [];
   private catalogs = {};

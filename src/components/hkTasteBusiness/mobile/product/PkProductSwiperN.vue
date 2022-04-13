@@ -1,13 +1,17 @@
 <template>
   <div class="in_preview_warpper pkswiperN">
       <div v-if="!isClick">
+        <div class="swiper-btn">
+          <div class="s-btn l-btn"></div>
+          <div class="s-btn r-btn"></div>
+        </div>
         <swiper :options="swiperOption" ref="mySwiper" v-if="imgList.length>0">
             <!-- slides -->
             <swiperSlide v-for="(slide, index) in imgList" :key="index">
                 <img :src="slide[0]" class="BannerImg"  @click="viewImg(index)">
             </swiperSlide>
         </swiper>
-        <div class="swiper-pagination"></div>
+        <div class="swiper-pagination" slot="pagination"></div>
       </div>
       <div class="AttrImg" v-else>
            <img :src="AttrImg" class="BannerImg"  @click="viewImg(0)">
@@ -49,6 +53,10 @@ export default class PkProductSwiper extends Vue {
         pagination: {
           el: '.swiper-pagination',
           clickable: true
+        },
+        navigation: {
+          nextEl: 'l-btn',
+          prevEl: 'r-btn'
         }
       };
   $viewer: any;
@@ -97,18 +105,41 @@ export default class PkProductSwiper extends Vue {
     height: 10px!important;
     background: #fff;
     opacity: 1;
-    border:2px solid #fff;
+    border:2px solid #0e579c;
   }
 .swiper-pagination-bullet-active{
-    border:2px solid #fff!important;
+    border:none;
     width: 10px!important;
     height: 10px!important;
-    background:transparent!important;
+    background:#0e579c!important;
   }
 .swiper-pagination{
       margin-top: -1rem;
       transform: translateX(-50%) translateY(-50%);
       left: 50%;
+  }
+}
+.swiper-btn{
+  width: 90%;
+  margin:20px auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  .s-btn{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .l-btn{
+    background: url(/images/mobile/pleft.png) no-repeat center center;
+    background-size: contain;
+  }
+  .r-btn{
+    background: url(/images/mobile/pright.png) no-repeat center center;
+    background-size: contain;
   }
 }
 </style>

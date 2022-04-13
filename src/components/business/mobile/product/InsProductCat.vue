@@ -123,8 +123,9 @@ export default class InsProductCat extends Vue {
     }
 .product_item{
     width: 50%;
-    padding:4rem 1rem 0;
+    padding:0 1rem 4rem 0;
     box-sizing:border-box;
+    margin-top:1rem;
 }
 .loading{
     text-align: center;

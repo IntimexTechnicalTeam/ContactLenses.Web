@@ -1,5 +1,9 @@
 <template>
   <div class="in_preview_warpper  PcVersionPreview" :style="warpperStyle" @mousemove.stop>
+    <div class="swiper-cli-btn">
+      <div class="swiper-prev swiper-btn" slot="button-prev"></div>
+      <div class="swiper-next swiper-btn" slot="button-next"></div>
+    </div>
         <div class="in_preview_img_warpper" >
             <img :src="isClick?AttrImg:CurrentPic" @click="viewImg(currentIndex)">
           </div>
@@ -15,8 +19,6 @@
               </div>
             </swiperSlide>
           </swiper>
-            <div class="swiper-button-prev swiper-btn" slot="button-prev"></div>
-            <div class="swiper-button-next swiper-btn" slot="button-next"></div>
           </div>
           <div v-if="!isClick">
             <Viewer :images="ShowItems[0]"
@@ -76,8 +78,8 @@ SwiperOption: object = {
     //   clickable: true
     // },
     navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev'
+      nextEl: '.swiper-next',
+      prevEl: '.swiper-prev'
     }
     // slidesPerColumn: 1,
     // slidesPerView: 4,
@@ -206,25 +208,31 @@ SwiperOption: object = {
   opacity: 0.9;
   color: #fff;
 }
-.PcVersionPreview .swiper-button-prev{
-  background-image:url('/images/pc/pleft.png')!important;
-  left:0px!important;
+.swiper-cli-btn{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  width: 60%;
 }
-.PcVersionPreview .swiper-button-next{
+.PcVersionPreview .swiper-prev{
+  background-image:url('/images/pc/pleft.png')!important;
+  /* left:0px!important; */
+}
+.PcVersionPreview .swiper-next{
     background-image:url('/images/pc/pright.png')!important;
-    right:0px!important;
-    left: 195%;
+    /* right:0px!important;
+    left: 195%; */
 }
 .PcVersionPreview .swiper-btn{
   opacity: 1;
 }
-.PcVersionPreview  .swiper-button-prev, .PcVersionPreview  .swiper-button-next{
+.PcVersionPreview  .swiper-prev, .PcVersionPreview  .swiper-next{
     width: 50px!important;
     height: 50px!important;
     background-size:100%!important;
     outline: 0;
-    position: absolute;
-    top:-426%;
 }
 .PcVersionPreview{
   .swiper-father{

@@ -8,9 +8,6 @@
             <p class="shop_email">info@dreimlens@gmail.com</p>
         </div>
     </div>
-    <div class="footer-menu" id="menu">
-      <Menu :backColor="'@base_color'" :textColor="'#fff'" :uniqueOpened="true" />
-    </div>
   </div>
 </template>
 <script lang="ts">

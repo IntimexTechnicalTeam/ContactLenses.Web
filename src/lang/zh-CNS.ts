@@ -356,7 +356,8 @@ export default {
     Discount: '优惠价格',
     Cancel: '取消',
     Paid: '已付款',
-    Unpaid: '未付款'
+    Unpaid: '未付款',
+    OrderList: '订单列表'
   },
   Concessions: {
     Cannot: '优惠券与优惠码不可不可同时使用'

@@ -1,7 +1,7 @@
 <template>
   <div class="in_panel_warpper mobileWarper" :style="warpperStyle">
     <div class="in_panel_content">
-      <inSelect
+      <!-- <inSelect
         v-for="(item,index) in panelDetail.AttrList"
         :items="item"
         :key="index"
@@ -9,8 +9,20 @@
         v-model="ProductInfor['Attr'+(index+1)]"
         @input="changeAttr"
         @changePrice="AdditionalPrice"
+      ></inSelect> -->
+      <inSelect
+        :items="panelDetail.LensMaterial"
+        placeholder="请选择"
+        v-model="MId"
+        styla="padding: 0 10px;"
       ></inSelect>
-      <inNum :label="$i18n.t('product.countTitle')" v-model="ProductInfor.Qty" :v="ProductInfor.Qty" :min="panelDetail.MinPurQty" :max="panelDetail.MaxPurQty" styla="text-align:center;"></inNum>
+      <colorSelect
+        :items="colorList"
+        v-model="LensColor"
+        placeholder="请选择"
+      ></colorSelect>
+      <!-- <inNum :label="$i18n.t('product.countTitle')" v-model="ProductInfor.Qty" :v="ProductInfor.Qty" :min="panelDetail.MinPurQty" :max="panelDetail.MaxPurQty" styla="text-align:center;"></inNum> -->
+      <inNum v-model="ProductInfor.Qty" :v="ProductInfor.Qty" :min="panelDetail.MinPurQty" :max="panelDetail.MaxPurQty" styla="text-align:center;"></inNum>
       <div class="in_panel_iconList">
         <div v-for="item in panelDetail.icons" :key="item.id" class="in_panel_icon_warpper">
           <img :src="item.src" />
@@ -34,7 +46,7 @@
     </div>
       <div class="in_panel_footer" v-else>
         <button type="button" :disabled="SoldOutAttr" @click="click('addToCart')" class="CartBtn">{{$t('product.addToCart')}}</button>
-        <button type="button" :disabled="SoldOutAttr" @click="click('buy')" class="BuyBtn">{{$t('product.buy')}}</button>
+        <!-- <button type="button" :disabled="SoldOutAttr" @click="click('buy')" class="BuyBtn">{{$t('product.buy')}}</button> -->
     </div>
   </div>
 </template>
@@ -42,13 +54,14 @@
 import { Vue, Prop, Component, Watch } from 'vue-property-decorator';
 import PanelDetail from '@/model/PanelDetail';
 import inNum from '@/components/base/mobile/InsNum.vue';
-import inSelect from '@/components/base/mobile/InsRadio.vue';
+import inSelect from '@/components/base/mobile/InsRadio3.vue';
+import colorSelect from '@/components/base/mobile/InsRadio4.vue';
 import inButton from '@/components/base/pc/InsButton.vue';
 import inPrices from '@/components/base/mobile/InsPrices.vue';
 import HkProductShare from '@/components/hkTasteBusiness/mobile/product/HkProductShare.vue';
 import ShopCartItem from '@/model/shopCartItem';
 import { Button as ElButton } from 'element-ui';
-@Component({ components: { inNum, inSelect, inButton, inPrices, HkProductShare, ElButton } })
+@Component({ components: { inNum, inSelect, colorSelect, inButton, inPrices, HkProductShare, ElButton } })
 export default class InsPanel extends Vue {
   @Prop() private readonly width!: string;
   @Prop() private readonly height!: string;
@@ -63,7 +76,14 @@ export default class InsPanel extends Vue {
   private AttrArray:any = '';
   private AttrComboImgList:any ='';
   private AttrSelectImg:string ='';
+  private MId:string = '';
+  private LensColor:string = '';
   private ProductInfor: ShopCartItem = new ShopCartItem();
+  data() {
+    return {
+      colorList: []
+    };
+  }
   get warpperStyle (): string {
     return 'width:' + this.width + ';height:' + this.height + ';';
   }
@@ -71,7 +91,7 @@ export default class InsPanel extends Vue {
     if (action) {
       if (action === 'addToCart') {
         this.Loading = true;
-        this.$Api.shoppingCart.addItem(this.ProductSku, this.ProductInfor.Qty, this.ProductInfor.Attr1, this.ProductInfor.Attr2, this.ProductInfor.Attr3)
+        this.$Api.shoppingCart.addItem(this.ProductSku, this.ProductInfor.Qty, this.ProductInfor.Attr1, this.ProductInfor.Attr2, this.ProductInfor.Attr3, this.MId, this.LensColor)
           .then(
             (result) => {
               this.$message({
@@ -85,7 +105,7 @@ export default class InsPanel extends Vue {
           }).catch();
       } else if (action === 'buy') {
         this.buyLoading = true;
-        this.$Api.shoppingCart.addItem(this.ProductSku, this.ProductInfor.Qty, this.ProductInfor.Attr1, this.ProductInfor.Attr2, this.ProductInfor.Attr3)
+        this.$Api.shoppingCart.addItem(this.ProductSku, this.ProductInfor.Qty, this.ProductInfor.Attr1, this.ProductInfor.Attr2, this.ProductInfor.Attr3, this.LensColor)
           .then(
             (result) => {
               this.buyLoading = false;
@@ -216,10 +236,17 @@ export default class InsPanel extends Vue {
     }
     this.$emit('getPrice', this.attrPrices);
   }
-  @Watch('panelDetail.AttrList', { deep: true })
+  /* @Watch('panelDetail.AttrList', { deep: true })
   onPAChange () {
     if (this.panelDetail.AttrList.length > 0 && this.panelDetail.AttrList[0].length === 0) this.changeAttr();
     // if (this.panelDetail.AttrList !== null) this.changeAttr();
+  } */
+  @Watch('MId')
+  onColor () {
+    this.$Api.product.getColor(this.MId).then((result) => {
+      console.log(result);
+      this.colorList = result;
+    });
   }
 }
 </script>
@@ -252,13 +279,23 @@ export default class InsPanel extends Vue {
 }
 .in_panel_warpper .in_num_main .el-input-number__decrease, .in_panel_warpper .in_num_main .el-input-number__increase{
     width: 2.5rem!important;
-    border: 1px solid #000;
-    border-radius: 5px;
+    border: 2px solid #0a57a5;
+    border-radius: 50%;
     height: 2.5rem;
     line-height: 2.5rem;
 }
+.el-input-number span{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .in_panel_warpper .in_num_main .el-input-number__decrease i, .in_panel_warpper .in_num_main .el-input-number__increase i{
   color:#000;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+.in_num_main{
+  text-align: center!important;
 }
 .in_panel_warpper  .el-input-number{
   width: auto!important;
@@ -273,10 +310,11 @@ export default class InsPanel extends Vue {
   color:#000!important;
   font-weight: 500;
   font-size: 1.4rem;
+  font-weight: bold;
 }
 .mobileWarper{
   .in_num_warpper{
-    margin-top: 1rem;
+    margin-top: 4rem;
     .in_num_label{
       color:#666666;
     }
@@ -289,19 +327,15 @@ export default class InsPanel extends Vue {
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      background-color: #333333;
+      background-color: #0e579c;
       color: #fff;
-      border-radius: 3px;
-      margin-bottom: 1rem;
-      border:1px solid #333333;
+      border-radius: 23px;
       text-transform: uppercase;
       width: 48%;
-      float: left;
-      margin-left: 0px!important;
+      margin:0 auto 1rem auto;
+      border:none;
         &:disabled{
           cursor:not-allowed;
-          background: #ccc;
-          border: 1px solid #ccc;
           color: #333333;
            &:hover{
            transform: translateY(0px)!important;

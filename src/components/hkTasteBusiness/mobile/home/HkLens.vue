@@ -27,6 +27,7 @@
                 <router-link :to="slide.Url"><img :src="slide.Image" /></router-link>
               </swiperSlide>
             </swiper>
+            <div class="swiper-pagination" slot="pagination"></div>
         </div>
       </div>
         </div>

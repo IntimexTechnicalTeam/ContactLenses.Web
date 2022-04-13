@@ -11,6 +11,7 @@
           <img class="close-meun" src="/images/mobile/out.png" @click="showSlideMenu" v-show="this.$store.state.isShowMenu"  />
         <ins-logo />
         <ins-login />
+        <shopcart class="shoppingcart" />
         <div class="search">
           <img src="/images/mobile/search.png" @click="showSlideMenu" class="search">
         </div>
@@ -68,7 +69,7 @@ export default class DefaultHeader extends Vue {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 1.5rem;
+        padding: 0 0.5rem;
 
         .logo {
           width: 15rem;
@@ -123,5 +124,8 @@ export default class DefaultHeader extends Vue {
     align-items: center;
     justify-content: center;
   }
+}
+.shoppingcart {
+  margin:0 0.5rem;
 }
 </style>

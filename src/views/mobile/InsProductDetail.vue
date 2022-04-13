@@ -9,11 +9,11 @@
     <div class="productDetail_main" :style="'flex-wrap: wrap;'">
       <ProductSwiper width="100%"  :imgList="ImgList" :ProductTitleName="ProductTitleName"></ProductSwiper>
       <PkProductInfo :panelDetail="PanelDetail"  :ProductSku="ProductSku" :AddPrice="getNewsPrice" width="100%" style="margin-top:2rem;"></PkProductInfo>
-      <div class="ProductRate"><Rate  v-model="Score" disabled  disabled-void-color="#5f6548" disabled-void-icon-class="el-icon-star-off"></Rate></div>
-      <PkProductDetailCate :source="ExtAttrList" :cateTree="CatalogTree" width="100%" style="margin-top:2rem;"></PkProductDetailCate>
+      <!-- <div class="ProductRate"><Rate  v-model="Score" disabled  disabled-void-color="#5f6548" disabled-void-icon-class="el-icon-star-off"></Rate></div> -->
       <inPanel :panelDetail="PanelDetail" width="100%" :ProductSku="ProductSku"  @getPrice="showPrice" itemscopestyle="margin-top:2rem;"></inPanel>
+      <PkProductDetailCate :source="ExtAttrList" :cateTree="CatalogTree" width="100%" style="margin-top:2rem;"></PkProductDetailCate>
     </div>
-    <div class="tab_warpper">
+    <!-- <div class="tab_warpper">
       <div class="tab_header">
         <div class="detail_title" @click="IsDetail=true" v-bind:class="{isActive:IsDetail}">{{$t('product.ProductIntroduction')}}</div>
         <div class="comment_title" @click="IsDetail=false" v-bind:class="{isActive:!IsDetail}">{{$t('product.comments.title')}}</div>
@@ -23,7 +23,7 @@
       <div class="product_detail" v-show="IsDetail" v-if="Tabs.Detail==''"><h3>{{$t('messageTips.NoContent')}}</h3></div>
       <inComments :ProductSku="ProductSku" v-show="!IsDetail"></inComments>
     </div>
-    <div class id="tab"></div>
+    <div class id="tab"></div> -->
     <inYouWouldLike
       :pageNum="2"
       :title="$i18n.t('product.youWouldLike')"
@@ -220,11 +220,11 @@ export default class ProductDetail extends Vue {
   border:1px solid #262626!important;
 }
 .productDetail_container {
-  width: 100%;
+  width: 93%;
   background: #fff;
   background-size: 100% 100%;
-  display: inline-block;
   box-sizing: border-box;
+  margin:0 auto;
   .IsDetailshow {
     width: 98%;
     margin: 0 auto;

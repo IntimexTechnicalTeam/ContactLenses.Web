@@ -1,23 +1,78 @@
 <template>
 <div class="cateMain">
   <!-- 获取所在的产品目录 -->
-  <div  class="detail-select-attribute" v-for="(cat,index) in cateTree" :key="'cat'+index">
+  <!-- <div  class="detail-select-attribute" v-for="(cat,index) in cateTree" :key="'cat'+index">
     <div>
       <ul class="common-select">
         <li v-if="cat.ParentId!=0">{{cat.Name}}</li>
       </ul>
       <div class="clear"></div>
     </div>
-  </div>
+  </div> -->
     <!-- 获取所在的产品非库存属性 -->
-  <div  class="detail-select-attribute" v-for="(attr,index) in source" :key="'attr'+index">
+  <!-- <div  class="detail-select-attribute" v-for="(attr,index) in source" :key="'attr'+index">
     <div v-if="attr.length>0">
       <ul class="common-select">
         <li v-for="(one,index) in attr" :key="'sub'+index">{{one.Name}}</li>
       </ul>
       <div class="clear"></div>
     </div>
-  </div>
+  </div> -->
+  <h1 class="product_info">{{ $t("product.ProductInformation") }}</h1>
+    <div class="detail-box">
+      <div class="detail-header">
+        <div class="detail-products detail-title">{{ $t("product.Products") }}</div>
+        <div class="detail-parameter detail-title">{{ $t("product.Parameter") }}</div>
+      </div>
+      <div class="detail-body">
+        <div class="catalogue">
+          <div
+            class="detail-select-attribute"
+            v-for="(cat, index) in cateTree"
+            :key="'cat' + index"
+          >
+            <div>
+              <ul class="common-select">
+                <li v-if="cat.ParentId != 0">{{ cat.Name }}</li>
+              </ul>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </div>
+        <div class="detailtype">
+          <div
+            class="detail-select-attribute"
+            v-for="(attr, index) in source"
+            :key="'attr' + index"
+          >
+            <div v-if="attr.length > 0">
+              <ul class="common-select">
+                <li v-for="(one, index) in attr" :key="'sub' + index">
+                  {{one.Type.Name}}
+                </li>
+              </ul>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </div>
+        <div class="attribute">
+          <div
+            class="detail-select-attribute"
+            v-for="(attr, index) in source"
+            :key="'attr' + index"
+          >
+            <div v-if="attr.length > 0">
+              <ul class="common-select">
+                <li v-for="(one, index) in attr" :key="'sub' + index">
+                  {{ one.Name }}
+                </li>
+              </ul>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -29,7 +84,7 @@ export default class PkProductDetailCate extends Vue {
 }
 </script>
 <style scoped lang="less">
-ul,li{
+/* ul,li{
   list-style: none;
 }
 .cateMain{
@@ -69,5 +124,58 @@ ul,li{
     padding-left: 2rem;
     padding-right: 2rem;
     border-radius: 5px;
+} */
+.cateMain{
+  text-align: center;
+  width: 100%;
+}
+.product_info{
+  text-align: center;
+  margin:30px auto;
+  font-size: 2rem;
+}
+.detail-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.detail-title{
+  background-color: #808080;
+  color:#fff;
+  height: 45px;
+  line-height: 45px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.detail-products{
+  width: 70%;
+}
+.detail-parameter{
+  width: 29%;
+}
+.detail-body{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  li{
+    height: 40px;
+    line-height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:#000;
+    font-size: 1.2rem;
+  }
+}
+.catalogue{
+  width: 20%;
+}
+.detailtype{
+  width: 50%;
+}
+.attribute{
+  width: 30%;
 }
 </style>

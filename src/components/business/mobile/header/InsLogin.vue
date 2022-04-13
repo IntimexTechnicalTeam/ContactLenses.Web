@@ -46,8 +46,6 @@ export default class InsLangSwitch extends Vue {
 </script>
 <style scoped lang="less">
   .menberCentral{
-    padding-left: 1rem;
-    padding-right: 1rem;
     float: left;
     height: 3.5rem;
     /* border-right: 1px solid #e6e6e6; */

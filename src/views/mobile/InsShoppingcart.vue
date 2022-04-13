@@ -1,7 +1,7 @@
 <template>
   <div class="shoppingcart_warrper">
     <!--main-content-->
-        <div class="shoppingcart_header">{{$t('Shoppingcart.ShoppingcartTitle')}}</div>
+        <div class="shoppingcart_header">{{$t('Order.OrderList')}}      •</div>
         <div class="ShoppingCartItem_warpper"  v-for="(one,index) in items" :key="index">
             <div class="shoppingcart_item_image">
                 <a class="product-img" v-bind:href="'/product/Detail/'+one.Product.Sku">
@@ -9,13 +9,13 @@
                   </a>
             </div>
             <div class="shoppingcart_item_detail">
-                <div class="shoppingcart_item_name">{{one.Product.Name}}</div>
-                <div class="shoppingcart_item_code">{{one.Product.Code}}</div>
-                <div class="shoppingcart_item_attr">
+                <div class="shoppingcart_item_code">{{$t('product.ProductCode')}}: {{one.Product.Code}}</div>
+                <div class="shoppingcart_item_name">{{$t('product.ProductName')}}: {{one.Product.Name}}</div>
+                <!-- <div class="shoppingcart_item_attr">
                       <span v-if="one.AttrName1">{{one.AttrTypeName1}}：{{one.AttrName1}}</span>&nbsp;
                       <span v-if="one.AttrName2">{{one.AttrTypeName2}}：{{one.AttrName2}}</span>&nbsp;
                       <span v-if="one.AttrName3">{{one.AttrTypeName3}}：{{one.AttrName3}}</span>&nbsp;
-                </div>
+                </div> -->
                 <div class="shoppingcart_item_qty">
                   <div class="common-num">
                       <a
@@ -36,9 +36,9 @@
                       <a class="add-num" href="javascript:;" v-on:click="plusQty(one,one.Id,$event);" :class="{'disabled':one.IsAdd}">+</a>
                       </div>
                 </div>
-                <div class="shoppingcart_item_price">
+                <!-- <div class="shoppingcart_item_price">
                     <div>{{Currency.Code}} {{(one.Product.SalePrice) | PriceFormat}}</div>
-                </div>
+                </div> -->
             </div>
             <div class="close"  v-on:click="removeItem(index)">
                 <i class="el-icon-circle-close"></i>
@@ -238,11 +238,12 @@ export default class InsShoppingcart extends Vue {
     }
 }
 .shoppingcart_item_image{
-    margin: 0 0 0 1rem;
+    /* margin: 0 0 0 1rem; */
 }
 .shoppingcart_item_image img{
     width: 10rem;
     height: 10rem;
+    border-radius: 10px;
 }
 .shoppingcart_item_detail{
     margin: 0 0 0 1rem;
@@ -254,6 +255,8 @@ export default class InsShoppingcart extends Vue {
 .shoppingcart_item_price{
     line-height: 2.5rem;
     font-size: 1.2rem;
+    color:#000;
+    font-weight: bold;
     // width: 10rem;
 }
 .shoppingcart_item_price >div{
@@ -281,13 +284,15 @@ export default class InsShoppingcart extends Vue {
     background-color: white;
     padding: 2rem 0;
     border-radius: .5rem;
+    width: 93%;
+    margin: 0 auto;
     // min-height: calc(100vh - 402px);
     .shoppingcart_header{
         font-size: 2rem;
         line-height: 5rem;
-        text-align: center;
+        text-align: left;
         font-weight: 700;
-        border-bottom: 1px solid #eee;
+        color:#0e579c;
     }
 }
 .shoppingcart_total{

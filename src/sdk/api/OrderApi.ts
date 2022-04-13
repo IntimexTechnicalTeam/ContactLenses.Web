@@ -12,13 +12,14 @@ export class OrderApi extends WSAPI {
   //     return result.data;
   //   });
   // }
-  async saveOrder (shoppingcart: string, sku: string, customercode: string, resultleft: string, resultright: string, cornealleft: string, cornealright: string, lensmaterial: string, lenscolor: string, lensdiameter: string, remark: string, power: string, bc: string, diam: string, oz: string, ct: string) {
-    let result = await this.instance.post(
-      this.apiPath + '/Order/CreateOrder',
-      { ShoppingCartId: shoppingcart, Sku: sku, CustomerCode: customercode, ResultLeft: resultleft, ResultRight: resultright, CorneaLeft: cornealleft, CorneaRight: cornealright, LensMaterial: lensmaterial, LensColor: lenscolor, LensDiameter: lensdiameter, Remark: remark, Power: power, BC: bc, Diam: diam, OZ: oz, CT: ct }
-    );
-    return { Message: new Message(result.data.Message, result.data.ReturnValue, result.data.Succeeded) };
-  };
+  saveOrder (order:any) {
+    return this.instance.post(
+      this.apiPath + '/Order/CreateOrder', order
+      ).then((result) => {
+      // console.log(result.data);
+      return result.data;
+    });
+  }
   createOrder (order: CreateOrder) {
     return this.instance.post(
       this.apiPath + '/DefaultOrder/CreateDefaultOrder',
