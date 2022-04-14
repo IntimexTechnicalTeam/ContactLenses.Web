@@ -17,6 +17,7 @@
                       <span v-if="one.AttrName3">{{one.AttrTypeName3}}：{{one.AttrName3}}</span>&nbsp;
                 </div> -->
                 <div class="shoppingcart_item_qty">
+                  <span class="qty-title">{{$t('Shoppingcart.Quantity')}}</span>
                   <div class="common-num">
                       <a
                         class="reduce-num"
@@ -39,13 +40,38 @@
                 <!-- <div class="shoppingcart_item_price">
                     <div>{{Currency.Code}} {{(one.Product.SalePrice) | PriceFormat}}</div>
                 </div> -->
+                <div class="merchant-box">
+                  <button @click="boxShow(index)" class="edit">{{$t('product.EditDetails')}}</button>
+                  <button class="close"  v-on:click="removeItem(index)">
+                    {{$t('product.Delete')}}
+                  </button>
+                </div>
+                <div class="edit-box" v-show="items[index].boxshow">
+                <span class="edit_title">{{$t('product.RequiredInformation')}}</span>
+                <ElForm :model="editForm" :rules="edit" ref="editForm">
+                  <FormItem v-for="(item,index) in (one.LensExtAttrItem)" :key="index" :label="item.Id">
+                    <ElInput v-model="item.Text" clearable=""></ElInput>
+                  </FormItem>
+                  <span class="edit_title">{{$t('product.ToCustomise')}}</span>
+                  <div class="parameter_table">
+                    <FormItem v-for="(item,index) in (one.LensAttrView)" :key="index" :label="item.AttrName">
+                     <ElInput v-model="item.AttrValue" clearable=""></ElInput>
+                    </FormItem>
+                  </div>
+                  <div class="edit_btn_box">
+                    <b class="btn saveBtn" @click="saveItem(index)">{{$t('product.Save')}}</b>
+                    <b class="btn canelBtn" @click="Reset(index)">{{$t('product.Reset')}}</b>
+                    </div>
+                </ElForm>
+              </div>
             </div>
-            <div class="close"  v-on:click="removeItem(index)">
-                <i class="el-icon-circle-close"></i>
-            </div>
-        </div>
+          </div>
         <div>
-          <div class="shoppingcart_total1">{{Currency.Code}} {{(totalAmount) | PriceFormat}}</div>
+        <div class="address" v-for="(item, index) in addressList" :key="index" :class="activeIndex === index ? 'active' : ''" @click="changeList(index)">
+          <div>{{item.Country.Name}}</div>
+          <div>{{item.DeliveryId}}</div>
+        </div>
+          <!-- <div class="shoppingcart_total1">{{Currency.Code}} {{(totalAmount) | PriceFormat}}</div> -->
           <div class="shoppingcart_total"><ElButton type="success" @click="submit"><span style="font-size:1.5rem;">{{ $t('Shoppingcart.Checkout') }}</span></ElButton></div>
         </div>
     <!--main-content-->
@@ -53,10 +79,12 @@
 </template>
 <script lang='ts'>
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import { Form, Input, FormItem, Button as ElButton } from 'element-ui';
 import ShopCart from '../../model/ShopCart';
 import ShopCartItem from '../../model/shopCartItem';
 import Currency from '../../model/currency';
-import { Button as ElButton } from 'element-ui';
+import Order from '@/model/order';
+import Address from '../../model/address';
 class Update {
   itemId!: string;
   qty!: number;
@@ -65,9 +93,93 @@ class Update {
     this.qty = qty;
   }
 }
-@Component({ components: { ElButton } })
+@Component({
+  components: {
+    ElButton,
+    Form,
+    Input,
+    FormItem
+  }
+})
 export default class InsShoppingcart extends Vue {
   private ShoppingCart:ShopCart = new ShopCart();
+  private Order:Order =new Order();
+  editForm: any = {
+    ShoppingCartId: '',
+    Sku: '',
+    LensExtAttrItem: [
+      {
+        Id: 'CustomerCode',
+        Text: ''
+        }
+    ],
+    LensAttrView: {},
+    AddressId: ''
+  }
+  get edit () {
+    return {
+      CustomerCode: [{
+        require: true,
+        tigger: 'blur'
+      }],
+      RefractionResult: [{
+        require: true,
+        tigger: 'blur'
+      }],
+      ResultLeft: [{
+        require: true,
+        tigger: 'blur'
+      }],
+      ResultRight: [{
+        require: true,
+        tigger: 'blur'
+      }],
+      CorneaLeft: [{
+        require: true,
+        tigger: 'blur'
+      }],
+      CorneaRight: [{
+        require: true,
+        tigger: 'blur'
+      }],
+      LensMaterial: [{
+        require: true,
+        tigger: 'blur'
+      }],
+      LensColor: [{
+        require: true,
+        tigger: 'blur'
+      }],
+      OverallDiameter: [{
+        require: true,
+        tigger: 'blur'
+      }],
+      /* Remarks: [{
+        require: true,
+        tigger: 'blur'
+      }], */
+      Prower: [{
+        require: true,
+        tigger: 'blur'
+      }],
+      BC: [{
+        require: true,
+        tigger: 'blur'
+      }],
+      Diam: [{
+        require: true,
+        tigger: 'blur'
+      }],
+      OZ: [{
+        require: true,
+        tigger: 'blur'
+      }],
+      CT: [{
+        require: true,
+        tigger: 'blur'
+      }]
+    };
+  }
   prodcutSrc: string = require('@/assets/Images/270_b.jpg');
   step: number = 1;
   totalAmount: number = 0;
@@ -79,9 +191,11 @@ export default class InsShoppingcart extends Vue {
   // currentCode: any = '';
   items: any[] = [
   ];
+  activeIndex = null;
   itemQty:number=0;
   private UpdateQueQue:Update[] = [];
   isAdd:boolean = false;
+  addressList: Address[] = [];
   mounted () {
     // this.loadItems();
   }
@@ -96,10 +210,24 @@ export default class InsShoppingcart extends Vue {
       this.items.forEach(v => {
         this.$set(v, 'IsAdd', false);
       });
+      if (this.ShoppingCart.Items.length > 0) {
+        this.address();
+      }
       if (this.ShoppingCart.Items.length === 0) this.$Confirm(this.$t('Message.Message'), this.$t('Shoppingcart.None'), () => { this.$router.push('/product/search/-'); }, () => { this.$router.push('/'); });
     });
     this.loadItems();
     return load;
+  }
+  address () {
+    this.$Api.delivery.getAddress().then((result) => {
+    this.addressList = result.data;
+      // console.log(result.data);
+    });
+  }
+  changeList(index) {
+    this.activeIndex = index;
+    this.editForm.AddressId = this.addressList[index].DeliveryId;
+    console.log(this.addressList[index].DeliveryId);
   }
   loadItems () {
     var _this = this;
@@ -125,6 +253,17 @@ export default class InsShoppingcart extends Vue {
     this.$Api.shoppingCart.removeItem(item.Id).then(result => {
       this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
     });
+  }
+  boxShow(index) {
+    Vue.set(this.items[index], 'boxshow', true);
+  }
+  saveItem (index) {
+    Vue.set(this.items[index], 'boxshow', false);
+    Vue.set(this.items[index], 'ShoppingCartId', this.items[index].Id);
+    Vue.set(this.items[index], 'Sku', this.items[index].Product.Sku);
+    for (var i = 0; i < this.items[index].LensExtAttrItem.length; i++) {
+      Vue.set(this.items[index], this.items[index].LensExtAttrItem[i].Id, this.items[index].LensExtAttrItem[i].Text);
+    }
   }
   next () {
     // if (!this.items || this.items.length === 0) {
@@ -178,7 +317,7 @@ export default class InsShoppingcart extends Vue {
     // }
   }
   submit () {
-    let temp = {};
+    /* let temp = {};
     let item:Update;
     let waittingList = [Promise.resolve('head')];
     while (this.UpdateQueQue.length !== 0) {
@@ -194,6 +333,24 @@ export default class InsShoppingcart extends Vue {
       else {
         // this.$Login(() => { this.$ShowLayer(); this.load().then(() => { this.$HiddenLayer(); }); });
         this.$router.push('/account/login?returnurl=/account/checkout');
+      }
+    }); */
+    let temp = {
+      AddressId: this.editForm.AddressId,
+      Items: this.items
+    };
+    this.$Api.order.saveOrder(temp).then((result) => {
+      if (result.Succeeded) {
+        /* this.$message({
+          message: '创建订单成功',
+          type: 'success'
+        }); */
+        this.$router.push('/order/List');
+      } else {
+        this.$message({
+          message: result.Message,
+          type: 'error'
+        });
       }
     });
   }
@@ -224,18 +381,29 @@ export default class InsShoppingcart extends Vue {
 .ShoppingCartItem_warpper{
     display: flex;
     flex-wrap: nowrap;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     border-bottom: 1px solid #eee;
-    position: relative;
-    .close{
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        i{
-            font-size: 2rem;
-        }
+    .merchant-box {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      .edit,
+      .close{
+        border:none;
+        background: #0e579c;
+        color:#fff;
+        padding: 0.5rem 1rem;
+        width: 5rem;
+        border-radius: 5px;
+      }
     }
+}
+.shoppingcart_item_name,
+.shoppingcart_item_qty,
+.merchant-box{
+  margin-top:1rem
 }
 .shoppingcart_item_image{
     /* margin: 0 0 0 1rem; */
@@ -247,12 +415,13 @@ export default class InsShoppingcart extends Vue {
 }
 .shoppingcart_item_detail{
     margin: 0 0 0 1rem;
-    margin-right: 3.5rem;
+    width:64%;
 }
 .shoppingcart_item_name,
 .shoppingcart_item_code,
 .shoppingcart_item_attr,
-.shoppingcart_item_price{
+.shoppingcart_item_price,
+.qty-title{
     line-height: 2.5rem;
     font-size: 1.2rem;
     color:#000;
@@ -265,6 +434,9 @@ export default class InsShoppingcart extends Vue {
 }
 .shoppingcart_item_qty{
     display: flex;
+    width:100%;
+    justify-content: space-between;
+    align-items: center;
     .qty_count{
         line-height: 26px;
         font-size: 1.2rem
@@ -314,16 +486,13 @@ export default class InsShoppingcart extends Vue {
   height: 30px;
   line-height: 30px;
   text-align: center;
-  border: none;
-  color: #999999;
-  outline: none;
-  border-left: 1px solid #e0e0e0;
-  border-right: 1px solid #e0e0e0;
+  background: #fff;
+  border:none;
+  color:#000;
+  font-weight: bold;
 }
 .common-num {
   display: inline-block;
-  border: 1px solid #e0e0e0;
-  border-radius: 3px;
 }
 .common-num a{
     float: left;
@@ -332,6 +501,11 @@ export default class InsShoppingcart extends Vue {
     line-height: 30px;
     text-align: center;
     font-size: 20px;
-    color: #999999;
+    color: #fff;
+    background-color: #0e579c;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>
