@@ -66,7 +66,7 @@
               <div class="edit-box" v-show="items[index].boxshow">
                 <span class="edit_title">{{$t('product.RequiredInformation')}}</span>
                 <ElForm :model="editForm" :rules="edit" ref="editForm">
-                  <FormItem v-for="(item,index) in (one.LensExtAttrItem)" :key="index" :label="item.Id">
+                  <FormItem v-for="(item,index) in (one.LensExtAttrItem)" :key="index" :label="item.MutiLang">
                     <ElInput v-model="item.Text" clearable=""></ElInput>
                   </FormItem>
                   <span class="edit_title">{{$t('product.ToCustomise')}}</span>
@@ -85,9 +85,14 @@
             </div>
           </div>
         </div>
-        <div class="address" v-for="(item, index) in addressList" :key="index" :class="activeIndex === index ? 'active' : ''" @click="changeList(index)">
-          <div>{{item.Country.Name}}</div>
-          <div>{{item.DeliveryId}}</div>
+        <div class="addressBox" v-if="addressBlock">
+          <div class="address" v-for="(item, index) in addressList" :key="index" :class="activeIndex === index ? 'active' : ''" @click="changeList(index)">
+            <div>{{item.Country.Name}}</div>
+            <div>{{item.DeliveryId}}</div>
+          </div>
+        </div>
+        <div class="addAdderss" v-if="addAddress">
+          <button class="clickAdd" @click="addClick()">添加地址</button>
         </div>
         <div class="shoppingcart-handle">
           <!-- <p>
@@ -127,6 +132,8 @@ class Update {
 export default class InsShoppingcart extends Vue {
   private ShoppingCart:ShopCart = new ShopCart();
   private Order:Order =new Order();
+  addAddress = false;
+  addressBlock = false;
 editForm: any = {
     ShoppingCartId: '',
     Sku: '',
@@ -241,9 +248,18 @@ editForm: any = {
   }
   address () {
     this.$Api.delivery.getAddress().then((result) => {
-    this.addressList = result.data;
-      // console.log(result.data);
+      if (result.data.length === 0) {
+        this.addAddress = true;
+        this.addressBlock = false;
+      } else {
+        this.addressList = result.data;
+        this.addressBlock = true;
+        this.addAddress = false;
+      }
     });
+  }
+  addClick () {
+    this.$router.push('/account/deliveryAddress');
   }
   changeList(index) {
     this.activeIndex = index;

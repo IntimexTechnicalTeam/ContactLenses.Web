@@ -47,7 +47,7 @@
     </div>
     <div class="in_panel_footer none-error" v-else>
         <button type="button" :disabled="SoldOutAttr" @click="click('addToCart')" class="CartBtn">{{$t('product.addToCart')}}</button>
-        <button type="button" :disabled="SoldOutAttr" @click="click('buy')" class="BuyBtn">{{$t('product.buy')}}</button>
+        <!-- <button type="button" :disabled="SoldOutAttr" @click="click('buy')" class="BuyBtn">{{$t('product.buy')}}</button> -->
     </div>
     <!-- <inRecommend :Skus="ProductSku"></inRecommend> -->
   </div>
