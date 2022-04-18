@@ -58,16 +58,15 @@ export class ShoppingCartApi extends WSAPI {
       {}).then((result) => {
       // do someting about check success
       // return result.data;
-      /* let shopCart = new ShopCart();
+      let shopCart = new ShopCart();
       Object.keys(shopCart).forEach((element) => {
         element = element.replace('_', '');
         shopCart[element] = result.data[element];
       });
-      return { ShopCart: shopCart }; */
-      console.log('111', result);
+      return { ShopCart: shopCart };
     });
     // store.dispatch('setShopCart', result);
-    // return result;
+    return result;
   };
 
   // @Proxy(Message)

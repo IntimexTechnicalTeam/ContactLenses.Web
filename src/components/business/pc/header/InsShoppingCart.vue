@@ -110,6 +110,7 @@ export default class InsShoppingCart extends Vue {
     this.$store.dispatch(
       'setShopCart',
       this.$Api.shoppingCart.getShoppingCart()
+      // this.$Api.shoppingCart.shoppingGet()
     );
   }
 

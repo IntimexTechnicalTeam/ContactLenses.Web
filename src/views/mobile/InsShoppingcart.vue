@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="clear"></div>
-            <div class="edit-box" v-show="items[index].boxshow">
+            <div class="edit-box pc-edit-box" v-show="items[index].boxshow">
                 <span class="edit_title">{{$t('product.RequiredInformation')}}</span>
                 <!-- <span class="result">{{$t('product.RefractionResult')}}</span> -->
                 <ElForm :model="editForm" :rules="edit" ref="editForm">
@@ -58,9 +58,9 @@
                   </FormItem> -->
                   <div class="itemInformation">
                     <div v-for="(item,index) in (one.LensExtAttrItem)" :key="index" class="editform-box">
-                    <span class="item-name">{{item.MutiLang}}</span>
-                    <ElInput v-model="item.Text" clearable=""></ElInput>
-                  </div>
+                      <span class="item-name">{{item.MutiLang}}</span>
+                      <ElInput v-model="item.Text" clearable=""></ElInput>
+                    </div>
                   </div>
                   <span class="edit_title">{{$t('product.ToCustomise')}}</span>
                   <div class="parameter_table">
@@ -76,9 +76,19 @@
               </div>
           </div>
         <div>
-        <div class="address" v-for="(item, index) in addressList" :key="index" :class="activeIndex === index ? 'active' : ''" @click="changeList(index)">
-          <div>{{item.Country.Name}}</div>
-          <div>{{item.DeliveryId}}</div>
+        <div class="userAddress" v-if="addressBlock">
+          <div class="address" v-for="(item, index) in addressList" :key="index" :class="activeIndex === index ? 'active' : ''" @click="changeList(index)">
+            <span>{{$t('CheckOut.Name')}}：{{item.FirstName}}{{item.LastName}}</span>
+            <span>{{$t('CheckOut.Phone')}}：{{item.Mobile}}</span>
+            <span>{{$t('CheckOut.Address')}}：{{item.Address}}</span>
+          </div>
+          <div class="addAddress">
+            <button class="clickAdd" @click="addClick()">{{$t('DeliveryAddress.AddAddress')}}</button>
+          </div>
+        </div>
+        <div class="addAddress" v-if="addAddress">
+          <span class="noAddress">{{$t('DeliveryAddress.AddDeliveryAddress')}}</span>
+          <button class="clickAdd" @click="addClick()">{{$t('DeliveryAddress.AddDeliveryAddress')}}</button>
         </div>
           <!-- <div class="shoppingcart_total1">{{Currency.Code}} {{(totalAmount) | PriceFormat}}</div> -->
           <div class="shoppingcart_total"><ElButton type="success" @click="submit"><span style="font-size:1.5rem;">{{ $t('Shoppingcart.Checkout') }}</span></ElButton></div>
@@ -113,6 +123,8 @@ class Update {
 export default class InsShoppingcart extends Vue {
   private ShoppingCart:ShopCart = new ShopCart();
   private Order:Order =new Order();
+  addAddress = false;
+  addressBlock = false;
   editForm: any = {
     ShoppingCartId: '',
     Sku: '',
@@ -220,7 +232,7 @@ export default class InsShoppingcart extends Vue {
     this.load().then(() => { this.$HiddenLayer(); });
   }
   load () {
-    let load = this.$Api.shoppingCart.getShoppingCart().then((result) => {
+    let load = this.$Api.shoppingCart.shoppingGet().then((result) => {
       this.ShoppingCart = result.ShopCart;
       this.Currency = result.ShopCart.DefaultCurrency;
       this.items = result.ShopCart.Items;
@@ -237,14 +249,24 @@ export default class InsShoppingcart extends Vue {
   }
   address () {
     this.$Api.delivery.getAddress().then((result) => {
-      this.addressList = result.data;
-      // console.log(result.data);
+      /* this.addressList = result.data;
+      console.log(result.data); */
+      if (result.data.length === 0) {
+        this.addAddress = true;
+        this.addressBlock = false;
+      } else {
+        this.addressList = result.data;
+        this.addressBlock = true;
+        this.addAddress = false;
+      }
     });
+  }
+  addClick () {
+    this.$router.push('/account/deliveryAddress');
   }
   changeList(index) {
     this.activeIndex = index;
     this.editForm.AddressId = this.addressList[index].DeliveryId;
-    console.log(this.addressList[index].DeliveryId);
   }
   loadItems () {
     var _this = this;
@@ -268,7 +290,7 @@ export default class InsShoppingcart extends Vue {
     // this.loadItems();
     let item:ShopCartItem = this.items.splice(one, 1)[0];
     this.$Api.shoppingCart.removeItem(item.Id).then(result => {
-      this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+      this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
     });
   }
   boxShow(index) {
@@ -280,6 +302,14 @@ export default class InsShoppingcart extends Vue {
     Vue.set(this.items[index], 'Sku', this.items[index].Product.Sku);
     for (var i = 0; i < this.items[index].LensExtAttrItem.length; i++) {
       Vue.set(this.items[index], this.items[index].LensExtAttrItem[i].Id, this.items[index].LensExtAttrItem[i].Text);
+    }
+  }
+  Reset (index) {
+    for (var i = 0; i < this.items[index].LensAttrView.length; i++) {
+      this.items[index].LensAttrView[i].AttrValue = '';
+    }
+    for (var a = 0; a < this.items[index].LensExtAttrItem.length; a++) {
+      this.items[index].LensExtAttrItem[a].Text = '';
     }
   }
   next () {
@@ -296,7 +326,7 @@ export default class InsShoppingcart extends Vue {
     }
     this.Shake(() => {
       this.$Api.shoppingCart.updateItemQty(id, one.Qty).then((result) => {
-            this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+            this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
             one.IsAdd = false;
       });
     }, 500);
@@ -310,7 +340,7 @@ export default class InsShoppingcart extends Vue {
       setTimeout(() => {
              _this.$Api.shoppingCart.updateItemQty(id, one.Qty).then((result) => {
                if (result.Message.Succeeded) {
-                 _this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+                 _this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
                  one.IsAdd = false;
                } else {
                  one.Qty = a;
@@ -528,13 +558,54 @@ export default class InsShoppingcart extends Vue {
     justify-content: center;
     align-items: center;
 }
-.active{
-  background: #6c6c6c;
+.address{
+  width: 98%;
+  padding: 10px 1%;
+  margin:20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  box-shadow: 0 0 10px #efefef;
+  span{
+    font-size: 16px;
+    color: #000;
+    height: 30px;
+    line-height: 30px;
+  }
 }
-
+.active{
+  background: #efefef;
+  box-shadow: 0 0 0 #fff;
+}
+.addAddress{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  .noAddress{
+    margin:30px auto;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    color:#bbb;
+    font-weight: bold;
+  }
+  .clickAdd{
+    border:none;
+    background: #0e579c;
+    color:#fff;
+    font-size: 16px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 2rem;
+    border-radius: 15px;
+  }
+}
 </style>
 <style lang="less">
-.edit-box{
+.pc-edit-box{
   width: 100%;
   overflow: hidden;
   position: relative;

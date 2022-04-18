@@ -168,7 +168,8 @@ export default {
     Price: '價格',
     Total: '商品總價',
     CheckoutList: '確認訂單',
-    Checkout: '安全結算',
+    /* Checkout: '安全結算', */
+    Checkout: '創建訂單',
     goTOCart: '前往購物車',
     vat: '包含增值稅',
     None: '購物車裏空空如也，現在去購買？',

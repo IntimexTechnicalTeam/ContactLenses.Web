@@ -168,7 +168,8 @@ export default {
     Price: '价格',
     Total: '商品总价',
     CheckoutList: '确认订单',
-    Checkout: '安全结算',
+    /* Checkout: '安全结算', */
+    Checkout: '创建订单',
     goTOCart: '前往购物车',
     vat: '包含增值税',
     None: '购物车里空空如也，现在去购买？',

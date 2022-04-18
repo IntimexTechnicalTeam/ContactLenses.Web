@@ -66,9 +66,12 @@
               <div class="edit-box" v-show="items[index].boxshow">
                 <span class="edit_title">{{$t('product.RequiredInformation')}}</span>
                 <ElForm :model="editForm" :rules="edit" ref="editForm">
-                  <FormItem v-for="(item,index) in (one.LensExtAttrItem)" :key="index" :label="item.MutiLang">
-                    <ElInput v-model="item.Text" clearable=""></ElInput>
-                  </FormItem>
+                  <div class="itemInformation">
+                    <div v-for="(item,index) in (one.LensExtAttrItem)" :key="index" class="editform-box">
+                      <span class="item-name">{{item.MutiLang}}</span>
+                      <ElInput v-model="item.Text" clearable=""></ElInput>
+                    </div>
+                  </div>
                   <span class="edit_title">{{$t('product.ToCustomise')}}</span>
                   <div class="parameter_table">
                     <FormItem v-for="(item,index) in (one.LensAttrView)" :key="index" :label="item.AttrName">
@@ -85,14 +88,19 @@
             </div>
           </div>
         </div>
-        <div class="addressBox" v-if="addressBlock">
+        <div class="userAddress" v-if="addressBlock">
           <div class="address" v-for="(item, index) in addressList" :key="index" :class="activeIndex === index ? 'active' : ''" @click="changeList(index)">
-            <div>{{item.Country.Name}}</div>
-            <div>{{item.DeliveryId}}</div>
+            <span>{{$t('CheckOut.Name')}}：{{item.FirstName}}{{item.LastName}}</span>
+            <span>{{$t('CheckOut.Phone')}}：{{item.Mobile}}</span>
+            <span>{{$t('CheckOut.Address')}}：{{item.Address}}</span>
+          </div>
+          <div class="addAddress">
+            <button class="clickAdd" @click="addClick()">{{$t('DeliveryAddress.AddAddress')}}</button>
           </div>
         </div>
-        <div class="addAdderss" v-if="addAddress">
-          <button class="clickAdd" @click="addClick()">添加地址</button>
+        <div class="addAddress" v-if="addAddress">
+          <span class="noAddress">{{$t('DeliveryAddress.AddDeliveryAddress')}}</span>
+          <button class="clickAdd" @click="addClick()">{{$t('DeliveryAddress.AddDeliveryAddress')}}</button>
         </div>
         <div class="shoppingcart-handle">
           <!-- <p>
@@ -231,7 +239,7 @@ editForm: any = {
     this.load().then(() => { this.$HiddenLayer(); });
   }
   load () {
-    let load = this.$Api.shoppingCart.getShoppingCart().then((result) => {
+    let load = this.$Api.shoppingCart.shoppingGet().then((result) => {
       this.ShoppingCart = result.ShopCart;
       this.Currency = result.ShopCart.DefaultCurrency;
       this.items = result.ShopCart.Items;
@@ -264,7 +272,7 @@ editForm: any = {
   changeList(index) {
     this.activeIndex = index;
     this.editForm.AddressId = this.addressList[index].DeliveryId;
-    console.log(this.addressList[index].DeliveryId);
+    // console.log(this.addressList[index].DeliveryId);
   }
   loadItems () {
     var _this = this;
@@ -288,7 +296,7 @@ editForm: any = {
     // this.loadItems();
     let item:ShopCartItem = this.items.splice(one, 1)[0];
     this.$Api.shoppingCart.removeItem(item.Id).then(result => {
-      this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+      this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
     });
   }
   boxShow(index) {
@@ -303,8 +311,12 @@ editForm: any = {
     }
   }
   Reset (index) {
-    console.log(this);
-    this.$refs.editForm[index].resetFields();
+    for (var i = 0; i < this.items[index].LensAttrView.length; i++) {
+      this.items[index].LensAttrView[i].AttrValue = '';
+    }
+    for (var a = 0; a < this.items[index].LensExtAttrItem.length; a++) {
+      this.items[index].LensExtAttrItem[a].Text = '';
+    }
   }
   next () {
     // if (!this.items || this.items.length === 0) {
@@ -314,14 +326,14 @@ editForm: any = {
   }
   minusQty (one, id, event) {
     let _this = this;
-    console.log(event, 'eventevent');
+    // console.log(event, 'eventevent');
     one.Qty--;
     if (one.Qty < 1) {
       one.Qty = 1;
     }
     this.Shake(() => {
       this.$Api.shoppingCart.updateItemQty(id, one.Qty).then((result) => {
-            this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+            this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
             one.IsAdd = false;
       });
     }, 500);
@@ -337,7 +349,7 @@ editForm: any = {
       setTimeout(() => {
              _this.$Api.shoppingCart.updateItemQty(id, one.Qty).then((result) => {
                if (result.Message.Succeeded) {
-                 _this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+                 _this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
                  one.IsAdd = false;
                } else {
                  one.Qty = a;
@@ -404,7 +416,7 @@ editForm: any = {
         });
       }
     });
-    console.log(temp);
+    // console.log(temp);
   }
 }
 </script>
@@ -597,22 +609,6 @@ editForm: any = {
   justify-content: space-between;
   align-items: center;
   width: 300px;
-}
-
-.edit-box{
-  width: 78%;
-  z-index: 99999;
-  background-color: #fff;
-  padding: 30px 1%;
-  overflow: hidden;
-}
-.edit_title{
-  height: 50px;
-  line-height: 50px;
-  font-size: 25px;
-  font-weight: bold;
-  color:#0e579c;
-  border-bottom: 1px solid #0e579c;
 }
 .editinformation{
   display: flex;
@@ -816,6 +812,187 @@ editForm: any = {
   -ms-transition: 0.5s ease;
 }
 .active{
-  background: #6c6c6c;
+  background: #efefef;
+  box-shadow: 0 0 0 #fff;
+}
+.address{
+  width: 98%;
+  padding: 10px 1%;
+  margin:20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  box-shadow: 0 0 10px #efefef;
+  cursor: pointer;
+  span{
+    font-size: 16px;
+    color: #000;
+    height: 30px;
+    line-height: 30px;
+  }
+}
+.addAddress{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  .noAddress{
+    margin:30px auto;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    color:#bbb;
+    font-weight: bold;
+  }
+  .clickAdd{
+    border:none;
+    background: #0e579c;
+    color:#fff;
+    font-size: 16px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 2rem;
+    border-radius: 15px;
+  }
+}
+</style>
+<style lang="less">
+.edit-box{
+  width:98%;
+  margin:100px auto 30px auto;
+  box-shadow: 0 0 5px #f2f0f0;
+  padding: 30px 1%;
+  border-radius: 20px;
+  .edit_title{
+    height: 50px;
+    line-height: 50px;
+    font-size: 25px;
+    font-weight: bold;
+    color:#0e579c;
+    border-bottom: 1px solid #0e579c;
+  }
+  .itemInformation{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    .editform-box{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      .item-name{
+        width: 42%;
+        font-size: 18px;
+        color:#000;
+        font-weight: bold;
+      }
+      .el-input__inner{
+      border:1px solid #0e579c;
+      }
+    }
+    .editform-box:nth-child(1){
+      width:73%;
+      margin-top: 30px;
+      .item-name{
+        width: 20%;
+      }
+    }
+    .editform-box:nth-child(2),
+    .editform-box:nth-child(3),
+    .editform-box:nth-child(4),
+    .editform-box:nth-child(5){
+      justify-content: flex-start;
+      width: 35%;
+      .item-name{
+        margin-right: 20px;
+        width:34%;
+      }
+      .el-input{
+        width: 30%;
+      }
+    }
+    .editform-box:nth-child(6){
+      width: 90%;
+      .item-name{
+        width: 15%;
+      }
+    }
+    .editform-box:nth-child(7),
+    .editform-box:nth-child(8),
+    .editform-box:nth-child(9),
+    .editform-box:nth-child(10),
+    .editform-box:nth-child(11),
+    .editform-box:nth-child(12),
+    .editform-box:nth-child(13),
+    .editform-box:nth-child(14),
+    .editform-box:nth-child(15),
+    .editform-box:nth-child(16){
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .item-name{
+        background: #0b57a3;
+        color: #fff;
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      .el-input__inner{
+        border-radius: 0;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+    }
+    .editform-box:last-child{
+      width: 100%;
+      align-items: flex-start;
+      .item-name{
+        width: 10%;
+      }
+      .el-input__inner{
+        height: 250px;
+        word-wrap: break-word;
+        word-break: normal;
+      }
+    }
+  }
+  .parameter_table{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    .el-form-item{
+      width: 30%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      .el-form-item__label{
+        width: 48%;
+        text-align: left;
+        color:#000;
+        font-weight: bold;
+      }
+      .el-form-item__content{
+        width: 25%;
+        .el-input__inner{
+          width: 100%;
+          border:1px solid #0e579c;
+        }
+      }
+    }
+  }
 }
 </style>

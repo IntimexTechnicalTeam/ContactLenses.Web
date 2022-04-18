@@ -398,7 +398,8 @@ export default {
     Total: 'Total',
     BacktoShoppingCart: 'Back to Shopping Cart',
     Last: 'Last',
-    Checkout: 'Check Out',
+    /* Checkout: 'Check Out', */
+    Checkout: 'Create order',
     Next: 'Next',
     Delivery: 'Delivery',
     SelectDeliveryAddress: 'Select delivery address',
