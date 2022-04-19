@@ -36,7 +36,7 @@ export default class PkLiveBox extends Vue {
   }
   created () {
     this.getVideoContent();
-    this.getFbContent();
+    // this.getFbContent();
   }
 }
 </script>

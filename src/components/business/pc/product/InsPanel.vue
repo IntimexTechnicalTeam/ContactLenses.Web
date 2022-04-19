@@ -72,7 +72,7 @@ export default class Panel extends Vue {
             (result) => {
               Vue.prototype.$Confirm('Message', result.Message.Message);
             }).then(() => {
-            this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+            this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
           }).catch();
       } else if (action === 'buy') {
         this.$Api.shoppingCart.addItem(this.ProductSku, this.ProductInfor.Qty, this.ProductInfor.Attr1, this.ProductInfor.Attr2, this.ProductInfor.Attr3)

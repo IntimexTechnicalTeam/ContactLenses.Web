@@ -2,20 +2,20 @@
   <div class="particulars">
     <div class="lens-box">
       <div class="title title1">
-        Look for a right lens
+        {{$t('home.LookFor')}}
         <span class="dot"></span>
       </div>
       <div class="lensBg">
         <div class="leftlens">
-          <h2>Get your tailor-made lens just by inputing your data</h2>
-          <button class="more">Discover More</button>
+          <h2>{{$t('home.Obtain')}}</h2>
+          <button class="more">{{$t('home.DiscoverMore')}}</button>
         </div>
         <img src="/images/pc/lens.png" alt="" class="right-lens" />
       </div>
     </div>
     <div class="about" id="about">
       <div class="title title2">
-        About Us
+        {{$t('Cms.AboutUS')}}
         <span class="dot"></span>
       </div>
       <div class="aboutcontent">
@@ -38,7 +38,7 @@
             services for ophthalmic and Optometric professionals all over the
             world.
           </p>
-          <button class="more">Read More</button>
+          <button class="more">{{$t('home.ReadMore')}}</button>
         </div>
       </div>
     </div>
@@ -95,6 +95,7 @@ export default class HkPromotion extends Vue {
   color: #0e579c;
   margin: 0 auto;
   font-weight: bold;
+  text-align: center;
   .dot {
     display: block;
     width: 100%;

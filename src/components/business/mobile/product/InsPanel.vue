@@ -101,7 +101,7 @@ export default class InsPanel extends Vue {
               });
               this.Loading = false;
             }).then(() => {
-            this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+            this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
           }).catch();
       } else if (action === 'buy') {
         this.buyLoading = true;

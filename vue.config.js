@@ -8,8 +8,8 @@ if (param === 'dev') {
   apiServer = 'http://contactlenses.api.dev.intimex.hk:84';
   AdminServer = 'http://contactlenses.admin.dev.in-store.hk:84';
 } else if (param === 'uat') {
-  apiServer = 'https://api.uat2.intimex.hk';
-  AdminServer = 'https://admin.uat2.intimex.hk';
+  apiServer = 'https://contactlenses.api.uat2.intimex.hk';
+  AdminServer = 'https://contactlenses.admin.uat2.intimex.hk';
 } else if (param === 'prod') {
   apiServer = 'https://api.uat.in-store.hk';
   AdminServer = 'https://admin.uat.in-store.hk';

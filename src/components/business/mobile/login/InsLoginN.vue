@@ -221,7 +221,7 @@ export default class InsLoginN extends Vue {
       });
     }
     getShopCart () {
-      this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+      this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
     }
     isIe = true;
     created () {

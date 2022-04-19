@@ -35,7 +35,7 @@ export default class InsProductItem extends Vue {
         return this.$Api.shoppingCart.addItem(Sku, 1);
       }).then((AI) => {
         this.$message(AI.Message.Message);
-        this.$Api.shoppingCart.getShoppingCart();
+        this.$Api.shoppingCart.shoppingGet();
       });
     }
     click (e) {

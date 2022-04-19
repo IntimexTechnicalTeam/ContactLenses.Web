@@ -55,7 +55,7 @@ export default class DefaultHeader extends Vue {
     return this.$store.state.shopCart;
   }
   created() {
-    this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+    this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
   }
 }
 </script>

@@ -218,7 +218,7 @@ export default class InsHeader extends Vue {
     this.drawerChange = !this.drawerChange;
   }
   created () {
-    this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+    this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
     // if (this.$route.name !== 'home') { this.fixedBar = false; }
     addEventListener('scroll', () => {
       // if (this.$route.name !== 'home') return;

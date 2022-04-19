@@ -204,7 +204,8 @@ export default class InsHeader extends Vue {
       });
   }
   created () {
-    this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+    /* this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet()); */
+    this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
     addEventListener('scroll', () => {
       var _this = this;
       let scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;

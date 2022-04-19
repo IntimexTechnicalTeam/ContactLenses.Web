@@ -106,7 +106,7 @@ export default class Panel extends Vue {
               });
               this.Loading = false;
             }).then(() => {
-            this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+            this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
           }).catch();
       } else if (action === 'buy') {
         this.buyLoading = true;
@@ -426,7 +426,8 @@ export default class Panel extends Vue {
         width: 48%;
         background-color: unset;
         color: #333333;
-        margin-right: 4%;
+        /* margin-right: 4%; */
+        margin:0 auto;
         &:disabled{
           cursor:not-allowed;
           background: #ccc;

@@ -174,7 +174,9 @@ export default {
     vat: '包含增值税',
     None: '购物车里空空如也，现在去购买？',
     more: '更多',
-    hide: '收起'
+    hide: '收起',
+    NoneAddress: '请添加收货地址',
+    Login: '登陆'
   },
   Login: {
     doLogin: '登入',
@@ -509,7 +511,13 @@ export default {
     Resetall: '重置所有筛选条件',
     PriceHL: '价格从高至低',
     PriceLH: '价格从低至高',
-    Thatsall: '以上是全部内容'
+    Thatsall: '以上是全部内容',
+    Choices: '你的选择',
+    LookFor: '寻找合适的镜头',
+    Shop: '店铺',
+    DiscoverMore: '了解更多',
+    ReadMore: '阅读更多',
+    Obtain: '只需输入数据即可获得定制的镜头'
   },
   Action: {
     ReturnHomePage: '返回首页',

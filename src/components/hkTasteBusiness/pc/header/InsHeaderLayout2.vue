@@ -265,7 +265,8 @@ export default class InsHeader extends Vue {
       });
   }
   created () {
-    this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+    /* this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet()); */
+    this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
     if (this.$route.name !== 'home') { this.showMeunBar = false; }
     window.onscroll = () => {
       if (this.$route.name !== 'home') return;

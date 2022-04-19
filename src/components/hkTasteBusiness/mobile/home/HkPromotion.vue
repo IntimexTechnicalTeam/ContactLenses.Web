@@ -4,7 +4,7 @@
     <div class="InnerSide">
       <div class="main">
         <div class="title title1">
-          <h2>Your choices</h2>
+          <h2>{{$t('home.Choices')}}</h2>
           <span></span>
         </div>
         <div class="swiperBg swipermain">
@@ -47,7 +47,7 @@
                   </div>
                 <p class="content">{{content3}}</p>
             </div> -->
-      <button class="btn btn-success">Shop</button>
+      <button class="btn btn-success">{{$t('home.Shop')}}</button>
     </div>
     <!-- 限时大平卖 -->
     <!-- <div class="SalesMain">

@@ -107,7 +107,8 @@
             <span>{{$t('Shoppingcart.Total')}}</span>
             <span class="total-price">{{Currency.Code}} {{(totalAmount) | PriceFormat}}</span>
           </p> -->
-          <a href="javascript:;" class="btn" @click="submit">{{$t('Shoppingcart.CheckoutList')}}</a>
+          <a href="javascript:;" class="btn" @click="submitLogin" v-if="this.$Storage.get('isLogin') === 0">{{$t('Shoppingcart.Login')}}</a>
+          <a href="javascript:;" class="btn" @click="submit" v-if="this.$Storage.get('isLogin') === 1">{{$t('Shoppingcart.CheckoutList')}}</a>
         </div>
       </div>
     </div>
@@ -246,7 +247,7 @@ editForm: any = {
       this.items.forEach(v => {
         this.$set(v, 'IsAdd', false);
       });
-      if (this.ShoppingCart.Items.length > 0) {
+      if (this.$Storage.get('isLogin') === 1 && this.ShoppingCart.Items.length > 0) {
         this.address();
       }
       if (this.ShoppingCart.Items.length === 0) this.$Confirm(this.$t('Message.Message'), this.$t('Shoppingcart.None'), () => { this.$router.push('/product/search/-'); }, () => { this.$router.push('/'); });
@@ -372,6 +373,9 @@ editForm: any = {
     //   one.Qty = this.MaxQty;
     // }
   }
+  submitLogin () {
+    this.$router.push('/account/login?returnurl=/account/checkout');
+  }
   submit () {
     /* let temp = {};
     let item:Update;
@@ -402,7 +406,10 @@ editForm: any = {
       AddressId: this.editForm.AddressId,
       Items: this.items
     };
-    this.$Api.order.saveOrder(temp).then((result) => {
+    if (this.editForm.AddressId === '') {
+      this.$Confirm(this.$t('Message.Message'), this.$t('Shoppingcart.NoneAddress'), () => { this.$router.push('/account/deliveryAddress'); }, () => { this.$router.push('/account/deliveryAddress'); });
+    } else {
+      this.$Api.order.saveOrder(temp).then((result) => {
       if (result.Succeeded) {
         /* this.$message({
           message: '创建订单成功',
@@ -410,12 +417,13 @@ editForm: any = {
         }); */
         this.$router.push('/order/List');
       } else {
-        this.$message({
+        /* this.$message({
           message: result.Message,
           type: 'error'
-        });
+        }); */
       }
     });
+    }
     // console.log(temp);
   }
 }

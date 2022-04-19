@@ -70,7 +70,7 @@ export default class InsShoppingCart extends Vue {
   }
   // 获取购物车商品信息
   getShopCart () {
-    this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+    this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
   }
 
   // 删除购物车商品
@@ -85,7 +85,7 @@ export default class InsShoppingCart extends Vue {
     });
   }
   mounted () {
-    this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+    this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
   }
   get shopCarts () {
     return this.$store.state.shopCart;

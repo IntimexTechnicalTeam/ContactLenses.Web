@@ -173,7 +173,9 @@ export default {
     vat: 'Include VAT',
     None: 'No article in your Shopping Cart!Shopping now.',
     more: 'more',
-    hide: 'hide'
+    hide: 'hide',
+    NoneAddress: 'Please add the shipping address',
+    Login: 'Login'
   },
   Login: {
     doLogin: 'Login',
@@ -512,7 +514,13 @@ export default {
     Resetall: 'Reset all filters',
     PriceHL: 'Price from high to low',
     PriceLH: 'Price from low  to high',
-    Thatsall: 'That is all'
+    Thatsall: 'That is all',
+    Choices: 'Your choices',
+    LookFor: 'Look for a right lens',
+    Shop: 'Shop',
+    DiscoverMore: 'Discover More',
+    ReadMore: 'Read More',
+    Obtain: 'Get your tailor-made lens just by inputing your data'
   },
   Action: {
     ReturnHomePage: 'Return Homepage',

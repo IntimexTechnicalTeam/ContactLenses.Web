@@ -217,7 +217,7 @@ export default class InsCheckoutN extends Vue {
       this.$router.push('/account/shoppingcart');
     }
     created () {
-      this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+      this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
       this.$store.dispatch('setAddress', this.$Api.checkout.getAddress2());
       let pm = this.$Api.checkout.getPaymentMethod().then(result => {
         this.payments = result.Payment;

@@ -52,7 +52,7 @@ export default class InsCompleteCheckout extends Vue {
       if (this.orderId) {
         this.$Api.order.getOrder(this.orderId).then((result) => {
           this.Order = result.Order;
-          this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+          this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
         });
       }
     }
@@ -63,7 +63,7 @@ export default class InsCompleteCheckout extends Vue {
     onOrderId () {
       this.$Api.order.getOrder(this.orderId).then((result) => {
         this.Order = result.Order;
-        this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+        this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
       });
     }
     pay (pay) {

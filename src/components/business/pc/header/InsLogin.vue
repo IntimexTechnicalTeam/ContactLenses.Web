@@ -206,7 +206,8 @@ export default class InsLogin extends Vue {
      );
    }
    getShopCart () {
-     this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
+     /* this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet()); */
+     this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
    }
    // 获取会员信息
    getAccount () {

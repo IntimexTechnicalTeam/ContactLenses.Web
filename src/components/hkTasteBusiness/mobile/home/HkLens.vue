@@ -2,20 +2,20 @@
   <div class="particulars">
     <div class="lens-box">
       <div class="title title1">
-        <h2>Look for a right lens</h2>
+        <h2>{{$t('home.LookFor')}}</h2>
         <span class="dot"></span>
       </div>
       <div class="lensBg">
         <img src="/images/pc/lens.png" alt="" class="right-lens" />
         <div class="leftlens">
-          <h2>Get your tailor-made lens just by inputing your data</h2>
-          <button class="more">Discover More</button>
+          <h2>{{$t('home.Obtain')}}</h2>
+          <button class="more">{{$t('home.DiscoverMore')}}</button>
         </div>
       </div>
     </div>
     <div class="about">
       <div class="title title2">
-        <h2>About Us</h2>
+        <h2>{{$t('Cms.AboutUS')}}</h2>
         <span class="dot"></span>
       </div>
       <div class="aboutcontent">
@@ -38,7 +38,7 @@
             services for ophthalmic and Optometric professionals all over the
             world.
           </p>
-          <button class="more">Read More</button>
+          <button class="more">{{$t('home.ReadMore')}}</button>
         </div>
       </div>
     </div>

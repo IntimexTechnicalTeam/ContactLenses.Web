@@ -109,8 +109,8 @@ export default class InsShoppingCart extends Vue {
   getShopCart() {
     this.$store.dispatch(
       'setShopCart',
-      this.$Api.shoppingCart.getShoppingCart()
       // this.$Api.shoppingCart.shoppingGet()
+      this.$Api.shoppingCart.shoppingGet()
     );
   }
 
@@ -134,7 +134,8 @@ export default class InsShoppingCart extends Vue {
   mounted() {
     this.$store.dispatch(
       'setShopCart',
-      this.$Api.shoppingCart.getShoppingCart()
+      // this.$Api.shoppingCart.shoppingGet()
+      this.$Api.shoppingCart.shoppingGet()
     );
   }
   get shopCarts() {

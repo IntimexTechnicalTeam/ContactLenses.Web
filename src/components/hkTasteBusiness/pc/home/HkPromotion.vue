@@ -4,7 +4,7 @@
     <div class="indexRecommend">
       <div class="indexRecommendInner">
         <!-- <div class="RecommendText">{{Title1}}</div> -->
-        <div class="title">Your choices
+        <div class="title">{{$t('home.Choices')}}
           <span class="dot"></span>
         </div>
         <div class="RecommendBg">
@@ -42,7 +42,7 @@
         <p>{{content3}}</p>
       </div> -->
       <!-- Shop -->
-      <button class="btn btn-success">Shop</button>
+      <button class="btn btn-success">{{$t('home.Shop')}}</button>
     <!-- 商品推荐结束 -->
     <div class="clear"></div>
     <HkLens />

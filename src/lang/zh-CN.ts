@@ -174,7 +174,9 @@ export default {
     vat: '包含增值稅',
     None: '購物車裏空空如也，現在去購買？',
     more: '更多',
-    hide: '收起'
+    hide: '收起',
+    NoneAddress: '請添加收貨地址',
+    Login: '登陸'
   },
   Login: {
     doLogin: '登入',
@@ -509,7 +511,13 @@ export default {
     Resetall: '重置所有篩選條件',
     PriceHL: '價格從高至低',
     PriceLH: '價格從低至高',
-    Thatsall: '以上是全部內容'
+    Thatsall: '以上是全部內容',
+    Choices: '你的選擇',
+    LookFor: '尋找合適的鏡頭',
+    Shop: '店鋪',
+    DiscoverMore: '了解更多',
+    ReadMore: '閱讀更多',
+    Obtain: '只需輸入數據即可獲取定制的鏡頭'
   },
   Action: {
     ReturnHomePage: '返回首頁',
