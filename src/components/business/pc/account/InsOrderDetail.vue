@@ -33,9 +33,10 @@
                         <p class="product-title">{{item.Product.Name}}</p>
                            <p class="product-code">{{$t('product.ProductCode')}}:{{item.Product.Code}}&nbsp;&nbsp;{{$t('product.countTitle')}}:{{item.Qty}}</p>
                         <p class="product-code">
-                            <span v-if="item.AttrName1">{{item.AttrType1.Name}} : {{item.AttrName1}}</span>
+                            <!-- <span v-if="item.AttrName1">{{item.AttrType1.Name}} : {{item.AttrName1}}</span>
                             <span v-if="item.AttrName2">{{item.AttrType2.Name}} : {{item.AttrName2}}</span>
-                            <span v-if="item.AttrName3">{{item.AttrType3.Name}} : {{item.AttrName3}}</span>
+                            <span v-if="item.AttrName3">{{item.AttrType3.Name}} : {{item.AttrName3}}</span> -->
+                            <span class="parameter">{{$t('product.LensColor')}}：{{item.LensColor}}</span>
                         </p>
                         <p class="product-price">
                           <span class="p-price-discount">{{CurrencyCode}} {{(item.Product.SalePrice + item.Attr1Price  + item.Attr2Price + item.Attr3Price)*item.Qty | PriceFormat}}</span>

@@ -4,7 +4,9 @@
       <component :navData="NavData" v-bind:is="CurrentNav" class="footermenuul"></component>
     </div>
     <div class="mapinformation">
-        <div class="map"></div>
+        <div class="map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3689.1861947863495!2d114.20403351536899!3d22.384337145494694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34040645abb09ba3%3A0x4c46848ccf55c7bd!2sShatin%20Industrial%20Center!5e0!3m2!1szh-TW!2shk!4v1650419025774!5m2!1szh-TW!2shk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
         <div class="information">
             <p class="shop_address">Unit 7, G/F, Block B, Sha Tin Industrial Centre, Sha Tin, Hong Kong</p>
             <p class="shop_tel">(852) 2648 3338</p>
@@ -67,12 +69,12 @@ export default class InsMenu extends Vue {
 }
 .mapinformation{
     width: 1100px;
-    margin:0 auto 50px auto;
+    margin:100px auto 50px auto;
 }
 .map{
-    background: url(/images/pc/google_map.png) no-repeat center center;
     width: 600px;
     height: 600px;
+    overflow: hidden;
 }
 .information{
     width: 400px;

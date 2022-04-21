@@ -23,6 +23,7 @@
               <div class="favorite-one-messge">
                 <p class="product-code">{{$t('product.ProductCode')}}：{{one.Product.Code}}</p>
                 <p class="product-title">{{$t('product.ProductName')}}：{{one.Product.Name}}</p>
+                <span class="parameter">{{$t('product.LensColor')}}：{{one.LensColor}}</span>
                 <!-- <p class="product-code">
                   <span v-if="one.AttrName1">{{one.AttrTypeName1}}：{{one.AttrName1}}</span>&nbsp;
                   <span v-if="one.AttrName2">{{one.AttrTypeName2}}：{{one.AttrName2}}</span>&nbsp;
@@ -88,19 +89,144 @@
             </div>
           </div>
         </div>
-        <div class="userAddress" v-if="addressBlock">
-          <div class="address" v-for="(item, index) in addressList" :key="index" :class="activeIndex === index ? 'active' : ''" @click="changeList(index)">
-            <span>{{$t('CheckOut.Name')}}：{{item.FirstName}}{{item.LastName}}</span>
-            <span>{{$t('CheckOut.Phone')}}：{{item.Mobile}}</span>
-            <span>{{$t('CheckOut.Address')}}：{{item.Address}}</span>
+        <div class="userAddress">
+          <div class="address" v-for="(item, index) in addressList" :key="index">
+            <div class="information-box" :class="activeIndex === index ? 'active' : ''" @click="changeList(index)">
+              <div class="checked"></div>
+              <span>{{$t('CheckOut.Name')}}：{{item.FirstName}}{{item.LastName}}</span>
+              <span>{{$t('CheckOut.Phone')}}：{{item.Mobile}}</span>
+              <span>{{$t('CheckOut.Address')}}：{{item.Address}}</span>
+            </div>
+            <div class="btnBox">
+              <button @click="editAddr(index)">{{$t('product.EditDetails')}}</button>
+              <button @click="removeAddr(item.DeliveryId)">{{$t('product.Delete')}}</button>
+            </div>
           </div>
           <div class="addAddress">
             <button class="clickAdd" @click="addClick()">{{$t('DeliveryAddress.AddAddress')}}</button>
           </div>
         </div>
-        <div class="addAddress" v-if="addAddress">
+        <!-- <div class="addAddress" v-if="addAddress">
           <span class="noAddress">{{$t('DeliveryAddress.AddDeliveryAddress')}}</span>
           <button class="clickAdd" @click="addClick()">{{$t('DeliveryAddress.AddDeliveryAddress')}}</button>
+        </div> -->
+        <div class="AddAddress-box" v-show="AddrShow">
+          <div  class="MemberInfoMain">
+                <ElForm
+                  :model="AddForm"
+                  status-icon
+                  :rules="newaddress"
+                  ref="AddForm"
+                  class="login-form"
+                >
+                <input type="hidden" id="editDeliveryId" runat="server" />
+                <FormItem :label="$t('DeliveryAddress.AddFirstName')" prop="FirstName">
+                  <ElInput
+                    v-model="AddForm.FirstName"
+                    prefix-icon="el-icon-user"
+                    :placeholder="$t('DeliveryAddress.AddFirstName')"
+                    clearable
+                  ></ElInput>
+                </FormItem>
+
+                 <FormItem :label="$t('DeliveryAddress.AddLastName')" prop="LastName">
+                  <ElInput
+                    v-model="AddForm.LastName"
+                    prefix-icon="el-icon-user"
+                    :placeholder="$t('DeliveryAddress.AddLastName')"
+                    clearable
+                  ></ElInput>
+                </FormItem>
+
+                <FormItem :label="$t('DeliveryAddress.PostalCode')" prop="PostalCode">
+                  <ElInput
+                    v-model="AddForm.PostalCode"
+                    prefix-icon="el-icon-tickets"
+                    :placeholder="$t('DeliveryAddress.PostalCode')"
+                    clearable
+                  ></ElInput>
+                </FormItem>
+                <FormItem :label="$t('DeliveryAddress.Mobile')" prop="Mobile">
+                  <ElInput
+                    v-model="AddForm.Mobile"
+                    prefix-icon="el-icon-phone"
+                    :placeholder="$t('DeliveryAddress.Mobile')"
+                    clearable
+                  ></ElInput>
+                </FormItem>
+                <FormItem :label="$t('DeliveryAddress.Area')" prop="CountryId">
+                  <Select
+                    v-model="AddForm.CountryId"
+                     value-key="Id"
+                    :placeholder="$t('DeliveryAddress.Area')"
+                    style="width: 100%;"
+                    v-on:change="selectCountry($event)"
+                  >
+                    <Option
+                    :label="country.Name"
+                    v-for="(country,index) in countryList"
+                    :key="index"
+                     v-bind:value="(country.Id).toString()"
+                    ></Option>
+
+                  </Select>
+                </FormItem>
+                <div v-show="provinceList.length>0">
+                  <FormItem :label="$t('DeliveryAddress.Province')" prop="Province">
+                    <Select
+                      v-model="AddForm.Province"
+                      :placeholder="$t('DeliveryAddress.Province')"
+                      style="width: 100%;"
+                      value-key="Id"
+                    >
+                      <Option
+                      v-bind:value="(province.Id).toString()"
+                      v-for="(province,index) in provinceList"
+                      :label="province.Name"
+                      :key="index"
+                      ></Option>
+
+                    </Select>
+                </FormItem>
+                </div>
+                  <FormItem :label="$t('DeliveryAddress.Address')" prop="Address">
+                  <ElInput
+                    v-model="AddForm.Address"
+                    prefix-icon="el-icon-location-outline"
+                    :placeholder="$t('DeliveryAddress.Address')"
+                    clearable
+                  ></ElInput>
+                </FormItem>
+
+                <!-- <FormItem :label="$t('DeliveryAddress.DefaultAddress')" >
+                  <Select
+                    :placeholder="$t('DeliveryAddress.DefaultAddress')"
+                    style="width: 100%;"
+                    v-model="AddForm.Default"
+                  >
+                  <Option :label="$t('DeliveryAddress.YesBtn')" :value="true"></Option>
+                  <Option :label="$t('DeliveryAddress.NoBtn')" :value="false"></Option>
+                  </Select>
+                </FormItem> -->
+
+                 <div class="bottomBtn">
+                   <FormItem>
+                    <ElButton
+                      type="primary"
+                      @click="saveAddress('AddForm')"
+                      style="margin-top: 10px;"
+                    >{{$t('DeliveryAddress.SaveBtn')}}</ElButton>
+                  </FormItem>
+                  <FormItem>
+                    <ElButton
+                      type="primary"
+                      @click="Cancel()"
+                      style="margin-top: 10px;"
+                    >{{$t('Message.Cancel')}}</ElButton>
+                  </FormItem>
+                 </div>
+               </ElForm>
+          </div>
         </div>
         <div class="shoppingcart-handle">
           <!-- <p>
@@ -117,12 +243,17 @@
 </template>
 <script lang='ts'>
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { Form, Input, Message, FormItem, Button } from 'element-ui';
+// import { Form, Input, Message, FormItem, Button } from 'element-ui';
+import { Form, Input, Row, Col, Button, Select, Option, FormItem, Card } from 'element-ui';
 import ShopCart from '../../model/ShopCart';
 import ShopCartItem from '../../model/shopCartItem';
 import Currency from '../../model/currency';
 import Order from '@/model/order';
 import Address from '../../model/address';
+import { Country } from '@/model/country';
+import lang from '@/lang';
+import { Province } from '@/model/province';
+import storage from '@/sdk/common/Storage';
 class Update {
   itemId!: string;
   qty!: number;
@@ -135,14 +266,21 @@ class Update {
   components: {
     Form,
     Input,
-    FormItem
+    FormItem,
+    Row,
+    Col,
+    Button,
+    Select,
+    Option,
+    Card
   }
 })
 export default class InsShoppingcart extends Vue {
   private ShoppingCart:ShopCart = new ShopCart();
   private Order:Order =new Order();
-  addAddress = false;
-  addressBlock = false;
+  /* addAddress = false;
+  addressBlock = false; */
+  AddrShow = false;
 editForm: any = {
     ShoppingCartId: '',
     Sku: '',
@@ -236,6 +374,178 @@ editForm: any = {
   private UpdateQueQue:Update[] = [];
   isAdd:boolean = false;
   addressList: Address[] = [];
+  CountryId: number = 786;
+  countryList: any[] = [];
+  private province!:Province;
+  provinceList: any[] = [];
+  validator: any = '';
+  addr: any = {};
+  value: any = '';
+  // private addressList:Address[] = [];
+  addListlength:any='';
+  private AddForm = {
+    FirstName: '',
+    LastName: '',
+    Mobile: '',
+    Phone: '',
+    PostalCode: '',
+    CountryId: '',
+    Province: '',
+    Address: '',
+    Default: ''
+  }
+  get newaddress () {
+    return {
+      FirstName: [
+        {
+          required: true,
+          message: this.$t('MemberInfo.EnterUserName'),
+          trigger: 'blur'
+        }
+      ],
+      LastName: [
+        {
+          required: true,
+          message: this.$t('MemberInfo.EnterUserLastName'),
+          trigger: 'blur'
+        }
+      ],
+      Mobile: [
+        {
+          required: true,
+          message: this.$t('MemberInfo.EnterUserPhone'),
+          trigger: 'blur'
+        },
+        { validator: function (rule, value, callback) {
+             /* eslint-disable */
+            var mobile = /^(\+)?(\d{0,4}\-?)?\d{7,11}$/;
+            if ( mobile.test(value) === false ) {
+              var t = lang.messages[storage.get('locale')].Input['phoneincorrect'];
+                callback(new Error(t));
+            } else {
+                callback();
+            }
+        },
+        trigger: 'blur' }
+      ],
+      CountryId: [
+        {
+          required: true,
+          message: this.$t('Address.Country'),
+          trigger: ['blur', 'change']
+        }
+      ],
+      Address: [
+        {
+          required: true,
+          message: this.$t('Address.Address'),
+          trigger: 'blur'
+        }
+      ]
+    };
+  }
+  goAnchor (selector) {
+    var anchor = this.$el.querySelector(selector); // 参数为要跳转到的元素id
+  }
+  //   加载国家列表
+  getCountry () {
+    let _this = this;
+    this.$Api.delivery.getCountry().then((result) => {
+      _this.countryList = result.data;
+    });
+  }
+
+  //   加载对应省列表
+  getProvince (num) {
+    let _this = this;
+    var cid = num;
+    if (cid && cid !== '') {
+      this.$Api.delivery.getProvince(cid).then((result) => {
+        _this.provinceList = result.data;
+      });
+    } else {
+      _this.AddForm.Province = '';
+    }
+  }
+
+  selectCountry (event) {
+    var cid = event;
+    let _this = this;
+    if (cid && cid !== '') {
+      _this.AddForm.Province = '';
+      _this.getProvince(cid);
+    } else {
+      _this.AddForm.Province = '';
+    }
+  }
+  // 加载地址列表
+  getAddress () {
+    let _this = this;
+    this.$Api.delivery.getAddress().then((result) => {
+      _this.addressList = result.data;
+    });
+  }
+  removeAddr (cid) {
+    let _this = this;
+    var addId = cid;
+    this.$Api.delivery.removeAddress(addId).then((result) => {
+      _this.$message({
+        message: this.$t('MyFavorite.RemoveSuccess') as string,
+        type: 'success',
+        customClass: 'messageBoxMobile'
+      });
+      this.getAddress();
+    });
+  }
+  editAddr (index, val) {
+    this.AddrShow = true;
+    this.goAnchor(val);
+    let _this = this;
+    Object.keys(this.AddForm).forEach((element) => {
+      this.AddForm[element] = this.addressList[index][element];
+    });
+    this.AddForm['DeliveryId'] = this.addressList[index].DeliveryId;
+    this.$Api.delivery.getProvince(this.addressList[index].CountryId).then((result) => {
+      _this.provinceList = result.data;
+    });
+  }
+  private saveAddress (formName) {
+    this.AddrShow = false;
+    let _this = this;
+    this.AddForm.Phone = this.AddForm.Mobile;
+    if (!this.AddForm.Province) {
+      this.AddForm.Province = '0';
+    }
+    (this.$refs.AddForm as Form).validate(valid => {
+      if (valid) {
+        this.$Api.delivery.saveAddress(this.AddForm).then((result) => {
+          this.getAddress();
+          this.AddForm = {
+            FirstName: '',
+            LastName: '',
+            Mobile: '',
+            Phone: '',
+            PostalCode: '',
+            CountryId: '',
+            Province: '',
+            Address: '',
+            Default: ''
+          };
+          _this.$message({
+            message: this.$t('Message.SavedSuccessfully') as string,
+            type: 'success',
+            customClass: 'messageBoxMobile'
+          });
+        });
+      } else {
+        console.log('error submit!!');
+        return false;
+      }
+    });
+  }
+  Cancel () {
+    this.AddrShow = false;
+  }
   created () {
     this.load().then(() => { this.$HiddenLayer(); });
   }
@@ -257,18 +567,19 @@ editForm: any = {
   }
   address () {
     this.$Api.delivery.getAddress().then((result) => {
-      if (result.data.length === 0) {
+      /* if (result.data.length === 0) {
         this.addAddress = true;
         this.addressBlock = false;
       } else {
         this.addressList = result.data;
         this.addressBlock = true;
         this.addAddress = false;
-      }
+      } */
+      this.addressList = result.data;
     });
   }
   addClick () {
-    this.$router.push('/account/deliveryAddress');
+    this.AddrShow = true;
   }
   changeList(index) {
     this.activeIndex = index;
@@ -425,6 +736,14 @@ editForm: any = {
     });
     }
     // console.log(temp);
+  }
+  mounted () {
+   // this.getAddress();
+    this.getCountry();
+  }
+  @Watch('this.addListlength')
+  onCountryChange (n, o) {
+
   }
 }
 </script>
@@ -735,10 +1054,15 @@ editForm: any = {
     text-align: center;
   }
 }
+
 .shoppingcart-handle {
   text-align: right;
 }
-
+.AddAddress-box{
+  width:60%;
+  overflow: hidden;
+  margin:0 auto;
+}
 .shoppingcart-handle span {
   display: inline-block;
   font-size: 20px;
@@ -819,25 +1143,57 @@ editForm: any = {
   -moz-transition: 0.5s ease;
   -ms-transition: 0.5s ease;
 }
-.active{
-  background: #efefef;
-  box-shadow: 0 0 0 #fff;
-}
 .address{
   width: 98%;
   padding: 10px 1%;
   margin:20px auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  box-shadow: 0 0 10px #efefef;
   cursor: pointer;
-  span{
-    font-size: 16px;
-    color: #000;
-    height: 30px;
-    line-height: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 10px #efefef;
+  .checked{
+    width: 10px;
+    height: 10px;
+    box-shadow: 0 0 5px #6c6c6c;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+  .information-box{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    span{
+      font-size: 16px;
+      color: #000;
+      height: 30px;
+      line-height: 30px;
+    }
+  }
+  .btnBox{
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    button{
+      width: 100px;
+      height: 45px;
+      line-height: 45px;
+      border:none;
+      background: #e6e6e6;
+      color:#000;
+    }
+  }
+}
+
+.active{
+  .checked{  
+    background: #0b57a3;
+    box-shadow: 0 0 0 #fff;
   }
 }
 .addAddress{
@@ -1002,5 +1358,11 @@ editForm: any = {
       }
     }
   }
+}
+.bottomBtn{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

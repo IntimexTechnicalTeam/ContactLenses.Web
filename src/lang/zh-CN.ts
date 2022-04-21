@@ -176,7 +176,7 @@ export default {
     more: '更多',
     hide: '收起',
     NoneAddress: '請添加收貨地址',
-    Login: '登陸'
+    Login: '登入'
   },
   Login: {
     doLogin: '登入',

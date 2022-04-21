@@ -79,11 +79,12 @@ export default class InsPanel extends Vue {
   private MId:string = '';
   private LensColor:string = '';
   private ProductInfor: ShopCartItem = new ShopCartItem();
-  data() {
+  /* data() {
     return {
       colorList: []
     };
-  }
+  } */
+  colorList = [];
   get warpperStyle (): string {
     return 'width:' + this.width + ';height:' + this.height + ';';
   }

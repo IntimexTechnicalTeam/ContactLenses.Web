@@ -84,17 +84,21 @@ export default class Panel extends Vue {
   private AttrSelectImg:string ='';
   private MId:string = '';
   private LensColor:string = '';
-  data() {
+  /* data() {
     return {
       colorList: []
     };
-  }
+  } */
+  colorList = [];
   get warpperStyle (): string {
     return 'width:' + this.width + ';height:' + this.height + ';';
   }
     click (action: string) {
     if (action) {
-      if (action === 'addToCart') {
+      if (this.$Storage.get('isLogin') === 0) {
+        Vue.prototype.$Confirm(this.$t('product.logouted'), this.$t('product.loginow'), () => { this.$Login(this.addFavorite); });
+      } else if (this.$Storage.get('isLogin') === 1) {
+        if (action === 'addToCart') {
         this.Loading = true;
         this.$Api.shoppingCart.addItem(this.ProductSku, this.ProductInfor.Qty, this.ProductInfor.Attr1, this.ProductInfor.Attr2, this.ProductInfor.Attr3, this.MId, this.LensColor)
           .then(
@@ -124,6 +128,7 @@ export default class Panel extends Vue {
                   });
               }
             }).catch();
+      }
       }
     } else {
       Vue.prototype.$Confirm('action', Object.create(this.ProductInfor));
@@ -235,7 +240,7 @@ export default class Panel extends Vue {
   @Watch('MId')
   onColor () {
     this.$Api.product.getColor(this.MId).then((result) => {
-      console.log(result);
+      // console.log(result);
       this.colorList = result;
     });
   }

@@ -58,7 +58,6 @@ export class ShoppingCartApi extends WSAPI {
       {}).then((result) => {
       // do someting about check success
       // return result.data;
-      console.log(result, '111');
       let shopCart = new ShopCart();
       Object.keys(shopCart).forEach((element) => {
         element = element.replace('_', '');

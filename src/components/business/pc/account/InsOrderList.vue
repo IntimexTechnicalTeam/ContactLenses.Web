@@ -27,11 +27,11 @@
                           </ElCol>
                           <ElCol :xs="18" :md="18" class="OrderListDetail">
                           <p class="product-title">{{d.OrderItems[0].Product.Name}}</p>
-                          <p>
+                          <!-- <p>
                             <span class="order-items" v-if="d.OrderItems[0].AttrName1">{{d.OrderItems[0].AttrType1.Name}}:{{d.OrderItems[0].AttrName1}}</span>
                             <span class="order-items" v-if="d.OrderItems[0].AttrName2">{{d.OrderItems[0].AttrType2.Name}}:{{d.OrderItems[0].AttrName2}}</span>
                             <span class="order-items" v-if="d.OrderItems[0].AttrName3">{{d.OrderItems[0].AttrType3.Name}}:{{d.OrderItems[0].AttrName3}}</span>
-                          </p>
+                          </p> -->
                           <p class="product-quantity">{{d.OrderItems.length}} {{$t('Order.Items')}}</p>
                           <p class="product-price">
                               <span class="p-price-discount">{{$t('CheckOut.Total')}}&nbsp;{{d.Currency.Code}} {{(d.TotalAmount) | PriceFormat}}</span>
