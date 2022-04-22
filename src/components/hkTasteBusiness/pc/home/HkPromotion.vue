@@ -42,7 +42,7 @@
         <p>{{content3}}</p>
       </div> -->
       <!-- Shop -->
-      <button class="btn btn-success">{{$t('home.Shop')}}</button>
+      <button class="btn btn-success" @click="ToProduct()">{{$t('home.Shop')}}</button>
     <!-- 商品推荐结束 -->
     <div class="clear"></div>
     <HkLens />
@@ -134,6 +134,9 @@ export default class HkPromotion extends Vue {
   }
   get lang () {
     return this.$Storage.get('locale');
+  }
+  ToProduct () {
+    this.$router.push('/product/cat/23');
   }
 }
 </script>

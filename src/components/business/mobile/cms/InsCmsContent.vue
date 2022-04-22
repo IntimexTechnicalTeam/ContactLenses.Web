@@ -4,7 +4,7 @@
     <div class="Cmsbg" v-if="NewcateId=='40112'">
       <transition name="slide">
         <div key="1" v-if="!waiting" style="display:flex;">
-           <div class="DetailTitle"><img :src="ImgList" v-show="ImgList!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
+           <div class="DetailTitle"><img :src="OtherPageImg" v-show="OtherPageImg!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
       </div>
       </transition>
       <transition name="slide">
@@ -40,15 +40,18 @@
     <div class="CmsNormal" v-if="NewcateId!='40112'">
       <transition name="slide">
         <div key="1" v-if="!waiting" style="display:flex;">
-              <div class="DetailTitle"><img :src="ImgList" v-show="ImgList!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
+              <div class="DetailTitle"><img :src="OtherPageImg" v-show="OtherPageImg!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
       </div>
       </transition>
       <transition name="slide">
         <div class="faker" key="2" v-if="waiting" v-loading="true"></div>
       </transition>
       <div class="CmsContent">
-        <p class="TitleName">{{TitleName}}</p>
-        <p v-html="content.Body"></p>
+        <div class="mobile-aboutText" v-html="content.Body"></div>
+        <div class="mobile-aboutImg">
+          <img src="/images/pc/about_01.png" alt="">
+          <img src="/images/pc/about_02.png" alt="">
+        </div>
       </div>
     </div>
   </div>
@@ -431,6 +434,29 @@ export default class InsCmsContent extends Vue {
       font-size: 1.4rem;
       margin-bottom: 5rem;
       border-radius: 2px;
+    }
+  }
+}
+.CmsContent{
+  .mobile-aboutText{
+    width:98%;
+    margin:0 auto;
+    p{
+      color: #3f95d2;
+      font-weight: bold;
+      line-height: 2.3rem;
+      font-size: 16px;
+    }
+  }
+  .mobile-aboutImg{
+    width: 98%;
+    margin: 2rem auto;
+    overflow: hidden;
+    img{
+      width: 100%;
+    }
+    img:nth-child(1){
+      margin-bottom: 2rem;
     }
   }
 }

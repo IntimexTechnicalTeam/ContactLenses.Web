@@ -5,7 +5,7 @@
       <transition name="slide">
         <div key="1" v-if="!waiting" style="display:flex;">
            <div class="DetailTitle"><!-- <img :src="ImgList" v-show="ImgList!==null"> -->
-           <img :src="ImgList" v-show="ImgList!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
+           <img :src="OtherPageImg" v-show="OtherPageImg!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
       </div>
       </transition>
       <transition name="slide">
@@ -41,9 +41,14 @@
     <div class="CmsNormal" v-if="NewcateId!='40112'">
       <transition name="slide">
         <div key="1" v-if="!waiting" style="display:flex;">
-            <div class="DetailTitle"><img :src="ImgList" v-show="ImgList!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
+            <div class="DetailTitle"><img :src="OtherPageImg" v-show="OtherPageImg!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
       </div>
       </transition>
+      <!-- <transition name="slide">
+        <div key="1" v-if="!waiting" style="display:flex;">
+            <div class="DetailTitle"><img :src="ImgCover" v-show="ImgCover!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
+      </div>
+      </transition> -->
       <transition name="slide">
         <div class="faker" key="2" v-if="waiting" v-loading="true"></div>
       </transition>
@@ -72,6 +77,7 @@ export default class InsCmsContent extends Vue {
   CateDesc: string = '';
   content: any[] = [];
   private ImgList: string[] = [];
+  private ImgCover: string[] = [];
   private ispic:boolean=false;
   IsMobile:boolean=false;
   MapInfo:string='';
@@ -198,6 +204,7 @@ export default class InsCmsContent extends Vue {
       this.$Api.cms.getCategoryByDevice({ CatId: cateId, IsMobile: false }).then(async (result) => {
       // this.ImgList = result.ImagePath;
       this.ImgList = result.ImagePath;
+      this.ImgCover = result.Cover;
       this.MapInfo = result.Content;
       this.CateName = result.Name;
       this.waiting = false;

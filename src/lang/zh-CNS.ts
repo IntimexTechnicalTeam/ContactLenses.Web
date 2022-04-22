@@ -517,7 +517,7 @@ export default {
     Thatsall: '以上是全部内容',
     Choices: '你的选择',
     LookFor: '寻找合适的镜头',
-    Shop: '店铺',
+    Shop: '购买',
     DiscoverMore: '了解更多',
     ReadMore: '阅读更多',
     Obtain: '只需输入数据即可获得定制的镜头'

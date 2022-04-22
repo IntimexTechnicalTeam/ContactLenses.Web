@@ -8,7 +8,7 @@
         <img src="/images/pc/lens.png" alt="" class="right-lens" />
         <div class="leftlens">
           <span>{{$t('home.Obtain')}}</span>
-          <button class="more">{{$t('home.DiscoverMore')}}</button>
+          <button class="more" @click="MoreProduct()">{{$t('home.DiscoverMore')}}</button>
         </div>
       </div>
     </div>
@@ -84,6 +84,9 @@ export default class HkPromotion extends Vue {
   }
   readMore () {
     this.$router.push('/CMS/content/20295');
+  }
+  MoreProduct () {
+    this.$router.push('/product/cat/23');
   }
 }
 </script>

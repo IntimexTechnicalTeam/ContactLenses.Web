@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="clear"></div>
-            <div class="edit-box pc-edit-box" v-show="items[index].boxshow">
+            <div class="edit-box mobile-edit-box" v-show="items[index].boxshow">
                 <span class="edit_title">{{$t('product.RequiredInformation')}}</span>
                 <!-- <span class="result">{{$t('product.RefractionResult')}}</span> -->
                 <ElForm :model="editForm" :rules="edit" ref="editForm">
@@ -56,19 +56,19 @@
                   <!-- <FormItem v-for="(item,index) in (one.LensExtAttrItem)" :key="index" :label="item.Id" class="title-item">
                     <ElInput v-model="item.Text" clearable=""></ElInput>
                   </FormItem> -->
-                  <div class="itemInformation">
-                    <div v-for="(item,index) in (one.LensExtAttrItem)" :key="index" class="editform-box">
+                  <div class="mobile-itemInformation">
+                    <div v-for="(item,index) in (one.LensExtAttrItem)" :key="index" class="mobile-editform-box">
                       <span class="item-name">{{item.MutiLang}}</span>
                       <ElInput v-model="item.Text" clearable=""></ElInput>
                     </div>
                   </div>
                   <span class="edit_title">{{$t('product.ToCustomise')}}</span>
-                  <div class="parameter_table">
+                  <div class="mobile-parameter_table">
                     <FormItem v-for="(item,index) in (one.LensAttrView)" :key="index" :label="item.AttrName">
                      <ElInput v-model="item.AttrValue" clearable=""></ElInput>
                     </FormItem>
                   </div>
-                  <div class="edit_btn_box">
+                  <div class="mobile-editBtn_box">
                     <b class="btn saveBtn" @click="saveItem(index)">{{$t('product.Save')}}</b>
                     <b class="btn canelBtn" @click="Reset(index)">{{$t('product.Reset')}}</b>
                     </div>
@@ -76,21 +76,146 @@
               </div>
           </div>
         <div>
-        <div class="userAddress" v-if="addressBlock">
-          <div class="address" v-for="(item, index) in addressList" :key="index" :class="activeIndex === index ? 'active' : ''" @click="changeList(index)">
-            <span>{{$t('CheckOut.Name')}}：{{item.FirstName}}{{item.LastName}}</span>
-            <span>{{$t('CheckOut.Phone')}}：{{item.Mobile}}</span>
-            <span>{{$t('CheckOut.Address')}}：{{item.Address}}</span>
+        <div class="mobile_userAddress">
+          <div class="address" v-for="(item, index) in addressList" :key="index">
+            <div class="mobileAdd_info" :class="activeIndex === index ? 'active' : ''" @click="changeList(index)">
+              <div class="mobileChecked"></div>
+              <span>{{$t('CheckOut.Name')}}：{{item.FirstName}}{{item.LastName}}</span>
+              <span>{{$t('CheckOut.Phone')}}：{{item.Mobile}}</span>
+              <span>{{$t('CheckOut.Address')}}：{{item.Address}}</span>
+            </div>
+            <div class="mobilebtnBox">
+              <button @click="editAddr(index)">{{$t('product.EditDetails')}}</button>
+              <button @click="removeAddr(item.DeliveryId)">{{$t('product.Delete')}}</button>
+            </div>
           </div>
-          <div class="addAddress">
+          <div class="mobileAdd">
             <button class="clickAdd" @click="addClick()">{{$t('DeliveryAddress.AddAddress')}}</button>
           </div>
         </div>
-        <div class="addAddress" v-if="addAddress">
+        <!-- <div class="addAddress" v-if="addAddress">
           <span class="noAddress">{{$t('DeliveryAddress.AddDeliveryAddress')}}</span>
           <button class="clickAdd" @click="addClick()">{{$t('DeliveryAddress.AddDeliveryAddress')}}</button>
-        </div>
+        </div> -->
           <!-- <div class="shoppingcart_total1">{{Currency.Code}} {{(totalAmount) | PriceFormat}}</div> -->
+          <div class="mobileAddrBox" v-show="AddrShow">
+          <div  class="MemberInfoMain">
+                <ElForm
+                  :model="AddForm"
+                  status-icon
+                  :rules="newaddress"
+                  ref="AddForm"
+                  class="login-form"
+                >
+                <input type="hidden" id="editDeliveryId" runat="server" />
+                <FormItem :label="$t('DeliveryAddress.AddFirstName')" prop="FirstName">
+                  <ElInput
+                    v-model="AddForm.FirstName"
+                    prefix-icon="el-icon-user"
+                    :placeholder="$t('DeliveryAddress.AddFirstName')"
+                    clearable
+                  ></ElInput>
+                </FormItem>
+
+                 <FormItem :label="$t('DeliveryAddress.AddLastName')" prop="LastName">
+                  <ElInput
+                    v-model="AddForm.LastName"
+                    prefix-icon="el-icon-user"
+                    :placeholder="$t('DeliveryAddress.AddLastName')"
+                    clearable
+                  ></ElInput>
+                </FormItem>
+
+                <FormItem :label="$t('DeliveryAddress.PostalCode')" prop="PostalCode">
+                  <ElInput
+                    v-model="AddForm.PostalCode"
+                    prefix-icon="el-icon-tickets"
+                    :placeholder="$t('DeliveryAddress.PostalCode')"
+                    clearable
+                  ></ElInput>
+                </FormItem>
+                <FormItem :label="$t('DeliveryAddress.Mobile')" prop="Mobile">
+                  <ElInput
+                    v-model="AddForm.Mobile"
+                    prefix-icon="el-icon-phone"
+                    :placeholder="$t('DeliveryAddress.Mobile')"
+                    clearable
+                  ></ElInput>
+                </FormItem>
+                <FormItem :label="$t('DeliveryAddress.Area')" prop="CountryId">
+                  <Select
+                    v-model="AddForm.CountryId"
+                     value-key="Id"
+                    :placeholder="$t('DeliveryAddress.Area')"
+                    style="width: 100%;"
+                    v-on:change="selectCountry($event)"
+                  >
+                    <Option
+                    :label="country.Name"
+                    v-for="(country,index) in countryList"
+                    :key="index"
+                     v-bind:value="(country.Id).toString()"
+                    ></Option>
+
+                  </Select>
+                </FormItem>
+                <div v-show="provinceList.length>0">
+                  <FormItem :label="$t('DeliveryAddress.Province')" prop="Province">
+                    <Select
+                      v-model="AddForm.Province"
+                      :placeholder="$t('DeliveryAddress.Province')"
+                      style="width: 100%;"
+                      value-key="Id"
+                    >
+                      <Option
+                      v-bind:value="(province.Id).toString()"
+                      v-for="(province,index) in provinceList"
+                      :label="province.Name"
+                      :key="index"
+                      ></Option>
+
+                    </Select>
+                </FormItem>
+                </div>
+                  <FormItem :label="$t('DeliveryAddress.Address')" prop="Address">
+                  <ElInput
+                    v-model="AddForm.Address"
+                    prefix-icon="el-icon-location-outline"
+                    :placeholder="$t('DeliveryAddress.Address')"
+                    clearable
+                  ></ElInput>
+                </FormItem>
+
+                <!-- <FormItem :label="$t('DeliveryAddress.DefaultAddress')" >
+                  <Select
+                    :placeholder="$t('DeliveryAddress.DefaultAddress')"
+                    style="width: 100%;"
+                    v-model="AddForm.Default"
+                  >
+                  <Option :label="$t('DeliveryAddress.YesBtn')" :value="true"></Option>
+                  <Option :label="$t('DeliveryAddress.NoBtn')" :value="false"></Option>
+                  </Select>
+                </FormItem> -->
+
+                 <div class="bottomBtn">
+                   <FormItem>
+                    <ElButton
+                      type="primary"
+                      @click="saveAddress('AddForm')"
+                      style="margin-top: 10px;"
+                    >{{$t('DeliveryAddress.SaveBtn')}}</ElButton>
+                  </FormItem>
+                  <FormItem>
+                    <ElButton
+                      type="primary"
+                      @click="Cancel()"
+                      style="margin-top: 10px;"
+                    >{{$t('Message.Cancel')}}</ElButton>
+                  </FormItem>
+                 </div>
+               </ElForm>
+          </div>
+        </div>
           <div class="shoppingcart_total"><ElButton type="success" @click="submit"><span style="font-size:1.5rem;">{{ $t('Shoppingcart.Checkout') }}</span></ElButton></div>
         </div>
     <!--main-content-->
@@ -98,12 +223,16 @@
 </template>
 <script lang='ts'>
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { Form, Input, FormItem, Button as ElButton } from 'element-ui';
+import { Form, Input, Row, Col, Button, Select, Option, FormItem, Card } from 'element-ui';
 import ShopCart from '../../model/ShopCart';
 import ShopCartItem from '../../model/shopCartItem';
 import Currency from '../../model/currency';
 import Order from '@/model/order';
 import Address from '../../model/address';
+import { Country } from '@/model/country';
+import lang from '@/lang';
+import { Province } from '@/model/province';
+import storage from '@/sdk/common/Storage';
 class Update {
   itemId!: string;
   qty!: number;
@@ -114,17 +243,23 @@ class Update {
 }
 @Component({
   components: {
-    ElButton,
     Form,
     Input,
-    FormItem
+    FormItem,
+    Row,
+    Col,
+    Button,
+    Select,
+    Option,
+    Card
   }
 })
 export default class InsShoppingcart extends Vue {
   private ShoppingCart:ShopCart = new ShopCart();
   private Order:Order =new Order();
-  addAddress = false;
-  addressBlock = false;
+  /* addAddress = false;
+  addressBlock = false; */
+  AddrShow = false;
   editForm: any = {
     ShoppingCartId: '',
     Sku: '',
@@ -225,8 +360,177 @@ export default class InsShoppingcart extends Vue {
   private UpdateQueQue:Update[] = [];
   isAdd:boolean = false;
   addressList: Address[] = [];
-  mounted () {
-    // this.loadItems();
+  CountryId: number = 786;
+  countryList: any[] = [];
+  private province!:Province;
+  provinceList: any[] = [];
+  validator: any = '';
+  addr: any = {};
+  value: any = '';
+  // private addressList:Address[] = [];
+  addListlength:any='';
+  private AddForm = {
+    FirstName: '',
+    LastName: '',
+    Mobile: '',
+    Phone: '',
+    PostalCode: '',
+    CountryId: '',
+    Province: '',
+    Address: '',
+    Default: ''
+  }
+  get newaddress () {
+    return {
+      FirstName: [
+        {
+          required: true,
+          message: this.$t('MemberInfo.EnterUserName'),
+          trigger: 'blur'
+        }
+      ],
+      LastName: [
+        {
+          required: true,
+          message: this.$t('MemberInfo.EnterUserLastName'),
+          trigger: 'blur'
+        }
+      ],
+      Mobile: [
+        {
+          required: true,
+          message: this.$t('MemberInfo.EnterUserPhone'),
+          trigger: 'blur'
+        },
+        { validator: function (rule, value, callback) {
+             /* eslint-disable */
+            var mobile = /^(\+)?(\d{0,4}\-?)?\d{7,11}$/;
+            if ( mobile.test(value) === false ) {
+              var t = lang.messages[storage.get('locale')].Input['phoneincorrect'];
+                callback(new Error(t));
+            } else {
+                callback();
+            }
+        },
+        trigger: 'blur' }
+      ],
+      CountryId: [
+        {
+          required: true,
+          message: this.$t('Address.Country'),
+          trigger: ['blur', 'change']
+        }
+      ],
+      Address: [
+        {
+          required: true,
+          message: this.$t('Address.Address'),
+          trigger: 'blur'
+        }
+      ]
+    };
+  }
+  goAnchor (selector) {
+    var anchor = this.$el.querySelector(selector); // 参数为要跳转到的元素id
+  }
+  //   加载国家列表
+  getCountry () {
+    let _this = this;
+    this.$Api.delivery.getCountry().then((result) => {
+      _this.countryList = result.data;
+    });
+  }
+
+  //   加载对应省列表
+  getProvince (num) {
+    let _this = this;
+    var cid = num;
+    if (cid && cid !== '') {
+      this.$Api.delivery.getProvince(cid).then((result) => {
+        _this.provinceList = result.data;
+      });
+    } else {
+      _this.AddForm.Province = '';
+    }
+  }
+
+  selectCountry (event) {
+    var cid = event;
+    let _this = this;
+    if (cid && cid !== '') {
+      _this.AddForm.Province = '';
+      _this.getProvince(cid);
+    } else {
+      _this.AddForm.Province = '';
+    }
+  }
+  // 加载地址列表
+  getAddress () {
+    let _this = this;
+    this.$Api.delivery.getAddress().then((result) => {
+      _this.addressList = result.data;
+    });
+  }
+  removeAddr (cid) {
+    let _this = this;
+    var addId = cid;
+    this.$Api.delivery.removeAddress(addId).then((result) => {
+      _this.$message({
+        message: this.$t('MyFavorite.RemoveSuccess') as string,
+        type: 'success',
+        customClass: 'messageBoxMobile'
+      });
+      this.getAddress();
+    });
+  }
+  editAddr (index, val) {
+    this.AddrShow = true;
+    this.goAnchor(val);
+    let _this = this;
+    Object.keys(this.AddForm).forEach((element) => {
+      this.AddForm[element] = this.addressList[index][element];
+    });
+    this.AddForm['DeliveryId'] = this.addressList[index].DeliveryId;
+    this.$Api.delivery.getProvince(this.addressList[index].CountryId).then((result) => {
+      _this.provinceList = result.data;
+    });
+  }
+  private saveAddress (formName) {
+    this.AddrShow = false;
+    let _this = this;
+    this.AddForm.Phone = this.AddForm.Mobile;
+    if (!this.AddForm.Province) {
+      this.AddForm.Province = '0';
+    }
+    (this.$refs.AddForm as Form).validate(valid => {
+      if (valid) {
+        this.$Api.delivery.saveAddress(this.AddForm).then((result) => {
+          this.getAddress();
+          this.AddForm = {
+            FirstName: '',
+            LastName: '',
+            Mobile: '',
+            Phone: '',
+            PostalCode: '',
+            CountryId: '',
+            Province: '',
+            Address: '',
+            Default: ''
+          };
+          _this.$message({
+            message: this.$t('Message.SavedSuccessfully') as string,
+            type: 'success',
+            customClass: 'messageBoxMobile'
+          });
+        });
+      } else {
+        console.log('error submit!!');
+        return false;
+      }
+    });
+  }
+  Cancel () {
+    this.AddrShow = false;
   }
   created () {
     this.load().then(() => { this.$HiddenLayer(); });
@@ -239,7 +543,7 @@ export default class InsShoppingcart extends Vue {
       this.items.forEach(v => {
         this.$set(v, 'IsAdd', false);
       });
-      if (this.ShoppingCart.Items.length > 0) {
+      if (this.$Storage.get('isLogin') === 1 && this.ShoppingCart.Items.length > 0) {
         this.address();
       }
       if (this.ShoppingCart.Items.length === 0) this.$Confirm(this.$t('Message.Message'), this.$t('Shoppingcart.None'), () => { this.$router.push('/product/search/-'); }, () => { this.$router.push('/'); });
@@ -251,18 +555,19 @@ export default class InsShoppingcart extends Vue {
     this.$Api.delivery.getAddress().then((result) => {
       /* this.addressList = result.data;
       console.log(result.data); */
-      if (result.data.length === 0) {
+      /* if (result.data.length === 0) {
         this.addAddress = true;
         this.addressBlock = false;
       } else {
         this.addressList = result.data;
         this.addressBlock = true;
         this.addAddress = false;
-      }
+      } */
+      this.addressList = result.data;
     });
   }
   addClick () {
-    this.$router.push('/account/deliveryAddress');
+    this.AddrShow = true;
   }
   changeList(index) {
     this.activeIndex = index;
@@ -363,6 +668,10 @@ export default class InsShoppingcart extends Vue {
     //   one.Qty = this.MaxQty;
     // }
   }
+  
+  submitLogin () {
+    this.$router.push('/account/login?returnurl=/account/checkout');
+  }
   submit () {
     /* let temp = {};
     let item:Update;
@@ -386,7 +695,10 @@ export default class InsShoppingcart extends Vue {
       AddressId: this.editForm.AddressId,
       Items: this.items
     };
-    this.$Api.order.saveOrder(temp).then((result) => {
+    if (this.editForm.AddressId === '') {
+      this.$Confirm(this.$t('Message.Message'), this.$t('Shoppingcart.NoneAddress'), () => { this.$router.push('/account/deliveryAddress'); }, () => { this.$router.push('/account/deliveryAddress'); });
+    } else {
+      this.$Api.order.saveOrder(temp).then((result) => {
       if (result.Succeeded) {
         /* this.$message({
           message: '创建订单成功',
@@ -400,6 +712,15 @@ export default class InsShoppingcart extends Vue {
         });
       }
     });
+    }
+  }
+  mounted () {
+   // this.getAddress();
+    this.getCountry();
+  }
+  @Watch('this.addListlength')
+  onCountryChange (n, o) {
+
   }
 }
 </script>
@@ -517,8 +838,18 @@ export default class InsShoppingcart extends Vue {
         color:#0e579c;
     }
 }
+.mobileAddrBox{
+  width: 95%;
+  margin: 0 auto;
+  .bottomBtn{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
 .shoppingcart_total{
-    text-align: right;
+    text-align: center;
     padding: 1rem;
 }
 .shoppingcart_total1{
@@ -558,27 +889,59 @@ export default class InsShoppingcart extends Vue {
     justify-content: center;
     align-items: center;
 }
-.address{
-  width: 98%;
-  padding: 10px 1%;
-  margin:20px auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  box-shadow: 0 0 10px #efefef;
-  span{
-    font-size: 16px;
-    color: #000;
-    height: 30px;
-    line-height: 30px;
+.mobile_userAddress{
+  .address{
+    width: 98%;
+    padding: 10px 1%;
+    margin:20px auto;
+    box-shadow: 0 0 10px #efefef;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    .mobileAdd_info{
+      width:70%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      .mobileChecked{
+        width:1rem;
+        height: 1rem;
+        border-radius: 50%;
+        box-shadow: 0 0 5px #c8c9ca;
+      }
+      span{
+        font-size: 16px;
+        color: #000;
+        height: 30px;
+        line-height: 30px;
+      }
+    }
+    .active{
+      .mobileChecked{
+        background: #0e579c;
+      }
+    }
+    .mobilebtnBox{
+      width:25%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      button{
+        border:none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        color:#0e579c;
+      }
+      button:nth-child(1){
+        margin-bottom: 0.5rem;
+      }
+    }
   }
 }
-.active{
-  background: #efefef;
-  box-shadow: 0 0 0 #fff;
-}
-.addAddress{
+.mobileAdd{
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -605,7 +968,7 @@ export default class InsShoppingcart extends Vue {
 }
 </style>
 <style lang="less">
-.pc-edit-box{
+.mobile-edit-box{
   width: 100%;
   overflow: hidden;
   position: relative;
@@ -617,14 +980,14 @@ export default class InsShoppingcart extends Vue {
     font-size: 18px;
     font-weight: bold;
   }
-  .itemInformation{
+  .mobile-itemInformation{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
   }
-  /* .editform-box:nth-child(1){
+  /* .mobile-editform-box:nth-child(1){
     span{
       visibility: hidden;
     }
@@ -633,7 +996,7 @@ export default class InsShoppingcart extends Vue {
       visibility: visible;
     }
   } */
-  .editform-box{
+  .mobile-editform-box{
     width: 100%;
     .item-name{
       width: 54%;
@@ -642,7 +1005,7 @@ export default class InsShoppingcart extends Vue {
       border:2px solid #0e579c;
     }
   }
-  .editform-box{
+  .mobile-editform-box{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -654,10 +1017,10 @@ export default class InsShoppingcart extends Vue {
       font-weight: bold;
     }
   }
-  .editform-box:nth-child(2),
-  .editform-box:nth-child(3),
-  .editform-box:nth-child(4),
-  .editform-box:nth-child(5){
+  .mobile-editform-box:nth-child(2),
+  .mobile-editform-box:nth-child(3),
+  .mobile-editform-box:nth-child(4),
+  .mobile-editform-box:nth-child(5){
     width:45%;
     overflow: hidden;
     .el-input--suffix{
@@ -667,16 +1030,16 @@ export default class InsShoppingcart extends Vue {
       }
     }
   }
-  .editform-box:nth-child(7),
-  .editform-box:nth-child(8),
-  .editform-box:nth-child(9),
-  .editform-box:nth-child(10),
-  .editform-box:nth-child(11),
-  .editform-box:nth-child(12),
-  .editform-box:nth-child(13),
-  .editform-box:nth-child(14),
-  .editform-box:nth-child(15),
-  .editform-box:nth-child(16){
+  .mobile-editform-box:nth-child(7),
+  .mobile-editform-box:nth-child(8),
+  .mobile-editform-box:nth-child(9),
+  .mobile-editform-box:nth-child(10),
+  .mobile-editform-box:nth-child(11),
+  .mobile-editform-box:nth-child(12),
+  .mobile-editform-box:nth-child(13),
+  .mobile-editform-box:nth-child(14),
+  .mobile-editform-box:nth-child(15),
+  .mobile-editform-box:nth-child(16){
     flex-direction: column;
     width: 49%;
     .item-name{
@@ -696,7 +1059,7 @@ export default class InsShoppingcart extends Vue {
       margin-top: 0.5rem;
     }
   }
-  .editform-box:last-child{
+  .mobile-editform-box:last-child{
     .item-name{
       width: 20%;
     }
@@ -707,7 +1070,7 @@ export default class InsShoppingcart extends Vue {
       word-break: break-all;
     }
   }
-  .parameter_table{
+  .mobile-parameter_table{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -728,7 +1091,7 @@ export default class InsShoppingcart extends Vue {
       }
     }
   }
-  .edit_btn_box{
+  .mobile-editBtn_box{
     width: 90%;
     display: flex;
     flex-direction: row;
