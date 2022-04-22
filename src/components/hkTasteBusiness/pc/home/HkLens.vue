@@ -1,22 +1,20 @@
 <template>
   <div class="particulars">
     <div class="lens-box">
-      <div class="title title1">
-        {{$t('home.LookFor')}}
-        <span class="dot"></span>
+      <div class="title">
+        <span>{{$t('home.LookFor')}}</span>
       </div>
       <div class="lensBg">
         <div class="leftlens">
-          <h2>{{$t('home.Obtain')}}</h2>
+          <span>{{$t('home.Obtain')}}</span>
           <button class="more">{{$t('home.DiscoverMore')}}</button>
         </div>
         <img src="/images/pc/lens.png" alt="" class="right-lens" />
       </div>
     </div>
     <div class="about" id="about">
-      <div class="title title2">
-        {{$t('Cms.AboutUS')}}
-        <span class="dot"></span>
+      <div class="title">
+        <span>{{$t('Cms.AboutUS')}}</span>
       </div>
       <div class="aboutcontent">
         <div class="about-swiper">
@@ -38,7 +36,7 @@
             services for ophthalmic and Optometric professionals all over the
             world.
           </p>
-          <button class="more">{{$t('home.ReadMore')}}</button>
+          <button class="more" @click="readMore()">{{$t('home.ReadMore')}}</button>
         </div>
       </div>
     </div>
@@ -84,6 +82,9 @@ export default class HkPromotion extends Vue {
   get lang() {
     return this.$Storage.get('locale');
   }
+  readMore () {
+    this.$router.push('/CMS/content/20295');
+  }
 }
 </script>
 <style scoped lang="less">
@@ -96,18 +97,9 @@ export default class HkPromotion extends Vue {
   margin: 0 auto;
   font-weight: bold;
   text-align: center;
-  .dot {
-    display: block;
-    width: 100%;
-    height: 20px;
-    background: url("/images/pc/dot.png") center center;
+  span{
+    border-bottom: 8px dotted #3f9ed8;
   }
-}
-.title1 {
-  width: 289px;
-}
-.title2 {
-  width: 134px;
 }
 .about{
   margin-top: 50px;
@@ -120,7 +112,7 @@ export default class HkPromotion extends Vue {
   align-items: center;
   margin-top: 50px;
 }
-.leftlens h2 {
+.leftlens span {
   color: #0d579e;
   width: 367px;
   font-size: 30px;

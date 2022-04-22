@@ -4,8 +4,7 @@
     <div class="InnerSide">
       <div class="main">
         <div class="title title1">
-          <h2>{{$t('home.Choices')}}</h2>
-          <span></span>
+          <span>{{$t('home.Choices')}}</span>
         </div>
         <div class="swiperBg swipermain">
           <button class="s1-btn s1-next">&lt;</button>
@@ -191,15 +190,11 @@ export default class HkPromotion extends Vue {
       .title {
         text-align: center;
         margin: 20px auto;
-        > h2 {
+        > span {
           color: #0e559c;
           font-weight: bold;
           font-size: 2rem;
-        }
-        > span {
-          display: block;
-          background: url(/images/mobile/dot.png) center center;
-          height: 20px;
+          border-bottom: 8px dotted #3f9ed8;
         }
       }
       .title1 {

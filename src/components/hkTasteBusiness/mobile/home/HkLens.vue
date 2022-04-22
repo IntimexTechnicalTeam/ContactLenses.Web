@@ -1,22 +1,20 @@
 <template>
   <div class="particulars">
-    <div class="lens-box">
+    <div class="mobile-lens-box">
       <div class="title title1">
-        <h2>{{$t('home.LookFor')}}</h2>
-        <span class="dot"></span>
+        <span>{{$t('home.LookFor')}}</span>
       </div>
       <div class="lensBg">
         <img src="/images/pc/lens.png" alt="" class="right-lens" />
         <div class="leftlens">
-          <h2>{{$t('home.Obtain')}}</h2>
+          <span>{{$t('home.Obtain')}}</span>
           <button class="more">{{$t('home.DiscoverMore')}}</button>
         </div>
       </div>
     </div>
     <div class="about">
       <div class="title title2">
-        <h2>{{$t('Cms.AboutUS')}}</h2>
-        <span class="dot"></span>
+        <span>{{$t('Cms.AboutUS')}}</span>
       </div>
       <div class="aboutcontent">
         <div class="about-swiper">
@@ -38,7 +36,7 @@
             services for ophthalmic and Optometric professionals all over the
             world.
           </p>
-          <button class="more">{{$t('home.ReadMore')}}</button>
+          <button class="more" @click="readMore()">{{$t('home.ReadMore')}}</button>
         </div>
       </div>
     </div>
@@ -84,6 +82,9 @@ export default class HkPromotion extends Vue {
   get lang() {
     return this.$Storage.get('locale');
   }
+  readMore () {
+    this.$router.push('/CMS/content/20295');
+  }
 }
 </script>
 <style scoped lang="less">
@@ -98,22 +99,12 @@ export default class HkPromotion extends Vue {
 .title {
   text-align: center;
   margin:20px auto;
-  > h2{
+  > span{
     color:#0e559c;
     font-weight: bold;
     font-size: 2rem;
+    border-bottom: 8px dotted #3f9ed8;
   }
-  > span{
-    display: block;
-    background: url(/images/mobile/dot.png) center center;
-    height: 20px;
-  }
-}
-.title1 {
-  width: 20rem;
-}
-.title2 {
-  width: 11rem;
 }
 .about{
 }

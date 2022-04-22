@@ -4,8 +4,8 @@
     <div class="indexRecommend">
       <div class="indexRecommendInner">
         <!-- <div class="RecommendText">{{Title1}}</div> -->
-        <div class="title">{{$t('home.Choices')}}
-          <span class="dot"></span>
+        <div class="title">
+          <span>{{$t('home.Choices')}}</span>
         </div>
         <div class="RecommendBg">
             <div class="s1-btn s1-next"> &#60; </div>
@@ -149,11 +149,8 @@ export default class HkPromotion extends Vue {
   width: 187px;
   margin:0 auto;
   font-weight: bold;
-  .dot{
-    display: block;
-    width: 100%;
-    height: 20px;
-    background: url('/images/pc/dot.png')  center center;
+  span{
+    border-bottom: 8px dotted #3f9ed8;
   }
 }
 .indexMiddle{

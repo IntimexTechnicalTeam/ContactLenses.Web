@@ -4,6 +4,9 @@ export default {
   AddToCart: 'Add To Cart',
   changeLangSuccess: 'Language switch successful !',
   changeCurSuccess: 'Currency switch successful !',
+  HkMap: {
+    Address: 'DREIMLENS CORPORATION LIMITED Rm 7, Blk B, G/F, Shatin Industrial Centre 5-7 Yuen Shun Circuit, Shatin, N.T, Hong Kong'
+  },
   Input: {
     email: 'Please enter the correct email',
     number: 'Please enter a number',

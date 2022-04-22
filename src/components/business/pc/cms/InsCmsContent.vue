@@ -4,7 +4,8 @@
     <div class="Cmsbg" v-if="NewcateId=='40112'">
       <transition name="slide">
         <div key="1" v-if="!waiting" style="display:flex;">
-           <div class="DetailTitle"><img :src="ImgList" v-show="ImgList!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
+           <div class="DetailTitle"><!-- <img :src="ImgList" v-show="ImgList!==null"> -->
+           <img :src="ImgList" v-show="ImgList!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
       </div>
       </transition>
       <transition name="slide">
@@ -12,13 +13,11 @@
       </transition>
       <div class="CmsContent">
         <div class="MapInfo">
-          <p class="OurStores">{{$t('Cms.OurStores')}}</p>
-          <p class="BusinessHours">{{$t('Cms.BusinessHours')}}: 07:30 - 19:00</p>
-          <p v-html="MapInfo" ></p>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3689.1861947863495!2d114.20403351536899!3d22.384337145494694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34040645abb09ba3%3A0x4c46848ccf55c7bd!2sShatin%20Industrial%20Center!5e0!3m2!1szh-TW!2shk!4v1650419025774!5m2!1szh-TW!2shk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
           <div class="CmsMap">
             <p v-html="content.Body" class="cmsbody"></p>
-            <p class="addressIcon"><i></i>{{$t('home.Address')}}：</p>
+            <!-- <p class="addressIcon"><i></i>{{$t('home.Address')}}：</p>
             <div class="addressBox">
             <div class="perList" v-for="(val,index) in ShopList" :key="index" v-on:click="showContent(val.Id,index)" :class="{'activeColor':cindex==index}">
                 <div class="icon"><i></i></div>
@@ -28,16 +27,15 @@
                   <p>{{val.DescTwo}}</p>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
          <div class="clear"></div>
       </div>
-      <div class="borderline"></div>
-        <div class="FormMain">
+        <!-- <div class="FormMain">
           <p class="FormTitle">{{FormTitle}}</p>
           <div v-html="htmlString" class="to_vertical" id="content"></div>
           <div id="preview" style="display:none;"></div>
-        </div>
+        </div> -->
     </div>
     <!-- 其他页面 -->
     <div class="CmsNormal" v-if="NewcateId!='40112'">
@@ -50,8 +48,11 @@
         <div class="faker" key="2" v-if="waiting" v-loading="true"></div>
       </transition>
       <div class="CmsContent">
-        <p class="TitleName">{{TitleName}}</p>
-        <p v-html="content.Body"></p>
+        <div class="pc-about-text" v-html="content.Body"></div>
+        <div class="pc-about-img">
+          <img src="/images/pc/about_01.png" class="Img-01">
+          <img src="/images/pc/about_02.png" class="Img-02">
+        </div>
       </div>
     </div>
   </div>
@@ -195,6 +196,7 @@ export default class InsCmsContent extends Vue {
   // 根据设备类型获取CMSCategory信息
   getCategoryByDevice (cateId) {
       this.$Api.cms.getCategoryByDevice({ CatId: cateId, IsMobile: false }).then(async (result) => {
+      // this.ImgList = result.ImagePath;
       this.ImgList = result.ImagePath;
       this.MapInfo = result.Content;
       this.CateName = result.Name;
@@ -242,63 +244,41 @@ export default class InsCmsContent extends Vue {
 }
 .PcContact .contactBox{
   width: 100%;
-  float: left;
   p{
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
     font-size: 1.4rem;
     display: flex;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
-    border-top: 1px solid #000;
-    &:last-child{
-      border-bottom: 1px solid #000;
+    color:#0a57b1;
+    font-weight: bold;
+    i,em{
+      width: 60px;
+      height: 35px;
     }
-    .icon1{
-      background: url('/images/mobile/Mobile-Contact-02.png') no-repeat center center;
-      background-size: 100%;
-      width: 2rem;
-      height: 2rem;
-      display: inline-block;
-      vertical-align: middle;
-      margin-right:.5rem;
+    .address{
+      background: url(/images/pc/address.png) no-repeat center center;
     }
-    .icon2{
-      background: url('/images/mobile/Mobile-Contact-03.png') no-repeat center center;
-      background-size: 100%;
-      width: 2rem;
-      height: 2rem;
-      display: inline-block;
-      vertical-align: middle;
-      margin-right:.5rem;
+    .tel{
+      background: url(/images/pc/phone.png) no-repeat center center;
     }
-    .icon3{
-      background: url('/images/mobile/Mobile-Contact-04.png') no-repeat center center;
-      background-size: 100%;
-      width: 2rem;
-      height: 2rem;
-      display: inline-block;
-      vertical-align: middle;
-      margin-right:.5rem;
+    .fax{
+      background: url(/images/pc/fax.png) no-repeat center center;
+    }
+    .email{
+      background: url(/images/pc/Email-filled.png) no-repeat center center;
     }
   }
 }
 .PcContact  .MapInfo{
-  width:45%;
+  width:70%;
   float:left;
-  padding-top: 5rem;
-  .OurStores{
-    font-size: 40px;
-    font-weight: 700;
-    color:#333333;
-  }
-  .BusinessHours{
-    font-size: 24px;
-    color:#333333;
-    margin-bottom: 30px;
-  }
+  padding-top: 3rem;
   iframe{
     width:100%;
-    height: 450px;
+    height: 250px;
   }
   img{
     width:100%;
@@ -425,6 +405,10 @@ export default class InsCmsContent extends Vue {
     position: relative;
     width: 1200px;
     margin: 3rem auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
    .aboutUSImg{
      width:10%;
      float:left;
@@ -500,23 +484,23 @@ export default class InsCmsContent extends Vue {
     width: 100%;
   }
   .TitleBg{
-    width: 500px;
-    border: 1px solid #ffffff;
-    height: 70px;
-    line-height: 70px;
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
     margin: 0 auto;
-    padding: 10px;
+    padding: 10px 20px;
     margin-bottom: 20px;
-    top: 50%;
+    top: 100%;
     position: absolute;
     transform: translateY(-50%);
+    background: #0e579c;
+    border-radius: 20px;
     .innerBoxText{
-      background:#ffffff;
-      color: #333333;
+      color:#fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 40px;
+      font-size: 30px;
       font-weight: 700;
       font-family: 'Arial';
     }
@@ -530,38 +514,29 @@ export default class InsCmsContent extends Vue {
   padding-bottom: 5rem;
 }
 .TitleBg{
-  width: 500px;
-  height: 70px;
-  border:1px solid #ffffff;
+  height: 50px;
   margin: 0 auto;
   padding: 10px;
   margin-bottom: 20px;
   .innerBoxText{
     width: 100%;
     height: 100%;
-    background:#ffffff;
     color: #333333;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 40px;
+    font-size: 30px;
     font-weight: 700;
     font-family: 'Arial';
   }
 }
 .Cmsbg{
-    width:100%;
-    background: url('/images/pc/pccontact_01.jpg') no-repeat center center;
-    background-size:100% 100%;
-    display: block;
-    box-sizing: border-box;
-    display: inline-block;
-    .borderline{
-      height:1px;
-      width: 100%;
-      display: inline-block;
-      background: #000;
-   }
+  width:100%;
+  background: url('/images/pc/pc_background.jpg') no-repeat center center;
+  background-size:100% 100%;
+  display: block;
+  box-sizing: border-box;
+  display: inline-block;
 }
 .Banner {
   width: 100%;
@@ -579,7 +554,7 @@ export default class InsCmsContent extends Vue {
   height: 20rem;
 }
 .CmsMap {
-    width: 50%;
+    width: 70%;
     float: left;
     margin-left: 5%;
     display: flex;
@@ -633,5 +608,38 @@ export default class InsCmsContent extends Vue {
 }
 .clear {
   clear: both;
+}
+</style>
+<style lang="less">
+.CmsContent{
+  .pc-about-text{
+    width:100%;
+    margin-top: 3rem;
+    p{
+      font-size: 18px;
+      color:#439cd8;
+      font-weight: bold;
+      line-height: 45px;
+    }
+  }
+  .pc-about-img{
+    width:100%;
+    margin:0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-top: 2rem;
+    .Img-01{
+      width:55%;
+      height: 310px;
+    }
+    .Img-02{
+      width:43%;
+      height: 310px;
+      margin-left: 1.5rem;
+    }
+  }
 }
 </style>
