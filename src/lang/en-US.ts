@@ -161,7 +161,8 @@ export default {
     CT: 'CT',
     CW: 'CW',
     Save: 'Save',
-    Reset: 'Reset'
+    Reset: 'Reset',
+    PleaseEnter: 'Please enter'
   },
   Shoppingcart: {
     ShoppingcartTitle: 'Shopping Cart ',

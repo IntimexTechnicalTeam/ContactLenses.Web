@@ -68,10 +68,37 @@
                 <span class="edit_title">{{$t('product.RequiredInformation')}}</span>
                 <ElForm :model="editForm" :rules="edit" ref="editForm">
                   <div class="itemInformation">
-                    <div v-for="(item,index) in (one.LensExtAttrItem)" :key="index" class="editform-box">
+                    <!-- 方式一： -->
+                    <!-- <div v-for="(item,index) in (one.LensExtAttrItem)" :key="index" class="editform-box" :prop="item.MutiLang" :rules="[{required: true, message: $t('product.PleaseEnter') + item.MutiLang, trigger: 'blur'}]">
                       <span class="item-name">{{item.MutiLang}}</span>
                       <ElInput v-model="item.Text" clearable=""></ElInput>
+                    </div> -->
+                    <!-- 方式二： -->
+                    <!-- <el-form-item v-for="(item,index) in (one.LensExtAttrItem)" :key="index" class="editform-box" :prop="item.MutiLang" :rules="[{required: true, message: $t('product.PleaseEnter') + item.MutiLang}]" :label="item.MutiLang">
+                      <span class="item-name">{{item.MutiLang}}</span>
+                      <ElInput v-model="item.Text" clearable=""></ElInput>
+                      <el-input v-model="item.Text" :type="index === 16 ? 'textarea' : 'text'"></el-input>
+                    </el-form-item> -->
+                    <!-- 方式三： -->
+                    <div v-for="(item,index) in (one.LensExtAttrItem)" :key="index" class="editform-box">
+                      <span class="item-name">{{item.MutiLang}}</span>
+                      <ElInput v-model="item.Text" clearable="" :type="index === 16 ? 'textarea' : 'text'"></ElInput>
                     </div>
+                    <!-- 方式四: -->
+                    <!-- <div v-for="(item,index) in editForm.LensExtAttrItem" :key="index">
+                      <el-form-item label="客户编号" :prop="'LensExtAttrItem.' + index + '.Text'">
+                        <el-input v-model="item.Text" type="text"></el-input>
+                      </el-form-item>
+                      <el-form-item label="验光结果左">
+                        <el-input v-model="item.Text" type="text"></el-input>
+                      </el-form-item>
+                      <el-form-item label="验光结果右">
+                        <el-input v-model="item.Text" type="text"></el-input>
+                      </el-form-item>
+                      <el-form-item label="备注">
+                        <el-input v-model="item.textarea" type="textarea"></el-input>
+                      </el-form-item>
+                    </div> -->
                   </div>
                   <span class="edit_title">{{$t('product.ToCustomise')}}</span>
                   <div class="parameter_table">
@@ -244,7 +271,7 @@
 <script lang='ts'>
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 // import { Form, Input, Message, FormItem, Button } from 'element-ui';
-import { Form, Input, Row, Col, Button, Select, Option, FormItem, Card } from 'element-ui';
+import { Form, Input, Row, Col, Button, Select, Option, FormItem, Card, Message } from 'element-ui';
 import ShopCart from '../../model/ShopCart';
 import ShopCartItem from '../../model/shopCartItem';
 import Currency from '../../model/currency';
@@ -286,75 +313,24 @@ editForm: any = {
     Sku: '',
     LensExtAttrItem: [
       {
-        Id: 'CustomerCode',
-        Text: ''
-        }
+        /* Text: '',
+        num1: '',
+        num2: '',
+        textarea: '' */
+      }
     ],
     LensAttrView: {},
     AddressId: ''
   }
   get edit () {
     return {
-      CustomerCode: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      RefractionResult: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      ResultLeft: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      ResultRight: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      CorneaLeft: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      CorneaRight: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      LensMaterial: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      LensColor: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      OverallDiameter: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      /* Remarks: [{
-        require: true,
-        tigger: 'blur'
-      }], */
-      Prower: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      BC: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      Diam: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      OZ: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      CT: [{
-        require: true,
-        tigger: 'blur'
-      }]
+      Text: [
+        {
+          required: true,
+          message: '不能为空',
+          trigger: 'blur'
+        }
+      ]
     };
   }
   prodcutSrc: string = require('@/assets/Images/270_b.jpg');
@@ -613,14 +589,21 @@ editForm: any = {
   }
   boxShow(index) {
     Vue.set(this.items[index], 'boxshow', true);
+    /* for(var i = 0; i < this.items[index].LensExtAttrItem.length; i++) {
+      
+    } */
+    console.log(this.items[index].LensExtAttrItem[16]);
+    
   }
   saveItem (index) {
-    Vue.set(this.items[index], 'boxshow', false);
+    // Vue.set(this.items[index], 'boxshow', false);
     Vue.set(this.items[index], 'ShoppingCartId', this.items[index].Id);
     Vue.set(this.items[index], 'Sku', this.items[index].Product.Sku);
     for (var i = 0; i < this.items[index].LensExtAttrItem.length; i++) {
       Vue.set(this.items[index], this.items[index].LensExtAttrItem[i].Id, this.items[index].LensExtAttrItem[i].Text);
     }
+    this.items[index].LensExtAttrItem = this.editForm.LensExtAttrItem;
+    console.log(this.items[index])
   }
   Reset (index) {
     for (var i = 0; i < this.items[index].LensAttrView.length; i++) {
@@ -721,17 +704,15 @@ editForm: any = {
       this.$Confirm(this.$t('Message.Message'), this.$t('Shoppingcart.NoneAddress'), () => { this.$router.push('/account/deliveryAddress'); }, () => { this.$router.push('/account/deliveryAddress'); });
     } else {
       this.$Api.order.saveOrder(temp).then((result) => {
+        console.log(this);
       if (result.Succeeded) {
-        /* this.$message({
-          message: '创建订单成功',
-          type: 'success'
-        }); */
         this.$router.push('/order/List');
       } else {
-        /* this.$message({
+        Message({
           message: result.Message,
           type: 'error'
-        }); */
+        })
+        console.log(result.Message);
       }
     });
     }
@@ -1257,6 +1238,10 @@ editForm: any = {
       }
       .el-input__inner{
       border:1px solid #0e579c;
+      }
+      .el-textarea__inner{
+        height: 150px;
+        line-height: 30px;
       }
     }
     .editform-box:nth-child(1){

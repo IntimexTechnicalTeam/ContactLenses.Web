@@ -161,7 +161,8 @@ export default {
     CT: 'CT',
     CW: 'CW',
     Save: '保存',
-    Reset: '重置'
+    Reset: '重置',
+    PleaseEnter: '請輸入'
   },
   Shoppingcart: {
     ShoppingcartTitle: '購物車',
