@@ -68,42 +68,19 @@
                 <span class="edit_title">{{$t('product.RequiredInformation')}}</span>
                 <ElForm :model="editForm" :rules="edit" ref="editForm">
                   <div class="itemInformation">
-                    <!-- 方式一： -->
-                    <!-- <div v-for="(item,index) in (one.LensExtAttrItem)" :key="index" class="editform-box" :prop="item.MutiLang" :rules="[{required: true, message: $t('product.PleaseEnter') + item.MutiLang, trigger: 'blur'}]">
-                      <span class="item-name">{{item.MutiLang}}</span>
-                      <ElInput v-model="item.Text" clearable=""></ElInput>
-                    </div> -->
-                    <!-- 方式二： -->
-                    <!-- <el-form-item v-for="(item,index) in (one.LensExtAttrItem)" :key="index" class="editform-box" :prop="item.MutiLang" :rules="[{required: true, message: $t('product.PleaseEnter') + item.MutiLang}]" :label="item.MutiLang">
-                      <span class="item-name">{{item.MutiLang}}</span>
-                      <ElInput v-model="item.Text" clearable=""></ElInput>
-                      <el-input v-model="item.Text" :type="index === 16 ? 'textarea' : 'text'"></el-input>
-                    </el-form-item> -->
-                    <!-- 方式三： -->
                     <div v-for="(item,index) in (one.LensExtAttrItem)" :key="index" class="editform-box">
-                      <span class="item-name">{{item.MutiLang}}</span>
-                      <ElInput v-model="item.Text" clearable="" :type="index === 16 ? 'textarea' : 'text'"></ElInput>
+                      <div class="input-box">
+                        <span class="item-name">{{item.MutiLang}}</span>
+                      <ElInput v-model="item.Text" clearable="" :type="index === 16 ? 'textarea' : 'text'" @focus="inputFocus(item,index)" @blur="inputBlur(item,index)"></ElInput>
+                      </div>
+                      <span class="tips" v-show="one.LensExtAttrItem[index].tipShow">{{$t('product.PleaseEnter')}}{{item.MutiLang}}</span>
                     </div>
-                    <!-- 方式四: -->
-                    <!-- <div v-for="(item,index) in editForm.LensExtAttrItem" :key="index">
-                      <el-form-item label="客户编号" :prop="'LensExtAttrItem.' + index + '.Text'">
-                        <el-input v-model="item.Text" type="text"></el-input>
-                      </el-form-item>
-                      <el-form-item label="验光结果左">
-                        <el-input v-model="item.Text" type="text"></el-input>
-                      </el-form-item>
-                      <el-form-item label="验光结果右">
-                        <el-input v-model="item.Text" type="text"></el-input>
-                      </el-form-item>
-                      <el-form-item label="备注">
-                        <el-input v-model="item.textarea" type="textarea"></el-input>
-                      </el-form-item>
-                    </div> -->
                   </div>
                   <span class="edit_title">{{$t('product.ToCustomise')}}</span>
                   <div class="parameter_table">
                     <FormItem v-for="(item,index) in (one.LensAttrView)" :key="index" :label="item.AttrName">
-                     <ElInput v-model="item.AttrValue" clearable=""></ElInput>
+                     <ElInput v-model="item.AttrValue" clearable="" @focus="inputFocus(item,index)" @blur="inputBlur(item,index)"></ElInput>
+                     <span class="tips" v-show="one.LensAttrView[index].tipShow">{{$t('product.PleaseEnter')}}{{item.AttrName}}</span>
                     </FormItem>
                   </div>
                   <div class="edit_btn_box">
@@ -324,17 +301,18 @@ editForm: any = {
   }
   get edit () {
     return {
-      Text: [
+      /* Text: [
         {
           required: true,
           message: '不能为空',
           trigger: 'blur'
         }
-      ]
+      ] */
     };
   }
   prodcutSrc: string = require('@/assets/Images/270_b.jpg');
   // boxshow = true;
+  tipShow =true;
   step: number = 1;
   totalAmount: number = 0;
   // itemsAmount: number = 0;
@@ -345,6 +323,7 @@ editForm: any = {
   // currentCode: any = '';
   items: any[] = [
   ];
+  // item: any[] =[];
   activeIndex = null;
   itemQty:number=0;
   private UpdateQueQue:Update[] = [];
@@ -543,14 +522,6 @@ editForm: any = {
   }
   address () {
     this.$Api.delivery.getAddress().then((result) => {
-      /* if (result.data.length === 0) {
-        this.addAddress = true;
-        this.addressBlock = false;
-      } else {
-        this.addressList = result.data;
-        this.addressBlock = true;
-        this.addAddress = false;
-      } */
       this.addressList = result.data;
     });
   }
@@ -560,7 +531,6 @@ editForm: any = {
   changeList(index) {
     this.activeIndex = index;
     this.editForm.AddressId = this.addressList[index].DeliveryId;
-    // console.log(this.addressList[index].DeliveryId);
   }
   loadItems () {
     var _this = this;
@@ -589,21 +559,52 @@ editForm: any = {
   }
   boxShow(index) {
     Vue.set(this.items[index], 'boxshow', true);
-    /* for(var i = 0; i < this.items[index].LensExtAttrItem.length; i++) {
-      
-    } */
-    console.log(this.items[index].LensExtAttrItem[16]);
     
   }
+  inputFocus(item, index) {
+    Vue.set(item, 'tipShow', false);
+  }
+  inputBlur(item, index) {
+    if(item.Text === '' || item.AttrValue === '') {
+      item.tipShow = true;
+    } else {
+      item.tipShow = false;
+    }
+    if (index === 16) {
+      item.tipShow = false;
+    }
+  }
   saveItem (index) {
-    // Vue.set(this.items[index], 'boxshow', false);
     Vue.set(this.items[index], 'ShoppingCartId', this.items[index].Id);
     Vue.set(this.items[index], 'Sku', this.items[index].Product.Sku);
     for (var i = 0; i < this.items[index].LensExtAttrItem.length; i++) {
       Vue.set(this.items[index], this.items[index].LensExtAttrItem[i].Id, this.items[index].LensExtAttrItem[i].Text);
     }
-    this.items[index].LensExtAttrItem = this.editForm.LensExtAttrItem;
-    console.log(this.items[index])
+    if(this.items[index].BC === '' || this.items[index].CT === '' || this.items[index].CorneaLeft === '' || this.items[index].CorneaRight === '' || this.items[index].CustomerCode === '' || this.items[index].Diam === '' || this.items[index].FiveCW === '' || this.items[index].FourCW === '' || this.items[index].LensDiameter === '' || this.items[index].OZ === '' || this.items[index].PCW === '' || this.items[index].Power === '' || this.items[index].ResultLeft === '' || this.items[index].ResultRight === '' || this.items[index].ThreeCW === '' || this.items[index].TwoCW === '' || this.items[index].LensAttrView[0].AttrValue === '' || this.items[index].LensAttrView[1].AttrValue === '' || this.items[index].LensAttrView[2].AttrValue === '' || this.items[index].LensAttrView[3].AttrValue === '' || this.items[index].LensAttrView[4].AttrValue === '' || this.items[index].LensAttrView[5].AttrValue === '' || this.items[index].LensAttrView[5].AttrValue === '' || this.items[index].LensAttrView[6].AttrValue === '' || this.items[index].LensAttrView[7].AttrValue === '') {
+        Message({
+          message: this.$t('Shoppingcart.SaveError') as string,
+          type: 'error',
+          duration:3500
+        })
+        for(var j=0;j<this.items[index].LensExtAttrItem.length;j++){
+          if(this.items[index].LensExtAttrItem[j].Text === ''){
+            Vue.set(this.items[index].LensExtAttrItem[j], 'tipShow', true);
+          }
+        }
+        this.items[index].LensExtAttrItem[16].tipShow = false;
+        for(var k=0;k<this.items[index].LensAttrView.length;k++){
+        if(this.items[index].LensAttrView[k].AttrValue === ''){
+          Vue.set(this.items[index].LensAttrView[k],'tipShow', true);
+        }
+      }
+      } else{
+        Message({
+          message: this.$t('Shoppingcart.Savedsuccess') as string,
+          type: 'success',
+          duration:3000
+        })
+        Vue.set(this.items[index], 'boxshow', false);
+      }
   }
   Reset (index) {
     for (var i = 0; i < this.items[index].LensAttrView.length; i++) {
@@ -701,7 +702,12 @@ editForm: any = {
       Items: this.items
     };
     if (this.editForm.AddressId === '') {
-      this.$Confirm(this.$t('Message.Message'), this.$t('Shoppingcart.NoneAddress'), () => { this.$router.push('/account/deliveryAddress'); }, () => { this.$router.push('/account/deliveryAddress'); });
+      /* this.$Confirm(this.$t('Message.Message'), this.$t('Shoppingcart.NoneAddress'), () => { this.$router.push('/account/deliveryAddress'); }, () => { this.$router.push('/account/deliveryAddress'); }); */
+      Message({
+        message: this.$t('Shoppingcart.NoneAddress') as string,
+        type: 'error',
+        duration: 3500
+      })
     } else {
       this.$Api.order.saveOrder(temp).then((result) => {
         console.log(this);
@@ -712,7 +718,6 @@ editForm: any = {
           message: result.Message,
           type: 'error'
         })
-        console.log(result.Message);
       }
     });
     }
@@ -1226,22 +1231,36 @@ editForm: any = {
     align-items: center;
     .editform-box{
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+      flex-direction: column;
+      justify-content: flex-start;
       align-items: center;
       margin-bottom: 30px;
-      .item-name{
-        width: 42%;
-        font-size: 18px;
-        color:#000;
-        font-weight: bold;
+      height: 60px;
+      .input-box{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        .item-name{
+          width: 55%;
+          font-size: 18px;
+          color:#000;
+          font-weight: bold;
+          background: url(/images/pc/iov-required.png) no-repeat left center;
+          text-indent: 11px;
+        }
+        .el-input__inner{
+          border:1px solid #0e579c;
+        }
+        .el-textarea__inner{
+          height: 150px;
+          line-height: 30px;
+        }
       }
-      .el-input__inner{
-      border:1px solid #0e579c;
-      }
-      .el-textarea__inner{
-        height: 150px;
-        line-height: 30px;
+      .tips{
+        font-size: 14px;
+        color:#d92526;
       }
     }
     .editform-box:nth-child(1){
@@ -1251,9 +1270,9 @@ editForm: any = {
         width: 20%;
       }
     }
-    .editform-box:nth-child(2),
-    .editform-box:nth-child(3),
-    .editform-box:nth-child(4),
+    .editform-box:nth-child(2)
+    .editform-box:nth-child(3)
+    .editform-box:nth-child(4)
     .editform-box:nth-child(5){
       justify-content: flex-start;
       width: 35%;
@@ -1281,32 +1300,39 @@ editForm: any = {
     .editform-box:nth-child(14),
     .editform-box:nth-child(15),
     .editform-box:nth-child(16){
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      .item-name{
-        background: #0b57a3;
-        color: #fff;
-        width: 100%;
-        height: 50px;
-        line-height: 50px;
-        text-align: center;
-        margin-bottom: 10px;
-      }
-      .el-input__inner{
-        border-radius: 0;
-        height: 50px;
-        line-height: 50px;
-        text-align: center;
-        margin-bottom: 10px;
+      height: 140px;
+      .input-box{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .item-name{
+          background: url(/images/pc/iov-required.png) no-repeat 30% center;
+          background-color: #0b57a3;
+          color: #fff;
+          width: 100%;
+          height: 50px;
+          line-height: 50px;
+          text-align: center;
+          margin-bottom: 10px;
+          text-indent: 0;
+        }
+        .el-input__inner{
+          border-radius: 0;
+          height: 50px;
+          line-height: 50px;
+          text-align: center;
+          margin-bottom: 10px;
+        }
       }
     }
     .editform-box:last-child{
+      height: 150px;
       width: 100%;
       align-items: flex-start;
       .item-name{
         width: 10%;
+        background: none;
       }
       .el-input__inner{
         height: 250px;
@@ -1323,22 +1349,29 @@ editForm: any = {
     flex-wrap: wrap;
     margin-top: 30px;
     .el-form-item{
+      height: 120px;
       width: 30%;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
       .el-form-item__label{
         width: 48%;
         text-align: left;
         color:#000;
         font-weight: bold;
+        background: url(/images/pc/iov-required.png) no-repeat left center;
+        text-indent: 8%;
       }
       .el-form-item__content{
         width: 25%;
         .el-input__inner{
           width: 100%;
           border:1px solid #0e579c;
+        }
+        .tips{
+          color:#d92526;
+          font-size: 14px;
         }
       }
     }
@@ -1349,5 +1382,8 @@ editForm: any = {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+.el-message{
+  top:50%!important;
 }
 </style>

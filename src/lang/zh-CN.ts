@@ -180,7 +180,9 @@ export default {
     more: '更多',
     hide: '收起',
     NoneAddress: '請添加收貨地址',
-    Login: '登入'
+    Login: '登入',
+    SaveError: '*必填信息未填寫',
+    Savedsuccess: '保存成功'
   },
   Login: {
     doLogin: '登入',

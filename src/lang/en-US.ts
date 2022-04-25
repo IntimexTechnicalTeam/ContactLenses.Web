@@ -179,7 +179,9 @@ export default {
     more: 'more',
     hide: 'hide',
     NoneAddress: 'Please add the shipping address',
-    Login: 'Login'
+    Login: 'Login',
+    SaveError: '*Required information is not filled in',
+    Savedsuccess: 'Saved successfully'
   },
   Login: {
     doLogin: 'Login',
