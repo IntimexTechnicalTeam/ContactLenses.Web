@@ -1,10 +1,11 @@
 <template>
   <div id="container" class="catDetail">
     <div class="DetailTitle">
-      <img :src="cmsCategory.ImagePath">
+      <!-- <img :src="cmsCategory.ImagePath">
       <div class="TitleBg">
         <div class="innerBoxText">{{cmsCategory.Name}}</div>
-      </div>
+      </div> -->
+      <div v-html="cmsCategory.Content"></div>
     </div>
 
     <div class="catContent">

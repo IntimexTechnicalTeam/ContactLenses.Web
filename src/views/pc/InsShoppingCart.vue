@@ -84,7 +84,7 @@
                     </FormItem>
                   </div>
                   <div class="edit_btn_box">
-                    <b class="btn saveBtn" @click="saveItem(index)">{{$t('product.Save')}}</b>
+                    <b class="btn saveBtn" @click="saveItem(one,index)">{{$t('product.Save')}}</b>
                     <b class="btn canelBtn" @click="Reset(index)">{{$t('product.Reset')}}</b>
                     </div>
                 </ElForm>
@@ -574,37 +574,41 @@ editForm: any = {
       item.tipShow = false;
     }
   }
-  saveItem (index) {
+  saveItem (one,index) {
     Vue.set(this.items[index], 'ShoppingCartId', this.items[index].Id);
     Vue.set(this.items[index], 'Sku', this.items[index].Product.Sku);
     for (var i = 0; i < this.items[index].LensExtAttrItem.length; i++) {
       Vue.set(this.items[index], this.items[index].LensExtAttrItem[i].Id, this.items[index].LensExtAttrItem[i].Text);
     }
-    if(this.items[index].BC === '' || this.items[index].CT === '' || this.items[index].CorneaLeft === '' || this.items[index].CorneaRight === '' || this.items[index].CustomerCode === '' || this.items[index].Diam === '' || this.items[index].FiveCW === '' || this.items[index].FourCW === '' || this.items[index].LensDiameter === '' || this.items[index].OZ === '' || this.items[index].PCW === '' || this.items[index].Power === '' || this.items[index].ResultLeft === '' || this.items[index].ResultRight === '' || this.items[index].ThreeCW === '' || this.items[index].TwoCW === '' || this.items[index].LensAttrView[0].AttrValue === '' || this.items[index].LensAttrView[1].AttrValue === '' || this.items[index].LensAttrView[2].AttrValue === '' || this.items[index].LensAttrView[3].AttrValue === '' || this.items[index].LensAttrView[4].AttrValue === '' || this.items[index].LensAttrView[5].AttrValue === '' || this.items[index].LensAttrView[5].AttrValue === '' || this.items[index].LensAttrView[6].AttrValue === '' || this.items[index].LensAttrView[7].AttrValue === '') {
-        Message({
-          message: this.$t('Shoppingcart.SaveError') as string,
-          type: 'error',
-          duration:3500
-        })
-        for(var j=0;j<this.items[index].LensExtAttrItem.length;j++){
-          if(this.items[index].LensExtAttrItem[j].Text === ''){
-            Vue.set(this.items[index].LensExtAttrItem[j], 'tipShow', true);
+    var attrviews=this.items[index].LensAttrView;
+    var attrValue=attrviews.some(function(item){
+      return item.AttrValue === ''
+    })
+    if(this.items[index].BC === '' || this.items[index].CT === '' || this.items[index].CorneaLeft === '' || this.items[index].CorneaRight === '' || this.items[index].CustomerCode === '' || this.items[index].Diam === '' || this.items[index].FiveCW === '' || this.items[index].FourCW === '' || this.items[index].LensDiameter === '' || this.items[index].OZ === '' || this.items[index].PCW === '' || this.items[index].Power === '' || this.items[index].ResultLeft === '' || this.items[index].ResultRight === '' || this.items[index].ThreeCW === '' || this.items[index].TwoCW === '' || attrValue) {
+      Message({
+        message: this.$t('Shoppingcart.SaveError') as string,
+        type: 'error',
+        duration:3500
+      })
+      for(var j=0;j<this.items[index].LensExtAttrItem.length;j++){
+        if(this.items[index].LensExtAttrItem[j].Text === ''){
+          Vue.set(this.items[index].LensExtAttrItem[j], 'tipShow', true);
+        }
+      }
+      for(var k=0;k<this.items[index].LensAttrView.length;k++){
+        if(this.items[index].LensAttrView[k].AttrValue === ''){
+          Vue.set(this.items[index].LensAttrView[k],'tipShow', true);
           }
         }
         this.items[index].LensExtAttrItem[16].tipShow = false;
-        for(var k=0;k<this.items[index].LensAttrView.length;k++){
-        if(this.items[index].LensAttrView[k].AttrValue === ''){
-          Vue.set(this.items[index].LensAttrView[k],'tipShow', true);
-        }
-      }
-      } else{
-        Message({
-          message: this.$t('Shoppingcart.Savedsuccess') as string,
-          type: 'success',
-          duration:3000
-        })
-        Vue.set(this.items[index], 'boxshow', false);
-      }
+    }else{
+      Message({
+        message: this.$t('Shoppingcart.Savedsuccess') as string,
+        type: 'success',
+        duration:3000
+      })
+      Vue.set(this.items[index], 'boxshow', false);
+    }
   }
   Reset (index) {
     for (var i = 0; i < this.items[index].LensAttrView.length; i++) {
