@@ -5,7 +5,7 @@
       <div class="TitleBg">
         <div class="innerBoxText">{{cmsCategory.Name}}</div>
       </div> -->
-      <div v-html="cmsCategory.Content"></div>
+      <div v-html="cmsCategory.Content" class="DetailContent"></div>
     </div>
 
     <div class="catContent">
@@ -177,7 +177,6 @@ export default class insNews extends Vue {
       }
     }
   }
-
   .catContent {
       width: 1200px;
       margin: 0 auto;
@@ -186,6 +185,19 @@ export default class insNews extends Vue {
       .layer {
           font-size: 16px;
       }
+  }
+}
+</style>
+<style lang="less">
+.DetailContent{
+  width: 1200px;
+  margin:30px auto;
+  p{
+    text-align: left;
+    height: 40px;
+    line-height: 40px;
+    font-size: 25px;
+    color: #000;
   }
 }
 </style>

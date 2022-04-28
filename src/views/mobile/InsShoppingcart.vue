@@ -58,18 +58,22 @@
                   </FormItem> -->
                   <div class="mobile-itemInformation">
                     <div v-for="(item,index) in (one.LensExtAttrItem)" :key="index" class="mobile-editform-box">
-                      <span class="item-name">{{item.MutiLang}}</span>
-                      <ElInput v-model="item.Text" clearable=""></ElInput>
+                      <div class="mobileInput">
+                        <span class="item-name">{{item.MutiLang}}</span>
+                        <ElInput v-model="item.Text" clearable="" :type="index === 16 ? 'textarea' : 'text'" @focus="inputFocus(item,index)" @blur="inputBlur(item,index)"></ElInput>
+                      </div>
+                      <span class="mobileTips" v-show="one.LensExtAttrItem[index].tipShow">{{$t('product.PleaseEnter')}}{{item.MutiLang}}</span>
                     </div>
                   </div>
                   <span class="edit_title">{{$t('product.ToCustomise')}}</span>
                   <div class="mobile-parameter_table">
                     <FormItem v-for="(item,index) in (one.LensAttrView)" :key="index" :label="item.AttrName">
-                     <ElInput v-model="item.AttrValue" clearable=""></ElInput>
+                     <ElInput v-model="item.AttrValue" clearable="" @focus="inputFocus(item,index)" @blur="inputBlur(item,index)"></ElInput>
+                     <span class="mobileTips" v-show="one.LensAttrView[index].tipShow">{{$t('product.PleaseEnter')}}{{item.AttrName}}</span>
                     </FormItem>
                   </div>
                   <div class="mobile-editBtn_box">
-                    <b class="btn saveBtn" @click="saveItem(index)">{{$t('product.Save')}}</b>
+                    <b class="btn saveBtn" @click="saveItem(one,index)">{{$t('product.Save')}}</b>
                     <b class="btn canelBtn" @click="Reset(index)">{{$t('product.Reset')}}</b>
                     </div>
                 </ElForm>
@@ -223,7 +227,7 @@
 </template>
 <script lang='ts'>
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { Form, Input, Row, Col, Button, Select, Option, FormItem, Card } from 'element-ui';
+import { Form, Input, Row, Col, Button, Select, Option, FormItem, Card, Message } from 'element-ui';
 import ShopCart from '../../model/ShopCart';
 import ShopCartItem from '../../model/shopCartItem';
 import Currency from '../../model/currency';
@@ -553,16 +557,6 @@ export default class InsShoppingcart extends Vue {
   }
   address () {
     this.$Api.delivery.getAddress().then((result) => {
-      /* this.addressList = result.data;
-      console.log(result.data); */
-      /* if (result.data.length === 0) {
-        this.addAddress = true;
-        this.addressBlock = false;
-      } else {
-        this.addressList = result.data;
-        this.addressBlock = true;
-        this.addAddress = false;
-      } */
       this.addressList = result.data;
     });
   }
@@ -601,12 +595,53 @@ export default class InsShoppingcart extends Vue {
   boxShow(index) {
     Vue.set(this.items[index], 'boxshow', true);
   }
-  saveItem (index) {
-    Vue.set(this.items[index], 'boxshow', false);
+  inputFocus(item, index) {
+    Vue.set(item, 'tipShow', false);
+  }
+  inputBlur(item, index) {
+    if(item.Text === '' || item.AttrValue === '') {
+      item.tipShow = true;
+    } else {
+      item.tipShow = false;
+    }
+    if (index === 16) {
+      item.tipShow = false;
+    }
+  }
+  saveItem (one, index) {
     Vue.set(this.items[index], 'ShoppingCartId', this.items[index].Id);
     Vue.set(this.items[index], 'Sku', this.items[index].Product.Sku);
     for (var i = 0; i < this.items[index].LensExtAttrItem.length; i++) {
       Vue.set(this.items[index], this.items[index].LensExtAttrItem[i].Id, this.items[index].LensExtAttrItem[i].Text);
+    }
+    var attrviews=this.items[index].LensAttrView;
+    var attrValue=attrviews.some(function(item){
+      return item.AttrValue === ''
+    })
+    if(this.items[index].BC === '' || this.items[index].CT === '' || this.items[index].CorneaLeft === '' || this.items[index].CorneaRight === '' || this.items[index].CustomerCode === '' || this.items[index].Diam === '' || this.items[index].FiveCW === '' || this.items[index].FourCW === '' || this.items[index].LensDiameter === '' || this.items[index].OZ === '' || this.items[index].PCW === '' || this.items[index].Power === '' || this.items[index].ResultLeft === '' || this.items[index].ResultRight === '' || this.items[index].ThreeCW === '' || this.items[index].TwoCW === '' || attrValue) {
+      Message({
+        message: this.$t('Shoppingcart.SaveError') as string,
+        type: 'error',
+        duration:3500
+      })
+      for(var j=0;j<this.items[index].LensExtAttrItem.length;j++){
+        if(this.items[index].LensExtAttrItem[j].Text === ''){
+          Vue.set(this.items[index].LensExtAttrItem[j], 'tipShow', true);
+        }
+      }
+      for(var k=0;k<this.items[index].LensAttrView.length;k++){
+        if(this.items[index].LensAttrView[k].AttrValue === ''){
+          Vue.set(this.items[index].LensAttrView[k],'tipShow', true);
+          }
+        }
+        this.items[index].LensExtAttrItem[16].tipShow = false;
+    }else{
+      Message({
+        message: this.$t('Shoppingcart.Savedsuccess') as string,
+        type: 'success',
+        duration:3000
+      })
+      Vue.set(this.items[index], 'boxshow', false);
     }
   }
   Reset (index) {
@@ -696,7 +731,12 @@ export default class InsShoppingcart extends Vue {
       Items: this.items
     };
     if (this.editForm.AddressId === '') {
-      this.$Confirm(this.$t('Message.Message'), this.$t('Shoppingcart.NoneAddress'), () => { this.$router.push('/account/deliveryAddress'); }, () => { this.$router.push('/account/deliveryAddress'); });
+      /* this.$Confirm(this.$t('Message.Message'), this.$t('Shoppingcart.NoneAddress'), () => { this.$router.push('/account/deliveryAddress'); }, () => { this.$router.push('/account/deliveryAddress'); }); */
+      Message({
+        message: this.$t('Shoppingcart.NoneAddress') as string,
+        type: 'error',
+        duration: 3500
+      })
     } else {
       this.$Api.order.saveOrder(temp).then((result) => {
       if (result.Succeeded) {
@@ -706,10 +746,10 @@ export default class InsShoppingcart extends Vue {
         }); */
         this.$router.push('/order/List');
       } else {
-        this.$message({
+        Message({
           message: result.Message,
           type: 'error'
-        });
+        })
       }
     });
     }
@@ -998,6 +1038,11 @@ export default class InsShoppingcart extends Vue {
   } */
   .mobile-editform-box{
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100px;
     .item-name{
       width: 54%;
     }
@@ -1005,7 +1050,7 @@ export default class InsShoppingcart extends Vue {
       border:2px solid #0e579c;
     }
   }
-  .mobile-editform-box{
+  .mobileInput{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -1016,6 +1061,9 @@ export default class InsShoppingcart extends Vue {
       color:#000;
       font-weight: bold;
     }
+  }
+  .mobileTips{
+    color:#d92526;
   }
   .mobile-editform-box:nth-child(2),
   .mobile-editform-box:nth-child(3),
@@ -1042,6 +1090,13 @@ export default class InsShoppingcart extends Vue {
   .mobile-editform-box:nth-child(16){
     flex-direction: column;
     width: 49%;
+    height: 200px;
+    .mobileInput{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
     .item-name{
       width: 100%;
       display: block;
@@ -1060,6 +1115,9 @@ export default class InsShoppingcart extends Vue {
     }
   }
   .mobile-editform-box:last-child{
+    .mobileInput{
+      width: 100%;
+    }
     .item-name{
       width: 20%;
     }
@@ -1078,6 +1136,7 @@ export default class InsShoppingcart extends Vue {
     align-items: center;
     .el-form-item{
       width: 45%;
+      height: 165px;
       .el-form-item__label{
         color: #000;
         font-size: 14px;

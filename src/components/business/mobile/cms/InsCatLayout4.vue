@@ -3,7 +3,7 @@
         <ul>
             <li v-for="(cms,index) in cmsData" :key="index">
                 <router-link :to="'/cms/content/'+cms.Id">
-                    <div class="cover">
+                    <!-- <div class="cover">
                         <img :src="cms.Cover" alt=""/>
                     </div>
                     <div class="introduce">
@@ -11,7 +11,8 @@
                         <p class="createDate">{{cms.CreateDate}}</p>
                         <p class="desc">{{cms.Desc}}</p>
                         <p class="viewMore"><span>{{$t('Message.ViewDetail')}}</span></p>
-                    </div>
+                    </div> -->
+                    <p class="title">{{cms.Title}}</p>
                 </router-link>
             </li>
         </ul>

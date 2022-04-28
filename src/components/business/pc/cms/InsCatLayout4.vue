@@ -1,17 +1,18 @@
 <template>
     <div class="cms-list">
-        <ul>
+        <ul class="infoList">
             <li v-for="(cms,index) in cmsData" :key="index">
                 <router-link :to="'/cms/content/'+cms.Id">
-                    <div class="cover">
+                    <!-- <div class="cover">
                         <img :src="cms.Cover" alt=""/>
-                    </div>
-                    <div class="introduce">
+                    </div> -->
+                    <!-- <div class="introduce">
                         <p class="title">{{cms.Title}}</p>
                         <p class="createDate">{{cms.CreateDate}}</p>
                         <p class="desc">{{cms.Desc}}</p>
                         <p class="viewMore"><span>{{$t('Message.ViewDetail')}}</span></p>
-                    </div>
+                    </div> -->
+                     <p class="title">{{cms.Title}}</p>
                 </router-link>
             </li>
         </ul>
@@ -39,16 +40,32 @@ export default class InsCatLayout1 extends Vue {
 .cms-list {
     ul{
         display: flex;
-        flex-wrap: wrap;
-
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
         >li{
-        width: 23%;
         margin-right: 2.66%;
         margin-bottom: 2.66%;
         &:nth-child(4n){
             margin-right: 0%!important;
         }
         a{
+            p{
+                color: #0e579c;
+                font-size: 20px;
+                border-bottom: 1px solid #0e579c;
+                height: 35px;
+                line-height: 35px;
+                font-weight: bold;
+            }
+            &:hover{
+                p{
+                    color: #fa050b;
+                    border-bottom: 1px solid #fa050b;
+                }
+            }
+        }
+        /* a{
             display:block;
             border:1px solid #eee;
             transition: all .3s ease;
@@ -63,7 +80,7 @@ export default class InsCatLayout1 extends Vue {
                 }
             }
             }
-        }
+        } */
         .introduce{
             width: 90%;
             margin: 0 auto;

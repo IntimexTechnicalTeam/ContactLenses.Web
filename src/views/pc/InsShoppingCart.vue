@@ -714,7 +714,6 @@ editForm: any = {
       })
     } else {
       this.$Api.order.saveOrder(temp).then((result) => {
-        console.log(this);
       if (result.Succeeded) {
         this.$router.push('/order/List');
       } else {

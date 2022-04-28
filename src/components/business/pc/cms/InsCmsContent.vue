@@ -37,8 +37,8 @@
           <div id="preview" style="display:none;"></div>
         </div> -->
     </div>
-    <!-- 其他页面 -->
-    <div class="CmsNormal" v-if="NewcateId!='40112'">
+    <!-- 关于我们页面 -->
+    <div class="CmsNormal" v-if="NewcateId=='40110'">
       <transition name="slide">
         <div key="1" v-if="!waiting" style="display:flex;">
             <div class="DetailTitle"><img :src="OtherPageImg" v-show="OtherPageImg!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
@@ -59,6 +59,12 @@
           <img src="/images/pc/about_02.png" class="Img-02">
         </div>
       </div>
+    </div>
+    <!-- 有用信息页面 -->
+    <div class="CmsInfo" v-if="NewcateId=='40113'">
+      <div class="bigTitle">{{TitleName}}</div>
+      <img :src="OtherPageImg" v-show="OtherPageImg!==null" class="btlImg">
+      <div class="pc-news-text" v-html="content.Body"></div>
     </div>
   </div>
 </template>
@@ -646,6 +652,101 @@ export default class InsCmsContent extends Vue {
       width:43%;
       height: 310px;
       margin-left: 1.5rem;
+    }
+  }
+}
+.CmsInfo{
+  width:1200px;
+  margin: 50px auto;
+  text-align: center;
+  .bigTitle{
+    text-align: center;
+    color:#0e579c;
+    margin-bottom: 30px;
+    font-size: 35px;
+    font-weight: bold;
+  }
+  .btlImg{
+    margin:30px auto;
+  }
+  .pc-news-text{
+    text-align: left;
+    .smallTitle{
+      font-size: 25px;
+      color:#0e579c;
+      margin: 15px 0;
+    }
+    p{
+      line-height: 40px;
+      color:#000;
+      font-size: 18px;
+      letter-spacing:3px;
+    }
+    .x-tit{
+      color:#439cd8;
+      font-size: 22px;
+    }
+    .preface{
+      .infoText{
+        text-indent: 30px;
+      }
+    }
+    .s-tit{
+      color:rgb(248, 4, 4);
+    }
+    .explainText{
+      font-size: 20px;
+      font-weight: bold;
+      color: #439cd8;
+    }
+    table{
+      margin:25px auto;
+      border:1px solid #808080;
+      border-collapse: collapse;
+      td{
+        border:1px solid #808080;
+        vertical-align: center;
+        text-align: center;
+        p{
+          padding: 10px;
+        }
+      }
+      tbody tr:nth-child(even) {
+        background-color: antiquewhite;
+    }
+    }
+    .footerTitle{
+      border-top:1px solid #000;
+      padding-top: 20px;
+      line-height: 40px;
+      height: 40px;
+      font-size: 24px;
+      text-align: center;
+      color: #0e579c;
+    }
+    .contact{
+      text-align: center;
+      color:#439cd8;
+      margin:20px auto;
+    }
+    .needInfo{
+      text-align: center;
+      color:#f90914;
+    }
+    .remarks{
+      strong{
+        color: #439cd8;
+      }
+    }
+    .infoText-s{
+      .infoText{
+        text-indent: 30px;
+        color:#0e579c;
+      }
+    }
+    .subtitle{
+      font-size: 28px;
+      text-align: center;
     }
   }
 }

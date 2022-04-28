@@ -1,10 +1,11 @@
 <template>
   <div id="container" class="catDetail">
     <div class="DetailTitle">
-      <img :src="cmsCategory.ImagePath">
+      <!-- <img :src="cmsCategory.ImagePath">
       <div class="TitleBg">
         <div class="innerBoxText">{{cmsCategory.Name}}</div>
-      </div>
+      </div> -->
+      <div v-html="cmsCategory.Content" class="m-DetailContent"></div>
     </div>
 
     <div class="catContent">
@@ -147,6 +148,8 @@ export default class insNews extends Vue {
 </script>
 <style scoped lang="less">
 .catDetail {
+  width: 90%;
+  margin:0 auto;
   .DetailTitle{
     width: 100%;
     display: flex;
@@ -190,6 +193,15 @@ export default class insNews extends Vue {
     .layer {
       font-size: 1.2rem;
     }
+  }
+}
+</style>
+<style lang="less">
+.m-DetailContent{
+  p{
+    font-size: 20px;
+    font-weight: bold;
+    color:#000;
   }
 }
 </style>
