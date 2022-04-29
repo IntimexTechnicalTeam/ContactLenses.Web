@@ -37,7 +37,7 @@
         </div> -->
     </div>
     <!-- 其他页面 -->
-    <div class="CmsNormal" v-if="NewcateId!='40112'">
+    <div class="CmsNormal" v-if="NewcateId ==='40112'">
       <transition name="slide">
         <div key="1" v-if="!waiting" style="display:flex;">
               <div class="DetailTitle"><img :src="OtherPageImg" v-show="OtherPageImg!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
@@ -53,6 +53,12 @@
           <img src="/images/pc/about_02.png" alt="">
         </div>
       </div>
+    </div>
+    <!-- 有用信息页面 -->
+    <div class="M-CmsInfo" v-if="NewcateId=='40113'">
+      <div class="bigTitle">{{TitleName}}</div>
+      <img :src="OtherPageImg" v-show="OtherPageImg!==null" class="btlImg">
+      <div class="mobile-news-text" v-html="content.Body"></div>
     </div>
   </div>
 </template>
@@ -457,6 +463,76 @@ export default class InsCmsContent extends Vue {
     }
     img:nth-child(1){
       margin-bottom: 2rem;
+    }
+  }
+}
+.M-CmsInfo{
+  width:95%;
+  margin:0 auto;
+  padding: 2rem 0;
+  text-align: center;
+  .bigTitle{
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #0e579c;
+  }
+  .mobile-news-text{
+    .preface{
+      .infoText{
+        text-indent: 2rem;
+      }
+    }
+    .infoText{
+      font-size: 1.5rem;
+      color:#3f95d2;
+      text-align: left;
+      line-height: 3rem;
+      letter-spacing: 0.3rem;
+      strong{
+        font-weight: bold;
+        font-size: 1.6rem;
+      }
+    }
+    .explainText{
+      font-size: 1.3rem;
+      color:#3f95d2;
+      text-align: left;
+      line-height: 3rem;
+      letter-spacing: 0.5rem;
+    }
+    .smallTitle{
+      font-size: 1.7rem;
+      color:#0e579c;
+      line-height: 3rem;
+      margin:2rem auto;
+    }
+    table{
+      margin:3rem auto;
+      border:1px solid #808080;
+      border-collapse: collapse;
+      td{
+        border:1px solid #808080;
+        vertical-align: center;
+        text-align: center;
+        p{
+          padding: 1rem;
+        }
+      }
+      tbody tr:nth-child(even) {
+        background-color: antiquewhite;
+      }
+    }
+    .footerTitle,
+    .contact{
+      color:#0e579c;
+      line-height: 3rem;
+      font-size: 1.3rem;
+    }
+    .needInfo{
+      span{
+        color:#f70a0a;
+        font-size: 1.5rem;
+      }
     }
   }
 }

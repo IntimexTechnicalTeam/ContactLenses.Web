@@ -1,6 +1,6 @@
 <template>
     <div class="cms-list">
-        <ul>
+        <ul class="modielCmsList">
             <li v-for="(cms,index) in cmsData" :key="index">
                 <router-link :to="'/cms/content/'+cms.Id">
                     <!-- <div class="cover">
@@ -77,7 +77,6 @@ export default class InsCatLayout1 extends Vue {
         //  }
         a{
             display:block;
-            border:1px solid #eee;
         //  transition: all .3s ease;
         // -o-transition: all .3s ease;
         // -webkit-transition: all .3s ease;
@@ -101,7 +100,6 @@ export default class InsCatLayout1 extends Vue {
             font-size: 1.5rem;
             font-weight: bold;
             padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
             color:#484848;
             margin-bottom: 10px;
             text-overflow: -o-ellipsis-lastline;
@@ -182,6 +180,14 @@ export default class InsCatLayout1 extends Vue {
         z-index: 1;
         font-size: 1.5rem;
         color: #787878;
+        }
+    }
+    .modielCmsList{
+        a{
+            p{
+                font-size: 18px;
+                color:#429cdb;
+            }
         }
     }
 }

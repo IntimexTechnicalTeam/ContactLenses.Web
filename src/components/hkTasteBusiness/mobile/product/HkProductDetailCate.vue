@@ -19,7 +19,7 @@
     </div>
   </div> -->
   <h1 class="product_info">{{ $t("product.ProductInformation") }}</h1>
-    <div class="detail-box">
+    <div class="M-detail-box">
       <div class="detail-header">
         <div class="detail-products detail-title">{{ $t("product.Products") }}</div>
         <div class="detail-parameter detail-title">{{ $t("product.Parameter") }}</div>
@@ -134,48 +134,51 @@ export default class PkProductDetailCate extends Vue {
   margin:30px auto;
   font-size: 2rem;
 }
-.detail-header{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-.detail-title{
-  background-color: #808080;
-  color:#fff;
-  height: 45px;
-  line-height: 45px;
-  font-size: 20px;
-  font-weight: bold;
-}
-.detail-products{
-  width: 70%;
-}
-.detail-parameter{
-  width: 29%;
-}
-.detail-body{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  li{
-    height: 40px;
-    line-height: 40px;
+.M-detail-box{
+  .detail-header{
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
-    color:#000;
-    font-size: 1.2rem;
+    }
+  .detail-title{
+    background-color: #808080;
+    color:#fff;
+    height: 45px;
+    line-height: 45px;
+    font-size: 20px;
+    font-weight: bold;
   }
-}
-.catalogue{
-  width: 20%;
-}
-.detailtype{
-  width: 50%;
-}
-.attribute{
-  width: 30%;
+  .detail-products{
+    width: 70%;
+  }
+  .detail-parameter{
+    width: 29%;
+  }
+  .detail-body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top:2rem;
+    li{
+      height: 40px;
+      line-height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color:#000;
+      font-size: 1.2rem;
+    }
+  }
+  .catalogue{
+    width: 20%;
+  }
+  .detailtype{
+    width: 50%;
+  }
+  .attribute{
+    width: 30%;
+  }
 }
 </style>

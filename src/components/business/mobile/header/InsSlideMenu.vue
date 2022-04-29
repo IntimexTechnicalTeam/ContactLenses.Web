@@ -101,8 +101,9 @@ export default class InsSlideMenu extends Vue {
   transition: transform .28s;
   transition: transform .28s,-webkit-transform .28s;
   position: fixed;
-  background-color: #fff;
+  background-color: #0e559c!important;
   z-index: 1000;
+  width: 100%!important;
 
   &.left {
     top: 0;
@@ -146,5 +147,23 @@ export default class InsSlideMenu extends Vue {
 
 span {
   padding: 20px;
+}
+</style>
+<style lang="less">
+.sidebar-container{
+  #menu{
+    li{
+      a{
+        border:none;
+        background: #0e559c;
+        &:nth-child(1){
+          b{
+            color:#fff;
+            text-align: left;
+          }
+        }
+      }
+    }
+  }
 }
 </style>

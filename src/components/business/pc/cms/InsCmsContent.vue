@@ -713,7 +713,7 @@ export default class InsCmsContent extends Vue {
       }
       tbody tr:nth-child(even) {
         background-color: antiquewhite;
-    }
+      }
     }
     .footerTitle{
       border-top:1px solid #000;
