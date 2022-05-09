@@ -93,23 +93,27 @@
             </div>
           </div>
         </div>
-        <div class="userAddress">
+        <div class="userAddress" v-show="addressList.length">
+          <div class="choose">{{$t('DeliveryAddress.ChooseAddress')}}</div>
           <div class="address" v-for="(item, index) in addressList" :key="index">
             <div class="information-box" :class="activeIndex === index ? 'active' : ''" @click="changeList(index)">
               <div class="checked"></div>
-              <span>{{$t('CheckOut.Name')}}：{{item.FirstName}}{{item.LastName}}</span>
-              <span>{{$t('CheckOut.Phone')}}：{{item.Mobile}}</span>
-              <span>{{$t('CheckOut.Address')}}：{{item.Address}}</span>
+                <div class="addInfo">
+                  <span>{{$t('CheckOut.Name')}}：{{item.FirstName}}{{item.LastName}}</span>
+                  <span>{{$t('CheckOut.Phone')}}：{{item.Mobile}}</span>
+                  <span>{{$t('CheckOut.Address')}}：{{item.Address}}</span>
+                </div>
             </div>
             <div class="btnBox">
               <button @click="editAddr(index)">{{$t('product.EditDetails')}}</button>
               <button @click="removeAddr(item.DeliveryId)">{{$t('product.Delete')}}</button>
             </div>
           </div>
-          <div class="addAddress">
+        </div>
+        <div class="noAddress" v-show="!addressList.length">{{$t('DeliveryAddress.NoAddress')}}</div>
+        <div class="addAddress">
             <button class="clickAdd" @click="addClick()">{{$t('DeliveryAddress.AddAddress')}}</button>
           </div>
-        </div>
         <!-- <div class="addAddress" v-if="addAddress">
           <span class="noAddress">{{$t('DeliveryAddress.AddDeliveryAddress')}}</span>
           <button class="clickAdd" @click="addClick()">{{$t('DeliveryAddress.AddDeliveryAddress')}}</button>
@@ -565,14 +569,15 @@ editForm: any = {
     Vue.set(item, 'tipShow', false);
   }
   inputBlur(item, index) {
-    if(item.Text === '' || item.AttrValue === '') {
+    /* if(item.Text === '' || item.AttrValue === '') {
       item.tipShow = true;
     } else {
       item.tipShow = false;
-    }
+    } */
     if (index === 16) {
       item.tipShow = false;
     }
+    console.log(this.items[index]);
   }
   saveItem (one,index) {
     Vue.set(this.items[index], 'ShoppingCartId', this.items[index].Id);
@@ -714,13 +719,35 @@ editForm: any = {
       })
     } else {
       this.$Api.order.saveOrder(temp).then((result) => {
-      if (result.Succeeded) {
-        this.$router.push('/order/List');
-      } else {
-        Message({
-          message: result.Message,
-          type: 'error'
-        })
+        if (result.Succeeded) {
+          this.$router.push('/order/List');
+        } else {
+        var ItemsArr = temp.Items;
+        for(var i = 0; i < ItemsArr.length; i++){
+         var ax=ItemsArr[i].LensAttrView;
+         var ac=ax.some(function(item){
+           return item.AttrValue === ''
+         })
+         if(ac || ItemsArr[i].BC === '' || ItemsArr[i].CT === '' || ItemsArr[i].CorneaLeft === '' || ItemsArr[i].CorneaRight === '' || ItemsArr[i].CustomerCode === '' || ItemsArr[i].Diam === '' || ItemsArr[i].FiveCW === '' || ItemsArr[i].FourCW === '' || ItemsArr[i].LensDiameter === '' || ItemsArr[i].OZ === '' || ItemsArr[i].PCW === '' || ItemsArr[i].Power === '' || ItemsArr[i].ResultLeft === '' || ItemsArr[i].ResultRight === '' || ItemsArr[i].ThreeCW === '' || ItemsArr[i].TwoCW === ''){
+           Message({
+            message: this.$t('Shoppingcart.SaveError') as string,
+            type: 'error',
+            duration:3500
+           })
+          for(var j=0;j<ItemsArr[i].LensExtAttrItem.length;j++){
+            if(ItemsArr[i].LensExtAttrItem[j].Text === ''){
+              Vue.set(ItemsArr[i].LensExtAttrItem[j], 'tipShow', true);
+            }
+          }
+          for(var k=0;k<ItemsArr[i].LensAttrView.length;k++){
+            if(ItemsArr[i].LensAttrView[k].AttrValue === ''){
+              Vue.set(ItemsArr[i].LensAttrView[k],'tipShow', true);
+            }
+          }
+          ItemsArr[i].LensExtAttrItem[16].tipShow = false;
+          Vue.set(ItemsArr[i], 'boxshow', true); 
+         }
+        }
       }
     });
     }
@@ -1132,57 +1159,72 @@ editForm: any = {
   -moz-transition: 0.5s ease;
   -ms-transition: 0.5s ease;
 }
-.address{
-  width: 98%;
-  padding: 10px 1%;
-  margin:20px auto;
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 0 10px #efefef;
-  .checked{
-    width: 10px;
-    height: 10px;
-    box-shadow: 0 0 5px #6c6c6c;
-    border-radius: 50%;
-    margin-right: 20px;
+.userAddress{
+  .choose{
+    font-size: 25px;
+    color:#0e579c;
+    line-height: 30px;
+    font-weight: bold;
   }
-  .information-box{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    span{
-      font-size: 16px;
-      color: #000;
-      height: 30px;
-      line-height: 30px;
-    }
-  }
-  .btnBox{
-    width: 30%;
+  .address{
+    width: 98%;
+    padding: 10px 1%;
+    margin:20px auto;
+    cursor: pointer;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    button{
-      width: 100px;
-      height: 45px;
-      line-height: 45px;
-      border:none;
-      background: #e6e6e6;
-      color:#000;
+    box-shadow: 0 0 2px #000;
+    .checked{
+      width: 20px;
+      height: 20px;
+      border:1px solid #0e579c;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+    .information-box{
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      .addInfo{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        span{
+          text-align: left;
+          font-size: 16px;
+          color: #000;
+          height: 30px;
+          line-height: 30px;
+          width: 100%;
+        }
+      }
+    }
+    .btnBox{
+      width: 30%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      button{
+        width: 100px;
+        height: 45px;
+        line-height: 45px;
+        border:none;
+        background: #e6e6e6;
+        color:#000;
+      }
     }
   }
 }
 
 .active{
   .checked{  
-    background: #0b57a3;
-    box-shadow: 0 0 0 #fff;
+    background: url(/images/pc/choose.png) center center no-repeat;
   }
 }
 .addAddress{
@@ -1191,14 +1233,6 @@ editForm: any = {
   justify-content: center;
   align-items: center;
   margin-bottom: 30px;
-  .noAddress{
-    margin:30px auto;
-    height: 40px;
-    line-height: 40px;
-    font-size: 18px;
-    color:#bbb;
-    font-weight: bold;
-  }
   .clickAdd{
     border:none;
     background: #0e579c;
@@ -1209,6 +1243,13 @@ editForm: any = {
     padding: 0 2rem;
     border-radius: 15px;
   }
+}
+.noAddress{
+  margin: 30px auto;
+  text-align: center;
+  font-size: 30px;
+  color:#000;
+  font-weight: bold;
 }
 </style>
 <style lang="less">

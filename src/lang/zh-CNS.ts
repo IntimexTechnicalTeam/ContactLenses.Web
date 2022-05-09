@@ -263,7 +263,9 @@ export default {
     Mobile: '手提电话',
     Addressprovince: '请选择省份',
     AddressArea: '请选择地区',
-    Detail: '街道/屋苑/楼层/室'
+    Detail: '街道/屋苑/楼层/室',
+    NoAddress: '暂无收货地址，请添加',
+    ChooseAddress: '请选择收货地址'
   },
   MyCoupon: {
     MyCoupon: '我的优惠券',

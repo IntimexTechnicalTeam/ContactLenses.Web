@@ -262,7 +262,9 @@ export default {
     Mobile: 'Mobile',
     Addressprovince: 'Please choose the province',
     AddressArea: 'Please choose the area',
-    Detail: 'detail'
+    Detail: 'detail',
+    NoAddress: 'No receiving address, please add',
+    ChooseAddress: 'Please select the receiving address'
   },
   MyCoupon: {
     MyCoupon: 'My Coupon',
