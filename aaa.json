@@ -1,0 +1,361 @@
+{
+    "AddressId": 100568,
+    "Items": [
+        {
+            "Id": "6e42935d-323d-4277-8a9b-2c19f09b5019",
+            "Product": {
+                "Code": "WEN001",
+                "Sku": "41",
+                "Name": "eLENS 塑形鏡",
+                "Title": "eLENS 塑形鏡",
+                "CatalogId": 1,
+                "ParentCatId": 23,
+                "CatalogTree": [
+                    {
+                        "Id": 23,
+                        "Name": "眼鏡",
+                        "ParentId": 0,
+                        "Children": null,
+                        "Nodes": null,
+                        "Img": "http://file.dev.in-store.hk:84/ClientResources/6ed4298d-155c-4225-ba9a-193ce5e6b257/catalog/?flag=1652154357451",
+                        "ImgS": null,
+                        "ImgB": null,
+                        "Letter": null,
+                        "RemarkID": "00000000-0000-0000-0000-000000000000",
+                        "MobieImage": null,
+                        "Remarks": null,
+                        "Remark": null
+                    },
+                    {
+                        "Id": 24,
+                        "Name": "ELENS 塑形鏡",
+                        "ParentId": 23,
+                        "Children": null,
+                        "Nodes": null,
+                        "Img": "http://file.dev.in-store.hk:84/ClientResources/6ed4298d-155c-4225-ba9a-193ce5e6b257/catalog/?flag=1652154357451",
+                        "ImgS": null,
+                        "ImgB": null,
+                        "Letter": null,
+                        "RemarkID": "00000000-0000-0000-0000-000000000000",
+                        "MobieImage": null,
+                        "Remarks": null,
+                        "Remark": null
+                    }
+                ],
+                "BrandId": 24,
+                "BrandPath": "0,23,24,",
+                "BrandPathName": "眼鏡->ELENS 塑形鏡",
+                "Images": [
+                    "http://file.dev.in-store.hk:84/ClientResources/6ed4298d-155c-4225-ba9a-193ce5e6b257/product/41/41_m.png?flag=63785584211300",
+                    "http://file.dev.in-store.hk:84/ClientResources/6ed4298d-155c-4225-ba9a-193ce5e6b257/product/41/41_sm.png?flag=63785584211300",
+                    "http://file.dev.in-store.hk:84/ClientResources/6ed4298d-155c-4225-ba9a-193ce5e6b257/product/41/41_m.png?flag=63785584211300",
+                    "http://file.dev.in-store.hk:84/ClientResources/6ed4298d-155c-4225-ba9a-193ce5e6b257/product/41/41_l.png?flag=63785584211300",
+                    "http://file.dev.in-store.hk:84/ClientResources/6ed4298d-155c-4225-ba9a-193ce5e6b257/product/41/41_b.png?flag=63785584211300"
+                ],
+                "Img": "http://file.dev.in-store.hk:84/ClientResources/6ed4298d-155c-4225-ba9a-193ce5e6b257/product/41/41_m.png?flag=63785584211300",
+                "Img_SM": "http://file.dev.in-store.hk:84/ClientResources/6ed4298d-155c-4225-ba9a-193ce5e6b257/product/41/41_sm.png?flag=63785584211300",
+                "Img_M": "http://file.dev.in-store.hk:84/ClientResources/6ed4298d-155c-4225-ba9a-193ce5e6b257/product/41/41_m.png?flag=63785584211300",
+                "Img_B": "http://file.dev.in-store.hk:84/ClientResources/6ed4298d-155c-4225-ba9a-193ce5e6b257/product/41/41_b.png?flag=63785584211300",
+                "Img_L": "http://file.dev.in-store.hk:84/ClientResources/6ed4298d-155c-4225-ba9a-193ce5e6b257/product/41/41_l.png?flag=63785584211300",
+                "Currency": {
+                    "Id": 1,
+                    "Code": "HKD",
+                    "Name": "HKD",
+                    "Desc": null,
+                    "IsSyncProducts": false,
+                    "IsSyncOrders": false
+                },
+                "DesignerId": 0,
+                "SalePrice": 0,
+                "DefaultCurrency": {
+                    "Id": 1,
+                    "Code": "HKD",
+                    "Name": "HKD",
+                    "Desc": null,
+                    "IsSyncProducts": false,
+                    "IsSyncOrders": false
+                },
+                "DefaultSalePrice": 0,
+                "DefaultListPrice": 0,
+                "ListPrice": 0,
+                "FactoryPrice": 0,
+                "Permission": "1",
+                "AdditionalImage": [
+                    [
+                        "http://file.dev.in-store.hk:84/ClientResources/6ed4298d-155c-4225-ba9a-193ce5e6b257/product/41/41_b.png?flag=63785584211300",
+                        "http://file.dev.in-store.hk:84/ClientResources/6ed4298d-155c-4225-ba9a-193ce5e6b257/product/41/41_l.png?flag=63785584211300",
+                        "http://file.dev.in-store.hk:84/ClientResources/6ed4298d-155c-4225-ba9a-193ce5e6b257/product/41/41_m.png?flag=63785584211300"
+                    ]
+                ],
+                "AttrList": [
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    []
+                ],
+                "ExtAttrList": [
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    [],
+                    []
+                ],
+                "IsBatchOrder": true,
+                "OverView": "",
+                "Detail": "",
+                "Ingredient": "",
+                "Specification": "",
+                "CanCustomize": false,
+                "IsDeleted": false,
+                "PurchasePermission": null,
+                "VisitCounter": 0,
+                "IsComb": false,
+                "CreateDt": null,
+                "GrossWeight": "1",
+                "PackagingInfo": "cm(W) X cm(D) X cm(H)",
+                "MinPurQty": 1,
+                "MaxPurQty": 0,
+                "Score": 0,
+                "Url": null,
+                "SeoKeywords": null,
+                "MainColor": 0,
+                "Description": null,
+                "Types": null,
+                "Sizes": null,
+                "Colors": null,
+                "Width": "",
+                "Height": "",
+                "Depth": "",
+                "GS1Info": {
+                    "Id": "5b0b7151-72a3-4062-a9da-b44c86bfa8ec",
+                    "Sku": "41",
+                    "Gtin": null,
+                    "GtinCompanyId": "8888888888888"
+                },
+                "UnitInfo": {
+                    "Id": 0,
+                    "Code": null,
+                    "Desc": null,
+                    "Desc_e": null,
+                    "Desc_c": null,
+                    "Desc_s": null,
+                    "Desc_j": null,
+                    "Type": null,
+                    "DescItem": null
+                },
+                "Status": 0,
+                "YoutubeLink": "",
+                "QuotaQty": 0,
+                "QuotaProRemrk": null,
+                "QuotaRemrk": null,
+                "ProductPDF": null,
+                "IsFavorite": true,
+                "SoldOutAttrComboList": [],
+                "HasStockAttrVal": false,
+                "AttrComboImgList": []
+            },
+            "Attr1": 1,
+            "Attr2": 1,
+            "Attr3": 1,
+            "AttrName1": null,
+            "AttrName2": null,
+            "AttrName3": null,
+            "AttrTypeName1": null,
+            "AttrTypeName2": null,
+            "AttrTypeName3": null,
+            "Qty": 1,
+            "CreateAt": "2022-05-09 11:59:26",
+            "GrossWeight": 0,
+            "LensColor": "灰色",
+            "LensMaterial": "Boston EO",
+            "LensExtAttrItem": [
+                {
+                    "MutiLang": "客人編號",
+                    "Id": "CustomerCode",
+                    "Text": "dbcd",
+                    "tipShow": false
+                },
+                {
+                    "MutiLang": "驗光結果左",
+                    "Id": "ResultLeft",
+                    "Text": "1",
+                    "tipShow": false
+                },
+                {
+                    "MutiLang": "驗光結果右",
+                    "Id": "ResultRight",
+                    "Text": "1",
+                    "tipShow": false
+                },
+                {
+                    "MutiLang": "角膜K值左",
+                    "Id": "CorneaLeft",
+                    "Text": "1",
+                    "tipShow": false
+                },
+                {
+                    "MutiLang": "角膜K值右",
+                    "Id": "CorneaRight",
+                    "Text": "1",
+                    "tipShow": false
+                },
+                {
+                    "MutiLang": "鏡片總直徑",
+                    "Id": "LensDiameter",
+                    "Text": "1",
+                    "tipShow": false
+                },
+                {
+                    "MutiLang": "Power",
+                    "Id": "Power",
+                    "Text": "1",
+                    "tipShow": false
+                },
+                {
+                    "MutiLang": "BC",
+                    "Id": "BC",
+                    "Text": "1",
+                    "tipShow": false
+                },
+                {
+                    "MutiLang": "Diam",
+                    "Id": "Diam",
+                    "Text": "1",
+                    "tipShow": false
+                },
+                {
+                    "MutiLang": "OZ",
+                    "Id": "OZ",
+                    "Text": "1",
+                    "tipShow": false
+                },
+                {
+                    "MutiLang": "CT",
+                    "Id": "CT",
+                    "Text": "1",
+                    "tipShow": false
+                },
+                {
+                    "MutiLang": "TwoCW",
+                    "Id": "TwoCW",
+                    "Text": "1",
+                    "tipShow": false
+                },
+                {
+                    "MutiLang": "ThreeCW",
+                    "Id": "ThreeCW",
+                    "Text": "1",
+                    "tipShow": false
+                },
+                {
+                    "MutiLang": "FourCW",
+                    "Id": "FourCW",
+                    "Text": "1",
+                    "tipShow": false
+                },
+                {
+                    "MutiLang": "FiveCW",
+                    "Id": "FiveCW",
+                    "Text": "1",
+                    "tipShow": false
+                },
+                {
+                    "MutiLang": "PCW",
+                    "Id": "PCW",
+                    "Text": "1",
+                    "tipShow": false
+                },
+                {
+                    "MutiLang": "備註",
+                    "Id": "Remark",
+                    "Text": "1",
+                    "tipShow": false
+                }
+            ],
+            "LensAttrView": [
+                {
+                    "Id": "6e42935d-323d-4277-8a9b-2c19f09b5019",
+                    "Sku": "41",
+                    "AttrCode": "Diopter",
+                    "AttrName": "屈光度(D)",
+                    "AttrValue": ""
+                },
+                {
+                    "Id": "6e42935d-323d-4277-8a9b-2c19f09b5019",
+                    "Sku": "41",
+                    "AttrCode": "OpticSize",
+                    "AttrName": "光學區直徑 (mm)",
+                    "AttrValue": ""
+                },
+                {
+                    "Id": "6e42935d-323d-4277-8a9b-2c19f09b5019",
+                    "Sku": "41",
+                    "AttrCode": "LensSize",
+                    "AttrName": "鏡片總直徑(mm)",
+                    "AttrValue": ""
+                },
+                {
+                    "Id": "6e42935d-323d-4277-8a9b-2c19f09b5019",
+                    "Sku": "41",
+                    "AttrCode": "LensCenterSize",
+                    "AttrName": "鏡片中央厚度 (mm)",
+                    "AttrValue": ""
+                },
+                {
+                    "Id": "6e42935d-323d-4277-8a9b-2c19f09b5019",
+                    "Sku": "41",
+                    "AttrCode": "TwoRegionWidth",
+                    "AttrName": "二弧區(配適弧)寛度(mm)",
+                    "AttrValue": ""
+                },
+                {
+                    "Id": "6e42935d-323d-4277-8a9b-2c19f09b5019",
+                    "Sku": "41",
+                    "AttrCode": "DoubleWidth",
+                    "AttrName": "雙穩定弧寛度(mm)",
+                    "AttrValue": ""
+                },
+                {
+                    "Id": "6e42935d-323d-4277-8a9b-2c19f09b5019",
+                    "Sku": "41",
+                    "AttrCode": "RimRadianWidth",
+                    "AttrName": "週邊弧度 / 寛度 (mm)",
+                    "AttrValue": ""
+                },
+                {
+                    "Id": "6e42935d-323d-4277-8a9b-2c19f09b5019",
+                    "Sku": "41",
+                    "AttrCode": "BasicRadian",
+                    "AttrName": "基弧",
+                    "AttrValue": ""
+                }
+            ],
+            "IsAdd": false,
+            "boxshow": true,
+            "ShoppingCartId": "6e42935d-323d-4277-8a9b-2c19f09b5019",
+            "Sku": "41",
+            "CustomerCode": "dbcd",
+            "ResultLeft": "1",
+            "ResultRight": "1",
+            "CorneaLeft": "1",
+            "CorneaRight": "1",
+            "LensDiameter": "1",
+            "Power": "1",
+            "BC": "1",
+            "Diam": "1",
+            "OZ": "1",
+            "CT": "1",
+            "TwoCW": "1",
+            "ThreeCW": "1",
+            "FourCW": "1",
+            "FiveCW": "1",
+            "PCW": "1",
+            "Remark": "1"
+        }
+    ]
+}

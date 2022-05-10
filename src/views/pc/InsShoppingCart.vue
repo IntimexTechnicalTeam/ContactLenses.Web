@@ -71,18 +71,19 @@
                     <div v-for="(item,index) in (one.LensExtAttrItem)" :key="index" class="editform-box">
                       <div class="input-box">
                         <span class="item-name">{{item.MutiLang}}</span>
-                      <ElInput v-model="item.Text" clearable="" :type="index === 16 ? 'textarea' : 'text'" @focus="inputFocus(item,index)" @blur="inputBlur(item,index)"></ElInput>
+                      <ElInput v-model="item.Text" clearable="" :type="index === 16 ? 'textarea' : 'text'" @focus="inputFocus(item,index)" @blur="inputBlur(item,index)" :key="index"></ElInput>
                       </div>
+                      <div class="testInput"></div>
                       <span class="tips" v-show="one.LensExtAttrItem[index].tipShow">{{$t('product.PleaseEnter')}}{{item.MutiLang}}</span>
                     </div>
                   </div>
-                  <span class="edit_title">{{$t('product.ToCustomise')}}</span>
+                  <!-- <span class="edit_title">{{$t('product.ToCustomise')}}</span>
                   <div class="parameter_table">
                     <FormItem v-for="(item,index) in (one.LensAttrView)" :key="index" :label="item.AttrName">
                      <ElInput v-model="item.AttrValue" clearable="" @focus="inputFocus(item,index)" @blur="inputBlur(item,index)"></ElInput>
                      <span class="tips" v-show="one.LensAttrView[index].tipShow">{{$t('product.PleaseEnter')}}{{item.AttrName}}</span>
                     </FormItem>
-                  </div>
+                  </div> -->
                   <div class="edit_btn_box">
                     <b class="btn saveBtn" @click="saveItem(one,index)">{{$t('product.Save')}}</b>
                     <b class="btn canelBtn" @click="Reset(index)">{{$t('product.Reset')}}</b>
@@ -565,19 +566,41 @@ editForm: any = {
     Vue.set(this.items[index], 'boxshow', true);
     
   }
+  //鼠标点入
   inputFocus(item, index) {
     Vue.set(item, 'tipShow', false);
+    /* if(item.Id === 'CustomerCode'){
+      var testInput = document.getElementsByClassName('testInput')[0];
+      testInput.innerHTML = '请输入数字或英文';
+    } */
+    /* if(item.Id === 'ResultLeft'){
+      var testInput = document.getElementsByClassName('testInput')[1];
+      testInput.innerHTML = '+20.00D 至 -20.00D';
+    } */
+
   }
+  //鼠标离开
   inputBlur(item, index) {
-    /* if(item.Text === '' || item.AttrValue === '') {
+    if(item.Text === '') {
       item.tipShow = true;
     } else {
       item.tipShow = false;
-    } */
+    }
     if (index === 16) {
       item.tipShow = false;
     }
-    console.log(this.items[index]);
+    /* if(item.Id === 'CustomerCode'){
+      var text = item.Text;
+      var Cvalue= /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
+      if(Cvalue.test(text) === false){
+        var testInput = document.getElementsByClassName('testInput')[0];
+        testInput.innerHTML = '请输入中文、英文、数字可包括下划线';
+        item.tipShow = false;
+      }else{
+        var testInput = document.getElementsByClassName('testInput')[0];
+        testInput.innerHTML = '';
+      }
+    } */
   }
   saveItem (one,index) {
     Vue.set(this.items[index], 'ShoppingCartId', this.items[index].Id);
@@ -585,11 +608,7 @@ editForm: any = {
     for (var i = 0; i < this.items[index].LensExtAttrItem.length; i++) {
       Vue.set(this.items[index], this.items[index].LensExtAttrItem[i].Id, this.items[index].LensExtAttrItem[i].Text);
     }
-    var attrviews=this.items[index].LensAttrView;
-    var attrValue=attrviews.some(function(item){
-      return item.AttrValue === ''
-    })
-    if(this.items[index].BC === '' || this.items[index].CT === '' || this.items[index].CorneaLeft === '' || this.items[index].CorneaRight === '' || this.items[index].CustomerCode === '' || this.items[index].Diam === '' || this.items[index].FiveCW === '' || this.items[index].FourCW === '' || this.items[index].LensDiameter === '' || this.items[index].OZ === '' || this.items[index].PCW === '' || this.items[index].Power === '' || this.items[index].ResultLeft === '' || this.items[index].ResultRight === '' || this.items[index].ThreeCW === '' || this.items[index].TwoCW === '' || attrValue) {
+    if(this.items[index].CorneaLeft === '' || this.items[index].CorneaRight === '' || this.items[index].CustomerCode === '' || this.items[index].LensDiameter === '' || this.items[index].ResultLeft === '' || this.items[index].ResultRight === '') {
       Message({
         message: this.$t('Shoppingcart.SaveError') as string,
         type: 'error',
@@ -600,12 +619,17 @@ editForm: any = {
           Vue.set(this.items[index].LensExtAttrItem[j], 'tipShow', true);
         }
       }
-      for(var k=0;k<this.items[index].LensAttrView.length;k++){
-        if(this.items[index].LensAttrView[k].AttrValue === ''){
-          Vue.set(this.items[index].LensAttrView[k],'tipShow', true);
-          }
-        }
-        this.items[index].LensExtAttrItem[16].tipShow = false;
+      this.items[index].LensExtAttrItem[6].tipShow = false;
+      this.items[index].LensExtAttrItem[7].tipShow = false;
+      this.items[index].LensExtAttrItem[8].tipShow = false;
+      this.items[index].LensExtAttrItem[9].tipShow = false;
+      this.items[index].LensExtAttrItem[10].tipShow = false;
+      this.items[index].LensExtAttrItem[11].tipShow = false;
+      this.items[index].LensExtAttrItem[12].tipShow = false;
+      this.items[index].LensExtAttrItem[13].tipShow = false;
+      this.items[index].LensExtAttrItem[14].tipShow = false;
+      this.items[index].LensExtAttrItem[15].tipShow = false;
+      this.items[index].LensExtAttrItem[16].tipShow = false;
     }else{
       Message({
         message: this.$t('Shoppingcart.Savedsuccess') as string,
@@ -616,9 +640,6 @@ editForm: any = {
     }
   }
   Reset (index) {
-    for (var i = 0; i < this.items[index].LensAttrView.length; i++) {
-      this.items[index].LensAttrView[i].AttrValue = '';
-    }
     for (var a = 0; a < this.items[index].LensExtAttrItem.length; a++) {
       this.items[index].LensExtAttrItem[a].Text = '';
     }
@@ -724,29 +745,30 @@ editForm: any = {
         } else {
         var ItemsArr = temp.Items;
         for(var i = 0; i < ItemsArr.length; i++){
-         var ax=ItemsArr[i].LensAttrView;
-         var ac=ax.some(function(item){
-           return item.AttrValue === ''
-         })
-         if(ac || ItemsArr[i].BC === '' || ItemsArr[i].CT === '' || ItemsArr[i].CorneaLeft === '' || ItemsArr[i].CorneaRight === '' || ItemsArr[i].CustomerCode === '' || ItemsArr[i].Diam === '' || ItemsArr[i].FiveCW === '' || ItemsArr[i].FourCW === '' || ItemsArr[i].LensDiameter === '' || ItemsArr[i].OZ === '' || ItemsArr[i].PCW === '' || ItemsArr[i].Power === '' || ItemsArr[i].ResultLeft === '' || ItemsArr[i].ResultRight === '' || ItemsArr[i].ThreeCW === '' || ItemsArr[i].TwoCW === ''){
-           Message({
-            message: this.$t('Shoppingcart.SaveError') as string,
-            type: 'error',
-            duration:3500
-           })
-          for(var j=0;j<ItemsArr[i].LensExtAttrItem.length;j++){
-            if(ItemsArr[i].LensExtAttrItem[j].Text === ''){
-              Vue.set(ItemsArr[i].LensExtAttrItem[j], 'tipShow', true);
+          if(ItemsArr[i].LensExtAttrItem[1].Text === '' || ItemsArr[i].LensExtAttrItem[2].Text === '' || ItemsArr[i].LensExtAttrItem[3].Text === '' || ItemsArr[i].LensExtAttrItem[4].Text === '' || ItemsArr[i].LensExtAttrItem[5].Text === '' || ItemsArr[i].LensExtAttrItem[6].Text === ''){
+            Message({
+              message: this.$t('Shoppingcart.SaveError') as string,
+              type: 'error',
+              duration:3500
+            })
+            for(var j=0;j<ItemsArr[i].LensExtAttrItem.length;j++){
+              if(ItemsArr[i].LensExtAttrItem[j].Text === ''){
+                Vue.set(ItemsArr[i].LensExtAttrItem[j], 'tipShow', true);
+              }
             }
+            ItemsArr[i].LensExtAttrItem[6].tipShow = false;
+            ItemsArr[i].LensExtAttrItem[7].tipShow = false;
+            ItemsArr[i].LensExtAttrItem[8].tipShow = false;
+            ItemsArr[i].LensExtAttrItem[9].tipShow = false;
+            ItemsArr[i].LensExtAttrItem[10].tipShow = false;
+            ItemsArr[i].LensExtAttrItem[11].tipShow = false;
+            ItemsArr[i].LensExtAttrItem[12].tipShow = false;
+            ItemsArr[i].LensExtAttrItem[13].tipShow = false;
+            ItemsArr[i].LensExtAttrItem[14].tipShow = false;
+            ItemsArr[i].LensExtAttrItem[15].tipShow = false;
+            ItemsArr[i].LensExtAttrItem[16].tipShow = false;
+            Vue.set(ItemsArr[i], 'boxshow', true);
           }
-          for(var k=0;k<ItemsArr[i].LensAttrView.length;k++){
-            if(ItemsArr[i].LensAttrView[k].AttrValue === ''){
-              Vue.set(ItemsArr[i].LensAttrView[k],'tipShow', true);
-            }
-          }
-          ItemsArr[i].LensExtAttrItem[16].tipShow = false;
-          Vue.set(ItemsArr[i], 'boxshow', true); 
-         }
         }
       }
     });
