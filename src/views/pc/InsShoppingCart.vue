@@ -68,12 +68,12 @@
                 <span class="edit_title">{{$t('product.RequiredInformation')}}</span>
                 <ElForm :model="editForm" :rules="edit" ref="editForm">
                   <div class="itemInformation">
-                    <div v-for="(item,index) in (one.LensExtAttrItem)" :key="index" class="editform-box">
+                    <div v-for="(item,index) in (one.LensExtAttrItem)" :key="index" class="editform-box" :id="index">
                       <div class="input-box">
                         <span class="item-name">{{item.MutiLang}}</span>
                       <ElInput v-model="item.Text" clearable="" :type="index === 16 ? 'textarea' : 'text'" @focus="inputFocus(item,index)" @blur="inputBlur(item,index)" :key="index"></ElInput>
                       </div>
-                      <div class="testInput"></div>
+                      <span class="testInput" v-show="one.LensExtAttrItem[index].testShow"></span>
                       <span class="tips" v-show="one.LensExtAttrItem[index].tipShow">{{$t('product.PleaseEnter')}}{{item.MutiLang}}</span>
                     </div>
                   </div>
@@ -317,7 +317,7 @@ editForm: any = {
   }
   prodcutSrc: string = require('@/assets/Images/270_b.jpg');
   // boxshow = true;
-  tipShow =true;
+  // tipShow =true;
   step: number = 1;
   totalAmount: number = 0;
   // itemsAmount: number = 0;
@@ -328,6 +328,7 @@ editForm: any = {
   // currentCode: any = '';
   items: any[] = [
   ];
+  // testText = '';
   // item: any[] =[];
   activeIndex = null;
   itemQty:number=0;
@@ -568,39 +569,183 @@ editForm: any = {
   }
   //鼠标点入
   inputFocus(item, index) {
-    Vue.set(item, 'tipShow', false);
-    /* if(item.Id === 'CustomerCode'){
-      var testInput = document.getElementsByClassName('testInput')[0];
-      testInput.innerHTML = '请输入数字或英文';
+    Vue.set(item, 'testShow', false)
+    //Vue.set(item, 'tipShow', false);
+    var EditBox=document.querySelectorAll('.editform-box');
+    for(var i=0;i<EditBox.length;i++){
+      var testText=EditBox[i].getElementsByClassName('testInput')[0];
+      if(EditBox[i].id === '0'){
+        if(item.Id === 'CustomerCode'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = '请输入中文、英文、数字可包括下划线'
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '1'){
+        if(item.Id === 'ResultLeft'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = '请输入-20至20的数值'
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '2'){
+        if(item.Id === 'ResultRight'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = '请输入-20至20的数值'
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '3'){
+        if(item.Id === 'CorneaLeft'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = '请输入36至48的数值'
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '4'){
+        if(item.Id === 'CorneaRight'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = '请输入36至48的数值'
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '5'){
+        if(item.Id === 'LensDiameter'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = '请输入8.8至11.5的数值'
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }
+    }
+    /* if(item.Id === 'ResultRight'){
+      Vue.set(item, 'testShow', true);
+      this.testText = '请输入验光结果右'
     } */
-    /* if(item.Id === 'ResultLeft'){
-      var testInput = document.getElementsByClassName('testInput')[1];
-      testInput.innerHTML = '+20.00D 至 -20.00D';
-    } */
-
   }
   //鼠标离开
   inputBlur(item, index) {
-    if(item.Text === '') {
+    Vue.set(item, 'testShow', false)
+    /* if(item.Text === '') {
       item.tipShow = true;
+      item.testShow = false;
     } else {
       item.tipShow = false;
+      item.testShow = false;
     }
-    if (index === 16) {
+    if (index === 6 || index === 7 || index === 8 || index === 9 || index === 10 || index === 11 || index === 12 || index === 13 || index === 14 || index === 15 || index === 16) {
       item.tipShow = false;
-    }
-    /* if(item.Id === 'CustomerCode'){
-      var text = item.Text;
+    } */
+    /* var text = item.Text;
+    if(item.Id === 'CustomerCode'){
       var Cvalue= /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
       if(Cvalue.test(text) === false){
-        var testInput = document.getElementsByClassName('testInput')[0];
-        testInput.innerHTML = '请输入中文、英文、数字可包括下划线';
-        item.tipShow = false;
+        this.testText = '请输入中文、英文、数字可包括下划线';
+        item.testShow = true;
       }else{
-        var testInput = document.getElementsByClassName('testInput')[0];
-        testInput.innerHTML = '';
+        item.testShow = false;
       }
     } */
+    /* if(item.Id === 'ResultLeft') {
+      var Rvalue =/^.{3,10}$/;
+      if(Rvalue.test(text) === false){
+        this.testText = '请输入3-20的数值';
+        item.testShow = true;
+      }else{
+        item.testShow = false;
+      }
+    } */
+    var EditBox=document.querySelectorAll('.editform-box');
+    for(var i=0;i<EditBox.length;i++){
+      var testText=EditBox[i].getElementsByClassName('testInput')[0];
+      var text = item.Text;
+      if(EditBox[i].id === '0'){
+        if(item.Id === 'CustomerCode'){
+          var Cvalue= /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
+          if(item.Text === '' || Cvalue.test(text) === false){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = '请输入中文、英文、数字可包括下划线'
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '1'){
+        var Rvalue=/(^[+-]?[1-9]\d*(\.\d{1,2})?$)|(^[+-]?0(\.\d{1,2})?$)/;
+        if(item.Id === 'ResultLeft'){
+          if(item.Text === '' || Rvalue.test(text) === false){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = '请输入-20至20的数值'
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '2'){
+        var Rvalue=/(^[+-]?[1-9]\d*(\.\d{1,2})?$)|(^[+-]?0(\.\d{1,2})?$)/;
+        if(item.Id === 'ResultRight'){
+          if(item.Text === '' || Rvalue.test(text) === false){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = '请输入-20至20的数值'
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '3'){
+        var Rvalue=/(^[+-]?[1-9]\d*(\.\d{1,2})?$)|(^[+-]?0(\.\d{1,2})?$)/;
+        if(item.Id === 'CorneaLeft'){
+          if(item.Text === '' || Rvalue.test(text) === false){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = '请输入36至48的数值'
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '4'){
+        var Rvalue=/(^[+-]?[1-9]\d*(\.\d{1,2})?$)|(^[+-]?0(\.\d{1,2})?$)/;
+        if(item.Id === 'CorneaRight'){
+          if(item.Text === '' || Rvalue.test(text) === false){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = '请输入36至48的数值'
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }
+      else if(EditBox[i].id === '5'){
+        var Rvalue=/(^[+-]?[1-9]\d*(\.\d{1,2})?$)|(^[+-]?0(\.\d{1,2})?$)/;
+        if(item.Id === 'LensDiameter'){
+          if(item.Text === '' || Rvalue.test(text) === false){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = '请输入8.8至11.5的数值'
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }
+    }
   }
   saveItem (one,index) {
     Vue.set(this.items[index], 'ShoppingCartId', this.items[index].Id);
