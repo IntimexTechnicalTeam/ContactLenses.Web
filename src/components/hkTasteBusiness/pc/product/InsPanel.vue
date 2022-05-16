@@ -11,12 +11,14 @@
         @input="changeAttr"
         @changePrice="AdditionalPrice"
       ></inSelect> -->
+      <span class="material">{{$t('product.Material')}}</span>
       <inSelect
         :items="panelDetail.LensMaterial"
         placeholder="请选择"
         v-model="MId"
         styla="padding: 0 10px;"
       ></inSelect>
+      <span class="lensColor">{{$t('product.LensColor')}}</span>
       <colorSelect
         :items="colorList"
         v-model="LensColor"
@@ -46,7 +48,7 @@
       ></inButton>
     </div>
     <div class="in_panel_footer none-error" v-else>
-        <button type="button" :disabled="SoldOutAttr" @click="click('addToCart')" class="CartBtn">{{$t('product.addToCart')}}</button>
+        <button type="button" :disabled="SoldOutAttr" @click="click('addToCart')" class="CartBtn">{{$t('product.ToCustomise')}}</button>
         <!-- <button type="button" :disabled="SoldOutAttr" @click="click('buy')" class="BuyBtn">{{$t('product.buy')}}</button> -->
     </div>
     <!-- <inRecommend :Skus="ProductSku"></inRecommend> -->
@@ -372,6 +374,16 @@ export default class Panel extends Vue {
   align-items: center;
   flex-direction: column;
 }
+.material,.lensColor{
+  font-size: 20px;
+  color:#0e579c;
+  font-weight: bold;
+  height: 40px;
+  line-height: 40px;
+  text-align: left;
+  display: block;
+  width: 100%;
+}
 .in_panel_footer {
   display: flex;
   justify-content: space-between;
@@ -423,14 +435,15 @@ export default class Panel extends Vue {
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        border: 1px solid #333333;
+        background: #0e579c;
         color: #fff;
-        border-radius: 3px;
+        font-weight: bold;
+        border-radius: 50px;
         transition: .1s;
         text-transform: uppercase;
-        width: 48%;
-        background-color: unset;
-        color: #333333;
+        padding: 20px;
+        border:none;
+        width: 200px;
         /* margin-right: 4%; */
         margin:0 auto;
         &:disabled{

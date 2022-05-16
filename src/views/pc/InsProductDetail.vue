@@ -307,6 +307,7 @@ export default class InsProductDetail extends Vue {
   box-sizing: border-box;
   width: 100%;
   display: inline-block;
+  padding-top: 70px;
 }
 .productDetail_price_warpper {
   display: flex;

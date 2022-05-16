@@ -162,7 +162,9 @@ export default {
     CW: 'CW',
     Save: '保存',
     Reset: '重置',
-    PleaseEnter: '请输入'
+    PleaseEnter: '请输入',
+    Material: '镜片材料',
+    CustomisedContactlens: '订制隐形眼镜'
   },
   Shoppingcart: {
     ShoppingcartTitle: '购物车',
@@ -182,7 +184,12 @@ export default {
     NoneAddress: '请添加收货地址',
     Login: '登陆',
     SaveError: '*必填信息未填写',
-    Savedsuccess: '保存成功'
+    Savedsuccess: '保存成功',
+    SubmitOrder: '提交订单',
+    CustomerCodeName: '请输入中文、英文或数字(可包括下划线)',
+    Result: '范围：-20.00D至20.00D(小数点必须包含两位小数，0.25D为一級)',
+    Cornea: '范围：36.00D至48.00D(小数点必须包含两位小数，0.01D为一級)',
+    LensDiameter: '范围：8.80-11.50(小数点必须包含两位小数，0.10mm为一級)'
   },
   Login: {
     doLogin: '登入',
@@ -241,7 +248,7 @@ export default {
     promotionalinformation: '我同意接收推广信息'
   },
   DeliveryAddress: {
-    AddAddress: '新增地址',
+    AddAddress: '新增收货地址',
     ChooseDeliveryAddress: '选择送货地址',
     EditBtn: '编辑',
     DeleteBtn: '删除',

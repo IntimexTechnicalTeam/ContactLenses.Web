@@ -143,7 +143,7 @@ export default {
     Parameter: '參數',
     Quantity: '數量',
     Delete: '刪除',
-    EditDetails: '編輯',
+    EditDetails: '填寫信息',
     RequiredInformation: '所需信息',
     WearerName: '佩戴者姓名/號碼',
     RefractionResult: '折射結果',
@@ -162,7 +162,9 @@ export default {
     CW: 'CW',
     Save: '保存',
     Reset: '重置',
-    PleaseEnter: '請輸入'
+    PleaseEnter: '請輸入',
+    Material: '鏡片材料',
+    CustomisedContactlens: '訂製隱形眼鏡'
   },
   Shoppingcart: {
     ShoppingcartTitle: '購物車',
@@ -182,7 +184,12 @@ export default {
     NoneAddress: '請添加收貨地址',
     Login: '登入',
     SaveError: '*必填信息未填寫',
-    Savedsuccess: '保存成功'
+    Savedsuccess: '保存成功',
+    SubmitOrder: '提交訂單',
+    CustomerCodeName: '請輸入中文、英文或數字(可包括下劃線)',
+    Result: '範圍：-20.00D至20.00D(小數點必須包含兩位小數，0.25D為一級)',
+    Cornea: '範圍：36.00D至48.00D(小數點必須包含兩位小數，0.01D為一級)',
+    LensDiameter: '範圍：8.80-11.50(小數點必須包含兩位小數，0.10mm為一級)'
   },
   Login: {
     doLogin: '登入',
@@ -241,7 +248,7 @@ export default {
     promotionalinformation: '我同意接收推廣資訊'
   },
   DeliveryAddress: {
-    AddAddress: '新增地址',
+    AddAddress: '新增收貨地址',
     ChooseDeliveryAddress: '選擇送貨地址',
     EditBtn: '编辑',
     DeleteBtn: '删除',

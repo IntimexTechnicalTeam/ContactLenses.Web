@@ -143,7 +143,7 @@ export default {
     Parameter: 'Parameter',
     Quantity: 'Quantity',
     Delete: 'Delete',
-    EditDetails: 'Edit Details',
+    EditDetails: 'Fill in data',
     RequiredInformation: 'Required Information',
     WearerName: 'Wearer Name/number',
     RefractionResult: 'Refraction Result',
@@ -153,7 +153,7 @@ export default {
     LensMaterial: 'Lens Material',
     LensColor: 'Lens color',
     OverallDiameter: 'Overall Diameter',
-    ToCustomise: 'To Customise(optional)',
+    ToCustomise: 'To Customise',
     Prower: 'Prower',
     BC: 'BC',
     Diam: 'Diam',
@@ -162,7 +162,9 @@ export default {
     CW: 'CW',
     Save: 'Save',
     Reset: 'Reset',
-    PleaseEnter: 'Please enter'
+    PleaseEnter: 'Please enter',
+    Material: 'Lens material',
+    CustomisedContactlens: 'Customised Contactlens'
   },
   Shoppingcart: {
     ShoppingcartTitle: 'Shopping Cart ',
@@ -181,7 +183,12 @@ export default {
     NoneAddress: 'Please add the shipping address',
     Login: 'Login',
     SaveError: '*Required information is not filled in',
-    Savedsuccess: 'Saved successfully'
+    Savedsuccess: 'Saved successfully',
+    SubmitOrder: 'Submit Order',
+    CustomerCodeName: 'Please enter Chinese, English and numbers, including underscores',
+    Result: 'Range: -20.00D to 20.00D (the decimal point must contain two decimal places, and 0.25D is the first level)',
+    Cornea: 'Range: 36.00D to 48.00D (the decimal point must contain two decimal places, and 0.01 is the first level)',
+    LensDiameter: 'Range: 8.80 to 11.50 (the decimal point must contain two decimal places, and 0.10mm is the first level)'
   },
   Login: {
     doLogin: 'Login',
@@ -240,7 +247,7 @@ export default {
     promotionalinformation: 'I agree to receive promotional information'
   },
   DeliveryAddress: {
-    AddAddress: 'Add address',
+    AddAddress: 'Add a New Address',
     ChooseDeliveryAddress: 'Select delivery address',
     EditBtn: 'Edit',
     DeleteBtn: 'Delete',
@@ -453,7 +460,6 @@ export default {
     PaymentMethodError: 'The payment method has not been selected yet!',
     OrderSent: 'Order has been sent',
     PaymentProcess: 'Please complete the payment process',
-
     CountryName: 'Country Name',
     ProvinceName: 'Province Name',
     CityName: 'City Name',

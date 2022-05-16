@@ -4,6 +4,7 @@
       <div class="swiper-prev swiper-btn" slot="button-prev"></div>
       <div class="swiper-next swiper-btn" slot="button-next"></div>
     </div>
+    <span class="customiselens">{{$t('product.CustomisedContactlens')}}</span>
         <div class="in_preview_img_warpper" >
             <img :src="isClick?AttrImg:CurrentPic" @click="viewImg(currentIndex)">
           </div>
@@ -208,13 +209,14 @@ SwiperOption: object = {
   opacity: 0.9;
   color: #fff;
 }
-.swiper-cli-btn{
+.PcVersionPreview .swiper-cli-btn{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   position: absolute;
-  width: 60%;
+  width: 66%;
+  top:187px;
 }
 .PcVersionPreview .swiper-prev{
   background-image:url('/images/pc/pleft.png')!important;
@@ -227,6 +229,7 @@ SwiperOption: object = {
 }
 .PcVersionPreview .swiper-btn{
   opacity: 1;
+  margin:0;
 }
 .PcVersionPreview  .swiper-prev, .PcVersionPreview  .swiper-next{
     width: 50px!important;
@@ -249,6 +252,11 @@ SwiperOption: object = {
 <style scoped lang="less">
 .PreViewimage {
     display: none;
+}
+.customiselens{
+  font-size: 20px;
+  font-weight: bold;
+  color:#000;
 }
 .in_preview_warpper {
   width: 100%;

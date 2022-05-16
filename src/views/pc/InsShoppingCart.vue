@@ -4,7 +4,7 @@
     <div id="main-content">
       <div class="favorite-box order-box">
         <div class="favorite-box-top">
-          <div class="login-register-title">{{$t('Shoppingcart.ShoppingcartTitle')}}    •</div>
+          <span class="login-register-title">{{$t('Shoppingcart.ShoppingcartTitle')}}    •</span>
           <div class="clear"></div>
         </div>
         <div class="favorite-box-content">
@@ -17,7 +17,9 @@
               <div class="clear"></div>
             </div> -->
             <div class="favorite-one merchant-one" v-for="(one,index) in items" :key="index">
-              <a class="product-img" v-bind:href="'/product/Detail/'+one.Product.Sku">
+              <div class="favorite-header">
+                <div class="favorite-left">
+                <a class="product-img" v-bind:href="'/product/Detail/'+one.Product.Sku">
                 <img v-bind:src="one.Product.Img_M" alt />
               </a>
               <div class="favorite-one-messge">
@@ -35,46 +37,79 @@
                   >{{Currency.Code}} {{(one.Product.SalePrice) | PriceFormat}}</span>
                 </p> -->
               </div>
-              <div class="merchant-one-calc">
-                <p class="quantity">{{$t('product.Quantity')}}</p>
-                <div class="common-num">
-                  <!-- <a
-                    class="reduce-num"
-                    href="javascript:;"
-                    v-on:click=" minusQty(one,one.Id,$event);"
-                  >-</a> -->
-                  <div class="num-content">
-                    <input
-                      class="input-text"
-                      type="text"
-                      data-num="1"
-                      disabled
-                      v-model="one.Qty"
-                      v-on:change="updateQty(one,one.Id,$event)"
-                    />
+              </div>
+              <div class="favorite-right">
+                <div class="merchant-one-calc">
+                  <p class="quantity">{{$t('product.Quantity')}}</p>
+                  <div class="common-num">
+                  <!--   <a
+                      class="reduce-num"
+                      href="javascript:;"
+                      v-on:click=" minusQty(one,one.Id,$event);"
+                    >-</a> -->
+                    <div class="num-content">
+                      <input
+                        class="input-text"
+                        type="text"
+                        data-num="1"
+                        disabled
+                        v-model="one.Qty"
+                        v-on:change="updateQty(one,one.Id,$event)"
+                      />
+                    </div>
+                    <!-- <a class="add-num" href="javascript:;" v-on:click="plusQty(one,one.Id,$event);" :class="{'disabled':one.IsAdd}">+</a> -->
                   </div>
-                  <!-- <a class="add-num" href="javascript:;" v-on:click="plusQty(one,one.Id,$event);" :class="{'disabled':one.IsAdd}">+</a> -->
-                  <div class="clear"></div>
                 </div>
+                <div class="merchant-del-box">
+                  <b class="cart-delete" v-on:click="removeItem(index)">{{$t('product.Delete')}}</b>
+                  <button @click="boxShow(index)" class="edit">{{$t('product.EditDetails')}}</button>
+                </div>
+              </div>
               </div>
               <!-- <div class="merchant-total-price">
                 <p>{{Currency.Code}} {{(one.Product.SalePrice * one.Qty) | PriceFormat}}</p>
               </div> -->
-              <div class="merchant-del-box">
-                <b class="cart-delete" v-on:click="removeItem(index)">{{$t('product.Delete')}}</b>
-                <button @click="boxShow(index)" class="edit">{{$t('product.EditDetails')}}</button>
-              </div>
               <div class="edit-box" v-show="items[index].boxshow">
+                <div class="productInfo">
+                  <div class="productInfo-left">
+                    <a v-bind:href="'/product/Detail/'+one.Product.Sku" class="productimg">
+                      <img v-bind:src="one.Product.Img_M" alt />
+                    </a>
+                    <div class="product-message">
+                      <p class="product-code">
+                        {{$t('product.ProductCode')}}：{{one.Product.Code}}
+                      </p>
+                      <p class="product-title">
+                        {{$t('product.ProductName')}}：{{one.Product.Name}}
+                      </p>
+                      <p class="product-parameter">
+                        {{$t('product.LensColor')}}：{{one.LensColor}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="merchant-one-calc">
+                    <p class="quantity">
+                      {{$t('product.Quantity')}}
+                    </p>
+                    <div class="common-num">
+                      <a href="javascript:;" class="reduce-num" v-on:click="minusQty(one,one.Id,$event)">-</a>
+                      <div class="num-content">
+                        <input type="text" data-num="1" disabled v-model="one.Qty" v-on:change="updateQty(one,one.Id,$event)" class="input-text">
+                      </div>
+                      <a href="javascript:;" v-on:click="plusQty(one,one.Id,$event)" class="add-num" :class="{'disabled':one.IsAdd}">+</a>
+                    </div>
+                  </div>
+                </div>
                 <span class="edit_title">{{$t('product.RequiredInformation')}}</span>
                 <ElForm :model="editForm" :rules="edit" ref="editForm">
                   <div class="itemInformation">
                     <div v-for="(item,index) in (one.LensExtAttrItem)" :key="index" class="editform-box" :id="index">
                       <div class="input-box">
                         <span class="item-name">{{item.MutiLang}}</span>
-                      <ElInput v-model="item.Text" clearable="" :type="index === 16 ? 'textarea' : 'text'" @focus="inputFocus(item,index)" @blur="inputBlur(item,index)" :key="index"></ElInput>
+                        <span class="item-code">{{item.Code}}</span>
+                      <ElInput v-model="item.Text" clearable="" :type="index === 6 ? 'textarea' : 'text'" @focus="inputFocus(item,index)" @blur="inputBlur(item,index)" :key="index"></ElInput>
                       </div>
-                      <span class="testInput" v-show="one.LensExtAttrItem[index].testShow"></span>
-                      <span class="tips" v-show="one.LensExtAttrItem[index].tipShow">{{$t('product.PleaseEnter')}}{{item.MutiLang}}</span>
+                      <p class="testInput" v-show="one.LensExtAttrItem[index].testShow"></p>
                     </div>
                   </div>
                   <!-- <span class="edit_title">{{$t('product.ToCustomise')}}</span>
@@ -84,6 +119,8 @@
                      <span class="tips" v-show="one.LensAttrView[index].tipShow">{{$t('product.PleaseEnter')}}{{item.AttrName}}</span>
                     </FormItem>
                   </div> -->
+                  <span class="edit_title">{{$t('product.ToCustomise')}}</span>
+                  <div class="toCustomise"></div>
                   <div class="edit_btn_box">
                     <b class="btn saveBtn" @click="saveItem(one,index)">{{$t('product.Save')}}</b>
                     <b class="btn canelBtn" @click="Reset(index)">{{$t('product.Reset')}}</b>
@@ -95,19 +132,21 @@
           </div>
         </div>
         <div class="userAddress" v-show="addressList.length">
-          <div class="choose">{{$t('DeliveryAddress.ChooseAddress')}}</div>
-          <div class="address" v-for="(item, index) in addressList" :key="index">
-            <div class="information-box" :class="activeIndex === index ? 'active' : ''" @click="changeList(index)">
+          <span class="choose">{{$t('DeliveryAddress.ChooseAddress')}}</span>
+          <div class="address" :class="activeIndex === index ? 'active' : ''"  v-for="(item, index) in addressList" :key="index">
+            <div class="information-box" @click="changeList(index)">
               <div class="checked"></div>
                 <div class="addInfo">
                   <span>{{$t('CheckOut.Name')}}：{{item.FirstName}}{{item.LastName}}</span>
+                  <span>{{$t('DeliveryAddress.PostalCode')}}：{{item.PostalCode}}</span>
                   <span>{{$t('CheckOut.Phone')}}：{{item.Mobile}}</span>
+                  <span>{{$t('CheckOut.Province')}}：{{item.ProvinceName}}</span>
                   <span>{{$t('CheckOut.Address')}}：{{item.Address}}</span>
                 </div>
             </div>
             <div class="btnBox">
-              <button @click="editAddr(index)">{{$t('product.EditDetails')}}</button>
-              <button @click="removeAddr(item.DeliveryId)">{{$t('product.Delete')}}</button>
+              <button class="cart-delete" @click="removeAddr(item.DeliveryId)">{{$t('product.Delete')}}</button>
+              <button class="edit" @click="editAddr(index)">{{$t('product.EditDetails')}}</button>
             </div>
           </div>
         </div>
@@ -243,7 +282,7 @@
             <span class="total-price">{{Currency.Code}} {{(totalAmount) | PriceFormat}}</span>
           </p> -->
           <a href="javascript:;" class="btn" @click="submitLogin" v-if="this.$Storage.get('isLogin') === 0">{{$t('Shoppingcart.Login')}}</a>
-          <a href="javascript:;" class="btn" @click="submit" v-if="this.$Storage.get('isLogin') === 1">{{$t('Shoppingcart.CheckoutList')}}</a>
+          <a href="javascript:;" class="btn" @click="submit" v-if="this.$Storage.get('isLogin') === 1">{{$t('Shoppingcart.SubmitOrder')}}</a>
         </div>
       </div>
     </div>
@@ -317,7 +356,6 @@ editForm: any = {
   }
   prodcutSrc: string = require('@/assets/Images/270_b.jpg');
   // boxshow = true;
-  // tipShow =true;
   step: number = 1;
   totalAmount: number = 0;
   // itemsAmount: number = 0;
@@ -499,7 +537,7 @@ editForm: any = {
           });
         });
       } else {
-        console.log('error submit!!');
+        //console.log('error submit!!');
         return false;
       }
     });
@@ -551,6 +589,19 @@ editForm: any = {
     // _this.Currency = Currencys;
     _this.totalAmount = itemsprice;
     _this.itemQty = itemQ;
+    var InputBox=document.querySelectorAll('.input-box');
+    var ItemsLea=this.items;
+    for(var r=0;r<ItemsLea.length;r++){
+      for(var i=0;i<InputBox.length;i++){ 
+        var Leai=ItemsLea[r].LensExtAttrItem;
+        if(Leai[2].Visable === 0){
+          Leai[2].MutiLang = '';
+        }
+        if(Leai[4].Visable === 0){
+          Leai[4].MutiLang = '';
+        }
+      }
+    }
   }
   @Watch('items', { deep: true })
   onItemsChange (o, n) {
@@ -565,12 +616,11 @@ editForm: any = {
   }
   boxShow(index) {
     Vue.set(this.items[index], 'boxshow', true);
-    
+    // console.log(this.items[index])
   }
   //鼠标点入
   inputFocus(item, index) {
-    Vue.set(item, 'testShow', false)
-    //Vue.set(item, 'tipShow', false);
+    //Vue.set(item, 'testShow', false)
     var EditBox=document.querySelectorAll('.editform-box');
     for(var i=0;i<EditBox.length;i++){
       var testText=EditBox[i].getElementsByClassName('testInput')[0];
@@ -578,7 +628,7 @@ editForm: any = {
         if(item.Id === 'CustomerCode'){
           if(item.Text === ''){
             Vue.set(item,'testShow',true);
-            testText.innerHTML = '请输入中文、英文、数字可包括下划线'
+            testText.innerHTML = this.$t('Shoppingcart.CustomerCodeName') as string
           }else{
             Vue.set(item,'testShow',false);
             testText.innerHTML = ''
@@ -588,7 +638,7 @@ editForm: any = {
         if(item.Id === 'ResultLeft'){
           if(item.Text === ''){
             Vue.set(item,'testShow',true);
-            testText.innerHTML = '请输入-20至20的数值'
+            testText.innerHTML = this.$t('Shoppingcart.Result') as string
           }else{
             Vue.set(item,'testShow',false);
             testText.innerHTML = ''
@@ -598,7 +648,7 @@ editForm: any = {
         if(item.Id === 'ResultRight'){
           if(item.Text === ''){
             Vue.set(item,'testShow',true);
-            testText.innerHTML = '请输入-20至20的数值'
+            testText.innerHTML = this.$t('Shoppingcart.Result') as string
           }else{
             Vue.set(item,'testShow',false);
             testText.innerHTML = ''
@@ -608,7 +658,7 @@ editForm: any = {
         if(item.Id === 'CorneaLeft'){
           if(item.Text === ''){
             Vue.set(item,'testShow',true);
-            testText.innerHTML = '请输入36至48的数值'
+            testText.innerHTML = this.$t('Shoppingcart.Cornea') as string
           }else{
             Vue.set(item,'testShow',false);
             testText.innerHTML = ''
@@ -618,7 +668,7 @@ editForm: any = {
         if(item.Id === 'CorneaRight'){
           if(item.Text === ''){
             Vue.set(item,'testShow',true);
-            testText.innerHTML = '请输入36至48的数值'
+            testText.innerHTML = this.$t('Shoppingcart.Cornea') as string
           }else{
             Vue.set(item,'testShow',false);
             testText.innerHTML = ''
@@ -628,7 +678,7 @@ editForm: any = {
         if(item.Id === 'LensDiameter'){
           if(item.Text === ''){
             Vue.set(item,'testShow',true);
-            testText.innerHTML = '请输入8.8至11.5的数值'
+            testText.innerHTML = this.$t('Shoppingcart.LensDiameter') as string
           }else{
             Vue.set(item,'testShow',false);
             testText.innerHTML = ''
@@ -636,43 +686,10 @@ editForm: any = {
         }
       }
     }
-    /* if(item.Id === 'ResultRight'){
-      Vue.set(item, 'testShow', true);
-      this.testText = '请输入验光结果右'
-    } */
   }
   //鼠标离开
   inputBlur(item, index) {
-    Vue.set(item, 'testShow', false)
-    /* if(item.Text === '') {
-      item.tipShow = true;
-      item.testShow = false;
-    } else {
-      item.tipShow = false;
-      item.testShow = false;
-    }
-    if (index === 6 || index === 7 || index === 8 || index === 9 || index === 10 || index === 11 || index === 12 || index === 13 || index === 14 || index === 15 || index === 16) {
-      item.tipShow = false;
-    } */
-    /* var text = item.Text;
-    if(item.Id === 'CustomerCode'){
-      var Cvalue= /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
-      if(Cvalue.test(text) === false){
-        this.testText = '请输入中文、英文、数字可包括下划线';
-        item.testShow = true;
-      }else{
-        item.testShow = false;
-      }
-    } */
-    /* if(item.Id === 'ResultLeft') {
-      var Rvalue =/^.{3,10}$/;
-      if(Rvalue.test(text) === false){
-        this.testText = '请输入3-20的数值';
-        item.testShow = true;
-      }else{
-        item.testShow = false;
-      }
-    } */
+    //Vue.set(item, 'testShow', false)
     var EditBox=document.querySelectorAll('.editform-box');
     for(var i=0;i<EditBox.length;i++){
       var testText=EditBox[i].getElementsByClassName('testInput')[0];
@@ -682,51 +699,51 @@ editForm: any = {
           var Cvalue= /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
           if(item.Text === '' || Cvalue.test(text) === false){
             Vue.set(item,'testShow',true);
-            testText.innerHTML = '请输入中文、英文、数字可包括下划线'
+            testText.innerHTML = this.$t('Shoppingcart.CustomerCodeName') as string
           }else{
             Vue.set(item,'testShow',false);
             testText.innerHTML = ''
           }
         }
       }else if(EditBox[i].id === '1'){
-        var Rvalue=/(^[+-]?[1-9]\d*(\.\d{1,2})?$)|(^[+-]?0(\.\d{1,2})?$)/;
+        var Rvalue=/^((?:-(?:([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20)))|([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20))$/;
         if(item.Id === 'ResultLeft'){
           if(item.Text === '' || Rvalue.test(text) === false){
             Vue.set(item,'testShow',true);
-            testText.innerHTML = '请输入-20至20的数值'
+            testText.innerHTML = this.$t('Shoppingcart.Result') as string
           }else{
             Vue.set(item,'testShow',false);
             testText.innerHTML = ''
           }
         }
       }else if(EditBox[i].id === '2'){
-        var Rvalue=/(^[+-]?[1-9]\d*(\.\d{1,2})?$)|(^[+-]?0(\.\d{1,2})?$)/;
+        var Rvalue=/^((?:-(?:([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20)))|([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20))$/;
         if(item.Id === 'ResultRight'){
           if(item.Text === '' || Rvalue.test(text) === false){
             Vue.set(item,'testShow',true);
-            testText.innerHTML = '请输入-20至20的数值'
+            testText.innerHTML = this.$t('Shoppingcart.Result') as string
           }else{
             Vue.set(item,'testShow',false);
             testText.innerHTML = ''
           }
         }
       }else if(EditBox[i].id === '3'){
-        var Rvalue=/(^[+-]?[1-9]\d*(\.\d{1,2})?$)|(^[+-]?0(\.\d{1,2})?$)/;
+        var Rvalue=/^((3[6-9]|3[6-9].[0-9]{1,2})|(4[0-8]|4[0-7].[0-9]{1,2}))$/;
         if(item.Id === 'CorneaLeft'){
           if(item.Text === '' || Rvalue.test(text) === false){
             Vue.set(item,'testShow',true);
-            testText.innerHTML = '请输入36至48的数值'
+            testText.innerHTML = this.$t('Shoppingcart.Cornea') as string
           }else{
             Vue.set(item,'testShow',false);
             testText.innerHTML = ''
           }
         }
       }else if(EditBox[i].id === '4'){
-        var Rvalue=/(^[+-]?[1-9]\d*(\.\d{1,2})?$)|(^[+-]?0(\.\d{1,2})?$)/;
+        var Rvalue=/^((3[6-9]|3[6-9].[0-9]{1,2})|(4[0-8]|4[0-7].[0-9]{1,2}))$/;
         if(item.Id === 'CorneaRight'){
           if(item.Text === '' || Rvalue.test(text) === false){
             Vue.set(item,'testShow',true);
-            testText.innerHTML = '请输入36至48的数值'
+            testText.innerHTML = this.$t('Shoppingcart.Cornea') as string
           }else{
             Vue.set(item,'testShow',false);
             testText.innerHTML = ''
@@ -734,11 +751,11 @@ editForm: any = {
         }
       }
       else if(EditBox[i].id === '5'){
-        var Rvalue=/(^[+-]?[1-9]\d*(\.\d{1,2})?$)|(^[+-]?0(\.\d{1,2})?$)/;
+        var Rvalue=/^([8-9]|[8-9].[0-9]{2}|1[0-1]|1[0-1].[0-5]{2})$/;
         if(item.Id === 'LensDiameter'){
           if(item.Text === '' || Rvalue.test(text) === false){
             Vue.set(item,'testShow',true);
-            testText.innerHTML = '请输入8.8至11.5的数值'
+            testText.innerHTML = this.$t('Shoppingcart.LensDiameter') as string
           }else{
             Vue.set(item,'testShow',false);
             testText.innerHTML = ''
@@ -759,22 +776,47 @@ editForm: any = {
         type: 'error',
         duration:3500
       })
-      for(var j=0;j<this.items[index].LensExtAttrItem.length;j++){
-        if(this.items[index].LensExtAttrItem[j].Text === ''){
-          Vue.set(this.items[index].LensExtAttrItem[j], 'tipShow', true);
+      var EditBox=document.querySelectorAll('.editform-box');
+      for(var i=0;i<EditBox.length;i++){
+        var testText=EditBox[i].getElementsByClassName('testInput')[0];
+        var Lat=this.items[index].LensExtAttrItem;
+        if(EditBox[i].id === '0'){
+          if(Lat[0].Text === ''){
+            Vue.set(Lat[0],'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.CustomerCodeName') as string;
+          }
+        }
+        if(EditBox[i].id === '1'){
+          if(Lat[1].Text === ''){
+            Vue.set(Lat[1],'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.Result') as string;
+          }
+        }
+        if(EditBox[i].id === '2'){
+          if(Lat[2].Text === ''){
+            Vue.set(Lat[2],'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.Result') as string;
+          }
+        }
+        if(EditBox[i].id === '3'){
+          if(Lat[3].Text === ''){
+            Vue.set(Lat[3],'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.Cornea') as string;
+          }
+        }
+        if(EditBox[i].id === '4'){
+          if(Lat[4].Text === ''){
+            Vue.set(Lat[4],'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.Cornea') as string;
+          }
+        }
+        if(EditBox[i].id === '5'){
+          if(Lat[5].Text === ''){
+            Vue.set(Lat[5],'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.LensDiameter') as string;
+          }
         }
       }
-      this.items[index].LensExtAttrItem[6].tipShow = false;
-      this.items[index].LensExtAttrItem[7].tipShow = false;
-      this.items[index].LensExtAttrItem[8].tipShow = false;
-      this.items[index].LensExtAttrItem[9].tipShow = false;
-      this.items[index].LensExtAttrItem[10].tipShow = false;
-      this.items[index].LensExtAttrItem[11].tipShow = false;
-      this.items[index].LensExtAttrItem[12].tipShow = false;
-      this.items[index].LensExtAttrItem[13].tipShow = false;
-      this.items[index].LensExtAttrItem[14].tipShow = false;
-      this.items[index].LensExtAttrItem[15].tipShow = false;
-      this.items[index].LensExtAttrItem[16].tipShow = false;
     }else{
       Message({
         message: this.$t('Shoppingcart.Savedsuccess') as string,
@@ -804,7 +846,7 @@ editForm: any = {
     }
     this.Shake(() => {
       this.$Api.shoppingCart.updateItemQty(id, one.Qty).then((result) => {
-            this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
+            this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
             one.IsAdd = false;
       });
     }, 500);
@@ -820,7 +862,7 @@ editForm: any = {
       setTimeout(() => {
              _this.$Api.shoppingCart.updateItemQty(id, one.Qty).then((result) => {
                if (result.Message.Succeeded) {
-                 _this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
+                 _this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
                  one.IsAdd = false;
                } else {
                  one.Qty = a;
@@ -877,7 +919,6 @@ editForm: any = {
       Items: this.items
     };
     if (this.editForm.AddressId === '') {
-      /* this.$Confirm(this.$t('Message.Message'), this.$t('Shoppingcart.NoneAddress'), () => { this.$router.push('/account/deliveryAddress'); }, () => { this.$router.push('/account/deliveryAddress'); }); */
       Message({
         message: this.$t('Shoppingcart.NoneAddress') as string,
         type: 'error',
@@ -890,32 +931,60 @@ editForm: any = {
         } else {
         var ItemsArr = temp.Items;
         for(var i = 0; i < ItemsArr.length; i++){
-          if(ItemsArr[i].LensExtAttrItem[1].Text === '' || ItemsArr[i].LensExtAttrItem[2].Text === '' || ItemsArr[i].LensExtAttrItem[3].Text === '' || ItemsArr[i].LensExtAttrItem[4].Text === '' || ItemsArr[i].LensExtAttrItem[5].Text === '' || ItemsArr[i].LensExtAttrItem[6].Text === ''){
-            Message({
-              message: this.$t('Shoppingcart.SaveError') as string,
-              type: 'error',
-              duration:3500
-            })
-            for(var j=0;j<ItemsArr[i].LensExtAttrItem.length;j++){
-              if(ItemsArr[i].LensExtAttrItem[j].Text === ''){
-                Vue.set(ItemsArr[i].LensExtAttrItem[j], 'tipShow', true);
+          Message({
+            message: this.$t('Shoppingcart.SaveError') as string,
+            type: 'error',
+            duration:3500
+          })
+          var LatList=ItemsArr[i].LensExtAttrItem;
+          var EditBox=document.querySelectorAll('.editform-box');
+          for(var z=0;z<EditBox.length;z++){
+              var testText=EditBox[z].getElementsByClassName('testInput')[0];
+              if(EditBox[z].id === '0'){
+                if(LatList[0].Text === ''){
+                  Vue.set(LatList[0],'testShow',true);
+                  testText.innerHTML = this.$t('Shoppingcart.CustomerCodeName') as string;
+                  Vue.set(ItemsArr[i], 'boxshow', true);
+                }
+              }
+              if(EditBox[z].id === '1'){
+                if(LatList[1].Text === ''){
+                  Vue.set(LatList[1],'testShow',true);
+                  testText.innerHTML = this.$t('Shoppingcart.Result') as string;
+                  Vue.set(ItemsArr[i], 'boxshow', true);
+                }
+              }
+              if(EditBox[z].id === '2'){
+                if(LatList[2].Text === ''){
+                  Vue.set(LatList[2],'testShow',true);
+                  testText.innerHTML = this.$t('Shoppingcart.Result') as string;
+                  Vue.set(ItemsArr[i], 'boxshow', true);
+                }
+              }
+              if(EditBox[z].id === '3'){
+                if(LatList[3].Text === ''){
+                  Vue.set(LatList[3],'testShow',true);
+                  testText.innerHTML = this.$t('Shoppingcart.Cornea') as string;
+                  Vue.set(ItemsArr[i], 'boxshow', true);
+                }
+              }
+              if(EditBox[z].id === '4'){
+                if(LatList[4].Text === ''){
+                  Vue.set(LatList[4],'testShow',true);
+                  testText.innerHTML = this.$t('Shoppingcart.Cornea') as string;
+                  Vue.set(ItemsArr[i], 'boxshow', true);
+                }
+              }
+              if(EditBox[z].id === '5'){
+                if(LatList[5].Text === ''){
+                  Vue.set(LatList[5],'testShow',true);
+                  testText.innerHTML = this.$t('Shoppingcart.LensDiameter') as string;
+                  Vue.set(ItemsArr[i], 'boxshow', true);
+                }
               }
             }
-            ItemsArr[i].LensExtAttrItem[6].tipShow = false;
-            ItemsArr[i].LensExtAttrItem[7].tipShow = false;
-            ItemsArr[i].LensExtAttrItem[8].tipShow = false;
-            ItemsArr[i].LensExtAttrItem[9].tipShow = false;
-            ItemsArr[i].LensExtAttrItem[10].tipShow = false;
-            ItemsArr[i].LensExtAttrItem[11].tipShow = false;
-            ItemsArr[i].LensExtAttrItem[12].tipShow = false;
-            ItemsArr[i].LensExtAttrItem[13].tipShow = false;
-            ItemsArr[i].LensExtAttrItem[14].tipShow = false;
-            ItemsArr[i].LensExtAttrItem[15].tipShow = false;
-            ItemsArr[i].LensExtAttrItem[16].tipShow = false;
-            Vue.set(ItemsArr[i], 'boxshow', true);
           }
         }
-      }
     });
     }
     // console.log(temp);
@@ -950,40 +1019,79 @@ editForm: any = {
 .favorite-box-content {
   margin-top: 20px;
 }
-.favorite-one .product-img {
-  float: left;
-  width: 10%;
-  height: auto;
-  border: 1px solid #e6e6e6;
+.favorite-header{
+  width: 97%;
+  margin:0 auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  .favorite-left{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 60%;
+  }
+  .product-img{
+    display: block;
+    width: 139px;
+    height: 139px;
+    overflow: hidden;
+    border-radius: 25px;
+    img{
+      width: 100%;
+    }
+  }
+  .favorite-one-messge{
+    margin-left: 5%;
+    p{
+      font-size: 20px;
+      color:#000;
+      font-weight: bold;
+      height: 30px;
+      line-height: 30px;
+    }
+    .parameter{
+      height: 30px;
+      line-height: 30px;
+    }
+  }
 }
-.num-content .input-text {
-  display: inline-block;
-  font-size: 18px;
-  width: 38px;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  border: none;
-  color: #000;
-  outline: none;
-  font-weight: bold;
-  background-color: #fff;
-}
-.favorite-one-messge .product-title,
-.favorite-one-messge .product-code {
-  color: #333;
-  font-size: 18px;
-  margin: 15px 0;
-  font-weight: bold;
-}
-/* .favorite-one-messge .product-code {
-  color: #b2b2b2;
-  font-size: 14px;
-} */
-.merchant-one-calc .quantity{
-  color: #333;
-  font-size: 18px;
-  font-weight: bold;
+.favorite-right{
+  width:380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  .merchant-one-calc{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    .quantity{
+      font-size: 20px;
+      font-weight: bold;
+      height: 30px;
+      line-height: 30px;
+      color: #000;
+    }
+    .common-num{
+      .num-content{
+        .input-text{
+          border:none;
+          background: #fff;
+          font-size: 20px;
+          color:#000;
+          font-weight: bold;
+          margin-left: 30px;
+          height: 30px;
+          line-height: 30px;
+        }
+      }
+    }
+  }
 }
 .order-one .product-price {
   margin-top: 14px;
@@ -1006,112 +1114,20 @@ editForm: any = {
   float: left;
   line-height: 35px;
 }
-.num-content {
-  float: left;
-}
 .favorite-one .product-img img {
   width: 100%;
 }
-.merchant-one .favorite-one-messge {
-  width: 38.7%;
-}
 .favorite-one-messge {
-  float: left;
-  margin-left: 1.7%;
   width: 51.7%;
   text-align: left;
+  .parameter{
+    color:#000;
+    font-weight: bold;
+  }
 }
-.shoppingcart-one {
-  margin-bottom: 60px;
-}
-
-.shoppingcart-one-title {
-  border-bottom: 1px solid #1b1b1b;
-  padding: 0 0 0 20px;
-}
-
-.shoppingcart-one-title span {
-  font-size: 16px;
-}
-
-.shoppingcart-one-title .order-merchant {
-  width: 10%;
-  color: #1b1b1b;
-  font-size: 18px;
-}
-
-.shoppingcart-one-title .order-product-name {
-  width: 38%;
-  margin-left: 1.6%;
-  text-indent: 130px;
-}
-
-.shoppingcart-one-title .order-quantity {
-  width: 11%;
-  margin-left: 4.2%;
-  text-align: center;
-}
-
-.shoppingcart-one-title .order-price {
-  margin-left: 5.9%;
-  width: 15.2%;
-  text-align: center;
-}
-
-.merchant-one {
-  border-top: 0;
-  cursor: pointer;
-}
-
 /* .merchant-one:hover {
   background: #efefef;
 } */
-
-.merchant-one .favorite-one-messge {
-  width: 38.7%;
-}
-
-.merchant-one-calc {
-  width: 10%;
-  margin-left: 4.3%;
-  float: left;
-  text-align: center;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-}
-
-.merchant-one-calc .common-num {
-  display: inline-block;
-  border-radius: 3px;
-}
-
-.merchant-total-quantity {
-  float: left;
-  width: 15.5%;
-  margin-left: 70px;
-}
-
-.merchant-total-quantity p {
-  font-size: 20px;
-  color: #d92526;
-  text-align: center;
-}
-
-.merchant-total-price {
-  float: left;
-  width: 180px;
-  margin-left: 6%;
-}
-
-.merchant-total-price p {
-  width: 100%;
-  text-align: center;
-  font-size: 20px;
-  color: #d92526;
-  line-height: 20px;
-}
 
 .merchant-del-box {
   display: flex;
@@ -1119,6 +1135,7 @@ editForm: any = {
   justify-content: space-between;
   align-items: center;
   width: 300px;
+  margin-top: 30px;
 }
 .editinformation{
   display: flex;
@@ -1140,83 +1157,6 @@ editForm: any = {
   color: #010101;
   font-weight: bold;
 }
-.edit_input{
-}
-.edit_name{
-  width:36%;
-}
-.edit_name_input{
-  width: 55%;
-}
-.edit_refraction{
-  width:29%;
-}
-.edit_left{
-  /* width:4%; */
-}
-.edit_position_input{
-  width:20.8%;
-}
-.positionRight{
-  /* width:4%; */
-  margin-left: 30px;
-}
-.edit_keratometry{
-  width:29%;
-}
-.edit_lensmaterial{
-  width:26%;
-}
-.edit_stuff_input{
-  width: 65%;
-}
-.edit_color{
-  width:24%;
-}
-.edit_color_input{
-  width:67%;
-}
-.edit_overall{
-  width:29%;
-}
-.edit_diameter_input{
-  width:62%;
-}
-.edit_remarks{
-  width:20%;
-}
-.edit_remarks_input{
-  width: 71%;
-  height: 100px;
-  overflow: hidden;
-  overflow-y: scroll;
-}
-.edit_table{
-  thead{
-    tr{
-      td{
-        text-align: center;
-        background: #0e579c;
-        height: 60px;
-        line-height: 60px;
-        color: #fff;
-        font-size: 20px;
-      }
-    }
-  }
-  tbody{
-    tr{
-      td{
-        input{
-          border:1px solid #0e579c;
-          height: 60px;
-          line-height: 60px;
-          text-align: center;
-        }
-      }
-    }
-  }
-}
 .edit_btn_box{
   display: flex;
   flex-direction: row;
@@ -1235,10 +1175,19 @@ editForm: any = {
     border-radius: 10px;
     font-size: 20px;
     text-align: center;
+    cursor: pointer;
+  }
+  .canelBtn{
+    background: none;
+    height: 36px;
+    border:2px solid #0e579c;
+    color: #0e579c;
   }
 }
 
 .shoppingcart-handle {
+  width: 1080px;
+  padding: 0 10px;
   text-align: right;
 }
 .AddAddress-box{
@@ -1261,14 +1210,14 @@ editForm: any = {
 
 .shoppingcart-handle .btn {
   display: inline-block;
-  width: 340px;
+  width: 250px;
   height: 45px;
   line-height: 45px;
   color: #fff;
   font-size: 26px;
   text-align: center;
   margin-top: 50px;
-  background-color: @primary_color;
+  background-color: #0e579c;
   border-radius: 5px;
 }
 .common-num a {
@@ -1281,7 +1230,8 @@ editForm: any = {
   color: #999999;
 }
 .cart-delete:hover {
-  background-color: #fa4343;
+  background-color: #0e579c;
+  color: #fff;
 }
 .cart-delete,
 .edit {
@@ -1290,8 +1240,6 @@ editForm: any = {
   height: 40px;
   line-height: 40px;
   text-align: center;
-  background-color: #0e579c;
-  color: #fff;
   border-radius: 10px;
   font-size: 18px;
   font-weight: bold;
@@ -1299,14 +1247,25 @@ editForm: any = {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+}
+.cart-delete{
+  border:2px solid #0e579c;
+  color: #0e579c;
+}
+.edit{
   border:none;
+  color:#fff;
+  background: #0e579c;
 }
 .favorite-box .login-register-title {
   margin-left: 0;
 }
+.favorite-box-top{
+  width: 94%;
+  margin:0 auto;
+}
 .login-register-title {
   float: left;
-  width: 300px;
   height: 45px;
   line-height: 45px;
   margin-left: 160px;
@@ -1327,40 +1286,44 @@ editForm: any = {
   -ms-transition: 0.5s ease;
 }
 .userAddress{
+  margin-top: 30px;
   .choose{
     font-size: 25px;
     color:#0e579c;
     line-height: 30px;
     font-weight: bold;
+    border-bottom: 2px solid #0e579c;
   }
   .address{
-    width: 98%;
-    padding: 10px 1%;
-    margin:20px auto;
+    width: 1180px;
+    padding: 10px 10px;
+    margin:50px auto;
     cursor: pointer;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 0 2px #000;
     .checked{
       width: 20px;
       height: 20px;
-      border:1px solid #0e579c;
+      border:2px solid #0e579c;
       border-radius: 50%;
       margin-right: 20px;
     }
     .information-box{
-      width: 100%;
+      width: 765px;
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
+      overflow: hidden;
       .addInfo{
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
         align-items: center;
+        width: 70%;
         span{
           text-align: left;
           font-size: 16px;
@@ -1368,30 +1331,47 @@ editForm: any = {
           height: 30px;
           line-height: 30px;
           width: 100%;
+          display: block;
+          width:250px;
+          font-weight: bold;
+          background: url(/images/pc/iov-required.png) left center no-repeat;
+          padding-left: 13px;
+        }
+        span:last-child{
+          width: 100%;
+        }
+        span:nth-child(2){
+          background: none;
         }
       }
     }
     .btnBox{
-      width: 30%;
+      width: 415px;
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
-      button{
-        width: 100px;
-        height: 45px;
-        line-height: 45px;
-        border:none;
-        background: #e6e6e6;
-        color:#000;
+      .cart-delete{
+        background: none;
+        padding: 0;
+      }
+      .cart-delete:hover{
+          background: #0e579c;
+      }
+      .edit{
+        margin-left: 65px;
       }
     }
   }
 }
 
 .active{
-  .checked{  
+  box-shadow: 0 0 15px #dbdbdb;
+  border-radius: 20px;
+  padding: 15px 1%;
+  .checked{ 
     background: url(/images/pc/choose.png) center center no-repeat;
+    background-size: 100%;
   }
 }
 .addAddress{
@@ -1401,14 +1381,16 @@ editForm: any = {
   align-items: center;
   margin-bottom: 30px;
   .clickAdd{
-    border:none;
-    background: #0e579c;
-    color:#fff;
-    font-size: 16px;
-    height: 40px;
-    line-height: 40px;
+    border:2px solid #0e579c;
+    color:#0e579c;
+    font-size: 18px;
+    height: 50px;
+    line-height: 50px;
     padding: 0 2rem;
-    border-radius: 15px;
+    border-radius: 10px;
+    width: 280px;
+    background: none;
+    font-weight: bold;
   }
 }
 .noAddress{
@@ -1421,18 +1403,107 @@ editForm: any = {
 </style>
 <style lang="less">
 .edit-box{
-  width:98%;
-  margin:100px auto 30px auto;
-  box-shadow: 0 0 5px #f2f0f0;
-  padding: 30px 1%;
+  width:96%;
+  margin:63px auto 30px auto;
+  box-shadow: 0 0 20px #d4d4d4;
+  padding: 30px 2%;
   border-radius: 20px;
+  .productInfo{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    .productInfo-left{
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      width: 60%;
+      .productimg{
+        display: block;
+        width: 139px;
+        overflow: hidden;
+        height: 139px;
+        border-radius: 25px;
+        img{
+          width: 100%;
+        }
+      }
+      .product-message{
+        margin-left: 30px;
+        p{
+          color: #000;
+          font-size: 20px;
+          height: 30px;
+          line-height: 30px;
+          font-weight: bold;
+        }
+        .product-parameter{
+          font-weight: normal;
+        }
+      }
+    }
+    .merchant-one-calc{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-right: 170px;
+      .quantity{
+        font-size: 20px;
+        font-weight: bold;
+        color:#000;
+      }
+      .common-num{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border:1px solid #0e579c;
+        border-radius: 30px;
+        width: 100px;
+        margin-left: 20px;
+        a{
+          width: 20px;
+          height: 20px;
+          display: block;
+          background: #0e579c;
+          color: #fff;
+          text-align: center;
+          line-height: 20px;
+          font-size: 14px;
+          border-radius: 50%;
+          font-weight: bold;
+        }
+        .num-content{
+          margin:0 5px;
+          .input-text{
+            border:none;
+            background: #fff;
+            width: 40px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #000;
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
   .edit_title{
-    height: 50px;
-    line-height: 50px;
+    height: 60px;
+    line-height: 60px;
     font-size: 25px;
     font-weight: bold;
     color:#0e579c;
-    border-bottom: 1px solid #0e579c;
+    border-bottom: 2px solid #0e579c;
+  }
+  .el-form{
+    margin-top: 30px;
   }
   .itemInformation{
     display: flex;
@@ -1440,13 +1511,13 @@ editForm: any = {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    position: relative;
     .editform-box{
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       align-items: center;
-      margin-bottom: 30px;
-      height: 60px;
+      margin-bottom: 15px;
       .input-box{
         display: flex;
         flex-direction: row;
@@ -1454,54 +1525,58 @@ editForm: any = {
         align-items: center;
         width: 100%;
         .item-name{
-          width: 55%;
-          font-size: 18px;
+          width: 160px;
+          font-size: 17px;
           color:#000;
           font-weight: bold;
           background: url(/images/pc/iov-required.png) no-repeat left center;
           text-indent: 11px;
+          margin-right: 10px;
+          /* text-align: right; */
+        }
+        .item-code{
+          font-size: 17px;
+          color:#000;
+          font-weight: bold;
+          margin-right: 10px;
+          display: none;
+          width: 44px;
+        }
+        .el-input__suffix{
+          display: none;
         }
         .el-input__inner{
           border:1px solid #0e579c;
         }
-        .el-textarea__inner{
-          height: 150px;
-          line-height: 30px;
-        }
       }
-      .tips{
+      .testInput{
         font-size: 14px;
         color:#d92526;
+        position: absolute;
+        top:40px;
+        width: 314px;
+        overflow: hidden;
       }
     }
-    .editform-box:nth-child(1){
-      width:73%;
-      margin-top: 30px;
-      .item-name{
-        width: 20%;
-      }
-    }
-    .editform-box:nth-child(2)
-    .editform-box:nth-child(3)
-    .editform-box:nth-child(4)
+    .editform-box:nth-child(2),
+    .editform-box:nth-child(3),
+    .editform-box:nth-child(4),
     .editform-box:nth-child(5){
-      justify-content: flex-start;
-      width: 35%;
-      .item-name{
-        margin-right: 20px;
-        width:34%;
-      }
       .el-input{
-        width: 30%;
+        width: 90px;
       }
     }
-    .editform-box:nth-child(6){
-      width: 90%;
+    .editform-box:nth-child(7){
+      width: 100%;
       .item-name{
-        width: 15%;
+        background: none;
+        width:85px;
+      }
+      .el-textarea__inner{
+        height: 100px;
+        border:1px solid #0e579c;
       }
     }
-    .editform-box:nth-child(7),
     .editform-box:nth-child(8),
     .editform-box:nth-child(9),
     .editform-box:nth-child(10),
@@ -1510,47 +1585,93 @@ editForm: any = {
     .editform-box:nth-child(13),
     .editform-box:nth-child(14),
     .editform-box:nth-child(15),
-    .editform-box:nth-child(16){
-      height: 140px;
-      .input-box{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        .item-name{
-          background: url(/images/pc/iov-required.png) no-repeat 30% center;
-          background-color: #0b57a3;
-          color: #fff;
-          width: 100%;
-          height: 50px;
-          line-height: 50px;
-          text-align: center;
-          margin-bottom: 10px;
-          text-indent: 0;
-        }
-        .el-input__inner{
-          border-radius: 0;
-          height: 50px;
-          line-height: 50px;
-          text-align: center;
-          margin-bottom: 10px;
-        }
-      }
-    }
-    .editform-box:last-child{
-      height: 150px;
-      width: 100%;
-      align-items: flex-start;
+    .editform-box:nth-child(16),
+    .editform-box:nth-child(17){
+      position: absolute;
+      top:401px;
+      left: 1px;
       .item-name{
-        width: 10%;
         background: none;
+        width: 80px;
+        text-align: right;
       }
-      .el-input__inner{
-        height: 250px;
-        word-wrap: break-word;
-        word-break: normal;
+      .el-input{
+        width: 115px;
       }
     }
+    .editform-box:nth-child(3){
+      position: relative;
+      top:80px;
+      right: 363px;
+    }
+    .editform-box:nth-child(4){
+      position: relative;
+      bottom: 85px;
+      left: 799px;
+    }
+    .editform-box:nth-child(5){
+      position: relative;
+      left: 436px;
+      bottom:5px;
+    }
+    .editform-box:nth-child(6){
+      position: relative;
+      right: 725px;
+      bottom: 5px;
+    }
+    .editform-box:nth-child(1),
+    .editform-box:nth-child(2),
+    .editform-box:nth-child(3),
+    .editform-box:nth-child(4),
+    .editform-box:nth-child(5),
+    .editform-box:nth-child(6){
+      height: 70px;
+    }
+    .editform-box:nth-child(2),
+    .editform-box:nth-child(3),
+    .editform-box:nth-child(4),
+    .editform-box:nth-child(5){
+      .item-code{
+        display: block;
+      }
+    }
+    .editform-box:nth-child(9){
+      left:224px;
+    }
+    .editform-box:nth-child(10){
+      left:454px;
+    }
+    .editform-box:nth-child(11){
+      left:670px;
+    }
+    .editform-box:nth-child(12){
+      left:887px;
+    }
+    .editform-box:nth-child(13){
+      top:461px;
+    }
+    .editform-box:nth-child(14){
+      left:224px;
+      top:461px;
+    }
+    .editform-box:nth-child(15){
+      left:454px;
+      top:461px;
+    }
+    .editform-box:nth-child(16){
+      left:670px;
+      top:461px;
+    }
+    .editform-box:nth-child(17){
+      left:887px;
+      top:461px;
+    }
+  }
+  .toCustomise{
+    border:1px solid #989898;
+    padding: 30px 0;
+    height: 100px;
+    margin-top: 25px;
   }
   .parameter_table{
     display: flex;
@@ -1580,7 +1701,7 @@ editForm: any = {
           width: 100%;
           border:1px solid #0e579c;
         }
-        .tips{
+        .testInput{
           color:#d92526;
           font-size: 14px;
         }

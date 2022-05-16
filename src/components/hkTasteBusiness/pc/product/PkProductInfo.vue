@@ -91,6 +91,7 @@ export default class PkProductInfo extends Vue {
     -webkit-box-orient: vertical;
     word-wrap: break-word;
     text-align: center;
+    font-weight: bold;
 }
 .p-name-box .in_pannel_addtofav{
     position: absolute;
@@ -124,7 +125,7 @@ export default class PkProductInfo extends Vue {
 }
 .in_panel_product .ProductCode .leftpart{
     width: auto;
-    font-size: 20px;
+    font-size: 18px;
     word-break: break-all;
     display: -webkit-box;
     display: -ms-flexbox;
