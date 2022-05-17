@@ -19,11 +19,11 @@
                 <div class="shoppingcart_item_qty">
                   <span class="qty-title">{{$t('Shoppingcart.Quantity')}}</span>
                   <div class="common-num">
-                      <a
+                      <!-- <a
                         class="reduce-num"
                         href="javascript:;"
                         v-on:click=" minusQty(one,one.Id,$event);"
-                      >-</a>
+                      >-</a> -->
                       <div class="num-content">
                         <input
                           class="input-text"
@@ -34,7 +34,7 @@
                           v-on:change="updateQty(one,one.Id,$event)"
                         />
                       </div>
-                      <a class="add-num" href="javascript:;" v-on:click="plusQty(one,one.Id,$event);" :class="{'disabled':one.IsAdd}">+</a>
+                      <!-- <a class="add-num" href="javascript:;" v-on:click="plusQty(one,one.Id,$event);" :class="{'disabled':one.IsAdd}">+</a> -->
                       </div>
                 </div>
                 <!-- <div class="shoppingcart_item_price">
@@ -49,6 +49,34 @@
             </div>
             <div class="clear"></div>
             <div class="edit-box mobile-edit-box" v-show="items[index].boxshow">
+                <div class="mobileProductInfo">
+                  <div class="productInfo-left">
+                    <a v-bind:href="'/product/Detail/'+one.Product.Sku" class="productimg">
+                      <img v-bind:src="one.Product.Img_M" alt />
+                    </a>
+                    <div class="product-message">
+                      <p class="product-code">
+                        {{$t('product.ProductCode')}}：{{one.Product.Code}}
+                      </p>
+                      <p class="product-title">
+                        {{$t('product.ProductName')}}：{{one.Product.Name}}
+                      </p>
+                      <p class="product-parameter">
+                        {{$t('product.LensColor')}}：{{one.LensColor}}
+                      </p>
+                      <div class="merchant-one-calc">
+                        <p class="quantity">{{$t('product.Quantity')}}</p>
+                        <div class="common-num">
+                          <a href="javascript:;" class="reduce-num" v-on:click="minusQty(one,one.Id,$event)">-</a>
+                          <div class="num-content">
+                            <input type="text" data-num="1" disabled v-model="one.Qty" v-on:change="updateQty(one,one.Id,$event)" class="input-text">
+                          </div>
+                          <a href="javascript:;" v-on:click="plusQty(one,one.Id,$event)" class="add-num" :class="{'disabled':one.IsAdd}">+</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <span class="edit_title">{{$t('product.RequiredInformation')}}</span>
                 <!-- <span class="result">{{$t('product.RefractionResult')}}</span> -->
                 <ElForm :model="editForm" :rules="edit" ref="editForm">
@@ -57,21 +85,22 @@
                     <ElInput v-model="item.Text" clearable=""></ElInput>
                   </FormItem> -->
                   <div class="mobile-itemInformation">
-                    <div v-for="(item,index) in (one.LensExtAttrItem)" :key="index" class="mobile-editform-box">
+                    <div v-for="(item,index) in (one.LensExtAttrItem)" :key="index" class="mobile-editform-box" :id="index">
                       <div class="mobileInput">
                         <span class="item-name">{{item.MutiLang}}</span>
-                        <ElInput v-model="item.Text" clearable="" :type="index === 16 ? 'textarea' : 'text'" @focus="inputFocus(item,index)" @blur="inputBlur(item,index)"></ElInput>
+                        <span class="item-code">{{item.Code}}</span>
+                        <ElInput v-model="item.Text" clearable="" :type="index === 6 ? 'textarea' : 'text'" @focus="inputFocus(item,index)" @blur="inputBlur(item,index)" :key="index"></ElInput>
                       </div>
-                      <span class="mobileTips" v-show="one.LensExtAttrItem[index].tipShow">{{$t('product.PleaseEnter')}}{{item.MutiLang}}</span>
+                      <p class="mobiletest" v-show="one.LensExtAttrItem[index].testShow"></p>
                     </div>
                   </div>
                   <span class="edit_title">{{$t('product.ToCustomise')}}</span>
-                  <div class="mobile-parameter_table">
+                  <!-- <div class="mobile-parameter_table">
                     <FormItem v-for="(item,index) in (one.LensAttrView)" :key="index" :label="item.AttrName">
                      <ElInput v-model="item.AttrValue" clearable="" @focus="inputFocus(item,index)" @blur="inputBlur(item,index)"></ElInput>
                      <span class="mobileTips" v-show="one.LensAttrView[index].tipShow">{{$t('product.PleaseEnter')}}{{item.AttrName}}</span>
                     </FormItem>
-                  </div>
+                  </div> -->
                   <div class="mobile-editBtn_box">
                     <b class="btn saveBtn" @click="saveItem(one,index)">{{$t('product.Save')}}</b>
                     <b class="btn canelBtn" @click="Reset(index)">{{$t('product.Reset')}}</b>
@@ -80,22 +109,28 @@
               </div>
           </div>
         <div>
-        <div class="mobile_userAddress">
-          <div class="address" v-for="(item, index) in addressList" :key="index">
-            <div class="mobileAdd_info" :class="activeIndex === index ? 'active' : ''" @click="changeList(index)">
+        <div class="mobile_userAddress" v-show="addressList.length">
+          <span class="choose">{{$t('DeliveryAddress.ChooseAddress')}}</span>
+          <div class="address" v-for="(item, index) in addressList" :class="activeIndex === index ? 'active' : ''" :key="index">
+            <div class="mobileAdd_info" @click="changeList(index)">
               <div class="mobileChecked"></div>
-              <span>{{$t('CheckOut.Name')}}：{{item.FirstName}}{{item.LastName}}</span>
-              <span>{{$t('CheckOut.Phone')}}：{{item.Mobile}}</span>
-              <span>{{$t('CheckOut.Address')}}：{{item.Address}}</span>
+              <div class="mobileAddInfo">
+                  <span>{{$t('CheckOut.Name')}}：{{item.FirstName}}{{item.LastName}}</span>
+                  <span>{{$t('DeliveryAddress.PostalCode')}}：{{item.PostalCode}}</span>
+                  <span>{{$t('CheckOut.Phone')}}：{{item.Mobile}}</span>
+                  <span>{{$t('CheckOut.Province')}}：{{item.ProvinceName}}</span>
+                  <span>{{$t('CheckOut.Address')}}：{{item.Address}}</span>
+                </div>
             </div>
             <div class="mobilebtnBox">
               <button @click="editAddr(index)">{{$t('product.EditDetails')}}</button>
               <button @click="removeAddr(item.DeliveryId)">{{$t('product.Delete')}}</button>
             </div>
           </div>
-          <div class="mobileAdd">
-            <button class="clickAdd" @click="addClick()">{{$t('DeliveryAddress.AddAddress')}}</button>
-          </div>
+        </div>
+        <div class="mobileNoAddress" v-show="!addressList.length">{{$t('DeliveryAddress.NoAddress')}}</div>
+        <div class="mobileAdd">
+          <button class="clickAdd" @click="addClick()">{{$t('DeliveryAddress.AddAddress')}}</button>
         </div>
         <!-- <div class="addAddress" v-if="addAddress">
           <span class="noAddress">{{$t('DeliveryAddress.AddDeliveryAddress')}}</span>
@@ -285,68 +320,7 @@ export default class InsShoppingcart extends Vue {
     AddressId: ''
   }
   get edit () {
-    return {
-      CustomerCode: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      RefractionResult: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      ResultLeft: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      ResultRight: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      CorneaLeft: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      CorneaRight: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      LensMaterial: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      LensColor: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      OverallDiameter: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      Remarks: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      Prower: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      BC: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      Diam: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      OZ: [{
-        require: true,
-        tigger: 'blur'
-      }],
-      CT: [{
-        require: true,
-        tigger: 'blur'
-      }]
-    };
+    return {};
   }
   prodcutSrc: string = require('@/assets/Images/270_b.jpg');
   step: number = 1;
@@ -528,7 +502,7 @@ export default class InsShoppingcart extends Vue {
           });
         });
       } else {
-        console.log('error submit!!');
+        //console.log('error submit!!');
         return false;
       }
     });
@@ -580,6 +554,19 @@ export default class InsShoppingcart extends Vue {
     // _this.Currency = Currencys;
     _this.totalAmount = itemsprice;
     _this.itemQty = itemQ;
+    var InputBox=document.querySelectorAll('.mobileInput');
+    var ItemsLea=this.items;
+    for(var r=0;r<ItemsLea.length;r++){
+      for(var i=0;i<InputBox.length;i++){ 
+        var Leai=ItemsLea[r].LensExtAttrItem;
+        if(Leai[2].Visable === 0){
+          Leai[2].MutiLang = '';
+        }
+        if(Leai[4].Visable === 0){
+          Leai[4].MutiLang = '';
+        }
+      }
+    }
   }
   @Watch('items', { deep: true })
   onItemsChange (o, n) {
@@ -595,17 +582,150 @@ export default class InsShoppingcart extends Vue {
   boxShow(index) {
     Vue.set(this.items[index], 'boxshow', true);
   }
+  //鼠标点入
   inputFocus(item, index) {
-    Vue.set(item, 'tipShow', false);
-  }
-  inputBlur(item, index) {
-    if(item.Text === '' || item.AttrValue === '') {
-      item.tipShow = true;
-    } else {
-      item.tipShow = false;
+    //Vue.set(item, 'testShow', false)
+    var EditBox=document.querySelectorAll('.mobile-editform-box');
+    for(var i=0;i<EditBox.length;i++){
+      var testText=EditBox[i].getElementsByClassName('mobiletest')[0];
+      if(EditBox[i].id === '0'){
+        if(item.Id === 'CustomerCode'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.CustomerCodeName') as string
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '1'){
+        if(item.Id === 'ResultLeft'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.Result') as string
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '2'){
+        if(item.Id === 'ResultRight'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.Result') as string
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '3'){
+        if(item.Id === 'CorneaLeft'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.Cornea') as string
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '4'){
+        if(item.Id === 'CorneaRight'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.Cornea') as string
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '5'){
+        if(item.Id === 'LensDiameter'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.LensDiameter') as string
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }
     }
-    if (index === 16) {
-      item.tipShow = false;
+  }
+  //鼠标离开
+  inputBlur(item, index) {
+    //Vue.set(item, 'testShow', false)
+    var EditBox=document.querySelectorAll('.mobile-editform-box');
+    for(var i=0;i<EditBox.length;i++){
+      var testText=EditBox[i].getElementsByClassName('mobiletest')[0];
+      var text = item.Text;
+      if(EditBox[i].id === '0'){
+        if(item.Id === 'CustomerCode'){
+          var Cvalue= /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
+          if(item.Text === '' || Cvalue.test(text) === false){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.CustomerCodeName') as string
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '1'){
+        var Rvalue=/^((?:-(?:([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20)))|([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20))$/;
+        if(item.Id === 'ResultLeft'){
+          if(item.Text === '' || Rvalue.test(text) === false){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.Result') as string
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '2'){
+        var Rvalue=/^((?:-(?:([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20)))|([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20))$/;
+        if(item.Id === 'ResultRight'){
+          if(item.Text === '' || Rvalue.test(text) === false){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.Result') as string
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '3'){
+        var Rvalue=/^((3[6-9]|3[6-9].[0-9]{1,2})|(4[0-8]|4[0-7].[0-9]{1,2}))$/;
+        if(item.Id === 'CorneaLeft'){
+          if(item.Text === '' || Rvalue.test(text) === false){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.Cornea') as string
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '4'){
+        var Rvalue=/^((3[6-9]|3[6-9].[0-9]{1,2})|(4[0-8]|4[0-7].[0-9]{1,2}))$/;
+        if(item.Id === 'CorneaRight'){
+          if(item.Text === '' || Rvalue.test(text) === false){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.Cornea') as string
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }
+      else if(EditBox[i].id === '5'){
+        var Rvalue=/^([8-9]|[8-9].[0-9]{2}|1[0-1]|1[0-1].[0-5]{2})$/;
+        if(item.Id === 'LensDiameter'){
+          if(item.Text === '' || Rvalue.test(text) === false){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.LensDiameter') as string
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }
     }
   }
   saveItem (one, index) {
@@ -614,27 +734,53 @@ export default class InsShoppingcart extends Vue {
     for (var i = 0; i < this.items[index].LensExtAttrItem.length; i++) {
       Vue.set(this.items[index], this.items[index].LensExtAttrItem[i].Id, this.items[index].LensExtAttrItem[i].Text);
     }
-    var attrviews=this.items[index].LensAttrView;
-    var attrValue=attrviews.some(function(item){
-      return item.AttrValue === ''
-    })
-    if(this.items[index].BC === '' || this.items[index].CT === '' || this.items[index].CorneaLeft === '' || this.items[index].CorneaRight === '' || this.items[index].CustomerCode === '' || this.items[index].Diam === '' || this.items[index].FiveCW === '' || this.items[index].FourCW === '' || this.items[index].LensDiameter === '' || this.items[index].OZ === '' || this.items[index].PCW === '' || this.items[index].Power === '' || this.items[index].ResultLeft === '' || this.items[index].ResultRight === '' || this.items[index].ThreeCW === '' || this.items[index].TwoCW === '' || attrValue) {
+    if(this.items[index].CorneaLeft === '' || this.items[index].CorneaRight === '' || this.items[index].CustomerCode === '' ||  this.items[index].LensDiameter === '' || this.items[index].ResultLeft === '' || this.items[index].ResultRight === '') {
       Message({
         message: this.$t('Shoppingcart.SaveError') as string,
         type: 'error',
         duration:3500
       })
-      for(var j=0;j<this.items[index].LensExtAttrItem.length;j++){
-        if(this.items[index].LensExtAttrItem[j].Text === ''){
-          Vue.set(this.items[index].LensExtAttrItem[j], 'tipShow', true);
-        }
-      }
-      for(var k=0;k<this.items[index].LensAttrView.length;k++){
-        if(this.items[index].LensAttrView[k].AttrValue === ''){
-          Vue.set(this.items[index].LensAttrView[k],'tipShow', true);
+      var EditBox=document.querySelectorAll('.mobile-editform-box');
+      for(var i=0;i<EditBox.length;i++){
+        var testText=EditBox[i].getElementsByClassName('mobiletest')[0];
+        var Lat=this.items[index].LensExtAttrItem;
+        if(EditBox[i].id === '0'){
+          if(Lat[0].Text === ''){
+            Vue.set(Lat[0],'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.CustomerCodeName') as string;
           }
         }
-        this.items[index].LensExtAttrItem[16].tipShow = false;
+        if(EditBox[i].id === '1'){
+          if(Lat[1].Text === ''){
+            Vue.set(Lat[1],'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.Result') as string;
+          }
+        }
+        if(EditBox[i].id === '2'){
+          if(Lat[2].Text === ''){
+            Vue.set(Lat[2],'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.Result') as string;
+          }
+        }
+        if(EditBox[i].id === '3'){
+          if(Lat[3].Text === ''){
+            Vue.set(Lat[3],'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.Cornea') as string;
+          }
+        }
+        if(EditBox[i].id === '4'){
+          if(Lat[4].Text === ''){
+            Vue.set(Lat[4],'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.Cornea') as string;
+          }
+        }
+        if(EditBox[i].id === '5'){
+          if(Lat[5].Text === ''){
+            Vue.set(Lat[5],'testShow',true);
+            testText.innerHTML = this.$t('Shoppingcart.LensDiameter') as string;
+          }
+        }
+      }
     }else{
       Message({
         message: this.$t('Shoppingcart.Savedsuccess') as string,
@@ -645,9 +791,6 @@ export default class InsShoppingcart extends Vue {
     }
   }
   Reset (index) {
-    for (var i = 0; i < this.items[index].LensAttrView.length; i++) {
-      this.items[index].LensAttrView[i].AttrValue = '';
-    }
     for (var a = 0; a < this.items[index].LensExtAttrItem.length; a++) {
       this.items[index].LensExtAttrItem[a].Text = '';
     }
@@ -666,7 +809,7 @@ export default class InsShoppingcart extends Vue {
     }
     this.Shake(() => {
       this.$Api.shoppingCart.updateItemQty(id, one.Qty).then((result) => {
-            this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
+            this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
             one.IsAdd = false;
       });
     }, 500);
@@ -680,7 +823,7 @@ export default class InsShoppingcart extends Vue {
       setTimeout(() => {
              _this.$Api.shoppingCart.updateItemQty(id, one.Qty).then((result) => {
                if (result.Message.Succeeded) {
-                 _this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
+                 _this.$store.dispatch('setShopCart', this.$Api.shoppingCart.getShoppingCart());
                  one.IsAdd = false;
                } else {
                  one.Qty = a;
@@ -740,17 +883,64 @@ export default class InsShoppingcart extends Vue {
     } else {
       this.$Api.order.saveOrder(temp).then((result) => {
       if (result.Succeeded) {
-        /* this.$message({
-          message: '创建订单成功',
-          type: 'success'
-        }); */
         this.$router.push('/order/List');
       } else {
-        Message({
-          message: result.Message,
-          type: 'error'
-        })
-      }
+        var ItemsArr = temp.Items;
+        for(var i = 0; i < ItemsArr.length; i++){
+          Message({
+            message: this.$t('Shoppingcart.SaveError') as string,
+            type: 'error',
+            duration:3500
+          })
+          var LatList=ItemsArr[i].LensExtAttrItem;
+          var EditBox=document.querySelectorAll('.mobile-editform-box');
+          for(var z=0;z<EditBox.length;z++){
+              var testText=EditBox[z].getElementsByClassName('mobiletest')[0];
+              if(EditBox[z].id === '0'){
+                if(LatList[0].Text === ''){
+                  Vue.set(LatList[0],'testShow',true);
+                  testText.innerHTML = this.$t('Shoppingcart.CustomerCodeName') as string;
+                  Vue.set(ItemsArr[i], 'boxshow', true);
+                }
+              }
+              if(EditBox[z].id === '1'){
+                if(LatList[1].Text === ''){
+                  Vue.set(LatList[1],'testShow',true);
+                  testText.innerHTML = this.$t('Shoppingcart.Result') as string;
+                  Vue.set(ItemsArr[i], 'boxshow', true);
+                }
+              }
+              if(EditBox[z].id === '2'){
+                if(LatList[2].Text === ''){
+                  Vue.set(LatList[2],'testShow',true);
+                  testText.innerHTML = this.$t('Shoppingcart.Result') as string;
+                  Vue.set(ItemsArr[i], 'boxshow', true);
+                }
+              }
+              if(EditBox[z].id === '3'){
+                if(LatList[3].Text === ''){
+                  Vue.set(LatList[3],'testShow',true);
+                  testText.innerHTML = this.$t('Shoppingcart.Cornea') as string;
+                  Vue.set(ItemsArr[i], 'boxshow', true);
+                }
+              }
+              if(EditBox[z].id === '4'){
+                if(LatList[4].Text === ''){
+                  Vue.set(LatList[4],'testShow',true);
+                  testText.innerHTML = this.$t('Shoppingcart.Cornea') as string;
+                  Vue.set(ItemsArr[i], 'boxshow', true);
+                }
+              }
+              if(EditBox[z].id === '5'){
+                if(LatList[5].Text === ''){
+                  Vue.set(LatList[5],'testShow',true);
+                  testText.innerHTML = this.$t('Shoppingcart.LensDiameter') as string;
+                  Vue.set(ItemsArr[i], 'boxshow', true);
+                }
+              }
+            }
+          }
+        }
     });
     }
   }
@@ -801,7 +991,6 @@ export default class InsShoppingcart extends Vue {
         background: #0e579c;
         color:#fff;
         padding: 0.5rem 1rem;
-        width: 5rem;
         border-radius: 5px;
       }
     }
@@ -845,7 +1034,7 @@ export default class InsShoppingcart extends Vue {
 }
 .shoppingcart_item_qty{
     display: flex;
-    width:100%;
+    width:32%;
     justify-content: space-between;
     align-items: center;
     .qty_count{
@@ -1009,7 +1198,11 @@ export default class InsShoppingcart extends Vue {
 </style>
 <style lang="less">
 .mobile-edit-box{
-  width: 100%;
+  width: 92%;
+  margin:3rem auto;
+  box-shadow: 0 0 20px #d4d4d4;
+  border-radius: 20px;
+  padding: 2rem 3%;
   overflow: hidden;
   position: relative;
   .edit_title{
@@ -1020,12 +1213,53 @@ export default class InsShoppingcart extends Vue {
     font-size: 18px;
     font-weight: bold;
   }
+  .mobileProductInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    .productInfo-left{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      .productimg{
+        width:10rem;
+        height: 10rem;
+        display: block;
+        border-radius: 10px;
+        overflow: hidden;
+        img{
+          width:100%;
+          height: 10rem;
+        }
+      }
+      .product-message{
+        margin-left: 1rem;
+        p{
+          color:#000;
+          font-size: 16px;
+          font-weight: bold;
+          height: 2rem;
+          line-height: 2rem;
+        }
+        .merchant-one-calc{
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+    }
+  }
   .mobile-itemInformation{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    margin-top: 2rem;
   }
   /* .mobile-editform-box:nth-child(1){
     span{
@@ -1078,7 +1312,6 @@ export default class InsShoppingcart extends Vue {
       }
     }
   }
-  .mobile-editform-box:nth-child(7),
   .mobile-editform-box:nth-child(8),
   .mobile-editform-box:nth-child(9),
   .mobile-editform-box:nth-child(10),
@@ -1088,31 +1321,7 @@ export default class InsShoppingcart extends Vue {
   .mobile-editform-box:nth-child(14),
   .mobile-editform-box:nth-child(15),
   .mobile-editform-box:nth-child(16){
-    flex-direction: column;
-    width: 49%;
-    height: 200px;
-    .mobileInput{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-    .item-name{
-      width: 100%;
-      display: block;
-      background: #0e579c;
-      color: #fff;
-      text-align: center;
-      height: 5rem;
-      line-height: 5rem;
-    }
-    .el-input__inner{
-      border-radius: 0;
-      text-align: center;
-      height: 5rem;
-      line-height: 5rem;
-      margin-top: 0.5rem;
-    }
+    
   }
   .mobile-editform-box:last-child{
     .mobileInput{
@@ -1126,28 +1335,6 @@ export default class InsShoppingcart extends Vue {
       width: 100%;
       overflow: scroll;
       word-break: break-all;
-    }
-  }
-  .mobile-parameter_table{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    .el-form-item{
-      width: 45%;
-      height: 165px;
-      .el-form-item__label{
-        color: #000;
-        font-size: 14px;
-        font-weight: bold;
-        text-align: left;
-        padding: 0;
-      }
-      .el-input__inner{
-        border:1px solid #0e579c;
-        padding: 0 1rem;
-      }
     }
   }
   .mobile-editBtn_box{
