@@ -149,7 +149,6 @@ export default class HkPromotion extends Vue {
 .title{
   font-size: 30px;
   color: #0e579c;
-  width: 187px;
   margin:0 auto;
   font-weight: bold;
   span{
@@ -269,7 +268,6 @@ export default class HkPromotion extends Vue {
   cursor: pointer;
 }
 .btn-success{
-  width: 80px;
   height: 40px;
   font-size: 20px;
   line-height: 40px;

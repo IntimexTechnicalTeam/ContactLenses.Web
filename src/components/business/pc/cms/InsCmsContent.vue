@@ -66,6 +66,12 @@
       <img :src="OtherPageImg" v-show="OtherPageImg!==null" class="btlImg">
       <div class="pc-news-text" v-html="content.Body"></div>
     </div>
+    <!-- 訂製指南頁面 -->
+    <div class="CmsInfo" v-if="NewcateId=='40119'">
+      <div class="bigTitle">{{TitleName}}</div>
+      <!-- <img :src="OtherPageImg" v-show="OtherPageImg!==null" class="btlImg"> -->
+      <div class="pc-customized-guide" v-html="content.Body"></div>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -194,7 +200,7 @@ export default class InsCmsContent extends Vue {
     this.Regnay();
   }
   getContent () {
-    this.$Api.cms.getContentByDevice({ Key: this.id, ContentId: this.id, IsMobile: true }).then(result => {
+    this.$Api.cms.getContentByDevice({ Key: this.id, ContentId: this.id, IsMobile: false }).then(result => {
     this.content = result.CMS;
     this.TitleName = result.CMS.Title;
     this.OtherPageImg = result.CMS.Cover;
@@ -630,7 +636,7 @@ export default class InsCmsContent extends Vue {
     margin-top: 3rem;
     p{
       font-size: 18px;
-      color:#439cd8;
+      color:#808080;
       font-weight: bold;
       line-height: 45px;
     }

@@ -137,7 +137,7 @@
             <div class="information-box" @click="changeList(index)">
               <div class="checked"></div>
                 <div class="addInfo">
-                  <span>{{$t('CheckOut.Name')}}：{{item.FirstName}}{{item.LastName}}</span>
+                  <span>{{$t('CheckOut.Name')}}：{{item.LastName}}{{item.FirstName}}</span>
                   <span>{{$t('DeliveryAddress.PostalCode')}}：{{item.PostalCode}}</span>
                   <span>{{$t('CheckOut.Phone')}}：{{item.Mobile}}</span>
                   <span>{{$t('CheckOut.Province')}}：{{item.ProvinceName}}</span>
@@ -209,6 +209,9 @@
                     :placeholder="$t('DeliveryAddress.Area')"
                     style="width: 100%;"
                     v-on:change="selectCountry($event)"
+                    filterable
+                    clearable
+                    allow-create
                   >
                     <Option
                     :label="country.Name"
@@ -1575,6 +1578,7 @@ editForm: any = {
       .el-textarea__inner{
         height: 100px;
         border:1px solid #0e579c;
+        resize: none;
       }
     }
     .editform-box:nth-child(8),

@@ -186,7 +186,7 @@ export default {
     Savedsuccess: 'Saved successfully',
     SubmitOrder: 'Submit Order',
     CustomerCodeName: 'Please enter Chinese, English and numbers, including underscores',
-    Result: 'Range: -20.00D to 20.00D (the decimal point must contain two decimal places, and 0.25D is the first level)',
+    Result: 'Range: -20.00D to +20.00D (the decimal point must contain two decimal places, and 0.25D is the first level)',
     Cornea: 'Range: 36.00D to 48.00D (the decimal point must contain two decimal places, and 0.01 is the first level)',
     LensDiameter: 'Range: 8.80 to 11.50 (the decimal point must contain two decimal places, and 0.10mm is the first level)'
   },
@@ -529,12 +529,13 @@ export default {
     PriceHL: 'Price from high to low',
     PriceLH: 'Price from low  to high',
     Thatsall: 'That is all',
-    Choices: 'Your choices',
-    LookFor: 'Look for a right lens',
+    Choices: 'Recommended products',
+    LookFor: 'Custom made contact lenses for you',
     Shop: 'Shop',
-    DiscoverMore: 'Discover More',
+    DiscoverMore: 'Learn more',
     ReadMore: 'Read More',
-    Obtain: 'Get your tailor-made lens just by inputing your data'
+    Obtain: 'Just enter the parameters, DREIMLENS can customize your contact lenses for you',
+    MoreText: 'DREIMLENS aijianshi Co., Ltd., as an advanced breathable rigid contact lens factory, provides fast and high-quality contact lens customization services for ophthalmology and optometry professionals everywhere.'
   },
   Action: {
     ReturnHomePage: 'Return Homepage',

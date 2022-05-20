@@ -3,7 +3,7 @@
   <div class="headerBg">
       <div class="headerTop">
         <!-- logo开始 -->
-        <div class="logoBox" v-if="!showInFixed">
+        <div class="logoBox">
             <a href="/"><img src="/images/pc/Tailor-logo.png"></a>
         </div>
         <!-- logo结束 -->
@@ -262,24 +262,25 @@ export default class DefaultHeader extends Vue {
 // new css
 .header-layout {
  /deep/ .header_menu {
-   width: 1464px;
+   /* width: 1464px; */
+   width:1200px;
    margin: 30px auto 10px;
    > ul {
      display: flex;
      flex-direction: row;
      justify-content: space-between;
      align-items: center;
+     flex-wrap: nowrap;
      > li {
       /* float: left; */
       display: flex;
       align-items: center;
       position: relative;
       /* width: 14.28%; */
-      width:244px;
 
       > a {
         width: 100%;
-        font-size: 20px;
+        font-size: 16px;
         color: #000;
         display: block;
         text-align: center;

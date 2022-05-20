@@ -142,7 +142,7 @@ ul {
     }
   }
 .footermenuul li{
-  width: 115px;
+  /* width: 115px; */
   >a{
   font-weight: bold;
   color: #0059b4;

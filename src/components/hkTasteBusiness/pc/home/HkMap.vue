@@ -9,8 +9,8 @@
         </div>
         <div class="pc-information">
             <p class="shop_address">{{$t('HkMap.Address')}}</p>
-            <p class="shop_tel">852-2648-3338</p>
-            <p class="shop_fax">852-2648-7333</p>
+            <p class="shop_tel">+852 26372000</p>
+            <p class="shop_fax">+852 26374000</p>
             <p class="shop_email">hk@eandeoptics.com</p>
         </div>
     </div>
@@ -68,6 +68,9 @@ export default class InsMenu extends Vue {
     justify-content: space-between;
     align-items: center;
 }
+.footer-menu ul{
+  flex-wrap: nowrap;
+}
 .mapinformation{
     width: 1100px;
     margin:100px auto 50px auto;
@@ -99,6 +102,7 @@ export default class InsMenu extends Vue {
 }
 .shop_address{
     background: url(/images/pc/address.png) no-repeat left center;
+    width:344px!important;
 }
 .shop_tel{
     background: url(/images/pc/phone.png) no-repeat left center;

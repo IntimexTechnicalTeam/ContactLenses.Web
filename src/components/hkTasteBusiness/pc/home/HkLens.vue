@@ -9,7 +9,9 @@
           <span>{{$t('home.Obtain')}}</span>
           <button class="more" @click="MoreProduct()">{{$t('home.DiscoverMore')}}</button>
         </div>
-        <img src="/images/pc/lens.png" alt="" class="right-lens" />
+        <div class="right-lens-img">
+          <img src="/images/pc/lens.png" alt="" class="right-lens" />
+        </div>
       </div>
     </div>
     <div class="about" id="about">
@@ -30,12 +32,7 @@
       </div>
         </div>
         <div class="aboutInformation">
-          <p>
-            Welcome to Dreimlens Corporation Limited, an advanced Rigid Gas
-            Permeable Contact Lens Manufacturer, providing fast and high-quality
-            services for ophthalmic and Optometric professionals all over the
-            world.
-          </p>
+          <p>{{$t('home.MoreText')}}</p>
           <button class="more" @click="readMore()">{{$t('home.ReadMore')}}</button>
         </div>
       </div>
@@ -115,12 +112,16 @@ export default class HkPromotion extends Vue {
   align-items: center;
   margin-top: 50px;
 }
+.leftlens{
+  width:500px;
+}
 .leftlens span {
-  color: #0d579e;
-  width: 367px;
-  font-size: 30px;
-  line-height: 40px;
-  margin-bottom: 50px;
+  width: 379px;
+  color: #429bd7;
+  line-height: 35px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
 }
 .more {
   height: 40px;
@@ -129,9 +130,15 @@ export default class HkPromotion extends Vue {
   color: #fff;
   background: #0e579c;
   box-shadow: 5px 5px 8px #bdbdbd;
-  margin: 0 auto;
+  margin: 30px auto;
   border: none;
   display: block;
+}
+.right-lens-img{
+  width:600px;
+  img{
+    width:100%;
+  }
 }
 .about-swiper{
     width: 670px;

@@ -95,6 +95,7 @@
                     </div>
                   </div>
                   <span class="edit_title">{{$t('product.ToCustomise')}}</span>
+                  <div class="ToCustomiseBox"></div>
                   <!-- <div class="mobile-parameter_table">
                     <FormItem v-for="(item,index) in (one.LensAttrView)" :key="index" :label="item.AttrName">
                      <ElInput v-model="item.AttrValue" clearable="" @focus="inputFocus(item,index)" @blur="inputBlur(item,index)"></ElInput>
@@ -188,6 +189,9 @@
                     :placeholder="$t('DeliveryAddress.Area')"
                     style="width: 100%;"
                     v-on:change="selectCountry($event)"
+                    filterable
+                    clearable
+                    allow-create
                   >
                     <Option
                     :label="country.Name"
@@ -255,7 +259,7 @@
                </ElForm>
           </div>
         </div>
-          <div class="shoppingcart_total"><ElButton type="success" @click="submit"><span style="font-size:1.5rem;">{{ $t('Shoppingcart.Checkout') }}</span></ElButton></div>
+          <div class="shoppingcart_total"><ElButton type="success" @click="submit"><span style="font-size:1.5rem;">{{$t('Shoppingcart.SubmitOrder')}}</span></ElButton></div>
         </div>
     <!--main-content-->
   </div>
@@ -979,7 +983,6 @@ export default class InsShoppingcart extends Vue {
 .ShoppingCartItem_warpper{
     padding-top: 2rem;
     padding-bottom: 2rem;
-    border-bottom: 1px solid #eee;
     .merchant-box {
       display: flex;
       flex-direction: row;
@@ -1119,54 +1122,77 @@ export default class InsShoppingcart extends Vue {
     align-items: center;
 }
 .mobile_userAddress{
+  .choose{
+    font-size: 20px;
+    color:#0e579c;
+    font-weight: bold;
+    height: 2.5rem;
+    line-height: 2.5rem;
+  }
   .address{
     width: 98%;
     padding: 10px 1%;
     margin:20px auto;
-    box-shadow: 0 0 10px #efefef;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     .mobileAdd_info{
-      width:70%;
+      width:95%;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin:0 auto;
       .mobileChecked{
-        width:1rem;
-        height: 1rem;
+        width:2rem;
+        height: 2rem;
         border-radius: 50%;
-        box-shadow: 0 0 5px #c8c9ca;
+        border: 1px solid #0e579c;
       }
-      span{
-        font-size: 16px;
-        color: #000;
-        height: 30px;
-        line-height: 30px;
-      }
-    }
-    .active{
-      .mobileChecked{
-        background: #0e579c;
+      .mobileAddInfo{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        margin-left: 1rem;
+        span{
+          font-size: 16px;
+          color: #000;
+          line-height: 30px;
+          font-weight: bold;
+          background: url(/images/mobile/iov-required.png) left center no-repeat;
+          text-indent: 1rem;
+        }
+        span:nth-child(2){
+          background: none;
+        }
       }
     }
     .mobilebtnBox{
-      width:25%;
+      width:70%;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      flex-direction: row;
+      justify-content: space-between;
       align-items: center;
+      margin:0 auto;
       button{
         border:none;
         padding: 0.5rem 1rem;
         border-radius: 5px;
-        color:#0e579c;
+        color:#fff;
+        background: #0e579c;
       }
       button:nth-child(1){
         margin-bottom: 0.5rem;
       }
+    }
+  }
+  .active{
+    box-shadow: 0 0 10px #efefef;
+    .mobileChecked{
+      background: url(/images/mobile/choose.png) center center no-repeat;
+      background-size: 100%;
     }
   }
 }
@@ -1194,6 +1220,16 @@ export default class InsShoppingcart extends Vue {
     padding: 0 2rem;
     border-radius: 15px;
   }
+}
+.mobileNoAddress{
+  width: 90%;
+  margin:2rem auto;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color:#0e579c;
+  height: 2rem;
+  line-height: 2rem;
 }
 </style>
 <style lang="less">
@@ -1280,8 +1316,20 @@ export default class InsShoppingcart extends Vue {
     .item-name{
       width: 54%;
     }
+    .item-code{
+      margin-right: 1rem;
+      display: none;
+    }
     .el-input__inner{
       border:2px solid #0e579c;
+      padding: 0;
+      padding: 0 0.5rem;
+    }
+    .el-input__suffix{
+      display: none;
+    }
+    .mobiletest{
+      color:#d92526;
     }
   }
   .mobileInput{
@@ -1299,16 +1347,56 @@ export default class InsShoppingcart extends Vue {
   .mobileTips{
     color:#d92526;
   }
+  .mobile-editform-box:nth-child(1),
+  .mobile-editform-box:nth-child(2),
+  .mobile-editform-box:nth-child(4),
+  .mobile-editform-box:nth-child(6){
+    .item-name{
+      background: url(/images/mobile/iov-required.png) left center no-repeat;
+      text-indent: 1rem;
+    }
+  }
   .mobile-editform-box:nth-child(2),
   .mobile-editform-box:nth-child(3),
   .mobile-editform-box:nth-child(4),
   .mobile-editform-box:nth-child(5){
-    width:45%;
+    width:50%;
     overflow: hidden;
-    .el-input--suffix{
-      width: 5rem;
-      .el-input__inner{
-        padding: 0 0.5rem;
+    .item-code{
+      display: block;
+    }
+    .el-input{
+      width:7rem;
+    }
+  }
+  .mobile-editform-box:nth-child(2),
+  .mobile-editform-box:nth-child(4){
+    .item-name{
+      width:7rem;
+    }
+    .el-input{
+      width:4rem;
+    }
+  }
+  .mobile-editform-box:nth-child(6){
+    .item-name{
+      width:12rem;
+    }
+    .el-input{
+      width:85%;
+    }
+  }
+  .mobile-editform-box:nth-child(7){
+    height:150px;
+    .mobileInput{
+      width:100%;
+      .item-name{
+        width:8rem;
+      }
+      .el-textarea__inner{
+        border:2px solid #0e579c;
+        height: 10rem;
+        resize: none;
       }
     }
   }
@@ -1320,21 +1408,15 @@ export default class InsShoppingcart extends Vue {
   .mobile-editform-box:nth-child(13),
   .mobile-editform-box:nth-child(14),
   .mobile-editform-box:nth-child(15),
-  .mobile-editform-box:nth-child(16){
-    
-  }
-  .mobile-editform-box:last-child{
-    .mobileInput{
-      width: 100%;
-    }
+  .mobile-editform-box:nth-child(16),
+  .mobile-editform-box:nth-child(17){
+    position: absolute;
+    left:3rem;
     .item-name{
-      width: 20%;
+      width: 10rem;
     }
-    .el-input__inner{
-      height: 8rem;
-      width: 100%;
-      overflow: scroll;
-      word-break: break-all;
+    .el-input{
+      width: 8rem;
     }
   }
   .mobile-editBtn_box{
@@ -1355,5 +1437,48 @@ export default class InsShoppingcart extends Vue {
       border-radius: 5px;
     }
   }
+  .mobile-editform-box:nth-child(8){
+    bottom:600px;
+  }
+  .mobile-editform-box:nth-child(9){
+    bottom:540px;
+  }
+  .mobile-editform-box:nth-child(10){
+    bottom:480px;
+  }
+  .mobile-editform-box:nth-child(11){
+    bottom:420px;
+  }
+  .mobile-editform-box:nth-child(12){
+    bottom:360px;
+  }
+  .mobile-editform-box:nth-child(13){
+    bottom:300px;
+  }
+  .mobile-editform-box:nth-child(14){
+    bottom:185px;
+  }
+  .mobile-editform-box:nth-child(15){
+    bottom:240px;
+  }
+  .mobile-editform-box:nth-child(16){
+    bottom:120px;
+  }
+  .mobile-editform-box:nth-child(17){
+    bottom:60px;
+  }
+  .ToCustomiseBox{
+    width:98%;
+    border:1px solid #0e579c;
+    padding: 3rem 0;
+    height: 560px;
+    margin:2rem auto;
+  }
+}
+.el-button--success{
+  background: #0e579c!important;
+  color:#fff!important;
+  border-radius: 25px!important;
+  border:none!important;
 }
 </style>

@@ -3,11 +3,15 @@
     <div class="liveBox_in">
         <!-- <div class="TitleBg"><div class="innerBox">{{$t('Cms.WhatNews')}}</div></div> -->
         <div class="videoBg">
-            <p v-html="videoContent.Body"></p>
+            <!-- <p v-html="videoContent.Body"></p> -->
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/7S4qFKeB2V8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
-        <div class="mapBg">
+        <div class="fbBg">
+          <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3D115809401129573%26id%3D115807627796417%26substory_index%3D0&show_text=true&width=500" width="500" height="534" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+        </div>
+        <!-- <div class="mapBg">
            <p v-html="fbContent.Body"></p>
-        </div>
+        </div> -->
     </div>
   </div>
 </template>
@@ -15,7 +19,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class PkLiveBox extends Vue {
-  videoContent:string='';
+  /* videoContent:string='';
   fbContent:string='';
   getVideoContent () {
     this.$Api.cms.getContentByDevice({ ContentId: 20294, IsMobile: true }).then(result => {
@@ -26,97 +30,33 @@ export default class PkLiveBox extends Vue {
     this.$Api.cms.getContentByDevice({ ContentId: 20299, IsMobile: true }).then(result => {
       this.fbContent = result.CMS;
     });
-  }
+  } */
   created () {
-    this.getVideoContent();
-    this.getFbContent();
+    // this.getVideoContent();
+    // this.getFbContent();
   }
   get lang () {
     return this.$Storage.get('locale');
   }
 }
 </script>
-<style  lang="less">
-.mobileVersion{
+<style scoped lang="less">
+.liveBox_in{
+  width: 90%;
+  margin: 30px auto;
+  overflow: hidden;
   .videoBg{
+    width: 100%;
+    margin-bottom: 3rem;
     iframe{
       width: 100%;
-      height: 20rem;
     }
-    img{
+  }
+  .fbBg{
+    width:100%;
+    iframe{
       width: 100%;
     }
   }
-  .mapBg{
-    img{
-      width: 100%;
-    }
-  }
-}
-</style>
-<style scoped lang="less">
-/*live*/
-.TitleBg{
-  width: 90%;
-  height: 5rem;
-  border:1px solid #4d4d4d;
-  margin: 0 auto;
-  padding: .5rem;
-  margin-bottom: 2rem;
-  .innerBox{
-    width: 100%;
-    height: 100%;
-    background:#4d4d4d;
-    color: #FFF;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    font-weight: 700;
-    font-family: 'Arial';
-  }
-}
-.liveBox {
-    width: 100%;
-    padding-bottom: 4.5rem;
-    background-size: 100% 100%;
-    .liveBox_in{
-    width: 90%;
-    margin: 0 auto;
-    padding-top:3rem;
-      // .mapBg{
-        // background: url('/images/mobile/mobileIndex_27.png') center center no-repeat;
-        // background-size: 100% 100%;
-        // display: inline-block;
-        // padding: 2.5rem;
-        // box-sizing: border-box;
-      // }
-      .videoBg{
-        margin-top: 2rem;
-        margin-bottom: 3rem;
-        background-size: 100% 100%;
-        display: inline-block;
-        padding: 2.5rem;
-        box-sizing: border-box;
-        img{
-          width: 100%;
-        }
-      }
-      .hotTitle{
-        width: 100%;
-        background: url('/images/mobile/mobileIndex_25.png') center 0 no-repeat;
-        height: 6rem;
-        margin: 0 auto;
-        background-size: contain;
-      }
-      .hotTitleE{
-        width: 100%;
-        background: url('/images/pc/whatnews.png') center 0 no-repeat;
-        height: 6rem;
-        margin: 0 auto;
-        background-size: contain;
-      }
-    }
-
 }
 </style>

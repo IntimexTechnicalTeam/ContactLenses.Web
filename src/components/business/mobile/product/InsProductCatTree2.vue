@@ -130,7 +130,7 @@ export default class InsProductCatTree extends Vue {
               font-size: 18px;
               color:#0e559c;
               display: block;
-              width: 100%;
+              /* width: 100%; */
               text-align: center;
               font-weight: bold;
               height:45px;

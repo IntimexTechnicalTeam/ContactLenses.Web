@@ -6,8 +6,8 @@
         </div>
         <div class="mobile-information">
             <p class="shop_address">{{$t('HkMap.Address')}}</p>
-            <p class="shop_tel">852-2648-3338</p>
-            <p class="shop_fax">852-2648-7333</p>
+            <p class="shop_tel">+852 26372000</p>
+            <p class="shop_fax">+852 26374000</p>
             <p class="shop_email">hk@eandeoptics.com</p>
         </div>
     </div>

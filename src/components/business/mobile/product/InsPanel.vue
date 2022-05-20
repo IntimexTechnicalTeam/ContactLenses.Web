@@ -10,12 +10,14 @@
         @input="changeAttr"
         @changePrice="AdditionalPrice"
       ></inSelect> -->
+      <span class="mobileMaterial">{{$t('product.Material')}}</span>
       <inSelect
         :items="panelDetail.LensMaterial"
         placeholder="请选择"
         v-model="MId"
         styla="padding: 0 10px;"
       ></inSelect>
+      <span class="mobileLensColor">{{$t('product.LensColor')}}</span>
       <colorSelect
         :items="colorList"
         v-model="LensColor"
@@ -45,7 +47,7 @@
       ></inButton>
     </div>
       <div class="in_panel_footer" v-else>
-        <button type="button" :disabled="SoldOutAttr" @click="click('addToCart')" class="CartBtn">{{$t('product.addToCart')}}</button>
+        <button type="button" :disabled="SoldOutAttr" @click="click('addToCart')" class="CartBtn">{{$t('product.ToCustomise')}}</button>
         <!-- <button type="button" :disabled="SoldOutAttr" @click="click('buy')" class="BuyBtn">{{$t('product.buy')}}</button> -->
     </div>
   </div>
@@ -492,5 +494,10 @@ export default class InsPanel extends Vue {
 }
 .in_panel_icon_warpper {
   margin-right: 1rem;
+}
+.mobileMaterial,.mobileLensColor{
+  color:#0e579c;
+  font-size: 16px;
+  font-weight: bold;
 }
 </style>

@@ -150,8 +150,8 @@ export default class InsBanner extends Vue {
 }
 .swiper-container-indexMain img {
   width: 100%;
-  height: 500px;
-  min-height: 28.7vw;
+  /* height: 100%; */
+  /* min-height: 28.7vw; */
 }
 .faker{
   width: 100vw;

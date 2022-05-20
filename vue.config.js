@@ -7,6 +7,8 @@ let param = getArgList();
 if (param === 'dev') {
   apiServer = 'http://contactlenses.api.dev.intimex.hk:84';
   AdminServer = 'http://contactlenses.admin.dev.in-store.hk:84';
+  /* apiServer = 'https://contactlenses.api.uat2.intimex.hk';
+  AdminServer = 'https://contactlenses.admin.uat2.intimex.hk'; */
 } else if (param === 'uat') {
   apiServer = 'https://contactlenses.api.uat2.intimex.hk';
   AdminServer = 'https://contactlenses.admin.uat2.intimex.hk';

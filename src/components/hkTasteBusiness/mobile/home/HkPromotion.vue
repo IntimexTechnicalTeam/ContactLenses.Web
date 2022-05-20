@@ -46,7 +46,7 @@
                   </div>
                 <p class="content">{{content3}}</p>
             </div> -->
-      <button class="btn btn-success">{{$t('home.Shop')}}</button>
+      <button class="btn btn-success" @click="ToProduct()">{{$t('home.Shop')}}</button>
     </div>
     <!-- 限时大平卖 -->
     <!-- <div class="SalesMain">
@@ -137,6 +137,9 @@ export default class HkPromotion extends Vue {
   }
   get lang() {
     return this.$Storage.get('locale');
+  }
+  ToProduct () {
+    this.$router.push('/product/cat/23');
   }
   created() {
     this.getHeaderBannerLst();
@@ -273,7 +276,6 @@ export default class HkPromotion extends Vue {
   }
 }
 .btn-success {
-  width: 80px;
   height: 40px;
   font-size: 20px;
   line-height: 40px;

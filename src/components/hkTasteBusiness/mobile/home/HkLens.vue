@@ -30,12 +30,7 @@
       </div>
         </div>
         <div class="aboutInformation">
-          <p>
-            Welcome to Dreimlens Corporation Limited, an advanced Rigid Gas
-            Permeable Contact Lens Manufacturer, providing fast and high-quality
-            services for ophthalmic and Optometric professionals all over the
-            world.
-          </p>
+          <p>{{$t('home.MoreText')}}</p>
           <button class="more" @click="readMore()">{{$t('home.ReadMore')}}</button>
         </div>
       </div>
@@ -114,10 +109,11 @@ export default class HkPromotion extends Vue {
 .lensBg,
 .aboutcontent {
 }
-.leftlens h2 {
+.leftlens span {
   color: #429cd8;
   font-size: 17px;
   margin:30px auto 50px auto;
+  font-weight: bold;
 }
 .lensBg img{
   width: 100%;
@@ -129,7 +125,7 @@ export default class HkPromotion extends Vue {
   color: #fff;
   background: #0e579c;
   box-shadow: 5px 5px 8px #bdbdbd;
-  margin: 0 auto 30px auto;
+  margin: 30px auto 30px auto;
   border: none;
   display: block;
 }
