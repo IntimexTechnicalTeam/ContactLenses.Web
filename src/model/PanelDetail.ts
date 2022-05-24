@@ -154,6 +154,13 @@ export default class PanelDetail {
   public set IsFavorite (v : boolean) {
     this._IsFavorite = v;
   }
+  private _IsMake : boolean;
+  public get IsMake () : boolean {
+    return this._IsMake;
+  }
+  public set IsMake (v : boolean) {
+    this._IsMake = v;
+  }
   private _Score : number;
   public get Score () : number {
     return this._Score;
@@ -198,7 +205,7 @@ export default class PanelDetail {
     this._Permission = v;
   }
   public button: Button[] = [];
-  constructor (sku:string, name:string, code:string, Permission:string, listPrice:number, salePrice:number, DefaultListPrice:number, DefaultSalePrice:number, _YoutubeLink:string, overView:string = '', attrList:ProductAttr[][] = [], _LensMaterial = [], extAttrList:ProductAttr[][] = [], productStatus:number = 3, currency:Currency = new Currency(), DefaultCurrency:Currency = new Currency(), _MaxPurQty:number = 0, _MinPurQty:number = 1, _CatId = 0, _CatalogTree = [], _IsFavorite:boolean = false, _Score:number = 0, _UnitInfo:object = {}, _SoldOutAttrComboList = [], _AttrComboImgList = []) {
+  constructor (sku:string, name:string, code:string, Permission:string, listPrice:number, salePrice:number, DefaultListPrice:number, DefaultSalePrice:number, _YoutubeLink:string, overView:string = '', attrList:ProductAttr[][] = [], _LensMaterial = [], extAttrList:ProductAttr[][] = [], productStatus:number = 3, currency:Currency = new Currency(), DefaultCurrency:Currency = new Currency(), _MaxPurQty:number = 0, _MinPurQty:number = 1, _CatId = 0, _CatalogTree = [], _IsFavorite:boolean = false, _IsMake:boolean, _Score:number = 0, _UnitInfo:object = {}, _SoldOutAttrComboList = [], _AttrComboImgList = []) {
     this._Name = name;
     this._Sku = sku;
     this._Code = code;
@@ -215,6 +222,7 @@ export default class PanelDetail {
     this._CatId = _CatId;
     this._CatalogTree = _CatalogTree;
     this._IsFavorite = _IsFavorite;
+    this._IsMake = _IsMake;
     this._Score = _Score;
     this._UnitInfo = _UnitInfo;
     this._YoutubeLink = _YoutubeLink;

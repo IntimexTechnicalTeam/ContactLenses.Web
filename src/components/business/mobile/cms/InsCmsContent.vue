@@ -60,6 +60,11 @@
       <img :src="OtherPageImg" v-show="OtherPageImg!==null" class="btlImg">
       <div class="mobile-news-text" v-html="content.Body"></div>
     </div>
+    <!-- 訂製指南頁面 -->
+    <div class="M-Cmsguide" v-if="NewcateId=='40117'">
+      <!-- <img :src="OtherPageImg" v-show="OtherPageImg!==null" class="btlImg"> -->
+      <div class="pc-customized-guide" v-html="content.Body"></div>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -534,6 +539,16 @@ export default class InsCmsContent extends Vue {
         font-size: 1.5rem;
       }
     }
+  }
+}
+.M-Cmsguide{
+  width: 90%;
+  margin:2rem auto;
+  p{
+    color:#0e579c;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 30px;
   }
 }
 </style>

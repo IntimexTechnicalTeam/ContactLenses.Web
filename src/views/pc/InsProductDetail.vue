@@ -112,6 +112,7 @@ export default class InsProductDetail extends Vue {
     that.ProductCode = that.$route.params.id ? that.$route.params.id : '0';
     // 获取产品详情数据
     that.$Api.product.GetProduct(that.pc).then((result) => {
+      console.log(result.PanelDetail.IsMake);
     if (result) {
       that.$nextTick(() => {
         document.title = result.PanelDetail.Name;
