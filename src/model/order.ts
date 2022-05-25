@@ -88,7 +88,8 @@ export class CreateOrder {
     PickupAddressPhone: string;
     PickupAddress: string;
     PickupCompanyName: string;
-    constructor (_AddressId:number, _ExpressId:string, _PaymentMethod:number, _DeliverType:string = 'D', _PickupDate:string = '', _PickupTime:string = '', _PickupPhone = '', _PickupName = '', _PromotionCode:string = '', _TimeRangeId:string = ' ', _DeliveryDate:string = '', _Remark:string = '', _ExpressPointId:string = '', _PickupAddress:string = '', _PickupAddressPhone:string = '', _PickupCompanyName:string = '', _Coupons:string[] = []) {
+    Items:string[];
+    constructor (_AddressId:number, _ExpressId:string, _PaymentMethod:number, _DeliverType:string = 'D', _PickupDate:string = '', _PickupTime:string = '', _PickupPhone = '', _PickupName = '', _PromotionCode:string = '', _TimeRangeId:string = ' ', _DeliveryDate:string = '', _Remark:string = '', _ExpressPointId:string = '', _PickupAddress:string = '', _PickupAddressPhone:string = '', _PickupCompanyName:string = '', _Coupons:string[] = [], _Items:string[] = []) {
       this.AddressId = _AddressId;
       this.ExpressId = _ExpressId;
       this.PaymentMethod = _PaymentMethod;
@@ -106,5 +107,6 @@ export class CreateOrder {
       this.PickupAddressPhone = _PickupAddressPhone;
       this.PickupAddress = _PickupAddress;
       this.PickupCompanyName = _PickupCompanyName;
+      this.Items = _Items;
     }
 }

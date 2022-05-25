@@ -164,7 +164,8 @@ export default {
     Reset: '重置',
     PleaseEnter: '請輸入',
     Material: '鏡片材料',
-    CustomisedContactlens: '訂製隱形眼鏡'
+    CustomisedContactlens: '訂製隱形眼鏡',
+    SelectMaterial: '請選擇鏡片材料'
   },
   Shoppingcart: {
     ShoppingcartTitle: '購物車',
@@ -174,7 +175,7 @@ export default {
     Price: '價格',
     Total: '商品總價',
     CheckoutList: '確認訂單',
-    /* Checkout: '安全結算', */
+    CheckoutA: '安全結算',
     Checkout: '創建訂單',
     goTOCart: '前往購物車',
     vat: '包含增值稅',

@@ -19,36 +19,10 @@
         </div>
         <!-- <p>{{content1}}</p> -->
       </div>
-      <!-- <div class="indexRecommendInner">
-           <div class="RecommendText">{{Title2}}</div>
-          <div class="RecommendBg">
-            <swiper :options="swiperOptionT1">
-              <swiperSlide v-for="(slide, index2) in banner2" :key="index2">
-                <router-link :to="slide.Url"><img :src="slide.Image" /></router-link>
-              </swiperSlide>
-            </swiper>
-        </div>
-        <p>{{content2}}</p>
-      </div>
-      <div class="indexRecommendInner">
-         <div class="RecommendText">{{Title3}}</div>
-        <div class="RecommendBg">
-            <swiper :options="swiperOptionT1">
-              <swiperSlide v-for="(slide, index3) in banner3" :key="index3">
-                <router-link :to="slide.Url"><img :src="slide.Image" /></router-link>
-              </swiperSlide>
-            </swiper>
-        </div>
-        <p>{{content3}}</p>
-      </div> -->
-      <!-- Shop -->
       <button class="btn btn-success" @click="ToProduct()">{{$t('home.Shop')}}</button>
     <!-- 商品推荐结束 -->
     <div class="clear"></div>
     <HkLens />
-    <!-- 限时平卖开始 -->
-    <!-- <HkHotProduct /> -->
-    <!-- 限时平卖结束 -->
   </div>
 </div>
 </template>
@@ -84,32 +58,6 @@ export default class HkPromotion extends Vue {
       prevEl: '.s1-prev'
     }
   };
-  /* swiperOptionT2: object = {
-    autoplay: {
-      disableOnInteraction: false
-    },
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true
-    },
-    navigation: {
-      nextEl: '.s2-next',
-      prevEl: '.s2-next'
-    }
-  };
-  swiperOptionT3: object = {
-    autoplay: {
-      disableOnInteraction: false
-    },
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true
-    },
-    navigation: {
-      nextEl: '.s3-next',
-      prevEl: '.s3-next'
-    }
-  }; */
   el:number=0;
   getHeaderBannerLst () {
     var _this = this;
@@ -118,16 +66,6 @@ export default class HkPromotion extends Vue {
       _this.Title1 = result.Promotion.Name;
       _this.content1 = result.Promotion._BannerList[0].Content;
     });
-    /* this.$Api.promotion.getPromotion('Home', 2).then(result => {
-      _this.banner2 = result.Promotion._BannerList;
-      _this.Title2 = result.Promotion.Name;
-      _this.content2 = result.Promotion._BannerList[0].Content;
-    });
-    this.$Api.promotion.getPromotion('Home', 3).then(result => {
-      _this.banner3 = result.Promotion._BannerList;
-      _this.Title3 = result.Promotion.Name;
-      _this.content3 = result.Promotion._BannerList[0].Content;
-    }); */
   }
   created () {
     this.getHeaderBannerLst();

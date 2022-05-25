@@ -190,6 +190,14 @@ export const pRoutes = [
           )
       },
       {
+        path: '/account/custom',
+        name: 'custom',
+        component: () =>
+          import(
+            /* webpackChunkName: "account" */ './views/pc/InsCustom.vue'
+          )
+      },
+      {
         path: '/account/shoppingcart',
         name: 'shoppingcart',
         component: () =>
@@ -555,6 +563,14 @@ export const mRoutes = [
         component: () =>
           import(
             /* webpackChunkName: "account" */ './components/business/mobile/account/InsAddComments.vue'
+          )
+      },
+      {
+        path: '/account/custom',
+        name: 'custom',
+        component: () =>
+          import(
+            /* webpackChunkName: "account" */ './views/mobile/InsCustom.vue'
           )
       },
       {

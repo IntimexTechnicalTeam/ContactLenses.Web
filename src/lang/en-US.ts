@@ -164,7 +164,8 @@ export default {
     Reset: 'Reset',
     PleaseEnter: 'Please enter',
     Material: 'Lens material',
-    CustomisedContactlens: 'Customised Contactlens'
+    CustomisedContactlens: 'Customised Contactlens',
+    SelectMaterial: 'Please Select Lens material'
   },
   Shoppingcart: {
     ShoppingcartTitle: 'Shopping Cart ',
@@ -174,6 +175,7 @@ export default {
     Price: 'Price',
     Total: 'Total',
     CheckoutList: 'Check Out',
+    CheckoutA: 'Check Out',
     Checkout: 'Check Out',
     goTOCart: 'To Shopping Cart',
     vat: 'Include VAT',

@@ -164,7 +164,8 @@ export default {
     Reset: '重置',
     PleaseEnter: '请输入',
     Material: '镜片材料',
-    CustomisedContactlens: '订制隐形眼镜'
+    CustomisedContactlens: '订制隐形眼镜',
+    SelectMaterial: '请选择镜片材料'
   },
   Shoppingcart: {
     ShoppingcartTitle: '购物车',
@@ -174,7 +175,7 @@ export default {
     Price: '价格',
     Total: '商品总价',
     CheckoutList: '确认订单',
-    /* Checkout: '安全结算', */
+    CheckoutA: '安全结算',
     Checkout: '创建订单',
     goTOCart: '前往购物车',
     vat: '包含增值税',

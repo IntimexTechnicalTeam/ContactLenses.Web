@@ -11,19 +11,21 @@
         @input="changeAttr"
         @changePrice="AdditionalPrice"
       ></inSelect> -->
-      <span class="material">{{$t('product.Material')}}</span>
-      <inSelect
-        :items="panelDetail.LensMaterial"
-        placeholder="请选择"
-        v-model="MId"
-        styla="padding: 0 10px;"
-      ></inSelect>
-      <span class="lensColor">{{$t('product.LensColor')}}</span>
-      <colorSelect
-        :items="colorList"
-        v-model="LensColor"
-        placeholder="请选择"
-      ></colorSelect>
+      <div style="width: 100%;" v-if="panelDetail.IsMake">
+        <span class="material">{{$t('product.Material')}}</span>
+        <inSelect
+          :items="panelDetail.LensMaterial"
+          placeholder="请选择"
+          v-model="MId"
+          styla="padding: 0 10px;"
+        ></inSelect>
+        <span class="lensColor">{{$t('product.LensColor')}}</span>
+        <colorSelect
+          :items="colorList"
+          v-model="LensColor"
+          placeholder="请选择"
+        ></colorSelect>
+      </div>
       <inNum  :label="$i18n.t('product.countTitle')" v-model="ProductInfor.Qty" :v="ProductInfor.Qty" size="middle" :min="panelDetail.MinPurQty" :max="panelDetail.MaxPurQty" styla="padding: 0 10px;"></inNum>
       <div class="in_panel_iconList">
         <div v-for="item in panelDetail.icons" :key="item.id" class="in_panel_icon_warpper">
@@ -31,27 +33,30 @@
         </div>
       </div>
     </div>
-    <!-- <div class="in_panel_footer">
-      <ElButton @click="click('addToCart')" class="actionBtn addToCart" :loading="Loading">{{$t('product.addToCart')}}</ElButton>
-      <ElButton @click="click('buy')" class="actionBtn buyNow" :loading="buyLoading">{{$t('product.buy')}}</ElButton>
-    </div> -->
-    <div class="in_panel_footer none-error" v-if="panelDetail.ProductStatus!==-1 && panelDetail.SoldOutAttrComboList.length===0">
-      <inButton
-        v-for="item in panelDetail.button"
-       :loading="(item.action === 'addToCart')?Loading:buyLoading"
-        :nama="$i18n.t('product.'+item.nama)"
-        :key="item.nama"
-        width="90%"
-        :type="(item.action === 'addToCart' || item.action === 'favorite' || item.action === 'buy') ? 'primary' : 'error'"
-        :action="item.action"
-        @click="click"
-      ></inButton>
+    <!-- 正常购买流程 -->
+    <div style="width: 100%;" v-if="!panelDetail.IsMake">
+        <div class="in_panel_footer" v-if="panelDetail.ProductStatus!==-1 && panelDetail.SoldOutAttrComboList.length===0">
+          <inButton
+            v-for="item in panelDetail.button"
+          :loading="(item.action === 'addToCart')?Loading:buyLoading"
+            :nama="$i18n.t('product.'+item.nama)"
+            :key="item.nama"
+            width="48%"
+            :type="(item.action === 'addToCart' || item.action === 'favorite' || item.action === 'buy') ? 'primary' : 'error'"
+            :action="item.action"
+            @click="Shopclick"
+          ></inButton>
+        </div>
+        <div class="in_panel_footer" v-else>
+            <button type="button" :disabled="SoldOutAttr" @click="Shopclick('addToCart')" class="CartBtn">{{$t('product.addToCart')}}</button>
+        </div>
     </div>
-    <div class="in_panel_footer none-error" v-else>
-        <button type="button" :disabled="SoldOutAttr" @click="click('addToCart')" class="CartBtn">{{$t('product.ToCustomise')}}</button>
-        <!-- <button type="button" :disabled="SoldOutAttr" @click="click('buy')" class="BuyBtn">{{$t('product.buy')}}</button> -->
+    <!-- 订制流程 -->
+    <div class="" v-else>
+      <div class="in_panel_footer none-error">
+        <button type="button" :disabled="SoldOutAttr" @click="Customclick()" class="CartBtn">{{$t('product.ToCustomise')}}</button>
+      </div>
     </div>
-    <!-- <inRecommend :Skus="ProductSku"></inRecommend> -->
   </div>
 </template>
 <script lang="ts">
@@ -95,7 +100,29 @@ export default class Panel extends Vue {
   get warpperStyle (): string {
     return 'width:' + this.width + ';height:' + this.height + ';';
   }
-    click (action: string) {
+  Customclick () {
+    if (this.$Storage.get('isLogin') === 0) {
+      Vue.prototype.$Confirm(this.$t('product.logouted'), this.$t('product.loginow'), () => { this.$Login(this.addFavorite); });
+    } else {
+      this.Loading = true;
+      if (this.MId !== '') {
+      this.$Api.shoppingCart.addItem(this.ProductSku, this.ProductInfor.Qty, this.ProductInfor.Attr1, this.ProductInfor.Attr2, this.ProductInfor.Attr3, this.MId, this.LensColor)
+          .then(
+            (result) => {
+              this.Loading = false;
+            }).then(() => {
+            this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
+          }).catch();
+      } else {
+        this.$message({
+                    message: this.$t('product.SelectMaterial') as string,
+                    type: 'error',
+                    customClass: 'messageboxNoraml'
+          });
+      }
+    }
+  }
+    Shopclick (action: string) {
     if (action) {
       if (this.$Storage.get('isLogin') === 0) {
         Vue.prototype.$Confirm(this.$t('product.logouted'), this.$t('product.loginow'), () => { this.$Login(this.addFavorite); });

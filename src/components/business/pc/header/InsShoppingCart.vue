@@ -38,9 +38,9 @@
           </tr>
           <tr v-for="(one, index) in shopCart.Items" :key="index">
             <td class="window-cart-pic"  style="display: block;text-align: center;">
-              <a href="/">
+              <router-link :to="'/product/detail/'+one.Product.Sku">
                 <img :src="one.Product.Img_M" />
-              </a>
+              </router-link>
               <p style="font-size:16px;">{{ one.Product.Name }}</p>
               <p v-if="one.AttrName1" class="attrList">
                 {{ one.AttrTypeName1 }}：{{ one.AttrName1 }}
@@ -71,7 +71,7 @@
           >
         </p>
         <p class="goToCart" @click="closeDialog">
-          <router-link to="/account/shoppingcart">{{
+          <router-link to="/account/custom">{{
             $t("Shoppingcart.Checkout")
           }}</router-link>
         </p>

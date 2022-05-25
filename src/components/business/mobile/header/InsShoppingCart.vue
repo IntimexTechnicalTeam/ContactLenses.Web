@@ -26,7 +26,7 @@
             </tr>
             <tr v-for="(one,index) in shopCart.Items" :key="index">
                 <td  class="window-cart-pic">
-                    <a href="/" style="text-align:left;display: block;"><img :src="one.Product.Img_M" /></a>
+                  <router-link :to="'/product/detail/'+one.Product.Sku" style="text-align:left;display: block;"><img :src="one.Product.Img_M" /></router-link>
                   <p style="font-size:1.2rem;text-align:left;">{{one.Product.Name}}</p>
                   <p v-if="one.AttrName1" class="attrList" style="text-align:left;">{{one.AttrTypeName1}}：{{one.AttrName1}}</p>
                   <p v-if="one.AttrName2" class="attrList" style="text-align:left;">{{one.AttrTypeName2}}：{{one.AttrName2}}</p>
@@ -38,7 +38,7 @@
             </tr>
         </table>
         <p class="cartSubtotal"><b>{{shopCart.DefaultCurrency.Code}} {{(shopCart.TotalAmount) | PriceFormat}}</b></p>
-        <p class="goToCart" @click="closeDialog"><router-link to="/account/shoppingcart">{{$t('Shoppingcart.Checkout')}}</router-link></p>
+        <p class="goToCart" @click="closeDialog"><router-link to="/account/custom">{{$t('Shoppingcart.Checkout')}}</router-link></p>
       </div>
       <div class="void-cart" v-else>
         <img src="@/assets/Images/void-cart.png" />

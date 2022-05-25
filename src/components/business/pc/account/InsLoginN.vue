@@ -123,6 +123,7 @@ export default class InsLoginN extends Vue {
                     _this.$store.dispatch('setLang', _this.lang[data.Language]);
                     _this.$Storage.set('locale', _this.lang[data.Language]);
                     _this.$store.dispatch('setMemberInfo', data);
+                    console.log(_this.$store.state.memberInfo, 'this.$store.state.memberInfo');
                     _this.getShopCart();
                     if (url) { window.location.href = (_this.$route.query.returnurl as string); } else { window.location.href = '/account/memberInfo'; }
                   } else {

@@ -4,9 +4,7 @@
     <div class="content-box">
       <div class="content">
         <HkPromotion />
-        <!-- <HkBranch /> -->
-        <HkLiveBox />
-        <!-- <HkMap /> -->
+        <!-- <HkLiveBox /> -->
       </div>
     </div>
   </div>
@@ -14,12 +12,10 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import api from '@/sdk/api/Api.ts';
 @Component({
   components: {
     HomeBanner: () => import(/* webpackChunkName: "home" */ '@/components/base/pc/InsBanner.vue'),
     HkPromotion: () => import(/* webpackChunkName: "home" */ '@/components/hkTasteBusiness/pc/home/HkPromotion.vue'),
-    HkBranch: () => import(/* webpackChunkName: "home" */ '@/components/hkTasteBusiness/pc/home/HkBranch.vue'),
     HkLiveBox: () => import(/* webpackChunkName: "home" */ '@/components/hkTasteBusiness/pc/home/HkLiveBox.vue')
   }
 })
@@ -33,29 +29,6 @@ export default class InsHome extends Vue {
       clickable: true
     }
   };
-  mounted () {
-    api
-      .getData(1, 1)
-      .then((res: any) => {
-        var _this = this;
-        this.$HiddenLayer();
-      })
-      .catch((err: any) => {
-        // 请求失败后的处理函数
-        console.log(err);
-      });
-  }
-  created () {
-    // let keywords = document.createElement('meta');
-    // keywords.setAttribute('name', 'keywords');
-    // keywords.setAttribute('content', require('../../sdk/common/SeoData').seoItem['home'].keyword);
-    // document.head.appendChild(keywords);
-    // let description = document.createElement('meta');
-    // description.setAttribute('name', 'description');
-    // description.setAttribute('content', require('../../sdk/common/SeoData').seoItem['home'].description);
-    // document.head.appendChild(description);
-    // document.dispatchEvent(new Event('render-event'));
-  }
 }
 </script>
 
