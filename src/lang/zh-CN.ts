@@ -184,7 +184,7 @@ export default {
     hide: '收起',
     NoneAddress: '請添加收貨地址',
     Login: '登入',
-    SaveError: '*必填信息未填寫',
+    SaveError: '*必填信息填寫錯誤',
     Savedsuccess: '保存成功',
     SubmitOrder: '提交訂單',
     CustomerCodeName: '請輸入中文、英文或數字(可包括下劃線)',

@@ -184,7 +184,7 @@ export default {
     hide: 'hide',
     NoneAddress: 'Please add the shipping address',
     Login: 'Login',
-    SaveError: '*Required information is not filled in',
+    SaveError: '*The required information is filled in incorrectly',
     Savedsuccess: 'Saved successfully',
     SubmitOrder: 'Submit Order',
     CustomerCodeName: 'Please enter Chinese, English and numbers, including underscores',
