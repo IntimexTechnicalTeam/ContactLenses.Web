@@ -192,6 +192,9 @@ export const pRoutes = [
       {
         path: '/account/custom',
         name: 'custom',
+        meta: {
+          requiresAuth: true // 是否进行登录验证
+        },
         component: () =>
           import(
             /* webpackChunkName: "account" */ './views/pc/InsCustom.vue'
@@ -568,6 +571,9 @@ export const mRoutes = [
       {
         path: '/account/custom',
         name: 'custom',
+        meta: {
+          requiresAuth: true // 是否进行登录验证
+        },
         component: () =>
           import(
             /* webpackChunkName: "account" */ './views/mobile/InsCustom.vue'

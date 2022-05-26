@@ -53,3 +53,6 @@ body {
 }
 /* 解决苹果手机按钮颜色与安卓机不一致的问题 */
 input[type=button], button { cursor: pointer; -webkit-appearance: none; }
+.messageboxNoraml {
+  z-index: 10000!important;
+}

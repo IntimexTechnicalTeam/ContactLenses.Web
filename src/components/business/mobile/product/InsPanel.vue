@@ -103,7 +103,7 @@ export default class InsPanel extends Vue {
   }
   Customclick () {
     if (this.$Storage.get('isLogin') === 0) {
-      Vue.prototype.$Confirm(this.$t('product.logouted'), this.$t('product.loginow'), () => { this.$Login(this.addFavorite); });
+      Vue.prototype.$Confirm(this.$t('product.logouted'), this.$t('product.loginow'), () => { this.$Login(this.Customclick); });
     } else {
       this.Loading = true;
       if (this.MId !== '') {
@@ -126,7 +126,7 @@ export default class InsPanel extends Vue {
     Shopclick (action: string) {
     if (action) {
       if (this.$Storage.get('isLogin') === 0) {
-        Vue.prototype.$Confirm(this.$t('product.logouted'), this.$t('product.loginow'), () => { this.$Login(this.addFavorite); });
+        Vue.prototype.$Confirm(this.$t('product.logouted'), this.$t('product.loginow'), () => { this.$Login(this.addCart); });
       } else if (this.$Storage.get('isLogin') === 1) {
         if (action === 'addToCart') {
         this.Loading = true;
@@ -164,8 +164,20 @@ export default class InsPanel extends Vue {
       Vue.prototype.$Confirm('action', Object.create(this.ProductInfor));
     }
   }
-  created () {
-
+  addCart () {
+      this.Loading = true;
+      this.$Api.shoppingCart.addItem(this.ProductSku, this.ProductInfor.Qty, this.ProductInfor.Attr1, this.ProductInfor.Attr2, this.ProductInfor.Attr3, this.MId, this.LensColor)
+        .then(
+          (result) => {
+            this.$message({
+              message: result.Message.Message as string,
+              type: 'success',
+              customClass: 'messageboxNoraml'
+            });
+            this.Loading = false;
+          }).then(() => {
+          this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
+        }).catch();
   }
   addFavorite () {
     let ps;

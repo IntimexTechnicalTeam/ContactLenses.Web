@@ -1243,9 +1243,8 @@ boxShow(index) {
           this.$router.push({ name: 'completeCheckout', params: { id: result.ReturnValue } });
           this.COloading = false;
         } else {
-          console.log(temp,'temptemptemptemptemptemptemptemptemp');
           this.FormSubmitCheck(temp);
-          // Vue.prototype.$Confirm('error', result.Message, () => { this.COloading = false; }, () => { this.COloading = false; });
+          document.body.scrollTop = document.documentElement.scrollTop = 0;
           }
       });
     }
@@ -1289,7 +1288,8 @@ boxShow(index) {
           Message({
             message: this.$t('Shoppingcart.SaveError') as string,
             type: 'error',
-            duration:3500
+            duration:3500,
+            customClass: 'messageboxNoraml'
           })
           var LatList=ItemsArr[i].LensExtAttrItem;
           var EditBox=document.querySelectorAll('.editform-box');

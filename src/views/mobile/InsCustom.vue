@@ -484,41 +484,10 @@ export default class InsShoppingcart extends Vue {
   }
 boxShow(index) {
     Vue.set(this.items[index], "boxshow", true);
-    if (!this.items[index].IsMake) {
-      var EditBox = document.querySelectorAll(".editform-box");
-      for (var i = 0; i < EditBox.length; i++) {
-        if (EditBox[i].id === "7") {
-          EditBox[7].className = "IsMakeNone";
-        }
-        if (EditBox[i].id === "8") {
-          EditBox[8].className = "IsMakeNone";
-        }
-        if (EditBox[i].id === "9") {
-          EditBox[9].className = "IsMakeNone";
-        }
-        if (EditBox[i].id === "10") {
-          EditBox[10].className = "IsMakeNone";
-        }
-        if (EditBox[i].id === "11") {
-          EditBox[11].className = "IsMakeNone";
-        }
-        if (EditBox[i].id === "12") {
-          EditBox[12].className = "IsMakeNone";
-        }
-        if (EditBox[i].id === "13") {
-          EditBox[13].className = "IsMakeNone";
-        }
-        if (EditBox[i].id === "14") {
-          EditBox[14].className = "IsMakeNone";
-        }
-        if (EditBox[i].id === "15") {
-          EditBox[15].className = "IsMakeNone";
-        }
-        if (EditBox[i].id === "16") {
-          EditBox[16].className = "IsMakeNone";
-        }
-      }
-    }
+      if (!this.items[index].IsMake) {
+            var Lt=this.items[index].LensExtAttrItem;
+            Lt.splice(7,10)
+          }
   }
   //鼠标点入
   inputFocus(item, index) {
@@ -586,6 +555,106 @@ boxShow(index) {
             testText.innerHTML = ''
           }
         }
+      }else if(EditBox[i].id === '7'){
+        if(item.Id === 'Power'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '8'){
+        if(item.Id === 'BC'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '9'){
+        if(item.Id === 'Diam'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '10'){
+        if(item.Id === 'OZ'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '11'){
+        if(item.Id === 'CT'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '12'){
+        if(item.Id === 'TwoCW'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '13'){
+        if(item.Id === 'ThreeCW'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '14'){
+        if(item.Id === 'FourCW'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '15'){
+        if(item.Id === 'FiveCW'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '16'){
+        if(item.Id === 'PCW'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
       }
     }
   }
@@ -630,9 +699,9 @@ boxShow(index) {
           }
         }
       }else if(EditBox[i].id === '3'){
-        var Rvalue=/^((3[6-9]|3[6-9].[0-9]{1,2})|(4[0-8]|4[0-7].[0-9]{1,2}))$/;
+        var Corvalue=/^((3[6-9]|3[6-9].[0-9]{1,2})|(4[0-8]|4[0-7].[0-9]{1,2}))$/;
         if(item.Id === 'CorneaLeft'){
-          if(item.Text === '' || Rvalue.test(text) === false){
+          if(item.Text === '' || Corvalue.test(text) === false){
             Vue.set(item,'testShow',true);
             testText.innerHTML = this.$t('Shoppingcart.Cornea') as string
           }else{
@@ -641,9 +710,9 @@ boxShow(index) {
           }
         }
       }else if(EditBox[i].id === '4'){
-        var Rvalue=/^((3[6-9]|3[6-9].[0-9]{1,2})|(4[0-8]|4[0-7].[0-9]{1,2}))$/;
+        var Corvalue=/^((3[6-9]|3[6-9].[0-9]{1,2})|(4[0-8]|4[0-7].[0-9]{1,2}))$/;
         if(item.Id === 'CorneaRight'){
-          if(item.Text === '' || Rvalue.test(text) === false){
+          if(item.Text === '' || Corvalue.test(text) === false){
             Vue.set(item,'testShow',true);
             testText.innerHTML = this.$t('Shoppingcart.Cornea') as string
           }else{
@@ -651,13 +720,112 @@ boxShow(index) {
             testText.innerHTML = ''
           }
         }
-      }
-      else if(EditBox[i].id === '5'){
-        var Rvalue=/^([8-9]|[8-9].[0-9]{2}|1[0-1]|1[0-1].[0-5]{2})$/;
+      }else if(EditBox[i].id === '5'){
+        var Lvalue=/^([8-9]|[8-9].[0-9]{2}|1[0-1]|1[0-1].[0-5]{2})$/;
         if(item.Id === 'LensDiameter'){
-          if(item.Text === '' || Rvalue.test(text) === false){
+          if(item.Text === '' || Lvalue.test(text) === false){
             Vue.set(item,'testShow',true);
             testText.innerHTML = this.$t('Shoppingcart.LensDiameter') as string
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '7'){
+        if(item.Id === 'Power'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '8'){
+        if(item.Id === 'BC'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '9'){
+        if(item.Id === 'Diam'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '10'){
+        if(item.Id === 'OZ'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '11'){
+        if(item.Id === 'CT'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '12'){
+        if(item.Id === 'TwoCW'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '13'){
+        if(item.Id === 'ThreeCW'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '14'){
+        if(item.Id === 'FourCW'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '15'){
+        if(item.Id === 'FiveCW'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
+          }else{
+            Vue.set(item,'testShow',false);
+            testText.innerHTML = ''
+          }
+        }
+      }else if(EditBox[i].id === '16'){
+        if(item.Id === 'PCW'){
+          if(item.Text === ''){
+            Vue.set(item,'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter') as string + item.MutiLang;
           }else{
             Vue.set(item,'testShow',false);
             testText.innerHTML = ''
@@ -674,136 +842,116 @@ boxShow(index) {
     }
     var EditBox=document.querySelectorAll('.mobile-editform-box');
     var Lat=this.items[index].LensExtAttrItem;
-    if(this.items[index].CorneaLeft === '' || this.items[index].CorneaRight === '' || this.items[index].CustomerCode === '' || this.items[index].LensDiameter === '' || this.items[index].ResultLeft === '' || this.items[index].ResultRight === '') {
-      Message({
-        message: this.$t('Shoppingcart.SaveError') as string,
-        type: 'error',
-        duration:3500
-      });
-      for(var i=0;i<EditBox.length;i++){
-        var testText=EditBox[i].getElementsByClassName('mobiletest')[0];
-        if(EditBox[i].id === '0'){
-          if(Lat[0].Text === ''){
-            Vue.set(Lat[0],'testShow',true);
-            testText.innerHTML = this.$t('Shoppingcart.CustomerCodeName') as string;
-          }
-        }
-        if(EditBox[i].id === '1'){
-          if(Lat[1].Text === ''){
-            Vue.set(Lat[1],'testShow',true);
-            testText.innerHTML = this.$t('Shoppingcart.Result') as string;
-          }
-        }
-        if(EditBox[i].id === '2'){
-          if(Lat[2].Text === ''){
-            Vue.set(Lat[2],'testShow',true);
-            testText.innerHTML = this.$t('Shoppingcart.Result') as string;
-          }
-        }
-        if(EditBox[i].id === '3'){
-          if(Lat[3].Text === ''){
-            Vue.set(Lat[3],'testShow',true);
-            testText.innerHTML = this.$t('Shoppingcart.Cornea') as string;
-          }
-        }
-        if(EditBox[i].id === '4'){
-          if(Lat[4].Text === ''){
-            Vue.set(Lat[4],'testShow',true);
-            testText.innerHTML = this.$t('Shoppingcart.Cornea') as string;
-          }
-        }
-        if(EditBox[i].id === '5'){
-          if(Lat[5].Text === ''){
-            Vue.set(Lat[5],'testShow',true);
-            testText.innerHTML = this.$t('Shoppingcart.LensDiameter') as string;
-          }
-        }
-      }
-    }else if(this.items[index].IsMake) {
-      if(this.items[index].Power === '' || this.items[index].BC === '' || this.items[index].Diam === '' || this.items[index].OZ === '' || this.items[index].CT === '' || this.items[index].TwoCW === '' || this.items[index].ThreeCW === '' || this.items[index].FourCW === '' || this.items[index].FiveCW === '' || this.items[index].PCW === '') {
+    var Cvalue= /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
+    var Rvalue=/^((?:-(?:([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20)))|([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20))$/;
+    var Corvalue=/^((3[6-9]|3[6-9].[0-9]{1,2})|(4[0-8]|4[0-7].[0-9]{1,2}))$/;
+    var Lvalue=/^([8-9]|[8-9].[0-9]{2}|1[0-1]|1[0-1].[0-5]{2})$/;
+    if(this.items[index].IsMake){
+      if(this.items[index].CorneaLeft === '' || !Cvalue.test(Lat[0].Text) || !Rvalue.test(Lat[1].Text) || !Rvalue.test(Lat[2].Text) || !Corvalue.test(Lat[3].Text) || !Corvalue.test(Lat[4].Text) || !Lvalue.test(Lat[5].Text) || this.items[index].CorneaRight === '' || this.items[index].CustomerCode === '' || this.items[index].LensDiameter === '' || this.items[index].ResultLeft === '' || this.items[index].ResultRight === '' || this.items[index].Power === '' || this.items[index].BC === '' || this.items[index].Diam === '' || this.items[index].OZ === '' || this.items[index].CT === '' || this.items[index].TwoCW === '' || this.items[index].ThreeCW === '' || this.items[index].FourCW === '' || this.items[index].FiveCW === '' || this.items[index].PCW === ''){
+          Message({
+          message: this.$t('Shoppingcart.SaveError') as string,
+          type: 'error',
+          duration:3500
+        });
         for(var i=0;i<EditBox.length;i++){
-        var testText=EditBox[i].getElementsByClassName('mobiletest')[0];
-        if(EditBox[i].id === '7'){
-          if(Lat[7].Text === ''){
-            Vue.set(Lat[7],'testShow',true);
-            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[7].MutiLang;
-          }else{
-            testText.innerHTML = ''
+          var testText=EditBox[i].getElementsByClassName('mobiletest')[0];
+          if(EditBox[i].id === '0'){
+            if(Lat[0].Text === ''){
+              Vue.set(Lat[0],'testShow',true);
+              testText.innerHTML = this.$t('Shoppingcart.CustomerCodeName') as string;
+            }
+          }
+          if(EditBox[i].id === '1'){
+            if(Lat[1].Text === ''){
+              Vue.set(Lat[1],'testShow',true);
+              testText.innerHTML = this.$t('Shoppingcart.Result') as string;
+            }
+          }
+          if(EditBox[i].id === '2'){
+            if(Lat[2].Text === ''){
+              Vue.set(Lat[2],'testShow',true);
+              testText.innerHTML = this.$t('Shoppingcart.Result') as string;
+            }
+          }
+          if(EditBox[i].id === '3'){
+            if(Lat[3].Text === ''){
+              Vue.set(Lat[3],'testShow',true);
+              testText.innerHTML = this.$t('Shoppingcart.Cornea') as string;
+            }
+          }
+          if(EditBox[i].id === '4'){
+            if(Lat[4].Text === ''){
+              Vue.set(Lat[4],'testShow',true);
+              testText.innerHTML = this.$t('Shoppingcart.Cornea') as string;
+            }
+          }
+          if(EditBox[i].id === '5'){
+            if(Lat[5].Text === ''){
+              Vue.set(Lat[5],'testShow',true);
+              testText.innerHTML = this.$t('Shoppingcart.LensDiameter') as string;
+            }
+          }
+          if(EditBox[i].id === '7'){
+            if(Lat[7].Text === ''){
+              Vue.set(Lat[7],'testShow',true);
+              testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[7].MutiLang as string;
+            }
+          }
+          if(EditBox[i].id === '8'){
+            if(Lat[8].Text === ''){
+              Vue.set(Lat[8],'testShow',true);
+              testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[8].MutiLang as string;
+            }
+          }
+          if(EditBox[i].id === '9'){
+            if(Lat[9].Text === ''){
+              Vue.set(Lat[9],'testShow',true);
+              testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[9].MutiLang as string;
+            }
+          }
+          if(EditBox[i].id === '10'){
+            if(Lat[10].Text === ''){
+              Vue.set(Lat[10],'testShow',true);
+              testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[10].MutiLang as string;
+            }
+          }
+          if(EditBox[i].id === '11'){
+            if(Lat[11].Text === ''){
+              Vue.set(Lat[11],'testShow',true);
+              testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[11].MutiLang as string;
+            }
+          }
+          if(EditBox[i].id === '12'){
+            if(Lat[12].Text === ''){
+              Vue.set(Lat[12],'testShow',true);
+              testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[12].MutiLang as string;
+            }
+          }
+          if(EditBox[i].id === '13'){
+            if(Lat[13].Text === ''){
+              Vue.set(Lat[13],'testShow',true);
+              testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[13].MutiLang as string;
+            }
+          }
+          if(EditBox[i].id === '14'){
+            if(Lat[14].Text === ''){
+              Vue.set(Lat[14],'testShow',true);
+              testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[14].MutiLang as string;
+            }
+          }
+          if(EditBox[i].id === '15'){
+            if(Lat[15].Text === ''){
+              Vue.set(Lat[15],'testShow',true);
+              testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[15].MutiLang as string;
+            }
+          }
+          if(EditBox[i].id === '16'){
+            if(Lat[16].Text === ''){
+              Vue.set(Lat[16],'testShow',true);
+              testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[16].MutiLang as string;
+            }
           }
         }
-        if(EditBox[i].id === '8'){
-          if(Lat[8].Text === ''){
-            Vue.set(Lat[8],'testShow',true);
-            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[8].MutiLang;
-          }else{
-            testText.innerHTML = ''
-          }
-        }
-        if(EditBox[i].id === '9'){
-          if(Lat[9].Text === ''){
-            Vue.set(Lat[9],'testShow',true);
-            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[9].MutiLang;
-          }else{
-            testText.innerHTML = ''
-          }
-        }
-        if(EditBox[i].id === '10'){
-          if(Lat[10].Text === ''){
-            Vue.set(Lat[10],'testShow',true);
-            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[10].MutiLang;
-          }else{
-            testText.innerHTML = ''
-          }
-        }
-        if(EditBox[i].id === '11'){
-          if(Lat[11].Text === ''){
-            Vue.set(Lat[11],'testShow',true);
-            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[11].MutiLang;
-          }else{
-            testText.innerHTML = ''
-          }
-        }
-        if(EditBox[i].id === '12'){
-          if(Lat[12].Text === ''){
-            Vue.set(Lat[12],'testShow',true);
-            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[12].MutiLang;
-          }else{
-            testText.innerHTML = ''
-          }
-        }
-        if(EditBox[i].id === '13'){
-          if(Lat[13].Text === ''){
-            Vue.set(Lat[13],'testShow',true);
-            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[13].MutiLang;
-          }else{
-            testText.innerHTML = ''
-          }
-        }
-        if(EditBox[i].id === '14'){
-          if(Lat[14].Text === ''){
-            Vue.set(Lat[14],'testShow',true);
-            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[14].MutiLang;
-          }else{
-            testText.innerHTML = ''
-          }
-        }
-        if(EditBox[i].id === '15'){
-          if(Lat[15].Text === ''){
-            Vue.set(Lat[15],'testShow',true);
-            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[15].MutiLang;
-          }else{
-            testText.innerHTML = ''
-          }
-        }
-        if(EditBox[i].id === '16'){
-          if(Lat[16].Text === ''){
-            Vue.set(Lat[16],'testShow',true);
-            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[16].MutiLang;
-          }else{
-            testText.innerHTML = ''
-          }
-        }
-      }
       }else{
         Message({
           message: this.$t('Shoppingcart.Savedsuccess') as string,
@@ -812,13 +960,60 @@ boxShow(index) {
         })
         Vue.set(this.items[index], 'boxshow', false);
       }
-    }else{
-      Message({
-        message: this.$t('Shoppingcart.Savedsuccess') as string,
-        type: 'success',
-        duration:3000
-      })
-      Vue.set(this.items[index], 'boxshow', false);
+    }else {
+      if(this.items[index].CorneaLeft === '' || !Cvalue.test(Lat[0].Text) || !Rvalue.test(Lat[1].Text) || !Rvalue.test(Lat[2].Text) || !Corvalue.test(Lat[3].Text) || !Corvalue.test(Lat[4].Text) || !Lvalue.test(Lat[5].Text) || this.items[index].CorneaRight === '' || this.items[index].CustomerCode === '' || this.items[index].LensDiameter === '' || this.items[index].ResultLeft === '' || this.items[index].ResultRight === ''){
+        Message({
+          message: this.$t('Shoppingcart.SaveError') as string,
+          type: 'error',
+          duration:3500
+        });
+        for(var i=0;i<EditBox.length;i++){
+          var testText=EditBox[i].getElementsByClassName('mobiletest')[0];
+          if(EditBox[i].id === '0'){
+            if(Lat[0].Text === ''){
+              Vue.set(Lat[0],'testShow',true);
+              testText.innerHTML = this.$t('Shoppingcart.CustomerCodeName') as string;
+            }
+          }
+          if(EditBox[i].id === '1'){
+            if(Lat[1].Text === ''){
+              Vue.set(Lat[1],'testShow',true);
+              testText.innerHTML = this.$t('Shoppingcart.Result') as string;
+            }
+          }
+          if(EditBox[i].id === '2'){
+            if(Lat[2].Text === ''){
+              Vue.set(Lat[2],'testShow',true);
+              testText.innerHTML = this.$t('Shoppingcart.Result') as string;
+            }
+          }
+          if(EditBox[i].id === '3'){
+            if(Lat[3].Text === ''){
+              Vue.set(Lat[3],'testShow',true);
+              testText.innerHTML = this.$t('Shoppingcart.Cornea') as string;
+            }
+          }
+          if(EditBox[i].id === '4'){
+            if(Lat[4].Text === ''){
+              Vue.set(Lat[4],'testShow',true);
+              testText.innerHTML = this.$t('Shoppingcart.Cornea') as string;
+            }
+          }
+          if(EditBox[i].id === '5'){
+            if(Lat[5].Text === ''){
+              Vue.set(Lat[5],'testShow',true);
+              testText.innerHTML = this.$t('Shoppingcart.LensDiameter') as string;
+            }
+          }
+        }
+      }else{
+        Message({
+          message: this.$t('Shoppingcart.Savedsuccess') as string,
+          type: 'success',
+          duration:3000
+        })
+        Vue.set(this.items[index], 'boxshow', false);
+      }
     }
   }
   Reset (index) {
@@ -997,7 +1192,6 @@ boxShow(index) {
         AddressId: this.editForm.AddressId,
         Items: this.items
       };
-      console.log(order,'66666666666666666666666');
       // （新）順豐自提點判斷處理
       if (this.$store.state.newSF) {
         // order.DeliveryType = 'P';
@@ -1020,9 +1214,8 @@ boxShow(index) {
           this.$router.push({ name: 'completeCheckout', params: { id: result.ReturnValue } });
           this.COloading = false;
         } else {
-          console.log(temp,'temptemptemptemptemptemptemptemptemp');
           this.FormSubmitCheck(temp);
-          // Vue.prototype.$Confirm('error', result.Message, () => { this.COloading = false; }, () => { this.COloading = false; });
+          document.body.scrollTop = document.documentElement.scrollTop = 0;
           }
       });
     }
@@ -1066,7 +1259,8 @@ boxShow(index) {
           Message({
             message: this.$t('Shoppingcart.SaveError') as string,
             type: 'error',
-            duration:3500
+            duration:3500,
+            customClass: 'messageboxNoraml'
           })
           var LatList=ItemsArr[i].LensExtAttrItem;
           var EditBox=document.querySelectorAll('.mobile-editform-box');
@@ -1075,56 +1269,79 @@ boxShow(index) {
             for(var z=0;z<EditBox.length;z++){
                 var testText=EditBox[z].getElementsByClassName('mobiletest')[0];
                 if (ItemsArr[i].IsMake) {
-                  if(LatList[7].Text === ''){
-                    Vue.set(LatList[7],'testShow',true);
-                    testText.innerHTML = this.$t('product.PleaseEnter') + LatList[7].MutiLang as string;
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '7'){
+                    if(LatList[7].Text === ''){
+                      Vue.set(LatList[7],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[7].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
-                  if(LatList[8].Text === ''){
-                    Vue.set(LatList[8],'testShow',true);
-                    testText.innerHTML = this.$t('product.PleaseEnter') + LatList[8].MutiLang as string;
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '8'){
+                    if(LatList[8].Text === ''){
+                      Vue.set(LatList[8],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[8].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
-                  if(LatList[9].Text === ''){
-                    Vue.set(LatList[9],'testShow',true);
-                    testText.innerHTML = this.$t('product.PleaseEnter') + LatList[9].MutiLang as string;
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '9'){
+                    if(LatList[9].Text === ''){
+                      Vue.set(LatList[9],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[9].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
-                  if(LatList[10].Text === ''){
-                    Vue.set(LatList[10],'testShow',true);
-                    testText.innerHTML = this.$t('product.PleaseEnter') + LatList[10].MutiLang as string;
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '10'){
+                    if(LatList[10].Text === ''){
+                      Vue.set(LatList[10],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[10].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
-                  if(LatList[11].Text === ''){
-                    Vue.set(LatList[11],'testShow',true);
-                    testText.innerHTML = this.$t('product.PleaseEnter') + LatList[11].MutiLang as string;
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '11'){
+                    if(LatList[11].Text === ''){
+                      Vue.set(LatList[11],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[11].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
-                  if(LatList[12].Text === ''){
-                    Vue.set(LatList[12],'testShow',true);
-                    testText.innerHTML = this.$t('product.PleaseEnter') + LatList[12].MutiLang as string;
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '12'){
+                    if(LatList[12].Text === ''){
+                      Vue.set(LatList[12],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[12].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
-                  if(LatList[13].Text === ''){
-                    Vue.set(LatList[13],'testShow',true);
-                    testText.innerHTML = this.$t('product.PleaseEnter') + LatList[13].MutiLang as string;
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '13'){
+                    if(LatList[13].Text === ''){
+                      Vue.set(LatList[13],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[13].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
-                  if(LatList[14].Text === ''){
-                    Vue.set(LatList[14],'testShow',true);
-                    testText.innerHTML = this.$t('product.PleaseEnter') + LatList[14].MutiLang as string;
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '14'){
+                    if(LatList[14].Text === ''){
+                      Vue.set(LatList[14],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[14].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
-                  if(LatList[15].Text === ''){
-                    Vue.set(LatList[15],'testShow',true);
-                    testText.innerHTML = this.$t('product.PleaseEnter') + LatList[15].MutiLang as string;
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '15'){
+                    if(LatList[15].Text === ''){
+                      Vue.set(LatList[15],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[15].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
-                  if(LatList[16].Text === ''){
-                    Vue.set(LatList[16],'testShow',true);
-                    testText.innerHTML = this.$t('product.PleaseEnter') + LatList[16].MutiLang as string;
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '16'){
+                    if(LatList[16].Text === ''){
+                      Vue.set(LatList[16],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[16].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
+                }else{
+                  var Cr=ItemsArr[i].LensExtAttrItem;
+                  Cr.splice(7,10)
                 }
                 if(EditBox[z].id === '0'){
                   if(LatList[0].Text === ''){
@@ -1196,6 +1413,9 @@ boxShow(index) {
 }
 </style>
 <style scoped lang='less'>
+.customized{
+  display: none;
+}
 /deep/ .el-radio {
   display: flex;
   align-items: center;
@@ -1566,6 +1786,7 @@ boxShow(index) {
     }
     .mobiletest{
       color:#d92526;
+      margin-top: -20px;
     }
   }
   .mobileInput{
@@ -1650,6 +1871,8 @@ boxShow(index) {
     left:3rem;
     .item-name{
       width: 10rem;
+      background: url(/images/mobile/iov-required.png) left center no-repeat;
+      text-indent:1rem;
     }
     .el-input{
       width: 8rem;

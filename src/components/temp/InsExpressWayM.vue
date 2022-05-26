@@ -778,7 +778,6 @@ export default class InsExpressWay extends Vue {
     padding: 0 20px;
 }
 .expressWay_Warpper{
-  width: 100vw;
   border: 1px solid rgba(0, 0, 0, .1);
   margin-bottom: 3rem;
   .expressWay_title{
