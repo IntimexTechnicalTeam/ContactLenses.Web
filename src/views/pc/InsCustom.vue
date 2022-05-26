@@ -1803,7 +1803,7 @@ boxShow(index) {
       top:401px;
       left: 1px;
       .item-name{
-        background: none;
+        /* background: none; */
         width: 80px;
         text-align: right;
       }
