@@ -1073,56 +1073,79 @@ boxShow(index) {
             for(var z=0;z<EditBox.length;z++){
                 var testText=EditBox[z].getElementsByClassName('testInput')[0];
                 if (ItemsArr[i].IsMake) {
-                  if(LatList[7].Text === ''){
-                    Vue.set(LatList[7],'testShow',true);
-                    testText.innerHTML = 'Power' ;
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '7'){
+                    if(LatList[7].Text === ''){
+                      Vue.set(LatList[7],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[7].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
-                  if(LatList[8].Text === ''){
-                    Vue.set(LatList[8],'testShow',true);
-                    testText.innerHTML = 'BC';
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '8'){
+                    if(LatList[8].Text === ''){
+                      Vue.set(LatList[8],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[8].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
-                  if(LatList[9].Text === ''){
-                    Vue.set(LatList[9],'testShow',true);
-                    testText.innerHTML = this.$t('product.PleaseEnter') as string;
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '9'){
+                    if(LatList[9].Text === ''){
+                      Vue.set(LatList[9],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[9].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
-                  if(LatList[10].Text === ''){
-                    Vue.set(LatList[10],'testShow',true);
-                    testText.innerHTML = this.$t('product.PleaseEnter') as string;
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '10'){
+                    if(LatList[10].Text === ''){
+                      Vue.set(LatList[10],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[10].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
-                  if(LatList[11].Text === ''){
-                    Vue.set(LatList[11],'testShow',true);
-                    testText.innerHTML = this.$t('product.PleaseEnter') as string;
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '11'){
+                    if(LatList[11].Text === ''){
+                      Vue.set(LatList[11],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[11].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
-                  if(LatList[12].Text === ''){
-                    Vue.set(LatList[12],'testShow',true);
-                    testText.innerHTML = this.$t('product.PleaseEnter') as string;
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '12'){
+                    if(LatList[12].Text === ''){
+                      Vue.set(LatList[12],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[12].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
-                  if(LatList[13].Text === ''){
-                    Vue.set(LatList[13],'testShow',true);
-                    testText.innerHTML = this.$t('product.PleaseEnter') as string;
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '13'){
+                    if(LatList[13].Text === ''){
+                      Vue.set(LatList[13],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[13].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
-                  if(LatList[14].Text === ''){
-                    Vue.set(LatList[14],'testShow',true);
-                    testText.innerHTML = this.$t('product.PleaseEnter') as string;
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '14'){
+                    if(LatList[14].Text === ''){
+                      Vue.set(LatList[14],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[14].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
-                  if(LatList[15].Text === ''){
-                    Vue.set(LatList[15],'testShow',true);
-                    testText.innerHTML = this.$t('product.PleaseEnter') as string;
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '15'){
+                    if(LatList[15].Text === ''){
+                      Vue.set(LatList[15],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[15].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
-                  if(LatList[16].Text === ''){
-                    Vue.set(LatList[16],'testShow',true);
-                    testText.innerHTML = this.$t('product.PleaseEnter') as string;
-                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  if(EditBox[z].id === '16'){
+                    if(LatList[16].Text === ''){
+                      Vue.set(LatList[16],'testShow',true);
+                      testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[16].MutiLang;
+                      Vue.set(ItemsArr[i], 'boxshow', true);
+                    }
                   }
+                }else{
+                  var Cr=ItemsArr[i].LensExtAttrItem;
+                  Cr.splice(7,10)
                 }
                 if(EditBox[z].id === '0'){
                   if(LatList[0].Text === ''){
