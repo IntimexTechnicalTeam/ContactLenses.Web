@@ -513,12 +513,10 @@ export default class InsShoppingcart extends Vue {
   }
 boxShow(index) {
     Vue.set(this.items[index], "boxshow", true);
-    if (!this.items[index].IsMake) {
       if (!this.items[index].IsMake) {
             var Lt=this.items[index].LensExtAttrItem;
             Lt.splice(7,10)
           }
-    }
   }
   //鼠标点入
   inputFocus(item, index) {
