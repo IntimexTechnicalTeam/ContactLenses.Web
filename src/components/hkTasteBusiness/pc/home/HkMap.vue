@@ -35,23 +35,6 @@ export default class InsMenu extends Vue {
         return this.$store.state.footerMenus;
       }
     }
-
-    mounted () {
-      var _this = this;
-      // api
-      //   .getMenuData(2)
-      //   .then((res: any) => {
-      //     this.NavData = res.data.requestDetail;
-      //     this.$store.dispatch('setMenuData', this.NavData);
-      //     console.log(res, '请求返回数据');
-      //   })
-      //   .catch((err: any) => {
-      //   // 请求失败后的处理函数
-      //     console.log(err);
-      //   });
-
-      // this.$store.dispatch('setMenuData', this.NavData);
-    }
 }
 </script>
 <style scoped lang="less">

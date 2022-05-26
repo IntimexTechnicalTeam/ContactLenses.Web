@@ -119,8 +119,8 @@
                      <span class="tips" v-show="one.LensAttrView[index].tipShow">{{$t('product.PleaseEnter')}}{{item.AttrName}}</span>
                     </FormItem>
                   </div> -->
-                  <span class="edit_title">{{$t('product.ToCustomise')}}</span>
-                  <div class="toCustomise"></div>
+                  <span class="edit_title"  :class="one.IsMake === false ? 'customized' : '' ">{{$t('product.ToCustomise')}}</span>
+                  <div class="toCustomise" :class="one.IsMake === false ? 'customized' : '' "></div>
                   <div class="edit_btn_box">
                     <b class="btn saveBtn" @click="saveItem(one,index)">{{$t('product.Save')}}</b>
                     <b class="btn canelBtn" @click="Reset(index)">{{$t('product.Reset')}}</b>
@@ -131,142 +131,6 @@
             </div>
           </div>
         </div>
-        <!-- <div class="userAddress" v-show="addressList.length">
-          <span class="choose">{{$t('DeliveryAddress.ChooseAddress')}}</span>
-          <div class="address" :class="activeIndex === index ? 'active' : ''"  v-for="(item, index) in addressList" :key="index">
-            <div class="information-box" @click="changeList(index)">
-              <div class="checked"></div>
-                <div class="addInfo">
-                  <span>{{$t('CheckOut.Name')}}：{{item.LastName}}{{item.FirstName}}</span>
-                  <span>{{$t('DeliveryAddress.PostalCode')}}：{{item.PostalCode}}</span>
-                  <span>{{$t('CheckOut.Phone')}}：{{item.Mobile}}</span>
-                  <span>{{$t('CheckOut.Province')}}：{{item.ProvinceName}}</span>
-                  <span>{{$t('CheckOut.Address')}}：{{item.Address}}</span>
-                </div>
-            </div>
-            <div class="btnBox">
-              <button class="cart-delete" @click="removeAddr(item.DeliveryId)">{{$t('product.Delete')}}</button>
-              <button class="edit" @click="editAddr(index)">{{$t('product.EditDetails')}}</button>
-            </div>
-          </div>
-        </div>
-        <div class="noAddress" v-show="!addressList.length">{{$t('DeliveryAddress.NoAddress')}}</div>
-        <div class="addAddress">
-            <button class="clickAdd" @click="addClick()">{{$t('DeliveryAddress.AddAddress')}}</button>
-          </div> -->
-        <!-- <div class="addAddress" v-if="addAddress">
-          <span class="noAddress">{{$t('DeliveryAddress.AddDeliveryAddress')}}</span>
-          <button class="clickAdd" @click="addClick()">{{$t('DeliveryAddress.AddDeliveryAddress')}}</button>
-        </div> -->
-        <!-- <div class="AddAddress-box" v-show="AddrShow">
-          <div  class="MemberInfoMain">
-                <ElForm
-                  :model="AddForm"
-                  status-icon
-                  :rules="newaddress"
-                  ref="AddForm"
-                  class="login-form"
-                >
-                <input type="hidden" id="editDeliveryId" runat="server" />
-                <FormItem :label="$t('DeliveryAddress.AddFirstName')" prop="FirstName">
-                  <ElInput
-                    v-model="AddForm.FirstName"
-                    prefix-icon="el-icon-user"
-                    :placeholder="$t('DeliveryAddress.AddFirstName')"
-                    clearable
-                  ></ElInput>
-                </FormItem>
-
-                 <FormItem :label="$t('DeliveryAddress.AddLastName')" prop="LastName">
-                  <ElInput
-                    v-model="AddForm.LastName"
-                    prefix-icon="el-icon-user"
-                    :placeholder="$t('DeliveryAddress.AddLastName')"
-                    clearable
-                  ></ElInput>
-                </FormItem>
-
-                <FormItem :label="$t('DeliveryAddress.PostalCode')" prop="PostalCode">
-                  <ElInput
-                    v-model="AddForm.PostalCode"
-                    prefix-icon="el-icon-tickets"
-                    :placeholder="$t('DeliveryAddress.PostalCode')"
-                    clearable
-                  ></ElInput>
-                </FormItem>
-                <FormItem :label="$t('DeliveryAddress.Mobile')" prop="Mobile">
-                  <ElInput
-                    v-model="AddForm.Mobile"
-                    prefix-icon="el-icon-phone"
-                    :placeholder="$t('DeliveryAddress.Mobile')"
-                    clearable
-                  ></ElInput>
-                </FormItem>
-                <FormItem :label="$t('DeliveryAddress.Area')" prop="CountryId">
-                  <Select
-                    v-model="AddForm.CountryId"
-                     value-key="Id"
-                    :placeholder="$t('DeliveryAddress.Area')"
-                    style="width: 100%;"
-                    v-on:change="selectCountry($event)"
-                    filterable
-                    clearable
-                    allow-create
-                  >
-                    <Option
-                    :label="country.Name"
-                    v-for="(country,index) in countryList"
-                    :key="index"
-                     v-bind:value="(country.Id).toString()"
-                    ></Option>
-
-                  </Select>
-                </FormItem>
-                <div v-show="provinceList.length>0">
-                  <FormItem :label="$t('DeliveryAddress.Province')" prop="Province">
-                    <Select
-                      v-model="AddForm.Province"
-                      :placeholder="$t('DeliveryAddress.Province')"
-                      style="width: 100%;"
-                      value-key="Id"
-                    >
-                      <Option
-                      v-bind:value="(province.Id).toString()"
-                      v-for="(province,index) in provinceList"
-                      :label="province.Name"
-                      :key="index"
-                      ></Option>
-
-                    </Select>
-                </FormItem>
-                </div>
-                  <FormItem :label="$t('DeliveryAddress.Address')" prop="Address">
-                  <ElInput
-                    v-model="AddForm.Address"
-                    prefix-icon="el-icon-location-outline"
-                    :placeholder="$t('DeliveryAddress.Address')"
-                    clearable
-                  ></ElInput>
-                </FormItem>
-                 <div class="bottomBtn">
-                   <FormItem>
-                    <ElButton
-                      type="primary"
-                      @click="saveAddress('AddForm')"
-                      style="margin-top: 10px;"
-                    >{{$t('DeliveryAddress.SaveBtn')}}</ElButton>
-                  </FormItem>
-                  <FormItem>
-                    <ElButton
-                      type="primary"
-                      @click="Cancel()"
-                      style="margin-top: 10px;"
-                    >{{$t('Message.Cancel')}}</ElButton>
-                  </FormItem>
-                 </div>
-               </ElForm>
-          </div>
-        </div> -->
         <InsExpressWay
             @expressError="express=false" @express="express=true" @PickAddressError="PickAddress = false" @PickAddress="PickAddress = true"
             :checkouting="checkouting"
@@ -647,9 +511,14 @@ export default class InsShoppingcart extends Vue {
       this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
     });
   }
-  boxShow(index) {
-    Vue.set(this.items[index], 'boxshow', true);
-    // console.log(this.items[index])
+boxShow(index) {
+    Vue.set(this.items[index], "boxshow", true);
+    if (!this.items[index].IsMake) {
+      if (!this.items[index].IsMake) {
+            var Lt=this.items[index].LensExtAttrItem;
+            Lt.splice(7,10)
+          }
+    }
   }
   //鼠标点入
   inputFocus(item, index) {
@@ -803,14 +672,14 @@ export default class InsShoppingcart extends Vue {
     for (var i = 0; i < this.items[index].LensExtAttrItem.length; i++) {
       Vue.set(this.items[index], this.items[index].LensExtAttrItem[i].Id, this.items[index].LensExtAttrItem[i].Text);
     }
+    var EditBox=document.querySelectorAll('.editform-box');
+    var Lat=this.items[index].LensExtAttrItem;
     if(this.items[index].CorneaLeft === '' || this.items[index].CorneaRight === '' || this.items[index].CustomerCode === '' || this.items[index].LensDiameter === '' || this.items[index].ResultLeft === '' || this.items[index].ResultRight === '') {
       Message({
         message: this.$t('Shoppingcart.SaveError') as string,
         type: 'error',
         duration:3500
       });
-      var EditBox=document.querySelectorAll('.editform-box');
-      var Lat=this.items[index].LensExtAttrItem;
       for(var i=0;i<EditBox.length;i++){
         var testText=EditBox[i].getElementsByClassName('testInput')[0];
         if(EditBox[i].id === '0'){
@@ -850,25 +719,98 @@ export default class InsShoppingcart extends Vue {
           }
         }
       }
-      if (this.items[index].IsMake) {
-        console.log(this.items[index],'eggggggggggggg');
-        if(this.items[index].Power === '' || this.items[index].BC === '' || this.items[index].Diam === '' || this.items[index].OZ === '' || this.items[index].CT === '' || this.items[index].TwoCW === '' || this.items[index].ThreeCW
-        === '' || this.items[index].FourCW === '' || this.items[index].FiveCW === '' || this.items[index].PCW === ''){
-              Message({
-                message: this.$t('Shoppingcart.SaveError') as string,
-                type: 'error',
-                duration:3500
-              });
-                for(var y=0;y<Lat.length;y++){
-                  for(var z=0;z<EditBox.length;z++){
-                      console.log('3333333333')
-                      var testText=EditBox[z].getElementsByClassName('testInput')[0];
-                      testText.innerHTML = this.$t('product.PleaseEnter') as string;
-                      Vue.set(Lat[y],'testShow',true)
-                  }
-                }
+    }else if(this.items[index].IsMake) {
+      if(this.items[index].Power === '' || this.items[index].BC === '' || this.items[index].Diam === '' || this.items[index].OZ === '' || this.items[index].CT === '' || this.items[index].TwoCW === '' || this.items[index].ThreeCW === '' || this.items[index].FourCW === '' || this.items[index].FiveCW === '' || this.items[index].PCW === '') {
+        for(var i=0;i<EditBox.length;i++){
+        var testText=EditBox[i].getElementsByClassName('testInput')[0];
+        if(EditBox[i].id === '7'){
+          if(Lat[7].Text === ''){
+            Vue.set(Lat[7],'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[7].MutiLang as string;
+          }else{
+            testText.innerHTML = ''
+          }
         }
-
+        if(EditBox[i].id === '8'){
+          if(Lat[8].Text === ''){
+            Vue.set(Lat[8],'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[8].MutiLang as string;
+          }else{
+            testText.innerHTML = ''
+          }
+        }
+        if(EditBox[i].id === '9'){
+          if(Lat[9].Text === ''){
+            Vue.set(Lat[9],'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[9].MutiLang as string;
+          }else{
+            testText.innerHTML = ''
+          }
+        }
+        if(EditBox[i].id === '10'){
+          if(Lat[10].Text === ''){
+            Vue.set(Lat[10],'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[10].MutiLang as string;
+          }else{
+            testText.innerHTML = ''
+          }
+        }
+        if(EditBox[i].id === '11'){
+          if(Lat[11].Text === ''){
+            Vue.set(Lat[11],'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[11].MutiLang as string;
+          }else{
+            testText.innerHTML = ''
+          }
+        }
+        if(EditBox[i].id === '12'){
+          if(Lat[12].Text === ''){
+            Vue.set(Lat[12],'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[12].MutiLang as string;
+          }else{
+            testText.innerHTML = ''
+          }
+        }
+        if(EditBox[i].id === '13'){
+          if(Lat[13].Text === ''){
+            Vue.set(Lat[13],'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[13].MutiLang as string;
+          }else{
+            testText.innerHTML = ''
+          }
+        }
+        if(EditBox[i].id === '14'){
+          if(Lat[14].Text === ''){
+            Vue.set(Lat[14],'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[14].MutiLang as string;
+          }else{
+            testText.innerHTML = ''
+          }
+        }
+        if(EditBox[i].id === '15'){
+          if(Lat[15].Text === ''){
+            Vue.set(Lat[15],'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[15].MutiLang as string;
+          }else{
+            testText.innerHTML = ''
+          }
+        }
+        if(EditBox[i].id === '16'){
+          if(Lat[16].Text === ''){
+            Vue.set(Lat[16],'testShow',true);
+            testText.innerHTML = this.$t('product.PleaseEnter')  as string + Lat[16].MutiLang as string;
+          }else{
+            testText.innerHTML = ''
+          }
+        }
+      }
+      }else{
+        Message({
+          message: this.$t('Shoppingcart.Savedsuccess') as string,
+          type: 'success',
+          duration:3000
+        })
+        Vue.set(this.items[index], 'boxshow', false);
       }
     }else{
       Message({
@@ -1129,17 +1071,61 @@ export default class InsShoppingcart extends Vue {
           var LatList=ItemsArr[i].LensExtAttrItem;
           var EditBox=document.querySelectorAll('.editform-box');
           for(var y=0;y<LatList.length;y++){
-            console.log(ItemsArr[i],'ItemsArr[i]ItemsArr[i]ItemsArr[i]');
+            console.log(ItemsArr[i])
             for(var z=0;z<EditBox.length;z++){
-              if (ItemsArr[i].IsMake) {
-                  if(LatList[y].Text === ''){
-                    var testText=EditBox[z].getElementsByClassName('testInput')[0];
+                var testText=EditBox[z].getElementsByClassName('testInput')[0];
+                if (ItemsArr[i].IsMake) {
+                  if(LatList[7].Text === ''){
+                    Vue.set(LatList[7],'testShow',true);
+                    testText.innerHTML = 'Power' ;
+                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  }
+                  if(LatList[8].Text === ''){
+                    Vue.set(LatList[8],'testShow',true);
+                    testText.innerHTML = 'BC';
+                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  }
+                  if(LatList[9].Text === ''){
+                    Vue.set(LatList[9],'testShow',true);
                     testText.innerHTML = this.$t('product.PleaseEnter') as string;
-                    Vue.set(LatList[y],'testShow',true)
+                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  }
+                  if(LatList[10].Text === ''){
+                    Vue.set(LatList[10],'testShow',true);
+                    testText.innerHTML = this.$t('product.PleaseEnter') as string;
+                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  }
+                  if(LatList[11].Text === ''){
+                    Vue.set(LatList[11],'testShow',true);
+                    testText.innerHTML = this.$t('product.PleaseEnter') as string;
+                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  }
+                  if(LatList[12].Text === ''){
+                    Vue.set(LatList[12],'testShow',true);
+                    testText.innerHTML = this.$t('product.PleaseEnter') as string;
+                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  }
+                  if(LatList[13].Text === ''){
+                    Vue.set(LatList[13],'testShow',true);
+                    testText.innerHTML = this.$t('product.PleaseEnter') as string;
+                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  }
+                  if(LatList[14].Text === ''){
+                    Vue.set(LatList[14],'testShow',true);
+                    testText.innerHTML = this.$t('product.PleaseEnter') as string;
+                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  }
+                  if(LatList[15].Text === ''){
+                    Vue.set(LatList[15],'testShow',true);
+                    testText.innerHTML = this.$t('product.PleaseEnter') as string;
+                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  }
+                  if(LatList[16].Text === ''){
+                    Vue.set(LatList[16],'testShow',true);
+                    testText.innerHTML = this.$t('product.PleaseEnter') as string;
                     Vue.set(ItemsArr[i], 'boxshow', true);
                   }
                 }
-                var testText=EditBox[z].getElementsByClassName('testInput')[0];
                 if(EditBox[z].id === '0'){
                   if(LatList[0].Text === ''){
                     Vue.set(LatList[0],'testShow',true);
@@ -1186,27 +1172,6 @@ export default class InsShoppingcart extends Vue {
             }
           }
     }
-  // submit () {
-  //   let temp = {
-  //     AddressId: this.editForm.AddressId,
-  //     Items: this.items
-  //   };
-  //   if (this.editForm.AddressId === '') {
-  //     Message({
-  //       message: this.$t('Shoppingcart.NoneAddress') as string,
-  //       type: 'error',
-  //       duration: 3500
-  //     })
-  //   } else {
-  //     this.$Api.order.saveOrder(temp).then((result) => {
-  //       if (result.Succeeded) {
-  //         this.$router.push('/order/List');
-  //       } else {
-  //           this.FormSubmitCheck(temp);
-  //       }
-  //   });
-  //   }
-  // }
   LoadData () {
       this.$Api.shoppingCart.LoadData().then((result) => {
         this.currentCode = result.DefaultCurrency.Code;
@@ -1223,6 +1188,9 @@ export default class InsShoppingcart extends Vue {
 }
 </script>
 <style scoped lang='less'>
+  .customized{
+    display: none;
+  }
 /*我的最爱*/
   .disabled {
       pointer-events: none;
@@ -1892,6 +1860,9 @@ export default class InsShoppingcart extends Vue {
     .editform-box:nth-child(17){
       left:887px;
       top:461px;
+    }
+    .IsMakeNone {
+      display: none;
     }
   }
   .toCustomise{

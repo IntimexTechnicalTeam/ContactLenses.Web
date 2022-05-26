@@ -9,7 +9,7 @@
         </div>
         <div class="RecommendBg">
             <div class="s1-btn s1-next"> &#60; </div>
-            <swiper :options="swiperOptionT1">
+            <swiper :options="swiperOptionT1" v-if="banner1.length > 0">
               <!-- slides -->
                 <swiperSlide v-for="(slide, index1) in banner1" :key="index1" >
                   <router-link :to="slide.Url"><img :src="slide.Image" /></router-link>

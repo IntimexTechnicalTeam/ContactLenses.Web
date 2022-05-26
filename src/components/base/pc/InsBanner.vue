@@ -3,7 +3,7 @@
     <transition name="slide">
       <div key="1" v-if="!waiting" style="display:flex;">
         <div class="swiperbg">
-          <swiper :options="swiperOption" v-if="initSwiper">
+          <swiper :options="swiperOption" v-if="initSwiper && bannerList.length >0">
             <!-- slides -->
             <swiperSlide
               v-for="(slide, index) in bannerList"

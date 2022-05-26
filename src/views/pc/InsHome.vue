@@ -4,7 +4,7 @@
     <div class="content-box">
       <div class="content">
         <HkPromotion />
-        <!-- <HkLiveBox /> -->
+        <HkLiveBox />
       </div>
     </div>
   </div>

@@ -10,7 +10,7 @@
           <button class="more" @click="MoreProduct()">{{$t('home.DiscoverMore')}}</button>
         </div>
         <div class="right-lens-img">
-          <img src="/images/pc/lens.png" alt="" class="right-lens" />
+          <img src="/images/pc/lens.jpg" alt="" class="right-lens" />
         </div>
       </div>
     </div>
@@ -22,7 +22,7 @@
         <div class="about-swiper">
           <div class="indexRecommendInner">
           <div class="RecommendBg">
-            <swiper :options="swiperOptionT2">
+            <swiper :options="swiperOptionT2" v-if="banner2.length > 0">
               <swiperSlide v-for="(slide, index2) in banner2" :key="index2">
                 <router-link :to="slide.Url"><img :src="slide.Image" /></router-link>
               </swiperSlide>
