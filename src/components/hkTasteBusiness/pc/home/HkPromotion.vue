@@ -12,7 +12,7 @@
             <swiper :options="swiperOptionT1" v-if="banner1.length > 0">
               <!-- slides -->
                 <swiperSlide v-for="(slide, index1) in banner1" :key="index1" >
-                  <router-link :to="slide.Url"><img :src="slide.Image" /></router-link>
+                  <router-link :to="'/product/detail/'+slide.Sku"><img :src="slide.Img" /></router-link>
                 </swiperSlide>
             </swiper>
             <div class="s1-btn s1-prev"> &#62; </div>
@@ -62,7 +62,9 @@ export default class HkPromotion extends Vue {
   getHeaderBannerLst () {
     var _this = this;
     this.$Api.promotion.getPromotion('Home', 1).then(result => {
-      _this.banner1 = result.Promotion._BannerList;
+      // _this.banner1 = result.Promotion._BannerList;
+      _this.banner1 = result.Promotion._PrmtProductList;
+      console.log(result);
       _this.Title1 = result.Promotion.Name;
       _this.content1 = result.Promotion._BannerList[0].Content;
     });

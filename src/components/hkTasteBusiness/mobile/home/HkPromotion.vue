@@ -12,8 +12,8 @@
             <swiper :options="swiperOptionT1">
             <!-- slides -->
             <swiperSlide v-for="(slide, index1) in banner1" :key="index1">
-              <router-link :to="slide.Url"
-                ><img :src="slide.Image"
+              <router-link :to="'/product/detail/'+slide.Sku"
+                ><img :src="slide.Img"
               /></router-link>
             </swiperSlide>
           </swiper>
@@ -120,7 +120,8 @@ export default class HkPromotion extends Vue {
   getHeaderBannerLst() {
     var _this = this;
     this.$Api.promotion.getPromotion('Home', 1).then((result) => {
-      _this.banner1 = result.Promotion._BannerList;
+      // _this.banner1 = result.Promotion._BannerList;
+       _this.banner1 = result.Promotion._PrmtProductList;
       /* _this.Title1 = result.Promotion.Desc; */
       /* _this.content1 = result.Promotion._BannerList[0].Content; */
     });
