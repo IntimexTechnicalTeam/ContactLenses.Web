@@ -1,5 +1,6 @@
 import { WSAPI } from './WSApi';
 import Proxy from '../common/Proxy';
+import i18n from '@/lang';
 export class ProductApi extends WSAPI {
   @Proxy('PanelDetail', 'Tab', 'AdditionalImage')
   public GetProduct (sku: string) {
@@ -140,7 +141,7 @@ export class ProductApi extends WSAPI {
   GetProductUpOrDown (sku:string, catId:string, state:boolean) {
     return this.instance.get(this.apiPath + '/Product/GetProductUpOrDown', { params: { sku: sku, catId: catId, state: state } }).then(
       (result) => {
-        if (result.data !== 0) { return result.data; } else { throw new Error('沒有更多了'); };
+        if (result.data !== 0) { return result.data; } else { throw new Error((i18n.messages[this.lang].messageTips as any).NoMore); };
       });
   }
 
@@ -158,7 +159,7 @@ export class ProductApi extends WSAPI {
   getAttrImage (sku:string, imageType:number = 1, attr1:number = 0, attr2:number = 0, attr3:number = 0) {
     return this.instance.get(this.apiPath + '/product/GetAttrImage', { params: { sku: sku, attrType: imageType, attr1: attr1, attr2: attr2, attr3: attr3 } }).then(
       (result) => {
-        if (result.data !== 0) { return result.data; } else { throw new Error('沒有更多了'); };
+        if (result.data !== 0) { return result.data; } else { throw new Error((i18n.messages[this.lang].messageTips as any).NoMore); };
       });
   }
 

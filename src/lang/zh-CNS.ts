@@ -573,6 +573,7 @@ export default {
   messageTips: {
     NoContent: '暂无内容',
     NoComments: '暂无评论',
-    NoProduct: '对不起，没有你搜索的产品'
+    NoProduct: '对不起，没有你搜索的产品',
+    NoMore: '没有更多了'
   }
 };

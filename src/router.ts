@@ -77,6 +77,14 @@ export const pRoutes = [
           )
       },
       {
+        path: '/cms/contentN/:id',
+        name: 'cmsContentN',
+        component: () =>
+          import(
+            /* webpackChunkName: "cms" */ './components/business/pc/cms/InsCmsContentN.vue'
+          )
+      },
+      {
         path: '/cms/catDetail/:id',
         name: 'catDetail',
         component: () =>
@@ -617,6 +625,14 @@ export const mRoutes = [
         component: () =>
           import(
             /* webpackChunkName: "cms" */ './components/business/mobile/cms/InsCmsContent.vue'
+          )
+      },
+      {
+        path: '/cms/contentN/:id',
+        name: 'cmsContentN',
+        component: () =>
+          import(
+            /* webpackChunkName: "cms" */ './components/business/mobile/cms/InsCmsContentN.vue'
           )
       },
       {

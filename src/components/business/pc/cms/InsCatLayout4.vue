@@ -2,7 +2,7 @@
     <div class="cms-list">
         <ul class="infoList">
             <li v-for="(cms,index) in cmsData" :key="index">
-                <router-link :to="'/cms/content/'+cms.Id">
+                <router-link :to="'/cms/contentN/'+cms.Id">
                     <!-- <div class="cover">
                         <img :src="cms.Cover" alt=""/>
                     </div> -->
