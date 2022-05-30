@@ -61,7 +61,6 @@ ul,li{
 .router-link-active{
     border:1px solid #fff;
     background-size: contain;
-    float: left;
     width: 200px!important;
     height: 120px!important;
     text-align: center;
@@ -79,10 +78,16 @@ ul,li{
     font-weight: 600!important;
   }
 }
-.iconBg{
+.leftnav{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width:1200px;
+  margin:0 auto;
+  .iconBg{
     border:1px solid #fff;
     background-size: contain;
-    float: left;
     width: 180px;
     height: 111px;
     text-align: center;
@@ -99,29 +104,30 @@ ul,li{
     &:hover{
       transform: translateY(-3px);
     }
-  span{
-    width: 100%;
-    display: inline-block;
+    span{
+      width: 100%;
+      display: inline-block;
 
-    color:#191919;
-    font-size: 20px;
-    font-weight: 500;
-    text-transform:uppercase;
-     padding: 10px;
-  }
-  strong{
-    width: 100%;
-    display: inline-block;
-    color: #262626;
-    font-size: 24px;
-    font-weight: 600;
-  }
-  b{
-    width: 100%;
-    display: inline-block;
-    color: #262626;
-    font-size: 14px;
-    font-weight: 600;
+      color:#0e579c;
+      font-size: 20px;
+      font-weight: 500;
+      text-transform:uppercase;
+      padding: 10px;
+    }
+    strong{
+      width: 100%;
+      display: inline-block;
+      color: #262626;
+      font-size: 24px;
+      font-weight: 600;
+    }
+    b{
+      width: 100%;
+      display: inline-block;
+      color: #262626;
+      font-size: 14px;
+      font-weight: 600;
+    }
   }
 }
 .accountHeader{

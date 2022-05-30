@@ -158,6 +158,16 @@ export default class InsSelect3 extends Vue {
   border-radius: 5px;
   z-index: 2019;
   margin:0 auto;
+  height: 200px;
+  overflow-y: scroll;
+}
+::-webkit-scrollbar{
+  width:5px;
+}
+::-webkit-scrollbar-thumb {
+border-radius:10px;
+background:rgba(0,0,0,0.1);
+-webkit-box-shadow:inset 6px rgba(0,0,0,0.5);
 }
 .in_select_dropdown li {
   font-size: 16px;

@@ -118,7 +118,7 @@ export default class InsMenberCenter extends Vue {
     word-break: break-word;
 }
 .MembercenterMobile .activeInfo{
-  background: #666666!important;
+  background: #0e579c!important;
 }
 .MembercenterMobile .activeInfo a{
   color:#fff!important;

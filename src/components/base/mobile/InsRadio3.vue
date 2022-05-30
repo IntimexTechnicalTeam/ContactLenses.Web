@@ -159,6 +159,8 @@ export default class InsSelect3 extends Vue {
   border-radius: 5px;
   z-index: 2019;
   margin:0 auto;
+  height: 200px;
+  overflow-y: scroll;
 }
 .in_select_dropdown li {
   font-size: 16px;

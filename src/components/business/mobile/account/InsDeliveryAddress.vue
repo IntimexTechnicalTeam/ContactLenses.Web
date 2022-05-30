@@ -587,7 +587,7 @@ export default class InsDeliveryAddress extends Vue {
 .new-address .common-title {
     color: #fff;
     font-size: 22px;
-    background-color: #666;
+    background-color: #0e579c;
     height: 40px;
     line-height: 40px;
     cursor: pointer;
@@ -668,7 +668,7 @@ export default class InsDeliveryAddress extends Vue {
     width: 100%;
     margin: 0 auto;
     display: block;
-    background: #333;
+    background: #0e579c;
     background-size: cover;
     border:0px!important;
 }

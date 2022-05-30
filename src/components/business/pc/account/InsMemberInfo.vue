@@ -331,7 +331,7 @@ export default class InsMemberInfo extends Vue {
   margin-left: 0px!important;
 }
 .MemberInfoMain .el-button{
-    background: #333333;
+    background: #0e579c;
     border: none;
     display: block;
     border-radius: 20px;

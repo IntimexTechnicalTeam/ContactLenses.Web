@@ -101,6 +101,7 @@ export default class InsSelect4 extends Vue {
   margin-bottom: 20px;
   user-select: none;
   width: 100%;
+  margin-left: 9px;
 }
 .in_select_label {
   width: 100px;
@@ -158,6 +159,15 @@ export default class InsSelect4 extends Vue {
   border-radius: 5px;
   z-index: 2019;
   margin:0 auto;
+  overflow-y: scroll;
+}
+::-webkit-scrollbar{
+  width:5px;
+}
+::-webkit-scrollbar-thumb {
+border-radius:10px;
+background:rgba(0,0,0,0.1);
+-webkit-box-shadow:inset 6px rgba(0,0,0,0.5);
 }
 .in_select_dropdown li {
   font-size: 16px;

@@ -94,7 +94,7 @@ ul,li{
           width: 100%;
           align-items: center;
           justify-content: center;
-          color:#333333;
+          color:#0e579c;
           font-size: 1.6rem;
           height: 100%;
           text-transform:uppercase;
