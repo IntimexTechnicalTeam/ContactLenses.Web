@@ -1,9 +1,5 @@
 <template>
   <div class="in_preview_warpper  PcVersionPreview" :style="warpperStyle" @mousemove.stop>
-    <div class="swiper-cli-btn">
-      <div class="swiper-prev swiper-btn" slot="button-prev"></div>
-      <div class="swiper-next swiper-btn" slot="button-next"></div>
-    </div>
     <span class="customiselens">{{$t('product.CustomisedContactlens')}}</span>
         <div class="in_preview_img_warpper" >
             <img :src="isClick?AttrImg:CurrentPic" @click="viewImg(currentIndex)">

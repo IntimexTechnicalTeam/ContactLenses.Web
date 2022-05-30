@@ -1,10 +1,6 @@
 <template>
   <div class="in_preview_warpper pkswiperN">
       <div v-if="!isClick">
-        <div class="swiper-btn">
-          <div class="s-btn l-btn"></div>
-          <div class="s-btn r-btn"></div>
-        </div>
         <swiper :options="swiperOption" ref="mySwiper" v-if="imgList.length>0">
             <!-- slides -->
             <swiperSlide v-for="(slide, index) in imgList" :key="index">

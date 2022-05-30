@@ -1,70 +1,36 @@
 <template>
   <div id="container" class="MobileContact">
-    <!-- 联络我们页面 -->
+  <!-- 联络我们页面 -->
     <div class="Cmsbg" v-if="NewcateId=='40112'">
       <transition name="slide">
         <div key="1" v-if="!waiting" style="display:flex;">
-           <div class="DetailTitle"><img :src="OtherPageImg" v-show="OtherPageImg!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
+           <div class="DetailTitle"><!-- <img :src="ImgList" v-show="ImgList!==null"> -->
+           <img :src="OtherPageImg" v-show="OtherPageImg!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
       </div>
       </transition>
       <transition name="slide">
         <div class="faker" key="2" v-if="waiting" v-loading="true"></div>
       </transition>
       <div class="CmsContent">
-        <div class="mobileMap">
+        <div class="MapInfo">
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3689.1861947863495!2d114.20403351536899!3d22.384337145494694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34040645abb09ba3%3A0x4c46848ccf55c7bd!2sShatin%20Industrial%20Center!5e0!3m2!1szh-TW!2shk!4v1650419025774!5m2!1szh-TW!2shk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-          <p v-html="content.Body"></p>
+          <div class="CmsMap">
+            <p v-html="content.Body" class="cmsbody"></p>
+          </div>
          <div class="clear"></div>
       </div>
-      <!-- <div class="CmsMap">
-            <p class="addressIcon"><i></i>{{$t('home.Address')}}：</p>
-            <div class="perList" v-for="(val,index) in ShopList" :key="index" v-on:click="showContent(val.Id,index)" :class="{'activeColor':cindex==index}">
-                <div class="icon"><i></i></div>
-                <div class="content">
-                  <p>{{val.Title}}</p>
-                  <p>{{val.DescOne}}</p>
-                  <p>{{val.DescTwo}}</p>
-                </div>
-            </div>
-            <p v-html="MapInfo" class="MapInfo"></p>
-      </div> -->
-      <!-- 表单信息 -->
-        <!-- <div class="FormMain">
-          <p class="FormTitle">{{FormTitle}}</p>
-          <div v-html="htmlString" class="to_vertical" id="content"></div>
-          <div id="preview" style="display:none;"></div>
-        </div> -->
     </div>
     <!-- 其他页面 -->
-    <div class="CmsNormal" v-if="NewcateId ==='40110'">
-      <transition name="slide">
-        <div key="1" v-if="!waiting" style="display:flex;">
-              <div class="DetailTitle"><img :src="OtherPageImg" v-show="OtherPageImg!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
-      </div>
-      </transition>
-      <transition name="slide">
-        <div class="faker" key="2" v-if="waiting" v-loading="true"></div>
-      </transition>
-      <div class="CmsContent">
-        <div class="mobile-aboutText" v-html="content.Body"></div>
-        <div class="mobile-aboutImg">
-          <img src="/images/pc/about_01.png" alt="">
-          <img src="/images/pc/about_02.png" alt="">
+    <div class="CmsOther" v-else>
+        <transition name="slide">
+          <div key="1" v-if="!waiting" style="display:flex;">
+              <div class="DetailTitle" v-show="OtherPageImg!==null"><img :src="OtherPageImg"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
         </div>
-      </div>
+        </transition>
+        <div class="NormalContent" v-html="content.Body"></div>
     </div>
-    <!-- 有用信息页面 -->
-    <div class="M-CmsInfo" v-if="NewcateId=='40113'">
-      <div class="bigTitle">{{TitleName}}</div>
-      <img :src="OtherPageImg" v-show="OtherPageImg!==null" class="btlImg">
-      <div class="mobile-news-text" v-html="content.Body"></div>
-    </div>
-    <!-- 訂製指南頁面 -->
-    <div class="M-Cmsguide" v-if="NewcateId=='40117'">
-      <!-- <img :src="OtherPageImg" v-show="OtherPageImg!==null" class="btlImg"> -->
-      <div class="pc-customized-guide" v-html="content.Body"></div>
-    </div>
+
   </div>
 </template>
 <script lang="ts">
@@ -73,7 +39,6 @@ import { FrontE } from '@/sdk/common/SysConst';
 import Cookie from 'js-cookie';
 @Component({
   components: {
-    PkcmsBanner: () => import('@/components/hkTasteBusiness/mobile/cms/PkcmsBanner.vue')
   }
 })
 export default class InsCmsContent extends Vue {
@@ -81,14 +46,15 @@ export default class InsCmsContent extends Vue {
   CateName: string = '';
   CateDesc: string = '';
   content: any[] = [];
-  FormContent:any='';
   private ImgList: string[] = [];
+  private ImgCover: string[] = [];
   private ispic:boolean=false;
-  IsPay:boolean= false;
-  IsLogin:boolean=false;
-  IsMobile:boolean=true;
+  IsMobile:boolean=false;
   MapInfo:string='';
   ShopList:any[]=[];
+  FormContent:any='';
+  IsPay:boolean= false;
+  IsLogin:boolean=false;
   cindex:number=0;
   private htmlString: string = '';
   Signer: any = null;
@@ -97,67 +63,39 @@ export default class InsCmsContent extends Vue {
   private waiting: boolean = true;
   OtherPageImg:string='';
   TitleName:string='';
-
-  getIndexshop () {
-    var _this = this;
-    this.$Api.cms.getContentsByCatId(40108, 1, 12).then(result => {
-      this.ShopList = result.Data;
-      result.Data.forEach(function (item) {
-        var colon = item.Desc.indexOf('*');
-        var a = item.Desc.substring(0, item.Desc.indexOf('*'));
-        var b = item.Desc.substr(
-          item.Desc.indexOf('*') + 1,
-          item.Desc.length
-        );
-        _this.$set(item, 'DescOne', a);
-        _this.$set(item, 'DescTwo', b);
-      });
-    });
-  }
-  showContent (val, index) {
-    this.$Api.cms.getContentByDevice({ ContentId: val, IsMobile: true }).then(result => {
-      this.MapInfo = result.CMS.Body;
-      this.cindex = index;
-    });
+  get id () {
+    return this.$route.params.id ? this.$route.params.id : '';
   }
   get currentlang () {
     return this.$Storage.get('locale');
   }
-  get id () {
-    return this.$route.params.id ? this.$route.params.id : '';
+  get lang () {
+    return this.$Storage.get('locale');
   }
-  getForm () {
-    this.$Api.regAndPay.getHtml('ContactUs', this.lang, false).then(result => {
-      this.htmlString = result.HtmlString;
-      this.FormTitle = result.Title;
-      this.$nextTick(() => {
-        if (document.querySelectorAll('#Sign').length > 0) {
-          this.Signer = new intimex.CanvasSigner('#NewSignCanvas', '#Signature', {
-            color: '#58B63A',
-            width: 5
-          });
-          this.Signer.initCanvas();
-          window['Signer'] = this.Signer;
-        }
-      });
-    });
+  get queryLang () {
+    return this.$route.query.Lang || '';
   }
   getContent () {
     this.$Api.cms.getContentByDevice({ Key: this.id, ContentId: this.id, IsMobile: true }).then(result => {
-      this.content = result.CMS;
-      this.TitleName = result.CMS.Title;
-      this.OtherPageImg = result.CMS.Cover;
-      this.NewcateId = result.CMS.CatId;
-      this.getCategoryByDevice(result.CMS.CatId);
-      this.CateDesc = result.CMS.Desc;
-      this.waiting = false;
-      if (result.CMS.Title) document.title = result.CMS.Title;
-    });
+    this.content = result.CMS;
+    this.TitleName = result.CMS.Title;
+    this.OtherPageImg = result.CMS.Cover;
+    this.NewcateId = result.CMS.CatId;
+    this.getCategoryByDevice(result.CMS.CatId);
+    this.CateDesc = result.CMS.Desc;
+    this.waiting = false;
+    if (result.CMS.Title) document.title = result.CMS.Title;
+  });
+}
+  created () {
+    this.getContent();
   }
   // 根据设备类型获取CMSCategory信息
   getCategoryByDevice (cateId) {
-    this.$Api.cms.getCategoryByDevice({ CatId: cateId, IsMobile: true }).then(async (result) => {
+      this.$Api.cms.getCategoryByDevice({ CatId: cateId, IsMobile: true }).then(async (result) => {
+      // this.ImgList = result.ImagePath;
       this.ImgList = result.ImagePath;
+      this.ImgCover = result.Cover;
       this.MapInfo = result.Content;
       this.CateName = result.Name;
       this.waiting = false;
@@ -169,91 +107,19 @@ export default class InsCmsContent extends Vue {
       });
     });
   }
-  get lang () {
-    return this.$Storage.get('locale');
-  }
-  get queryLang () {
-    return this.$route.query.Lang || '';
-  }
-  Regnay () {
-    window['jsData'] = {
-      HasPreview: true,
-      UploadButtonText: this.$t('RegNPay.UploadButtonText'),
-      UploadingText: this.$t('RegNPay.UploadingText'),
-      UploadSuccessfulText: this.$t('RegNPay.UploadSuccessfulText'),
-      UploadFailText: this.$t('RegNPay.UploadFailText'),
-      NoFileText: this.$t('RegNPay.NoFileText'),
-      UploadLengthText: this.$t('RegNPay.UploadLengthText'),
-      UploadSizeText: this.$t('RegNPay.UploadSizeText'),
-      BackText: this.$t('RegNPay.BackText'),
-      ConfirmText: this.$t('RegNPay.ConfirmText'),
-      PleaseSelect: this.$t('RegNPay.PleaseSelect'),
-      PreviewTitleText: this.$t('RegNPay.PreviewTitleText'),
-      RequiredText: this.$t('RegNPay.RequiredText'),
-      FormatErrorText: this.$t('RegNPay.FormatErrorText'),
-      Version: '2.0',
-      HasRNPConfirm: false
-    };
-    this.$LoadScript('/static/js/CanvasSigner.js');
-    this.$LoadScript('/static/js/ajaxFileUpload.js');
-
-    document.dispatchEvent(new Event('rnpFinshed'));
-
-    // RNP Form后台预览跳转语言判断
-    if (this.queryLang) {
-      this.$Api.member.setUILanguage(this.queryLang).then((result) => {
-        this.$i18n.locale = this.queryLang as string;
-        localStorage.setItem('locale', this.queryLang as string);
-        this.getForm();
-      }).catch((error) => {
-        console.log(error);
-      });
-    } else {
-      this.getForm();
-    }
-  }
-  created () {
-    this.getContent();
-    this.Regnay();
-    this.getIndexshop();
-    this.showContent(20288, 0);
-  }
-  mounted () {
-    window['regAndPay'] = this.$Api.regAndPay;
-    window['router'] = this.$router;
-    window['Elalert'] = this.$alert;
-  }
   @Watch('$route', { deep: true })
   onIdChange () {
     this.getContent();
   }
+  mounted () {
+    window['regAndPay'] = this.$Api.regAndPay;
+    window['router'] = this.$router;
+    // window['getPanel'] = this.$Api.getPanel;
+    window['Elalert'] = this.$alert;
+  }
 }
 </script>
 <style lang="less">
-.MobileContact .FormMain{
-  #preview{
-    width: 80%;
-    float:right;
-    .anwer{
-      margin-bottom: 20px;
-    }
-    .back{
-      background: #ccc;
-      color:#FFF;
-      padding:10px 20px 10px 20px;
-      border:none;
-      margin-right: 20px;
-      margin-top: 30px;
-    }
-    .confirm{
-      background: #333;
-      color:#FFF;
-      padding:10px 20px 10px 20px;
-      border:none;
-      margin-top: 30px;
-    }
-  }
-}
 .MobileContact{
     .OurStores{
       font-size: 2.5rem;
@@ -368,187 +234,50 @@ export default class InsCmsContent extends Vue {
     width:100%;
   }
 }
-.MobileContact .FormMain{
-  width:90%;
-  margin:0 auto;
-  padding-bottom: 3rem;
-  position: relative;
-  padding-top: 3rem;
-  .FormTitle{
-    font-size: 2.5rem;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    color:#333333;
-  }
-  .FormImg{
-    position: absolute;
-    right: 0px;
-    top:3rem;
-    width: 20%;
-    img{
-      width: 100%;
-    }
-  }
-  .form-group{
-    .fieldset {
-      border: none;
-    }
-    h4{
-      background: #fff;
-      background-size: 100% 100%;
-      display: inline-block;
-      height: 3.5rem;
-      width: 40%;
-      text-align: center;
-      line-height: 3.5rem;
-      font-size: 1.2rem;
-      margin-bottom: .5rem;
-      border:1px solid #808080;
-      border-radius: 2px;
-    }
-    input[type="text"],input[type="email"]{
-      border:1px solid #808080;
-      height: 3.5rem;
-      line-height: 3.5rem;
-      width: 70%;
-      box-sizing: border-box;
-      border-radius: 2px;
-      margin-bottom: .5rem;
-      text-indent: 1rem;
-      outline: none;
-      font-size: 1.4rem;
-    }
-    textarea{
-      border:1px solid #808080;
-      height: 10rem;
-      width: 100%;
-      box-sizing: border-box;
-      border-radius: 2px;
-      margin-bottom: .5rem;
-      outline: none;
-      font-size: 1.4rem;
-    }
-    p[name="error"]{
-      color:red;
-      margin-bottom:.5rem;
-    }
-    .btn-default{
-      width: 40%;
-      float: right;
-      background: #333333;
-      height: 3.5rem;
-      line-height: 3.5rem;
-      color:#fff;
-      background-size: 100%;
-      border:none;
-      margin-top: 1rem;
-      font-size: 1.4rem;
-      margin-bottom: 5rem;
-      border-radius: 2px;
-    }
-  }
-}
-.CmsContent{
-  .mobile-aboutText{
-    width:98%;
-    margin:0 auto;
-    p{
-      color: #3f95d2;
-      font-weight: bold;
-      line-height: 2.3rem;
-      font-size: 16px;
-    }
-  }
-  .mobile-aboutImg{
-    width: 98%;
-    margin: 2rem auto;
-    overflow: hidden;
-    img{
-      width: 100%;
-    }
-    img:nth-child(1){
-      margin-bottom: 2rem;
-    }
-  }
-}
-.M-CmsInfo{
-  width:95%;
-  margin:0 auto;
-  padding: 2rem 0;
-  text-align: center;
-  .bigTitle{
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #0e579c;
-  }
-  .mobile-news-text{
-    .preface{
-      .infoText{
-        text-indent: 2rem;
-      }
-    }
-    .infoText{
-      font-size: 1.5rem;
-      color:#3f95d2;
-      text-align: left;
-      line-height: 3rem;
-      letter-spacing: 0.3rem;
-      strong{
+</style>
+<style lang="less" scoped>
+.CmsOther {
+  .NormalContent {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 5rem;
+    /deep/  .pc-about-text{
+      width:100%;
+      margin:0 auto;
+      p{
+        color: #3f95d2;
         font-weight: bold;
-        font-size: 1.6rem;
-      }
-    }
-    .explainText{
-      font-size: 1.3rem;
-      color:#3f95d2;
-      text-align: left;
-      line-height: 3rem;
-      letter-spacing: 0.5rem;
-    }
-    .smallTitle{
-      font-size: 1.7rem;
-      color:#0e579c;
-      line-height: 3rem;
-      margin:2rem auto;
-    }
-    table{
-      margin:3rem auto;
-      border:1px solid #808080;
-      border-collapse: collapse;
-      td{
-        border:1px solid #808080;
-        vertical-align: center;
-        text-align: center;
-        p{
-          padding: 1rem;
+        line-height: 2.3rem;
+        font-size: 16px;
+        span,strong {
+          line-height: 2.3rem;
+          font-size: 16px;
         }
       }
-      tbody tr:nth-child(even) {
-        background-color: antiquewhite;
+      .pc-about-img{
+        width: 100%;
+        margin: 2rem auto;
+        overflow: hidden;
+        img{
+          width: 100%;
+        }
+        img:nth-child(1){
+          margin-bottom: 2rem;
+        }
       }
     }
-    .footerTitle,
-    .contact{
-      color:#0e579c;
-      line-height: 3rem;
-      font-size: 1.3rem;
-    }
-    .needInfo{
-      span{
-        color:#f70a0a;
-        font-size: 1.5rem;
+    /deep/ .Cmsguide{
+      width: 100%;
+      margin:2rem auto;
+      p{
+        color:#0e579c;
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 30px;
       }
     }
-  }
-}
-.M-Cmsguide{
-  width: 90%;
-  margin:2rem auto;
-  p{
-    color:#0e579c;
-    font-size: 20px;
-    font-weight: bold;
-    line-height: 30px;
   }
 }
 </style>
@@ -613,28 +342,6 @@ export default class InsCmsContent extends Vue {
     font-weight: 700;
     font-family: 'Arial';
   }
-}
-.cmsTitlebg{
-    width: 50%;
-    background: url(/images/mobile/contact_02.png) no-repeat center center;
-    background-size: 100% 100%;
-    display: flex;
-    box-sizing: border-box;
-    height: 6rem;
-    align-items: center;
-    justify-content: center;
-    .p1{
-      font-size: 1.5rem;
-      width: 100%;
-      text-align: center;
-      font-weight: 700;
-    }
-    .p2{
-      font-size: 1.2rem;
-      text-align: center;
-      color: #262626;
-      font-weight: 600;
-    }
 }
 .Cmsbg{
   width:100%;

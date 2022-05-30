@@ -574,6 +574,6 @@ export default {
     NoContent: '暫無內容',
     NoComments: '暫無評論',
     NoProduct: '對不起，沒有你搜索的產品',
-    pPower: '请输入Power'
+    NoMore: '沒有更多了'
   }
 };

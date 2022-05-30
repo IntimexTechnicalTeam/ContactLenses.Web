@@ -577,6 +577,6 @@ export default {
     NoContent: 'No Content',
     NoComments: 'No Comments',
     NoProduct: 'Sorry, there are no products you searched for',
-    pPower: 'please enter Power'
+    NoMore: 'No More'
   }
 };
