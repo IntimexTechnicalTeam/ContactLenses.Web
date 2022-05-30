@@ -2,16 +2,7 @@
     <div class="cms-list">
         <ul class="modielCmsList">
             <li v-for="(cms,index) in cmsData" :key="index">
-                <router-link :to="'/cms/content/'+cms.Id">
-                    <!-- <div class="cover">
-                        <img :src="cms.Cover" alt=""/>
-                    </div>
-                    <div class="introduce">
-                        <p class="title">{{cms.Title}}</p>
-                        <p class="createDate">{{cms.CreateDate}}</p>
-                        <p class="desc">{{cms.Desc}}</p>
-                        <p class="viewMore"><span>{{$t('Message.ViewDetail')}}</span></p>
-                    </div> -->
+                <router-link :to="'/cms/contentN/'+cms.Id">
                     <p class="title">{{cms.Title}}</p>
                 </router-link>
             </li>

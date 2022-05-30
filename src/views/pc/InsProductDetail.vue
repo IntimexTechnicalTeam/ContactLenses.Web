@@ -1,31 +1,21 @@
 <template>
 <div class="productDetailWarper PcVersion">
-
   <div v-if="this.Permission == 3" class="IsDetailshow">
-
      {{$t('messageTips.NoProduct')}}
-
   </div>
   <div v-else>
   <div class="productDetail_container">
     <div class="productDetail_main">
+      <div class="ProductUp">
+          <div class="prev" @click="getGetProductUp()"><img src="/images/pc/pleft.png"></div>
+          <div class="next" @click="getGetProductDown()"><img src="/images/pc/pright.png"></div>
+      </div>
       <inPreview style="width:50%" :imgList="ImgList" :pageNum="userAgent === 'mobile' ?  1 : 4" :ProductTitleName="ProductTitleName"></inPreview>
       <div style="width:30%;margin-left:5%;float:right;">
           <PkProductInfo :panelDetail.sync="PanelDetail"  :ProductSku="ProductCode" width="100%" :AddPrice="getNewsPrice" style="margin-top:4rem;margin-bottom: 2rem;"></PkProductInfo>
-          <!-- <div class="ProductRate"><Rate  v-model="Score" disabled  disabled-void-color="#5f6548" disabled-void-icon-class="el-icon-star-off"></Rate></div> -->
-          <!-- <PkProductDetailCate :source="ExtAttrList" :cateTree="CatalogTree"  width="100%" style="margin-top:2rem;"></PkProductDetailCate> -->
           <inPanel :panelDetail.sync="PanelDetail" :ProductSku="ProductCode" @getPrice="showPrice" width="100%"></inPanel>
       </div>
     </div>
-    <!-- <div class="tab_warpper">
-      <div class="tab_header">
-        <div class="detail_title" @click="IsDetail=true" v-bind:class="{isActive:IsDetail}">{{$t('product.ProductIntroduction')}}</div>
-        <div class="comment_title" @click="IsDetail=false" v-bind:class="{isActive:!IsDetail}">{{$t('product.comments.title')}}</div>
-      </div>
-      <div class="product_detail" v-html="Tabs.Detail" v-show="IsDetail" v-if="Tabs.Detail!==''"></div>
-      <div class="product_detail"  v-show="IsDetail" v-if="Tabs.Detail==''">{{$t('messageTips.NoContent')}}</div>
-      <inComments :ProductSku="ProductCode" v-show="!IsDetail" style="background:#FFF;min-height: 300px;"></inComments>
-    </div> -->
     <PkProductDetailCate :source="ExtAttrList" :cateTree="CatalogTree"  width="100%" style="margin-top:2rem;"></PkProductDetailCate>
   </div>
     <div class="commentsLine"></div>
@@ -89,6 +79,7 @@ export default class InsProductDetail extends Vue {
   private ProductTitleName:string = '';
   private IsDetailshow:boolean = false;
   private Permission: string = '';
+  private CateId:string='';
   get pc () {
     return this.$route.params.id;
   }
@@ -107,6 +98,32 @@ export default class InsProductDetail extends Vue {
   created () {
     this.getProduct();
   }
+  // 获取上个产品
+  getGetProductUp () {
+    this.$Api.product.GetProductUpOrDown(this.$route.params.id, this.PanelDetail.CatId, true).then((result) => {
+      this.$router.push('/product/detail/' + result);
+     }).catch(error => {
+      console.log(error);
+          this.$message({
+            message: this.$t('messageTips.NoMore') as string,
+            type: 'error',
+            customClass: 'messageBoxMobile'
+          });
+    }); ;
+  }
+    // 获取下个产品
+  getGetProductDown () {
+    this.$Api.product.GetProductUpOrDown(this.$route.params.id, this.PanelDetail.CatId, false).then((result) => {
+      this.$router.push('/product/detail/' + result);
+     }).catch(error => {
+      console.log(error);
+          this.$message({
+            message: this.$t('messageTips.NoMore') as string,
+            type: 'error',
+            customClass: 'messageBoxMobile'
+          });
+    }); ;
+  }
   getProduct () {
     var that = this;
     that.ProductCode = that.$route.params.id ? that.$route.params.id : '0';
@@ -123,7 +140,7 @@ export default class InsProductDetail extends Vue {
       that.Score = result.PanelDetail.Score;
       that.ImgList = result.AdditionalImage;
       that.Permission = result.PanelDetail.Permission;
-
+      console.log(result, 'evvvv');
       if (that.Permission === '2') {
         if (this.$Storage.get('isLogin') === 0) {
         this.$Confirm(this.$t('Message.Logout'), this.$t('product.loginow'), () => { this.$router.push('/account/login'); }, () => { this.$router.push('/'); });
@@ -308,7 +325,7 @@ export default class InsProductDetail extends Vue {
   box-sizing: border-box;
   width: 100%;
   display: inline-block;
-  padding-top: 70px;
+  padding-top: 30px;
 }
 .productDetail_price_warpper {
   display: flex;
@@ -338,5 +355,17 @@ export default class InsProductDetail extends Vue {
   margin-left: 20px;
   font-size: 24px;
   text-decoration: line-through;
+}
+.ProductUp {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  img {
+    width: 50px;
+    cursor: pointer;
+  }
 }
 </style>

@@ -7,6 +7,10 @@
     </div>
     <div v-else>
     <div class="productDetail_main" :style="'flex-wrap: wrap;'">
+      <div class="ProductUp">
+          <div class="prev" @click="getGetProductUp()"><img src="/images/pc/pleft.png"></div>
+          <div class="next" @click="getGetProductDown()"><img src="/images/pc/pright.png"></div>
+      </div>
       <ProductSwiper width="100%"  :imgList="ImgList" :ProductTitleName="ProductTitleName"></ProductSwiper>
       <PkProductInfo :panelDetail="PanelDetail"  :ProductSku="ProductSku" :AddPrice="getNewsPrice" width="100%" style="margin-top:2rem;"></PkProductInfo>
       <!-- <div class="ProductRate"><Rate  v-model="Score" disabled  disabled-void-color="#5f6548" disabled-void-icon-class="el-icon-star-off"></Rate></div> -->
@@ -110,6 +114,32 @@ export default class ProductDetail extends Vue {
           this.$Confirm(this.$t('Message.Message'), this.$t('Message.FindNoProduct'), () => { this.Reload(); }, () => { this.$router.push('/'); });
        }
     });
+  }
+    // 获取上个产品
+  getGetProductUp () {
+    this.$Api.product.GetProductUpOrDown(this.$route.params.id, this.PanelDetail.CatId, true).then((result) => {
+      this.$router.push('/product/detail/' + result);
+     }).catch(error => {
+      console.log(error);
+          this.$message({
+            message: this.$t('messageTips.NoMore') as string,
+            type: 'error',
+            customClass: 'messageBoxMobile'
+          });
+    }); ;
+  }
+    // 获取下个产品
+  getGetProductDown () {
+    this.$Api.product.GetProductUpOrDown(this.$route.params.id, this.PanelDetail.CatId, false).then((result) => {
+      this.$router.push('/product/detail/' + result);
+     }).catch(error => {
+      console.log(error);
+          this.$message({
+            message: this.$t('messageTips.NoMore') as string,
+            type: 'error',
+            customClass: 'messageBoxMobile'
+          });
+    }); ;
   }
   showPrice (val) {
     if (val[0]) {
@@ -304,5 +334,18 @@ export default class ProductDetail extends Vue {
   margin-left: 20px;
   font-size: 24px;
   text-decoration: line-through;
+}
+.ProductUp {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  img {
+    width: 3rem;
+    cursor: pointer;
+  }
 }
 </style>

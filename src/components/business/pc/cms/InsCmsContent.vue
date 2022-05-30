@@ -17,62 +17,20 @@
         </div>
           <div class="CmsMap">
             <p v-html="content.Body" class="cmsbody"></p>
-            <!-- <p class="addressIcon"><i></i>{{$t('home.Address')}}：</p>
-            <div class="addressBox">
-            <div class="perList" v-for="(val,index) in ShopList" :key="index" v-on:click="showContent(val.Id,index)" :class="{'activeColor':cindex==index}">
-                <div class="icon"><i></i></div>
-                <div class="content">
-                  <p>{{val.Title}}</p>
-                  <p>{{val.DescOne}}</p>
-                  <p>{{val.DescTwo}}</p>
-                </div>
-              </div>
-            </div> -->
           </div>
          <div class="clear"></div>
       </div>
-        <!-- <div class="FormMain">
-          <p class="FormTitle">{{FormTitle}}</p>
-          <div v-html="htmlString" class="to_vertical" id="content"></div>
-          <div id="preview" style="display:none;"></div>
-        </div> -->
     </div>
-    <!-- 关于我们页面 -->
-    <div class="CmsNormal" v-if="NewcateId=='40110'">
-      <transition name="slide">
-        <div key="1" v-if="!waiting" style="display:flex;">
-            <div class="DetailTitle"><img :src="OtherPageImg" v-show="OtherPageImg!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
-      </div>
-      </transition>
-      <!-- <transition name="slide">
-        <div key="1" v-if="!waiting" style="display:flex;">
-            <div class="DetailTitle"><img :src="ImgCover" v-show="ImgCover!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
-      </div>
-      </transition> -->
-      <transition name="slide">
-        <div class="faker" key="2" v-if="waiting" v-loading="true"></div>
-      </transition>
-      <div class="CmsContent">
-        <div class="pc-about-text" v-html="content.Body"></div>
-        <div class="pc-about-img">
-          <img src="/images/pc/about_01.png" class="Img-01">
-          <img src="/images/pc/about_02.png" class="Img-02">
+    <!-- 其他页面 -->
+    <div class="CmsOther" v-else>
+        <transition name="slide">
+          <div key="1" v-if="!waiting" style="display:flex;">
+              <div class="DetailTitle" v-show="OtherPageImg!==null"><img :src="OtherPageImg"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>
         </div>
-      </div>
+        </transition>
+        <div class="NormalContent" v-html="content.Body"></div>
     </div>
-    <!-- 有用信息页面 -->
-    <div class="CmsInfo" v-if="NewcateId=='40113'">
-      <div >
-      <div class="bigTitle">{{TitleName}}</div>
-      <img :src="OtherPageImg" v-show="OtherPageImg!==null" class="btlImg">
-      </div>
-      <div class="pc-news-text" v-html="content.Body"></div>
-    </div>
-    <!-- 訂製指南頁面 -->
-    <div class="Cmsguide" v-if="NewcateId=='40117'">
-      <!-- <img :src="OtherPageImg" v-show="OtherPageImg!==null" class="btlImg"> -->
-      <div class="pc-customized-guide" v-html="content.Body"></div>
-    </div>
+
   </div>
 </template>
 <script lang="ts">
@@ -106,50 +64,11 @@ export default class InsCmsContent extends Vue {
   private waiting: boolean = true;
   OtherPageImg:string='';
   TitleName:string='';
-
-  getForm () {
-    this.$Api.regAndPay.getHtml('ContactUs', this.lang, false).then(result => {
-      this.htmlString = result.HtmlString;
-      this.FormTitle = result.Title;
-      this.$nextTick(() => {
-        if (document.querySelectorAll('#Sign').length > 0) {
-          this.Signer = new intimex.CanvasSigner('#NewSignCanvas', '#Signature', {
-            color: '#58B63A',
-            width: 5
-          });
-          this.Signer.initCanvas();
-          window['Signer'] = this.Signer;
-        }
-      });
-    });
-  }
   get id () {
     return this.$route.params.id ? this.$route.params.id : '';
   }
   get currentlang () {
     return this.$Storage.get('locale');
-  }
-  getIndexshop () {
-    var _this = this;
-    this.$Api.cms.getContentsByCatId(40108, 1, 12).then(result => {
-      this.ShopList = result.Data;
-      result.Data.forEach(function (item) {
-        var colon = item.Desc.indexOf('*');
-        var a = item.Desc.substring(0, item.Desc.indexOf('*'));
-        var b = item.Desc.substr(
-          item.Desc.indexOf('*') + 1,
-          item.Desc.length
-        );
-        _this.$set(item, 'DescOne', a);
-        _this.$set(item, 'DescTwo', b);
-      });
-    });
-  }
-  showContent (val, index) {
-    this.$Api.cms.getContentByDevice({ ContentId: val, IsMobile: false }).then(result => {
-      this.MapInfo = result.CMS.Body;
-      this.cindex = index;
-    });
   }
   get lang () {
     return this.$Storage.get('locale');
@@ -157,48 +76,8 @@ export default class InsCmsContent extends Vue {
   get queryLang () {
     return this.$route.query.Lang || '';
   }
-  Regnay () {
-    window['jsData'] = {
-      HasPreview: true,
-      UploadButtonText: this.$t('RegNPay.UploadButtonText'),
-      UploadingText: this.$t('RegNPay.UploadingText'),
-      UploadSuccessfulText: this.$t('RegNPay.UploadSuccessfulText'),
-      UploadFailText: this.$t('RegNPay.UploadFailText'),
-      NoFileText: this.$t('RegNPay.NoFileText'),
-      UploadLengthText: this.$t('RegNPay.UploadLengthText'),
-      UploadSizeText: this.$t('RegNPay.UploadSizeText'),
-      BackText: this.$t('RegNPay.BackText'),
-      ConfirmText: this.$t('RegNPay.ConfirmText'),
-      PleaseSelect: this.$t('RegNPay.PleaseSelect'),
-      PreviewTitleText: this.$t('RegNPay.PreviewTitleText'),
-      RequiredText: this.$t('RegNPay.RequiredText'),
-      FormatErrorText: this.$t('RegNPay.FormatErrorText'),
-      Version: '2.0',
-      HasRNPConfirm: false
-    };
-    this.$LoadScript('/static/js/CanvasSigner.js');
-    this.$LoadScript('/static/js/ajaxFileUpload.js');
-
-    document.dispatchEvent(new Event('rnpFinshed'));
-
-    // RNP Form后台预览跳转语言判断
-    if (this.queryLang) {
-        this.$Api.member.setUILanguage(this.queryLang).then((result) => {
-        this.$i18n.locale = this.queryLang as string;
-        localStorage.setItem('locale', this.queryLang as string);
-        this.getForm();
-      }).catch((error) => {
-        console.log(error);
-      });
-    } else {
-      this.getForm();
-    }
-  }
   created () {
     this.getContent();
-    this.getIndexshop();
-    this.showContent(20288, 0);
-    this.Regnay();
   }
   getContent () {
     this.$Api.cms.getContentByDevice({ Key: this.id, ContentId: this.id, IsMobile: false }).then(result => {
@@ -303,123 +182,6 @@ export default class InsCmsContent extends Vue {
   img{
     width:100%;
   }
-}
-.PcContact .FormMain{
-  width:1200px;
-  margin:0 auto;
-  padding-bottom: 3rem;
-  position: relative;
-  padding-top: 3rem;
-  .FormTitle{
-    font-size: 40px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    color:#333333;
-  }
-  #preview{
-    width: 80%;
-    float:right;
-    .anwer{
-      margin-bottom: 20px;
-    }
-    .back{
-      background: #ccc;
-      color:#FFF;
-      padding:10px 20px 10px 20px;
-      border:none;
-      margin-right: 20px;
-      margin-top: 30px;
-    }
-    .confirm{
-      background: #333;
-      color:#FFF;
-      padding:10px 20px 10px 20px;
-      border:none;
-      margin-top: 30px;
-      margin-bottom: 30px;
-    }
-  }
-  .to_vertical{
-    width: 100%;
-    display: inline-block;
-  }
-  .FormImg{
-    width: 20%;
-    float: left;
-    img{
-      width: 40%;
-    }
-  }
-  .btn-default{
-      width: 20%;
-      float: right;
-      background: #666666;
-      height: 3.5rem;
-      line-height: 3.5rem;
-      color:#fff;
-      background-size: 100%;
-      border:none;
-      margin-top: 1rem;
-      font-size: 1.4rem;
-      margin-bottom: 5rem;
-      border-radius: 2px;
-  }
-  #Anwers{
-    position: relative;
-  .form-group{
-    width: 50%;
-    display: inline-block;
-    &:nth-child(3){
-      position: absolute;
-      width: 50%;
-      right: 0px;
-      top:0px;
-    }
-    .fieldset{
-      border:none;
-      padding: 0px;
-    }
-    h4{
-      background: #fff;
-      background-size: 100% 100%;
-      display: inline-block;
-      height: 3.5rem;
-      width: 40%;
-      text-align: center;
-      line-height: 3.5rem;
-      font-size: 1.2rem;
-      margin-bottom: .5rem;
-      border:1px solid #808080;
-      border-radius: 2px;
-    }
-    input[type="text"],input[type="email"]{
-      border:1px solid #808080;
-      height: 3.5rem;
-      line-height: 3.5rem;
-      width: 70%;
-      box-sizing: border-box;
-      border-radius: 2px;
-      margin-bottom: .5rem;
-      text-indent: 1rem;
-      outline: none;
-      font-size: 1.4rem;
-    }
-    textarea{
-      border:1px solid #808080;
-      height: 12rem;
-      width: 100%;
-      box-sizing: border-box;
-      border-radius: 2px;
-      margin-bottom: .5rem;
-      outline: none;
-      font-size: 1.4rem;
-    }
-    p[name="error"]{
-      color:red;
-      margin-bottom:.5rem;
-    }
-  }
- }
 }
 .PcContact .CmsContent{
     position: relative;
@@ -630,141 +392,52 @@ export default class InsCmsContent extends Vue {
   clear: both;
 }
 </style>
-<style lang="less">
-.CmsContent{
-  .pc-about-text{
-    width:100%;
-    margin-top: 3rem;
-    p{
-      font-size: 18px;
-      color:#808080;
-      font-weight: bold;
-      line-height: 45px;
-    }
-  }
-  .pc-about-img{
-    width:100%;
-    margin:0 auto;
+<style lang="less" scoped>
+.CmsOther {
+  .NormalContent {
+    width: 1200px;
+    margin: 0 auto;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    margin-top: 2rem;
-    .Img-01{
-      width:55%;
-      /* height: 310px; */
-    }
-    .Img-02{
-      width:43%;
-      /* height: 310px; */
-      margin-left: 1.5rem;
-    }
-  }
-}
-.CmsInfo{
-  width:1200px;
-  margin: 50px auto;
-  text-align: center;
-  .bigTitle{
-    text-align: center;
-    color:#0e579c;
-    margin-bottom: 30px;
-    font-size: 35px;
-    font-weight: bold;
-  }
-  .btlImg{
-    margin:30px auto;
-  }
-  .pc-news-text{
-    text-align: left;
-    .smallTitle{
-      font-size: 25px;
-      color:#0e579c;
-      margin: 15px 0;
-    }
-    p{
-      line-height: 40px;
-      color:#000;
-      font-size: 18px;
-      letter-spacing:3px;
-    }
-    .x-tit{
-      color:#439cd8;
-      font-size: 22px;
-    }
-    .preface{
-      .infoText{
-        text-indent: 30px;
+    flex-wrap: wrap;
+    /deep/  .pc-about-text{
+      width:100%;
+      margin-top: 3rem;
+      p{
+        font-size: 18px;
+        color:#808080;
+        font-weight: bold;
+        line-height: 45px;
       }
-    }
-    .s-tit{
-      color:rgb(248, 4, 4);
-    }
-    .explainText{
-      font-size: 20px;
-      font-weight: bold;
-      color: #439cd8;
-    }
-    table{
-      margin:25px auto;
-      border:1px solid #808080;
-      border-collapse: collapse;
-      td{
-        border:1px solid #808080;
-        vertical-align: center;
-        text-align: center;
-        p{
-          padding: 10px;
+        .pc-about-img{
+          width:100%;
+          margin:0 auto;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+          margin-top: 2rem;
+          .Img-01{
+            width:55%;
+            /* height: 310px; */
+          }
+          .Img-02{
+            width:43%;
+            /* height: 310px; */
+            margin-left: 1.5rem;
+          }
         }
-      }
-      tbody tr:nth-child(even) {
-        background-color: antiquewhite;
-      }
     }
-    .footerTitle{
-      border-top:1px solid #000;
-      padding-top: 20px;
-      line-height: 40px;
-      height: 40px;
-      font-size: 24px;
-      text-align: center;
-      color: #0e579c;
-    }
-    .contact{
-      text-align: center;
-      color:#439cd8;
-      margin:20px auto;
-    }
-    .needInfo{
-      text-align: center;
-      color:#f90914;
-    }
-    .remarks{
-      strong{
-        color: #439cd8;
-      }
-    }
-    .infoText-s{
-      .infoText{
-        text-indent: 30px;
+    /deep/ .Cmsguide{
+      width:1200px;
+      margin:30px auto;
+      p{
+        line-height: 30px;
         color:#0e579c;
+        font-size: 20px;
+        font-weight: bold;
       }
     }
-    .subtitle{
-      font-size: 28px;
-      text-align: center;
-    }
-  }
-}
-.Cmsguide{
-  width:1200px;
-  margin:30px auto;
-  p{
-    line-height: 30px;
-    color:#0e579c;
-    font-size: 20px;
-    font-weight: bold;
   }
 }
 </style>
