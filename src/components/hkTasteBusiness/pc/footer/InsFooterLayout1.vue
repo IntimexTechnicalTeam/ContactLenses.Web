@@ -1,19 +1,15 @@
 <template>
 <div id="footer" class="footer">
-  <!-- <div class="footbg">
+  <div class="footbg">
     <div class="footerMain">
-        <div class="footerTop">
-            <p><span>whatsapp&nbsp;{{$t('home.Order')}}</span><b>6289 1789</b></p>
-            <p><span>{{$t('home.TelSearch')}}</span><b>6289 1789</b></p>
-        </div>
-        <div class="footerBotttom">
-          <div class="footerLeft">
-              <ul v-for="(n,index) in footerMenus" :key="index">
+        <div class="footerBottom">
+          <div class="footerTop">
+              <ul v-for="(n,index) in footerMenus" :key="index" class="firstmenu" @click="showSecond(index)">
                 <li>
                   <router-link
-                    :to="n.Type === 0 ? n.Url : n.Type === 1 ? '/cms/catDetail/' + n.Value.Id : n.Type === 2 ? '/CMS/content/' + n.Value.Id : n.Type === 3 ? '/RegNPay/Form/' + n.Value.Id : n.Type === 4 ? '/product/CatProduct?catId=' + n.Value.Id : n.Type === 5 ? '/product/list?key=&attr=' + n.Value.Id : '/product/list?key=&attr=' + n.ParentId + '&attrId=' + n.Value.Id"
-                  ></router-link>
-                  <ul>
+                    :to="n.Childs.length > 0 ? '' : n.Type === 0 ? n.Url : n.Type === 1 ? '/cms/catDetail/' + n.Value.Id : n.Type === 2 ? '/CMS/content/' + n.Value.Id : n.Type === 3 ? '/RegNPay/Form/' + n.Value.Id : n.Type === 4 ? '/product/CatProduct?catId=' + n.Value.Id : n.Type === 5 ? '/product/list?key=&attr=' + n.Value.Id : '/product/list?key=&attr=' + n.ParentId + '&attrId=' + n.Value.Id"
+                  >{{n.Name}}</router-link>
+                  <ul class="secondmenu">
                     <li v-for="(c,index2) in n.Childs" :key="index2">
                        <router-link :to="To(c)">{{c.Name}}</router-link>
                     </li>
@@ -21,23 +17,20 @@
                 </li>
              </ul>
           </div>
-          <div class="footerRight">
-            <p><img src="/images/pc/pcindex_14.png" /></p>
-          </div>
-          <div class="clear"></div>
-           <p class="footercopy">
-             <span>Copyright © {{currentYear}} NStore powered by Eventizer
-               <a href="https://eventizer.hk/" target="_blank">
-               <img src="/images/pc/footerlogo.png">
-               </a>
-              </span>
-             <span>{{$t('home.Weaccept')}}
-               <img src="/images/pc/pcindex_15.png" />
-              </span>
-            </p>
         </div>
     </div>
-  </div> -->
+  </div>
+  <div class="mapinformation">
+        <div class="map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3689.1861947863495!2d114.20403351536899!3d22.384337145494694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34040645abb09ba3%3A0x4c46848ccf55c7bd!2sShatin%20Industrial%20Center!5e0!3m2!1szh-TW!2shk!4v1650419025774!5m2!1szh-TW!2shk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="pc-information">
+            <p class="shop_address">{{$t('HkMap.Address')}}</p>
+            <p class="shop_tel">+852 26372000</p>
+            <p class="shop_fax">+852 26374000</p>
+            <p class="shop_email">hk@eandeoptics.com</p>
+        </div>
+    </div>
   <span class="currentyear">Copyright © {{currentYear}} | Dreimlens Corporation LTD | Powered by Eventizer Limited
     <a href="https://eventizer.hk/" target="_blank">
     </a>
@@ -73,6 +66,17 @@ export default class InsFooterLayout1 extends Vue {
       this.footerMenus = result.ReturnValue.FooterMenus;
     });
   }
+  showSecond (index) {
+    var menu = document.querySelectorAll('.firstmenu');
+    var secondMenu = menu[index].getElementsByClassName('secondmenu')[0];
+    if (this.footerMenus[index].Childs.length > 0) {
+      if (secondMenu.className === 'secondmenu') {
+        secondMenu.className = 'secondmenu menuBlock';
+      } else {
+        secondMenu.className = 'secondmenu';
+      }
+    }
+  }
   created () {
     var date = new Date();
     this.currentYear = date.getFullYear();
@@ -83,120 +87,7 @@ export default class InsFooterLayout1 extends Vue {
 
 <style scoped lang="less">
 /* 底部文件 */
-/* .footbg{
-    background: #9f2f34 url('/images/pc/pcindex_05.jpg') no-repeat center bottom;
-    background-size: cover;
-    width: 100%;
-    display: inline-block;
-    padding-bottom: 10px;
-    min-height: 278px;
-}
-.footerMain{
-    width: 1200px;
-    margin: 0 auto;
-}
-.footerTop{
-    text-align: center;
-    padding-top: 25px;
-    padding-bottom: 25px;
-    width: 100%;
-}
-.footerTop p{
-    text-align: center;
-    display: inline-block;
-    margin-right: 50px;
-}
-.footerTop p span{
-    font-size: 14px;
-    color: #FFF;
-    line-height: 35px;
-    margin-right: 15px;
-}
-.footerTop p b{
-    font-weight: 100;
-    font-size: 35px;
-    color: #FFF;
-    line-height: 35px;
-}
-.footerBotttom{
-    width: 100%;
-}
-.footerLeft{
-    float: left;
-    width: 40%;
-}
-.footerLeft > ul{
-    float: left;
-    margin-right: 10%;
-}
-.footerLeft > ul >li{
-    width: 100%;
-    line-height: 30px;
-}
-.footerLeft > ul >li >a{
-    font-size:20px;
-    color:#FFF;
-}
-.footerLeft > ul >li >ul{
-  width: 100%;
-}
-.footerLeft > ul >li >ul a{
-    font-size: 16px;
-    color:#FFF;
-    display: inline-block;
-    text-transform: uppercase;
-}
-.footerLeft > ul >li >ul a:hover{
-   transform: translateY(-3px);
-}
-.footerLeft p{
-    width: 100%;
-    display: block;
-    font-size: 14px;
-    color: #fff;
-    padding-top: 20px;
-}
-.footerLeft p img{
-    display: inline-block;
-    vertical-align: middle;
-    padding-left: 10px;
-}
-.footerRight{
-    float: right;
-    width: 40%;
-    text-align: center;
-}
-.footerRight img{
-  width: 60%;
-  display: block;
-}
-.footercopy{
-  width: 100%;
-  display: inline-block;
-  margin-top: 20px;
-}
-.footercopy span:nth-child(1){
-  float: left;
-  color:#FFF;
-  font-size: 14px;
-}
-.footercopy span:nth-child(1) img{
-  display: inline-block;
-  vertical-align:middle;
-  padding-left: 10px;
-}
-.footercopy span:nth-child(2){
-  float: right;
-  width: 40%;
-  text-align: center;
-  color:#FFF;
-  font-size: 14px;
-}
-.footercopy span:nth-child(2) img{
-  display: inline-block;
-  vertical-align:middle;
-  padding-left: 10px;
-} */
+
 .footer{
   width:900px;
   margin:0 auto;
@@ -204,9 +95,93 @@ export default class InsFooterLayout1 extends Vue {
   text-align: center;
   padding: 20px 0;
 }
+.footerTop{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width:1200px;
+  margin: 0 auto;
+  .firstmenu{
+    margin-left: 1rem;
+    line-height: 30px;
+    text-align: center;
+    position: relative;
+    &:nth-child(1){
+      margin-left: 0;
+    }
+    a{
+      font-size: 16px;
+      color:#0e559c;
+      font-weight: bold;
+      width:100%;
+      display: block;
+      padding: .5rem 1rem;
+      &:hover{
+        background: #0e559c;
+        color:#fff;
+      }
+    }
+  }
+  .secondmenu{
+    /* display: none; */
+    position: absolute;
+    z-index:99999;
+    background: #fff;
+  }
+  .menuBlock{
+    display: block;
+  }
+}
 .currentyear{
   color:#1254a0;
   font-weight: bold;
   font-size: 18px;
+}
+.mapinformation{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 1100px;
+    margin:30px auto 50px auto;
+}
+.map{
+    width: 600px;
+    height: 450px;
+    overflow: hidden;
+}
+.pc-information{
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+.pc-information p{
+    color: #12549e;
+    font-weight: bold;
+    font-size: 17px;
+    padding-left: 50px;
+    margin-bottom: 30px;
+}
+.pc-information p:nth-child(2),
+.pc-information p:nth-child(3),
+.pc-information p:nth-child(4){
+  height: 50px;
+  line-height: 50px;
+}
+.shop_address{
+    background: url(/images/pc/address.png) no-repeat left center;
+    width:344px!important;
+}
+.shop_tel{
+    background: url(/images/pc/phone.png) no-repeat left center;
+}
+.shop_fax{
+    background: url(/images/pc/fax.png) no-repeat left center;
+}
+.shop_email{
+    background: url(/images/pc/Email-filled.png) no-repeat left center;
 }
 </style>
