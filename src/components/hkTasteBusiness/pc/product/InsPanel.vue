@@ -112,6 +112,7 @@ export default class Panel extends Vue {
               this.Loading = false;
             }).then(() => {
             this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
+            this.$router.push('/account/custom');
           }).catch();
       } else {
         this.$message({

@@ -115,6 +115,7 @@ export default class InsProductCatTree extends Vue {
       .el-tree{
         background: none;
         color:#fff;
+        margin-top: 2rem;
         .el-tree-node{
           text-align: center;
           width:100%;
@@ -130,7 +131,7 @@ export default class InsProductCatTree extends Vue {
               font-size: 18px;
               color:#0e559c;
               display: block;
-              /* width: 100%; */
+              width: 100%;
               text-align: center;
               font-weight: bold;
               height:45px;

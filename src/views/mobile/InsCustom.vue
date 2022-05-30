@@ -470,6 +470,9 @@ export default class InsShoppingcart extends Vue {
         }
       }
     }
+    for(var i=0;i<this.items.length;i++){
+      Vue.set(this.items[i], 'boxshow',true)
+    }
   }
   @Watch('items', { deep: true })
   onItemsChange (o, n) {

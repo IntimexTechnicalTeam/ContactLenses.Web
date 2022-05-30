@@ -5,11 +5,11 @@
   </div>
   <div v-else>
   <div class="productDetail_container">
-    <div class="productDetail_main">
-      <div class="ProductUp">
+    <div class="ProductUp">
           <div class="prev" @click="getGetProductUp()"><img src="/images/pc/pleft.png"></div>
           <div class="next" @click="getGetProductDown()"><img src="/images/pc/pright.png"></div>
       </div>
+    <div class="productDetail_main">
       <inPreview style="width:50%" :imgList="ImgList" :pageNum="userAgent === 'mobile' ?  1 : 4" :ProductTitleName="ProductTitleName"></inPreview>
       <div style="width:30%;margin-left:5%;float:right;">
           <PkProductInfo :panelDetail.sync="PanelDetail"  :ProductSku="ProductCode" width="100%" :AddPrice="getNewsPrice" style="margin-top:4rem;margin-bottom: 2rem;"></PkProductInfo>

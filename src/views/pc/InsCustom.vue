@@ -334,7 +334,7 @@ export default class InsShoppingcart extends Vue {
   }
   showDeliveryDate (val) {
     this.DeliveryDate = val;
-    console.log(this.DeliveryDate, 'this.DeliveryDatethis.DeliveryDatethis.DeliveryDate');
+    // console.log(this.DeliveryDate, 'this.DeliveryDatethis.DeliveryDatethis.DeliveryDate');
   }
   showRemark (val) {
     this.Remark = val;
@@ -403,10 +403,10 @@ export default class InsShoppingcart extends Vue {
         this.payments = result.Payment;
       });
       Promise.all([this.$store.state.shopCart, this.$store.state.address, pm]).then((result) => {
-        console.log(result,'resultresult');
+        // console.log(result,'resultresult');
         let sc = result[0];
         this.totalAmount = sc.ShopCart.TotalAmount;
-        console.log(this.totalAmount,'this.totalAmount');
+        // console.log(this.totalAmount,'this.totalAmount');
         this.currentPrice = this.totalP;
         this.Shoppcart = sc.ShopCart;
         for (var i = 0; i < this.Shoppcart.Items.length; i++) {
@@ -498,6 +498,9 @@ export default class InsShoppingcart extends Vue {
           Leai[4].MutiLang = '';
         }
       }
+    }
+    for(var i=0;i<this.items.length;i++){
+      Vue.set(this.items[i], 'boxshow',true)
     }
   }
   @Watch('items', { deep: true })
@@ -1294,7 +1297,7 @@ boxShow(index) {
           var LatList=ItemsArr[i].LensExtAttrItem;
           var EditBox=document.querySelectorAll('.editform-box');
           for(var y=0;y<LatList.length;y++){
-            console.log(ItemsArr[i])
+            // console.log(ItemsArr[i])
             for(var z=0;z<EditBox.length;z++){
                 var testText=EditBox[z].getElementsByClassName('testInput')[0];
                 if (ItemsArr[i].IsMake) {
@@ -1487,7 +1490,6 @@ boxShow(index) {
       font-size: 20px;
       color:#000;
       font-weight: bold;
-      height: 30px;
       line-height: 30px;
     }
     .parameter{

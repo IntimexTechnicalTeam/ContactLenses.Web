@@ -109,13 +109,13 @@ export default class InsProductCatTree extends Vue {
 </style>
 <style lang="less">
   .productmenutree{
-    width:170px;
     .productMenuTree{
       border:none;
       margin-top: 40px;
       .el-tree{
         background: none;
         color:#fff;
+        width:250px;
         .el-tree-node{
           text-align: center;
           width:100%;
@@ -125,17 +125,18 @@ export default class InsProductCatTree extends Vue {
             .el-tree-node__expand-icon{
               color:#0e559c;
               position: relative;
-              left: 70%;
+              left: 80%;
             }
             .el-tree-node__label{
               font-size: 18px;
               color:#0e559c;
               display: block;
-              /* width: 100%; */
+              width: 100%;
               text-align: center;
               font-weight: bold;
               height:45px;
               line-height: 45px;
+              padding: 0 10px;
             }
           }
           .el-tree-node__children{

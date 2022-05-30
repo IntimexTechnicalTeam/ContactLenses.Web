@@ -58,6 +58,7 @@ export default class InsLangSwitch extends Vue {
       -webkit-appearance: none;
       font-size: 1.4rem;
       outline: none;
+      padding: 0 1rem;
       option{
         color:#666666;
         outline: none;

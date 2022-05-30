@@ -2,6 +2,7 @@
   <div class="map-menu">
     <div class="footer-menu">
       <component :navData="NavData" v-bind:is="CurrentNav" class="footermenuul"></component>
+      <!-- <FooterMenu /> -->
     </div>
     <div class="mapinformation">
         <div class="map">
@@ -21,7 +22,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component({
     components: {
         'navLayout1': () => import('@/components/business/pc/header/InsNavLayout1.vue'), // 非遞歸組件
-        'navLayout2': () => import('@/components/business/pc/header/InsNavLayout2.vue') // 遞歸組件
+        'navLayout2': () => import('@/components/business/pc/header/InsNavLayout2.vue'), // 遞歸組件
+        FooterMenu: () => import('@/components/hkTasteBusiness/pc/footer/InsFooterLayout1.vue')
     }
 })
 export default class InsMenu extends Vue {
