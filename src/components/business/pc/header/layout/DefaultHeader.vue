@@ -209,6 +209,7 @@ export default class DefaultHeader extends Vue {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  width:50%;
 }
 
 .memberLogin{
