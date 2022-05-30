@@ -50,7 +50,7 @@ ul {
     > li {
       float: left;
       font-size: 14px;
-      width: 20%;
+      /* width: 20%; */
       text-align: center;
       position: relative;
       -webkit-transition-duration: 0.1s;

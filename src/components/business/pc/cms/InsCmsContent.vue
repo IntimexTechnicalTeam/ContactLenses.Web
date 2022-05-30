@@ -62,8 +62,10 @@
     </div>
     <!-- 有用信息页面 -->
     <div class="CmsInfo" v-if="NewcateId=='40113'">
+      <div >
       <div class="bigTitle">{{TitleName}}</div>
       <img :src="OtherPageImg" v-show="OtherPageImg!==null" class="btlImg">
+      </div>
       <div class="pc-news-text" v-html="content.Body"></div>
     </div>
     <!-- 訂製指南頁面 -->
@@ -651,11 +653,11 @@ export default class InsCmsContent extends Vue {
     margin-top: 2rem;
     .Img-01{
       width:55%;
-      height: 310px;
+      /* height: 310px; */
     }
     .Img-02{
       width:43%;
-      height: 310px;
+      /* height: 310px; */
       margin-left: 1.5rem;
     }
   }

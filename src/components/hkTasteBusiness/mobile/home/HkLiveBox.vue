@@ -1,17 +1,12 @@
 <template>
   <div class="liveBox mobileVersion" style="text-align: center;">
     <div class="liveBox_in">
-        <!-- <div class="TitleBg"><div class="innerBox">{{$t('Cms.WhatNews')}}</div></div> -->
         <div class="videoBg">
-            <!-- <p v-html="videoContent.Body"></p> -->
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/7S4qFKeB2V8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p v-html="videoContent.Body"></p>
         </div>
-        <div class="fbBg">
-          <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FDreimlens-115807627796417&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-        </div>
-        <!-- <div class="mapBg">
+        <div class="mapBg">
            <p v-html="fbContent.Body"></p>
-        </div> -->
+        </div>
     </div>
   </div>
 </template>
@@ -19,7 +14,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class PkLiveBox extends Vue {
-  /* videoContent:string='';
+  videoContent:string='';
   fbContent:string='';
   getVideoContent () {
     this.$Api.cms.getContentByDevice({ ContentId: 20294, IsMobile: true }).then(result => {
@@ -30,33 +25,68 @@ export default class PkLiveBox extends Vue {
     this.$Api.cms.getContentByDevice({ ContentId: 20299, IsMobile: true }).then(result => {
       this.fbContent = result.CMS;
     });
-  } */
+  }
   created () {
-    // this.getVideoContent();
-    // this.getFbContent();
+    this.getVideoContent();
+    this.getFbContent();
   }
   get lang () {
     return this.$Storage.get('locale');
   }
 }
 </script>
-<style scoped lang="less">
-.liveBox_in{
-  width: 90%;
-  margin: 30px auto;
-  overflow: hidden;
+<style  lang="less">
+.mobileVersion{
   .videoBg{
-    width: 100%;
-    margin-bottom: 3rem;
     iframe{
+      width: 100%;
+      height: 20rem;
+    }
+    img{
       width: 100%;
     }
   }
-  .fbBg{
-    width:100%;
+  .mapBg{
     /* iframe{
       width: 100%;
     } */
+    img{
+      width: 100%;
+    }
   }
+}
+</style>
+<style scoped lang="less">
+/*live*/
+.liveBox {
+    width: 100%;
+    .liveBox_in{
+    width: 90%;
+    margin: 0 auto 3rem auto;
+    padding-top:3rem;
+      .videoBg{
+        margin-top: 2rem;
+        margin-bottom: 3rem;
+        background-size: 100% 100%;
+        display: inline-block;
+        box-sizing: border-box;
+        width: 100%;
+        img{
+          width: 100%;
+        }
+      }
+      .hotTitle{
+        width: 100%;
+        height: 6rem;
+        margin: 0 auto;
+      }
+      .hotTitleE{
+        width: 100%;
+        height: 6rem;
+        margin: 0 auto;
+        background-size: contain;
+      }
+    }
+
 }
 </style>

@@ -37,7 +37,7 @@
         </div> -->
     </div>
     <!-- 其他页面 -->
-    <div class="CmsNormal" v-if="NewcateId ==='40112'">
+    <div class="CmsNormal" v-if="NewcateId ==='40110'">
       <transition name="slide">
         <div key="1" v-if="!waiting" style="display:flex;">
               <div class="DetailTitle"><img :src="OtherPageImg" v-show="OtherPageImg!==null"><div class="TitleBg"><div class="innerBoxText">{{CateName}}</div></div></div>

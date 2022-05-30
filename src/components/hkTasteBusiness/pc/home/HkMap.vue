@@ -73,7 +73,7 @@ export default class InsMenu extends Vue {
 .pc-information p{
     color: #12549e;
     font-weight: bold;
-    font-size: 1.4rem;
+    font-size: 17px;
     padding-left: 50px;
     margin-bottom: 30px;
 }

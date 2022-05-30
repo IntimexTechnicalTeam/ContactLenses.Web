@@ -87,12 +87,15 @@ export default class HkPromotion extends Vue {
 </style>
 <style lang="less" scoped>
 .title{
-  font-size: 30px;
+  font-size: 33px;
   color: #0e579c;
   margin:0 auto;
   font-weight: bold;
   span{
-    border-bottom: 8px dotted #3f9ed8;
+    /* padding-bottom: 10px;
+    background: url(/images/pc/spot.png) center 33px repeat-x; */
+    border-bottom: 10px dotted #429bd7;
+    padding-bottom: 10px;
   }
 }
 .indexMiddle{
