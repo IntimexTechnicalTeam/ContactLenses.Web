@@ -1,7 +1,7 @@
 <template>
  <div id="footer">
     <div class="footer-box">
-      <p>Copyright {{currentYear}} | Dreimlens Corporation LTD | All Rights Reserved Eventizer</p>
+      <p>Copyright {{currentYear}} | Dreimlens Corporation LTD | Powered by Eventizer Limited</p>
     </div>
 </div>
 </template>

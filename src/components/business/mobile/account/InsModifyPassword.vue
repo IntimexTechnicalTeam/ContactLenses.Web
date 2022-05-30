@@ -191,7 +191,7 @@ export default class InsModifyPassword extends Vue {
 .MembercenterMobile .MemberInfoMain .el-button{
     width: 100%;
     display: block;
-    background: #333333;
+    background: #0e579c;
     background-size: 100%;
     height: 4rem;
     border:0px!important;

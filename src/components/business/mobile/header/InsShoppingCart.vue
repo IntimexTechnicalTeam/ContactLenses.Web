@@ -28,9 +28,11 @@
                 <td  class="window-cart-pic">
                   <router-link :to="'/product/detail/'+one.Product.Sku" style="text-align:left;display: block;"><img :src="one.Product.Img_M" /></router-link>
                   <p style="font-size:1.2rem;text-align:left;">{{one.Product.Name}}</p>
-                  <p v-if="one.AttrName1" class="attrList" style="text-align:left;">{{one.AttrTypeName1}}：{{one.AttrName1}}</p>
-                  <p v-if="one.AttrName2" class="attrList" style="text-align:left;">{{one.AttrTypeName2}}：{{one.AttrName2}}</p>
-                  <p v-if="one.AttrName3" class="attrList" style="text-align:left;">{{one.AttrTypeName3}}：{{one.AttrName3}}</p>
+                  <div v-show="one.IsMake">
+                      <p v-if="one.AttrName1" class="attrList" style="text-align:left;">{{one.AttrTypeName1}}：{{one.AttrName1}}</p>
+                      <p v-if="one.AttrName2" class="attrList" style="text-align:left;">{{one.AttrTypeName2}}：{{one.AttrName2}}</p>
+                      <p v-if="one.AttrName3" class="attrList" style="text-align:left;">{{one.AttrTypeName3}}：{{one.AttrName3}}</p>
+                  </div>
                 </td>
                 <td width="60" class="window-cart-num">{{one.Qty}}</td>
                 <td width="100" class="window-cart-price">{{one.Product.Currency.Code}} {{(one.Product.SalePrice) | PriceFormat}}</td>
@@ -58,7 +60,7 @@ export default class InsShoppingCart extends Vue {
   shopCart: ShopCart = new ShopCart();
   hiddenClick:boolean=true;
   toggleDialog () {
-    this.isShow = !this.isShow;
+    this.$router.push('/account/custom');
   }
 
   closeDialog () {

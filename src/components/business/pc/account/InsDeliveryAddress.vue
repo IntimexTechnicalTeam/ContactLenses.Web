@@ -455,7 +455,7 @@ export default class InsDeliveryAddress extends Vue {
 </style>
 <style lang="less" scoped>
 .OrderBtn{
-  background: @base_color!important;
+  background: #0e579c;
   border:@base_color!important;
 }
 /*我的最爱*/
@@ -517,7 +517,7 @@ export default class InsDeliveryAddress extends Vue {
 .new-address .common-title {
     color: #fff;
     font-size: 22px;
-    background-color: #666;
+    background-color: #0e579c;
     height: 40px;
     line-height: 40px;
     cursor: pointer;
@@ -589,7 +589,7 @@ export default class InsDeliveryAddress extends Vue {
 }
 
 .btn-box .el-button {
-    background: #333333;
+    background: #0e579c;
     border: none;
     display: block;
     border-radius: 20px;
@@ -620,7 +620,7 @@ export default class InsDeliveryAddress extends Vue {
   margin-left: 0px!important;
 }
 .MemberInfoMain .el-button{
-    background: #333333;
+    background: #0e579c;
     border: none;
     display: block;
     border-radius: 20px;

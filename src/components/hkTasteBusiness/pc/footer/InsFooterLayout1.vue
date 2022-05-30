@@ -38,7 +38,7 @@
         </div>
     </div>
   </div> -->
-  <span class="currentyear">Copyright © {{currentYear}} | Dreimlens Corporation LTD | All Rights Reserved Eventizer
+  <span class="currentyear">Copyright © {{currentYear}} | Dreimlens Corporation LTD | Powered by Eventizer Limited
     <a href="https://eventizer.hk/" target="_blank">
     </a>
   </span>

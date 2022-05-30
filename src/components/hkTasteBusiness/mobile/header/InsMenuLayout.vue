@@ -10,12 +10,11 @@
         <div id="menu">
             <Menu :backColor="'@base_color'" :textColor="'#fff'" :uniqueOpened="true" />
         </div>
-        <div class="menu_footer">
-            <div class="innerShare">
-                <a href="https://www.facebook.com/hktastefood/" class="nav" target="_blank"><img src="/images/mobile/facebook.png"/></a>
-                <a href="https://www.facebook.com/hktastefood/" class="nav" target="_blank"><img src="/images/mobile/ig.png"/></a>
-                <a href="https://www.youtube.com/embed/videoseries?list=PLeU-XfKN4KcjVolI4daTvRI2oNOSLCILM"  class="nav" target="_blank"><img src="/images/mobile/youtube.png" /></a>
-            </div>
+        <div class="InsLangSwitch">
+            <InsLangSwitch/>
+        </div>
+        <div class="BottomCart">
+           <shopcart class="shoppingcart" />
         </div>
     </div>
 </template>
@@ -27,7 +26,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
   components: {
     InsLogo: () => import('@/components/base/mobile/InsLogo.vue'),
     Menu: () => import('@/components/business/mobile/header/InsElMenu.vue'),
-    InsLangSwitch: () => import('@/components/business/mobile/header/InsLangSwitch.vue')
+    InsLangSwitch: () => import('@/components/business/mobile/header/InsLangSwitch.vue'),
+    shopcart: () => import('@/components/business/mobile/header/InsShoppingCart.vue')
   }
 })
 export default class InsMenuLayout extends Vue {
@@ -291,21 +291,24 @@ export default class InsMenuLayout extends Vue {
         cursor: pointer;
     }
 }
-
-/deep/ .langSwitch {
-    font-size: 1.5rem;
-    color: #106919;
-    text-align: center;
-    p {
-        font-size: 1.5rem;
-        display: inline-block;
-        color: #fff;
-        margin: 0 0.8rem;
-
-        &.active {
-            color: #127437;
-            font-weight: bold;
-        }
-    }
+.InsLangSwitch {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.BottomCart {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
 }
 </style>

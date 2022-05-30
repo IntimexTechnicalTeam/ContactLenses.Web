@@ -213,23 +213,18 @@ export default class DefaultHeader extends Vue {
 
 .memberLogin{
     display: flex;
-    float: left;
     align-items: center;
     position: relative;
-}
-.handle-one{
-  margin-right: 30px;
+    margin-right: 10px;
 }
 .cartTop{
     display: flex;
-    float: left;
     align-items: center;
     position: relative;
     margin-right: 10px;
 }
 .langBox{
     display: flex;
-    float: left;
     align-items: center;
     position: relative;
     justify-content: center;
@@ -238,7 +233,6 @@ export default class DefaultHeader extends Vue {
    color:#323232;
    font-size: 14px;
     line-height: 32px;
-    margin-right: 10px;
     width: 40px;
     display: inline-block;
     text-align: center;
@@ -272,7 +266,6 @@ export default class DefaultHeader extends Vue {
      align-items: center;
      flex-wrap: nowrap;
      > li {
-      /* float: left; */
       display: flex;
       align-items: center;
       position: relative;
@@ -325,7 +318,6 @@ export default class DefaultHeader extends Vue {
 }
 
 .search-box {
-  float: left;
   display: flex;
   align-items: center;
 
@@ -346,7 +338,6 @@ export default class DefaultHeader extends Vue {
   .search-input {
     width: 340px;
     display: flex;
-    float: left;
     align-items: center;
     margin-right: 20px;
     border-radius: 14px;
@@ -355,7 +346,6 @@ export default class DefaultHeader extends Vue {
 
     > input {
       width: 305px;
-      float: left;
       border:none;
       background: transparent;
       line-height: 30px;

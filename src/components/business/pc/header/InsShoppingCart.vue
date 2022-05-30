@@ -41,16 +41,18 @@
               <router-link :to="'/product/detail/'+one.Product.Sku">
                 <img :src="one.Product.Img_M" />
               </router-link>
-              <p style="font-size:16px;">{{ one.Product.Name }}</p>
-              <p v-if="one.AttrName1" class="attrList">
-                {{ one.AttrTypeName1 }}：{{ one.AttrName1 }}
-              </p>
-              <p v-if="one.AttrName2" class="attrList">
-                {{ one.AttrTypeName2 }}：{{ one.AttrName2 }}
-              </p>
-              <p v-if="one.AttrName3" class="attrList">
-                {{ one.AttrTypeName3 }}：{{ one.AttrName3 }}
-              </p>
+                <p style="font-size:16px;">{{ one.Product.Name }}</p>
+                <div v-show="one.IsMake">
+                  <p v-if="one.AttrName1" class="attrList">
+                    {{ one.AttrTypeName1 }}：{{ one.AttrName1 }}
+                  </p>
+                  <p v-if="one.AttrName2" class="attrList">
+                    {{ one.AttrTypeName2 }}：{{ one.AttrName2 }}
+                  </p>
+                  <p v-if="one.AttrName3" class="attrList">
+                    {{ one.AttrTypeName3 }}：{{ one.AttrName3 }}
+                  </p>
+              </div>
             </td>
             <td width="60" class="window-cart-num">{{ one.Qty }}</td>
             <td width="120" class="window-cart-price">

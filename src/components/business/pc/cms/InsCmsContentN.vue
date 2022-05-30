@@ -2,6 +2,7 @@
   <div id="container">
     <!-- 其他页面 -->
     <div class="CmsOther">
+        <p class="HeadTitle">{{TitleName}}</p>
         <div class="NormalContent" v-html="content.Body"></div>
     </div>
 
@@ -76,14 +77,21 @@ export default class InsCmsContent extends Vue {
 </script>
 <style lang="less" scoped>
 .CmsOther {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    .HeadTitle {
+      font-size: 25px;
+      color: #0e579c;
+      margin: 15px 0;
+      font-weight: 700;
+      text-align: center;
+    }
   .NormalContent {
     width: 1200px;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     /deep/ .NormalText {
-      padding-top: 50px;
-      padding-bottom: 50px;
       p{
         line-height: 30px;
         color: #0e579c;

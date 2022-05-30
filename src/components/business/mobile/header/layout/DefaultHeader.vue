@@ -11,7 +11,6 @@
           <img class="close-meun" src="/images/mobile/out.png" @click="showSlideMenu" v-show="this.$store.state.isShowMenu"  />
         <ins-logo />
         <ins-login />
-        <shopcart class="shoppingcart" />
         <div class="search">
           <img src="/images/mobile/search.png" @click="showSlideMenu" class="search">
         </div>
@@ -30,7 +29,6 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
     InsLangSwitch: () => import('@/components/business/mobile/header/InsLangSwitch.vue'),
     InsLogin: () => import('@/components/business/mobile/header/InsLogin.vue'),
     InsFav: () => import('@/components/business/mobile/header/InsFav.vue'),
-    shopcart: () => import('@/components/business/mobile/header/InsShoppingCart.vue'),
     InsMenu: () => import('@/components/business/mobile/header/InsMenu.vue'),
     CodeSelect: () =>
       import('@/components/business/mobile/header/InsCodeSelect.vue')
@@ -57,6 +55,10 @@ export default class DefaultHeader extends Vue {
   created() {
     this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
   }
+   @Watch('$route', { deep: true })
+    onRouteChange (n, o) {
+      this.$store.dispatch('isShowMenu', false);
+    }
 }
 </script>
 
