@@ -1918,10 +1918,10 @@ boxShow(index) {
     bottom:300px;
   }
   .mobile-editform-box:nth-child(14){
-    bottom:185px;
+    bottom:240px;
   }
   .mobile-editform-box:nth-child(15){
-    bottom:240px;
+    bottom:179px;
   }
   .mobile-editform-box:nth-child(16){
     bottom:120px;
