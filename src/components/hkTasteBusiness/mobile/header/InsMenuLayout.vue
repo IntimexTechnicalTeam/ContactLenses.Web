@@ -3,10 +3,10 @@
         <div class="header_logo" v-if="!this.FrontE.slideMenu.Embedded">
             <i class="el-icon-close" @click="closeSlideMenu"></i>
         </div>
-        <div class="searchBox">
+        <!-- <div class="searchBox">
             <input type="text" v-model="searchKey" />
             <span class="search_btn"  @click="searchFun(searchKey)"><img src="/images/mobile/searchbtn.png"></span>
-        </div>
+        </div> -->
         <div id="menu">
             <Menu :backColor="'@base_color'" :textColor="'#fff'" :uniqueOpened="true" />
         </div>

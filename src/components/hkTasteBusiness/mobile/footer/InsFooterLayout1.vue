@@ -12,11 +12,14 @@
         </div>
     </div>
     <div class="footerBottom">
-      <ul v-for="(n,index) in footerMenus" :key="index" class="firstmenu" @click="showSecond(index)">
+      <ul v-for="(n,index) in footerMenus" :key="index" class="firstmenu">
         <li>
-          <router-link
+          <p class="fMenu" @click="showSecond(index)">
+            <router-link
             :to="n.Type === 0 ? n.Url : n.Type === 1 ? '/cms/catDetail/' + n.Value.Id : n.Type === 2 ? '/CMS/content/' + n.Value.Id : n.Type === 3 ? '/RegNPay/Form/' + n.Value.Id : n.Type === 4 ? '/product/CatProduct?catId=' + n.Value.Id : n.Type === 5 ? '/product/list?key=&attr=' + n.Value.Id : '/product/list?key=&attr=' + n.ParentId + '&attrId=' + n.Value.Id"
-          >{{n.Name}}<span class="open-icon" v-if="n.Childs != null && n.Childs.length > 0"></span></router-link>
+          >{{n.Name}}</router-link>
+            <span class="open-icon" v-if="n.Childs != null && n.Childs.length > 0"></span>
+          </p>
           <ul class="secondmenu">
             <li v-for="(c,index2) in n.Childs" :key="index2">
                 <router-link :to="To(c)">{{c.Name}}</router-link>
@@ -57,12 +60,14 @@ export default class InsFooter extends Vue {
   }
   showSecond (index) {
     var menu = document.querySelectorAll('.firstmenu');
-    var secondMenu = menu[index].getElementsByClassName('secondmenu')[0];
+    var secondMenu = menu[index].getElementsByClassName('secondmenu');
     if (this.footerMenus[index].Childs.length > 0) {
-      if (secondMenu.className === 'secondmenu') {
-        secondMenu.className = 'secondmenu menuBlock';
-      } else {
-        secondMenu.className = 'secondmenu';
+      for (var i = 0; i < secondMenu.length; i++) {
+        if (secondMenu[i].className === 'secondmenu') {
+          secondMenu[i].className = 'secondmenu menuBlock';
+        } else {
+          secondMenu[i].className = 'secondmenu';
+        }
       }
     }
   }
@@ -167,18 +172,20 @@ export default class InsFooter extends Vue {
       width: 100%;
       background: #0e579c;
       text-align: center;
+      .fMenu{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
       a{
         font-size: 18px;
         color:#fff;
         font-weight: bold;
         /* display: block; */
         /* width:100%; */
-        text-align: center;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        .open-icon{
+      }
+      .open-icon{
         width: 20px;
         height: 20px;
         display: block;
@@ -186,14 +193,13 @@ export default class InsFooter extends Vue {
         background-size: contain;
         margin-left: 1rem;
       }
-      }
     }
     .secondmenu{
       display: none;
     }
     .menuBlock{
     display: block;
-  }
+    }
   }
 }
 }
