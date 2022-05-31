@@ -470,9 +470,16 @@ export default class InsShoppingcart extends Vue {
         }
       }
     }
-    for(var i=0;i<this.items.length;i++){
-      Vue.set(this.items[i], 'boxshow',true)
-    }
+    // for(var i=0;i<this.items.length;i++){
+    //     if (i===0){
+    //      Vue.set(this.items[0], 'boxshow',true);
+    //         if (!this.items[i].IsMake) {
+    //         var Cr=this.items[i].LensExtAttrItem;
+    //         Cr.splice(7,10)
+    //       }
+    //     }
+
+    // }
   }
   @Watch('items', { deep: true })
   onItemsChange (o, n) {

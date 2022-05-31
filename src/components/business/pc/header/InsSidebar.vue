@@ -9,17 +9,17 @@
       /></a>
       <span v-show="show">
         <a
-          href="https://api.whatsapp.com/send?phone=8529876%205436&text=%E6%88%91%E6%83%B3%E6%9F%A5%E8%AF%A2%E4%B8%80%E4%B8%8B"
+          href="https://api.whatsapp.com/send?phone=85226372000&text=%E6%88%91%E6%83%B3%E6%9F%A5%E8%AF%A2%E4%B8%80%E4%B8%8B"
           target="_blank"
           ><img src="/static/Image/mobile/home/whatsapp.png"
         /></a>
         <a href="javascript:;" class="livechat" @click="showLivechat"
           ><img src="/static/Image/mobile/home/facebook.png"
         /></a>
-        <a href="tel:85298765436" class="fb-button" target="_blank"
+        <a href="tel:85226372000" class="fb-button" target="_blank"
           ><img src="/static/Image/mobile/home/phone.png"
         /></a>
-        <a href="mailto:info@hktaste.com.hk" class="fb-button"
+        <a href="mailto:hk@eandeoptics.com" class="fb-button"
           ><img src="/static/Image/mobile/home/news.png"
         /></a>
       </span>
@@ -31,7 +31,7 @@
         <div class="ctrlq fb-close"></div>
         <div
           class="fb-page"
-          data-href="https://www.facebook.com/hktastefood/"
+          data-href="https://www.facebook.com/Dreimlens-115807627796417/"
           data-tabs="messages"
           :data-width="userAgent=='pc'?360:320"
           data-height="400"
@@ -40,19 +40,19 @@
           data-show-facepile="false"
         >
           <blockquote
-            cite="https://www.facebook.com/hktastefood/"
+            cite="https://www.facebook.com/Dreimlens-115807627796417/"
             class="fb-xfbml-parse-ignore"
           ></blockquote>
         </div>
         <div class="fb-credit">
-          <a href="https://www.facebook.com/hktastefood/" target="_blank"
-            >Facebook Chat Widget by Style3-New</a
+          <a href="https://www.facebook.com/Dreimlens-115807627796417/" target="_blank"
+            >Facebook Chat Widget by Dreimlens Corporation LTD</a
           >
         </div>
         <div id="fb-root"></div>
       </div>
       <a
-        href="https://www.facebook.com/hktastefood/"
+        href="https://www.facebook.com/Dreimlens-115807627796417/"
         title="Send us a message on Facebook"
         class="ctrlq fb-button"
       ></a>

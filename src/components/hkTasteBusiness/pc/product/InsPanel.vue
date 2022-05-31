@@ -48,6 +48,7 @@
           ></inButton>
         </div>
         <div class="in_panel_footer" v-else>
+            <button type="button" :disabled="SoldOutAttr" @click="Shopclick('buy')" class="CartBtn" style="margin-right:20px;">{{$t('product.buy')}}</button>
             <button type="button" :disabled="SoldOutAttr" @click="Shopclick('addToCart')" class="CartBtn">{{$t('product.addToCart')}}</button>
         </div>
     </div>
@@ -149,7 +150,7 @@ export default class Panel extends Vue {
             (result) => {
               this.buyLoading = false;
                if (result.Message.Succeeded === true) {
-                  this.$router.push({ name: 'shoppingcart' });
+                  this.$router.push('/account/custom');
               } else {
                   this.$message({
                     message: result.Message.Message as string,
