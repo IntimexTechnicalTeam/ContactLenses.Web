@@ -131,6 +131,7 @@ export default class InsFooter extends Vue {
       font-weight: bold;
       font-size: 17px;
       padding-left: 40px;
+      text-align: left;
     }
     p:nth-child(2),
     p:nth-child(3),
@@ -140,6 +141,7 @@ export default class InsFooter extends Vue {
     }
     .shop_address{
       background: url(/images/pc/address.png) no-repeat left center;
+      width: 261px!important;
     }
     .shop_tel{
       background: url(/images/pc/phone.png) no-repeat left center;
