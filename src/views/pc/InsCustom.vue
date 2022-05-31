@@ -499,9 +499,16 @@ export default class InsShoppingcart extends Vue {
         }
       }
     }
-    for(var i=0;i<this.items.length;i++){
-      Vue.set(this.items[i], 'boxshow',true)
-    }
+    // for(var i=0;i<this.items.length;i++){
+    //     if (i===0){
+    //      Vue.set(this.items[0], 'boxshow',true);
+    //         if (!this.items[i].IsMake) {
+    //         var Cr=this.items[i].LensExtAttrItem;
+    //         Cr.splice(7,10)
+    //       }
+    //     }
+
+    // }
   }
   @Watch('items', { deep: true })
   onItemsChange (o, n) {
@@ -1306,7 +1313,10 @@ boxShow(index) {
             // console.log(ItemsArr[i])
             for(var z=0;z<EditBox.length;z++){
                 var testText=EditBox[z].getElementsByClassName('testInput')[0];
-                if (ItemsArr[i].IsMake) {
+                if (!ItemsArr[i].IsMake) {
+                  var Cr=ItemsArr[i].LensExtAttrItem;
+                  Cr.splice(7,10)
+                }
                   // if(EditBox[z].id === '7'){
                   //   if(LatList[7].Text === ''){
                   //     Vue.set(LatList[7],'testShow',true);
@@ -1377,10 +1387,6 @@ boxShow(index) {
                   //     Vue.set(ItemsArr[i], 'boxshow', true);
                   //   }
                   // }
-                }else{
-                  var Cr=ItemsArr[i].LensExtAttrItem;
-                  Cr.splice(7,10)
-                }
                 if(EditBox[z].id === '0'){
                   if(LatList[0].Text === ''){
                     Vue.set(LatList[0],'testShow',true);
