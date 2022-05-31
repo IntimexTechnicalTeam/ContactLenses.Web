@@ -12,7 +12,7 @@
         <ins-logo />
         <ins-login />
         <div class="search">
-          <img src="/images/mobile/pcindex_03.png" @click="showSlideMenu" class="searchbtn">
+          <img src="/images/mobile/pcindex_03.png" @click="showSearch" class="searchbtn">
         </div>
         <div class="searchbox" v-show="searchBlock">
             <input type="text" v-model="searchKey" />
@@ -43,7 +43,7 @@ export default class DefaultHeader extends Vue {
   searchKey: string = '';
   searchBlock = false;
 
-  showSlideMenu () {
+  showSearch () {
     /* let isShow = !JSON.parse(JSON.stringify(this.menuShow));
     this.$store.dispatch('isShowMenu', isShow); */
     if (this.searchBlock) {
@@ -51,6 +51,11 @@ export default class DefaultHeader extends Vue {
     } else {
       this.searchBlock = true;
     }
+  }
+
+  showSlideMenu () {
+    let isShow = !JSON.parse(JSON.stringify(this.menuShow));
+    this.$store.dispatch('isShowMenu', isShow);
   }
 
   get menuShow () {
