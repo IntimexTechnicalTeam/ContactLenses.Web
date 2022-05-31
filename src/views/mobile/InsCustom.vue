@@ -41,7 +41,7 @@
                     <div>{{Currency.Code}} {{(one.Product.SalePrice) | PriceFormat}}</div>
                 </div> -->
                 <div class="merchant-box">
-                  <button @click="boxShow(index)" class="edit">{{$t('product.EditDetails')}}</button>
+                  <button @click="boxShow(index)" class="edit" v-show="one.IsMake">{{$t('product.EditDetails')}}</button>
                   <button class="close"  v-on:click="removeItem(index)">
                     {{$t('product.Delete')}}
                   </button>
@@ -974,7 +974,7 @@ boxShow(index) {
         Vue.set(this.items[index], 'boxshow', false);
       }
     }else {
-      if(this.items[index].CorneaLeft === '' || !Cvalue.test(Lat[0].Text) || !Rvalue.test(Lat[1].Text) || !Rvalue.test(Lat[2].Text) || !Corvalue.test(Lat[3].Text) || !Corvalue.test(Lat[4].Text) || !Lvalue.test(Lat[5].Text) || this.items[index].CorneaRight === '' || this.items[index].CustomerCode === '' || this.items[index].LensDiameter === '' || this.items[index].ResultLeft === '' || this.items[index].ResultRight === ''){
+      /* if(this.items[index].CorneaLeft === '' || !Cvalue.test(Lat[0].Text) || !Rvalue.test(Lat[1].Text) || !Rvalue.test(Lat[2].Text) || !Corvalue.test(Lat[3].Text) || !Corvalue.test(Lat[4].Text) || !Lvalue.test(Lat[5].Text) || this.items[index].CorneaRight === '' || this.items[index].CustomerCode === '' || this.items[index].LensDiameter === '' || this.items[index].ResultLeft === '' || this.items[index].ResultRight === ''){
         Message({
           message: this.$t('Shoppingcart.SaveError') as string,
           type: 'error',
@@ -1026,7 +1026,13 @@ boxShow(index) {
           duration:3000
         })
         Vue.set(this.items[index], 'boxshow', false);
-      }
+      } */
+      Message({
+        message: this.$t('Shoppingcart.Savedsuccess') as string,
+        type: 'success',
+        duration:3000
+      })
+      Vue.set(this.items[index], 'boxshow', false);
     }
   }
   Reset (index) {
@@ -1283,82 +1289,12 @@ boxShow(index) {
             console.log(ItemsArr[i])
             for(var z=0;z<EditBox.length;z++){
                 var testText=EditBox[z].getElementsByClassName('mobiletest')[0];
-                if (ItemsArr[i].IsMake) {
-                  // if(EditBox[z].id === '7'){
-                  //   if(LatList[7].Text === ''){
-                  //     Vue.set(LatList[7],'testShow',true);
-                  //     testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[7].MutiLang;
-                  //     Vue.set(ItemsArr[i], 'boxshow', true);
-                  //   }
-                  // }
-                  // if(EditBox[z].id === '8'){
-                  //   if(LatList[8].Text === ''){
-                  //     Vue.set(LatList[8],'testShow',true);
-                  //     testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[8].MutiLang;
-                  //     Vue.set(ItemsArr[i], 'boxshow', true);
-                  //   }
-                  // }
-                  // if(EditBox[z].id === '9'){
-                  //   if(LatList[9].Text === ''){
-                  //     Vue.set(LatList[9],'testShow',true);
-                  //     testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[9].MutiLang;
-                  //     Vue.set(ItemsArr[i], 'boxshow', true);
-                  //   }
-                  // }
-                  // if(EditBox[z].id === '10'){
-                  //   if(LatList[10].Text === ''){
-                  //     Vue.set(LatList[10],'testShow',true);
-                  //     testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[10].MutiLang;
-                  //     Vue.set(ItemsArr[i], 'boxshow', true);
-                  //   }
-                  // }
-                  // if(EditBox[z].id === '11'){
-                  //   if(LatList[11].Text === ''){
-                  //     Vue.set(LatList[11],'testShow',true);
-                  //     testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[11].MutiLang;
-                  //     Vue.set(ItemsArr[i], 'boxshow', true);
-                  //   }
-                  // }
-                  // if(EditBox[z].id === '12'){
-                  //   if(LatList[12].Text === ''){
-                  //     Vue.set(LatList[12],'testShow',true);
-                  //     testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[12].MutiLang;
-                  //     Vue.set(ItemsArr[i], 'boxshow', true);
-                  //   }
-                  // }
-                  // if(EditBox[z].id === '13'){
-                  //   if(LatList[13].Text === ''){
-                  //     Vue.set(LatList[13],'testShow',true);
-                  //     testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[13].MutiLang;
-                  //     Vue.set(ItemsArr[i], 'boxshow', true);
-                  //   }
-                  // }
-                  // if(EditBox[z].id === '14'){
-                  //   if(LatList[14].Text === ''){
-                  //     Vue.set(LatList[14],'testShow',true);
-                  //     testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[14].MutiLang;
-                  //     Vue.set(ItemsArr[i], 'boxshow', true);
-                  //   }
-                  // }
-                  // if(EditBox[z].id === '15'){
-                  //   if(LatList[15].Text === ''){
-                  //     Vue.set(LatList[15],'testShow',true);
-                  //     testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[15].MutiLang;
-                  //     Vue.set(ItemsArr[i], 'boxshow', true);
-                  //   }
-                  // }
-                  // if(EditBox[z].id === '16'){
-                  //   if(LatList[16].Text === ''){
-                  //     Vue.set(LatList[16],'testShow',true);
-                  //     testText.innerHTML = this.$t('product.PleaseEnter') as string + LatList[16].MutiLang;
-                  //     Vue.set(ItemsArr[i], 'boxshow', true);
-                  //   }
-                  // }
-                }else{
+                if (!ItemsArr[i].IsMake) {
                   var Cr=ItemsArr[i].LensExtAttrItem;
                   Cr.splice(7,10)
                 }
-                if(EditBox[z].id === '0'){
+                if (ItemsArr[i].IsMake) {
+                  if(EditBox[z].id === '0'){
                   if(LatList[0].Text === ''){
                     Vue.set(LatList[0],'testShow',true);
                     testText.innerHTML = this.$t('Shoppingcart.CustomerCodeName') as string;
@@ -1400,6 +1336,49 @@ boxShow(index) {
                     Vue.set(ItemsArr[i], 'boxshow', true);
                   }
                 }
+                }
+                /* if(EditBox[z].id === '0'){
+                  if(LatList[0].Text === ''){
+                    Vue.set(LatList[0],'testShow',true);
+                    testText.innerHTML = this.$t('Shoppingcart.CustomerCodeName') as string;
+                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  }
+                }
+                if(EditBox[z].id === '1'){
+                  if(LatList[1].Text === ''){
+                    Vue.set(LatList[1],'testShow',true);
+                    testText.innerHTML = this.$t('Shoppingcart.Result') as string;
+                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  }
+                }
+                if(EditBox[z].id === '2'){
+                  if(LatList[2].Text === ''){
+                    Vue.set(LatList[2],'testShow',true);
+                    testText.innerHTML = this.$t('Shoppingcart.Result') as string;
+                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  }
+                }
+                if(EditBox[z].id === '3'){
+                  if(LatList[3].Text === ''){
+                    Vue.set(LatList[3],'testShow',true);
+                    testText.innerHTML = this.$t('Shoppingcart.Cornea') as string;
+                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  }
+                }
+                if(EditBox[z].id === '4'){
+                  if(LatList[4].Text === ''){
+                    Vue.set(LatList[4],'testShow',true);
+                    testText.innerHTML = this.$t('Shoppingcart.Cornea') as string;
+                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  }
+                }
+                if(EditBox[z].id === '5'){
+                  if(LatList[5].Text === ''){
+                    Vue.set(LatList[5],'testShow',true);
+                    testText.innerHTML = this.$t('Shoppingcart.LensDiameter') as string;
+                    Vue.set(ItemsArr[i], 'boxshow', true);
+                  }
+                } */
               }
             }
           }

@@ -52,7 +52,7 @@
           ></inButton>
         </div>
         <div class="in_panel_footer" v-else>
-            <button type="button" :disabled="SoldOutAttr" @click="Shopclick('buy')" class="CartBtn" >{{$t('product.buy')}}</button>
+            <!-- <button type="button" :disabled="SoldOutAttr" @click="Shopclick('buy')" class="CartBtn" >{{$t('product.buy')}}</button> -->
             <button type="button" :disabled="SoldOutAttr" @click="Shopclick('addToCart')" class="CartBtn">{{$t('product.addToCart')}}</button>
         </div>
     </div>
@@ -143,6 +143,7 @@ export default class InsPanel extends Vue {
               this.Loading = false;
             }).then(() => {
             this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
+            this.$router.push('/account/custom');
           }).catch();
       } else if (action === 'buy') {
         this.buyLoading = true;
