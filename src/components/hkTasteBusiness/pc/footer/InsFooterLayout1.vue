@@ -102,7 +102,7 @@ export default class InsFooterLayout1 extends Vue {
 /* 底部文件 */
 
 .footer{
-  width:900px;
+  width:1200px;
   margin:0 auto;
   border-top: 2px solid #429cd8;
   text-align: center;
