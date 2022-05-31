@@ -16,7 +16,7 @@
         <li>
           <router-link
             :to="n.Type === 0 ? n.Url : n.Type === 1 ? '/cms/catDetail/' + n.Value.Id : n.Type === 2 ? '/CMS/content/' + n.Value.Id : n.Type === 3 ? '/RegNPay/Form/' + n.Value.Id : n.Type === 4 ? '/product/CatProduct?catId=' + n.Value.Id : n.Type === 5 ? '/product/list?key=&attr=' + n.Value.Id : '/product/list?key=&attr=' + n.ParentId + '&attrId=' + n.Value.Id"
-          >{{n.Name}}<span class="open-icon"></span></router-link>
+          >{{n.Name}}<span class="open-icon" v-if="n.Childs != null && n.Childs.length > 0"></span></router-link>
           <ul class="secondmenu">
             <li v-for="(c,index2) in n.Childs" :key="index2">
                 <router-link :to="To(c)">{{c.Name}}</router-link>
@@ -177,19 +177,13 @@ export default class InsFooter extends Vue {
         justify-content: center;
         align-items: center;
         .open-icon{
-          display: none;
-        }
+        width: 20px;
+        height: 20px;
+        display: block;
+        background: url(/images/mobile/open.png) right center no-repeat;
+        background-size: contain;
+        margin-left: 1rem;
       }
-      .router-link-exact-active{
-        /* background-color: #0e579c; */
-        .open-icon{
-          width: 20px;
-          height: 20px;
-          display: block;
-          background: url(/images/mobile/open.png) right center no-repeat;
-          background-size: contain;
-          margin-left: 1rem;
-        }
       }
     }
     .secondmenu{
