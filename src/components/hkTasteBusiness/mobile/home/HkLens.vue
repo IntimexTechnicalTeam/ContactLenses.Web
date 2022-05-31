@@ -104,6 +104,12 @@ export default class HkPromotion extends Vue {
     border-bottom: 8px dotted #3f9ed8;
   }
 }
+.title1{
+  span{
+    display: block;
+    width: 100%;
+  }
+}
 .about{
 }
 .lensBg,

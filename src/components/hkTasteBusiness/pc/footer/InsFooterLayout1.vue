@@ -76,6 +76,7 @@ export default class InsFooterLayout1 extends Vue {
         secondMenu.className = 'secondmenu';
       }
     }
+    console.log('111');
   }
   created () {
     var date = new Date();
@@ -124,7 +125,7 @@ export default class InsFooterLayout1 extends Vue {
     }
   }
   .secondmenu{
-    /* display: none; */
+    display: none;
     position: absolute;
     z-index:99999;
     background: #fff;

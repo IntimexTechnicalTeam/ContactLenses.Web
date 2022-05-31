@@ -5,7 +5,6 @@
     <HkPromotion />
     <!-- <HkBranch /> -->
     <HkLiveBox />
-    <FooterMenu />
     </div>
   </div>
 </template>
@@ -16,9 +15,8 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
   components: {
     HomeBanner: () => import('@/components/base/mobile/InsBanner.vue'),
     HkPromotion: () => import('@/components/hkTasteBusiness/mobile/home/HkPromotion.vue'),
-    HkLiveBox: () => import('@/components/hkTasteBusiness/mobile/home/HkLiveBox.vue'),
+    HkLiveBox: () => import('@/components/hkTasteBusiness/mobile/home/HkLiveBox.vue')
     // HkMap: () => import('@/components/hkTasteBusiness/mobile/home/HkMap.vue')
-    FooterMenu: () => import('@/components/hkTasteBusiness/mobile/footer/InsFooterLayout1.vue')
   }
 })
 export default class InsHome extends Vue {

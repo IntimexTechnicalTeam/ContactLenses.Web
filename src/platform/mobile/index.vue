@@ -10,6 +10,7 @@
     <ins-slide-menu :direction="'right'">
       <ins-menu-layout />
     </ins-slide-menu>
+    <FooterMenu />
   </div>
 </template>
 
@@ -23,8 +24,9 @@ import Cookie from 'js-cookie';
     // InsFooter: () => import('@/components/business/mobile/footer/InsFooter.vue'),
     InsSlideMenu: () => import('@/components/business/mobile/header/InsSlideMenu.vue'),
     InsMenuLayout: () => import('@/components/hkTasteBusiness/mobile/header/InsMenuLayout.vue'),
-    InsSidebar: () => import('@/components/business/pc/header/InsSidebar.vue')
+    InsSidebar: () => import('@/components/business/pc/header/InsSidebar.vue'),
     // Menu: () => import('@/components/business/mobile/header/InsElMenu.vue')
+    FooterMenu: () => import('@/components/hkTasteBusiness/mobile/footer/InsFooterLayout1.vue')
   }
 })
 export default class mobileIndex extends Vue {

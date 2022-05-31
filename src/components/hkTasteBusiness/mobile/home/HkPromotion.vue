@@ -199,6 +199,8 @@ export default class HkPromotion extends Vue {
           font-weight: bold;
           font-size: 2rem;
           border-bottom: 8px dotted #3f9ed8;
+          display: block;
+          width: 100%;
         }
       }
       .title1 {

@@ -12,7 +12,11 @@
         <ins-logo />
         <ins-login />
         <div class="search">
-          <img src="/images/mobile/search.png" @click="showSlideMenu" class="search">
+          <img src="/images/mobile/pcindex_03.png" @click="showSlideMenu" class="searchbtn">
+        </div>
+        <div class="searchbox" v-show="searchBlock">
+            <input type="text" v-model="searchKey" />
+            <span class="search_btn"  @click="searchFun(searchKey)"><img src="/images/mobile/pcindex_03.png"></span>
         </div>
         <!-- <ins-menu /> -->
         <!-- <ins-menu :layout="1" /> -->
@@ -36,10 +40,17 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 })
 export default class DefaultHeader extends Vue {
   @Prop() private showInFixed!: boolean;
+  searchKey: string = '';
+  searchBlock = false;
 
   showSlideMenu () {
-    let isShow = !JSON.parse(JSON.stringify(this.menuShow));
-    this.$store.dispatch('isShowMenu', isShow);
+    /* let isShow = !JSON.parse(JSON.stringify(this.menuShow));
+    this.$store.dispatch('isShowMenu', isShow); */
+    if (this.searchBlock) {
+      this.searchBlock = false;
+    } else {
+      this.searchBlock = true;
+    }
   }
 
   get menuShow () {
@@ -51,6 +62,24 @@ export default class DefaultHeader extends Vue {
   }
   get ShopCart () {
     return this.$store.state.shopCart;
+  }
+  searchFun (key) {
+    this.$store.dispatch('setSearchKey', key);
+    if (key !== '') {
+      this.$router.push({
+        path: '/product/search',
+        name: 'productSearch',
+        params: {
+          key: key
+        }
+      });
+      this.$store.dispatch('isShowMenu', !this.$store.state.isShowMenu);
+    } else {
+      this.$router.push({
+        path: '/product/search/-'
+      });
+      this.$store.dispatch('isShowMenu', !this.$store.state.isShowMenu);
+    }
   }
   created() {
     this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
@@ -129,5 +158,36 @@ export default class DefaultHeader extends Vue {
 }
 .shoppingcart {
   margin:0 0.5rem;
+}
+.searchbox{
+  width: 100%;
+  position: absolute;
+  z-index: 99999;
+  top:7rem;
+  left:0;
+  background: #fff;
+  border-radius: 15px;
+  padding: .5rem 0;
+  height: 3rem;
+  line-height: 3rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  input{
+    width: 80%;
+    border:none;
+    height: 3rem;
+    line-height: 3rem;
+  }
+  .search_btn{
+    width: 3rem;
+    height: 3rem;
+    padding-left: .5rem;
+    border-left: 2px solid #0e559c;
+    img{
+      width:100%;
+    }
+  }
 }
 </style>
