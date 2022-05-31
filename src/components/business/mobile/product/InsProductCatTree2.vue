@@ -1,13 +1,15 @@
 <template>
-    <div class="productMenuTree">
-      <template v-if="direction === 'row'">
-        <ins-select-search :data="catalogs" :type="1" :multiple="multiSelect" @changeSelect="changeSelectedAttr" />
-      </template>
+<div class="productTreeMobile">
+      <div class="productMenuTree">
+        <template v-if="direction === 'row'">
+          <ins-select-search :data="catalogs" :type="1" :multiple="multiSelect" @changeSelect="changeSelectedAttr" />
+        </template>
 
-      <template v-if="direction === 'column'">
-        <p class="Title" v-if="title">{{title}}</p>
-        <Tree icon-class="el-icon-caret-right" :default-expand-all="expandAll" :data="catalogs" node-key="Id" :show-checkbox="treeType === 1 ? false : showCheckbox" :props="props" @node-click="handleNodeClick" @check="changeCSelect" :check-strictly="!multiSelect" ref="tree"></Tree>
-      </template>
+        <template v-if="direction === 'column'">
+          <p class="Title" v-if="title">{{title}}</p>
+          <Tree icon-class="el-icon-caret-right" :default-expand-all="expandAll" :data="catalogs" node-key="Id" :show-checkbox="treeType === 1 ? false : showCheckbox" :props="props" @node-click="handleNodeClick" @check="changeCSelect" :check-strictly="!multiSelect" ref="tree"></Tree>
+        </template>
+      </div>
     </div>
 </template>
 <script lang="ts">
@@ -106,13 +108,13 @@ export default class InsProductCatTree extends Vue {
     }
 }
 </style>
-<style lang="less">
-  .productmenutree{
+<style lang="less" scoped>
+  .productTreeMobile{
     width:100%;
     margin:20px auto;
     .productMenuTree{
       border:none;
-      .el-tree{
+      /deep/ .el-tree{
         background: none;
         color:#fff;
         margin-top: 2rem;

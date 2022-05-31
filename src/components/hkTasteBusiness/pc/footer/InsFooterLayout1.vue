@@ -4,7 +4,7 @@
     <div class="footerMain">
         <div class="footerBottom">
           <div class="footerTop">
-              <ul v-for="(n,index) in footerMenus" :key="index" class="firstmenu" @click="showSecond(index)">
+              <ul v-for="(n,index) in footerMenus" :key="index" class="firstmenu" @mouseenter.stop="showSecond(index)" @mouseleave.stop="hideSecond(index)">
                 <li>
                   <router-link
                     :to="n.Childs.length > 0 ? '' : n.Type === 0 ? n.Url : n.Type === 1 ? '/cms/catDetail/' + n.Value.Id : n.Type === 2 ? '/CMS/content/' + n.Value.Id : n.Type === 3 ? '/RegNPay/Form/' + n.Value.Id : n.Type === 4 ? '/product/CatProduct?catId=' + n.Value.Id : n.Type === 5 ? '/product/list?key=&attr=' + n.Value.Id : '/product/list?key=&attr=' + n.ParentId + '&attrId=' + n.Value.Id"
@@ -78,6 +78,18 @@ export default class InsFooterLayout1 extends Vue {
     }
     console.log('111');
   }
+    hideSecond (index) {
+    var menu = document.querySelectorAll('.firstmenu');
+    var secondMenu = menu[index].getElementsByClassName('secondmenu')[0];
+    if (this.footerMenus[index].Childs.length > 0) {
+      if (secondMenu.className === 'secondmenu') {
+        secondMenu.className = 'secondmenu';
+      } else {
+        secondMenu.className = 'secondmenu';
+      }
+    }
+    console.log('111');
+  }
   created () {
     var date = new Date();
     this.currentYear = date.getFullYear();
@@ -108,6 +120,7 @@ export default class InsFooterLayout1 extends Vue {
     line-height: 30px;
     text-align: center;
     position: relative;
+    width: 15%;
     &:nth-child(1){
       margin-left: 0;
     }
@@ -117,7 +130,8 @@ export default class InsFooterLayout1 extends Vue {
       font-weight: bold;
       width:100%;
       display: block;
-      padding: .5rem 1rem;
+      padding-top: 10px;
+      padding-bottom: 10px;
       &:hover{
         background: #0e559c;
         color:#fff;
@@ -129,15 +143,20 @@ export default class InsFooterLayout1 extends Vue {
     position: absolute;
     z-index:99999;
     background: #fff;
+    width: 100%;
   }
   .menuBlock{
     display: block;
   }
 }
 .currentyear{
-  color:#1254a0;
-  font-weight: bold;
-  font-size: 18px;
+    color: #1254a0;
+    font-weight: bold;
+    font-size: 18px;
+    width: 100%;
+    display: inline-block;
+    padding-top: 10px;
+    border-top: 2px solid #429cd8;
 }
 .mapinformation{
     display: flex;

@@ -1,11 +1,5 @@
 <template>
   <div id="container">
-    <!-- <div class="ProducBanner">
-      <ProductListSwiper
-        class="innerBanner"
-        :TitleName="$t('product.Producttitle')"
-      />
-    </div> -->
     <div class="ProductSearch">
       <div class="SearchSlide">
         <div class="leftSide">
@@ -78,10 +72,6 @@ import $ from 'jquery';
     InsPage: () =>
       import(
         /* webpackChunkName: 'product' */ '@/components/base/pc/InsPage.vue'
-      ),
-    ProductListSwiper: () =>
-      import(
-        /* webpackChunkName: 'product' */ '@/components/hkTasteBusiness/pc/product/HkProductListSwiper.vue'
       )
   }
 })

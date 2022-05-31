@@ -1,8 +1,5 @@
 <template>
   <div id="container" class="ProductSearch">
-        <div class="ProducBanner">
-            <ProductListSwiper :TitleName="$t('product.Producttitle')"/>
-        </div>
         <div class="SearchSlide">
           <div class="leftSide">
             <advancedSearch @advancedChange="advancedChange" v-if="isAdvanced"  @closeSub="closeSub" @resetAll="resetAll" />
@@ -42,8 +39,7 @@ import $ from 'jquery';
 @Component({
   components: {
     InsProductList: () => import('@/components/hkTasteBusiness/mobile/product/HkProductWindow.vue'),
-    advancedSearch: () => import('@/components/hkTasteBusiness/mobile/product/InsAdvancedSearch.vue'),
-    ProductListSwiper: () => import('@/components/hkTasteBusiness/mobile/product/HkProductListSwiper.vue')
+    advancedSearch: () => import('@/components/hkTasteBusiness/mobile/product/InsAdvancedSearch.vue')
   }
 })
 export default class InsProductSearch extends Vue {
