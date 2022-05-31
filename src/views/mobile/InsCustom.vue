@@ -1213,6 +1213,10 @@ boxShow(index) {
         AddressId: this.editForm.AddressId,
         Items: this.items
       };
+      for (var k = 0; k < order.Items.length; k++){
+        Vue.set (order.Items[k], 'ShoppingCartId', order.Items[k].Id );
+        Vue.set (order.Items[k], 'Sku', order.Items[k].Product.Sku );
+      }
       // （新）順豐自提點判斷處理
       if (this.$store.state.newSF) {
         // order.DeliveryType = 'P';
@@ -1232,7 +1236,8 @@ boxShow(index) {
           this.$store.dispatch('setExpress', new Express());
           this.$store.dispatch('setPickupAddress', new PickupAddress());
           this.$store.dispatch('setPromotionDiscount', new PromotionDiscount());
-          this.$router.push({ name: 'completeCheckout', params: { id: result.ReturnValue } });
+/*           this.$router.push({ name: 'completeCheckout', params: { id: result.ReturnValue } }); */
+          this.$router.push('/account/completeCheckout/'+result.ReturnValue);
           this.COloading = false;
         } else {
           this.FormSubmitCheck(temp);

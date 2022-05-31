@@ -154,12 +154,8 @@ export default class HkPromotion extends Vue {
 .indexRecommendInner{
   box-shadow: 5px 5px 0px #429bd7;
 }
-.swiper-container{
-  height: 370px;
-}
 .swiper-slide img{
     width: 670px;
-    height: 372px;
 }
 .aboutInformation p{
     width: 379px;

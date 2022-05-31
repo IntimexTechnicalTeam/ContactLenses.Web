@@ -1243,6 +1243,13 @@ boxShow(index) {
         AddressId: this.editForm.AddressId,
         Items: this.items
       };
+      // Vue.set (order, 'ShoppingCartId', order.Items.Id );
+      // Vue.set (order, 'Sku', order.Items.Product.Sku );
+      for (var k = 0; k < order.Items.length; k++){
+        Vue.set (order.Items[k], 'ShoppingCartId', order.Items[k].Id );
+        Vue.set (order.Items[k], 'Sku', order.Items[k].Product.Sku );
+      }
+      // console.log(order.Items.Product.Sku);
       // （新）順豐自提點判斷處理
       if (this.$store.state.newSF) {
         // order.DeliveryType = 'P';
@@ -1319,10 +1326,10 @@ boxShow(index) {
             // console.log(ItemsArr[i])
             for(var z=0;z<EditBox.length;z++){
                 var testText=EditBox[z].getElementsByClassName('testInput')[0];
-                if (!ItemsArr[i].IsMake) {
+                /* if (!ItemsArr[i].IsMake) {
                   var Cr=ItemsArr[i].LensExtAttrItem;
                   Cr.splice(7,10)
-                }
+                } */
                 if (ItemsArr[i].IsMake) {
                   if(EditBox[z].id === '0'){
                   if(LatList[0].Text === ''){
