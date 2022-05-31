@@ -193,7 +193,8 @@ export default class InsFooterLayout1 extends Vue {
 }
 .shop_address{
     background: url(/images/pc/address.png) no-repeat left center;
-    width:344px!important;
+    width:261px!important;
+    text-align: left;
 }
 .shop_tel{
     background: url(/images/pc/phone.png) no-repeat left center;
