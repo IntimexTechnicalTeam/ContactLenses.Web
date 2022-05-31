@@ -35,7 +35,9 @@ export default class InsLangSwitch extends Vue {
 </script>
 <style scoped lang="less">
 .langSwitch {
-    /* width: 150px; */
+    width: 100px;
+    margin-left: 10px;
+    margin-right: 10px;
     p {
       display: inline-block;
       padding: 5px 10px;
@@ -51,7 +53,7 @@ export default class InsLangSwitch extends Vue {
       background-size: 1rem;
       border:none;
       box-sizing: border-box;
-      text-align: center;
+      text-align: left;
       color:#0e559c;
       appearance: none;
       -moz-appearance: none;
@@ -59,6 +61,8 @@ export default class InsLangSwitch extends Vue {
       font-size: 1.4rem;
       outline: none;
       padding: 0 1rem;
+      padding-left: 10px;
+      cursor: pointer;
       option{
         color:#666666;
         outline: none;

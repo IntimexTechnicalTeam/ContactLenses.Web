@@ -2,10 +2,10 @@
   <div class="main_warpper">
     <ins-header  v-show="routerPath!=='/building'" />
     <router-view></router-view>
-    <div class="footer-menu" id="menu">
+    <!-- <div class="footer-menu" id="menu">
       <Menu :backColor="'@base_color'" :textColor="'#fff'" :uniqueOpened="true" />
-    </div>
-    <ins-footer  v-show="routerPath!=='/building'" />
+    </div> -->
+    <!-- <ins-footer  v-show="routerPath!=='/building'" /> -->
     <ins-sidebar />
     <ins-slide-menu :direction="'right'">
       <ins-menu-layout />
@@ -20,11 +20,11 @@ import Cookie from 'js-cookie';
 @Component({
   components: {
     InsHeader: () => import('@/components/business/mobile/header/InsHeader.vue'),
-    InsFooter: () => import('@/components/business/mobile/footer/InsFooter.vue'),
+    // InsFooter: () => import('@/components/business/mobile/footer/InsFooter.vue'),
     InsSlideMenu: () => import('@/components/business/mobile/header/InsSlideMenu.vue'),
     InsMenuLayout: () => import('@/components/hkTasteBusiness/mobile/header/InsMenuLayout.vue'),
-    InsSidebar: () => import('@/components/business/pc/header/InsSidebar.vue'),
-    Menu: () => import('@/components/business/mobile/header/InsElMenu.vue')
+    InsSidebar: () => import('@/components/business/pc/header/InsSidebar.vue')
+    // Menu: () => import('@/components/business/mobile/header/InsElMenu.vue')
   }
 })
 export default class mobileIndex extends Vue {

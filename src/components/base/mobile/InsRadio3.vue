@@ -34,7 +34,7 @@ export default class InsSelect3 extends Vue {
   private None: boolean = false;
   private Content: string[] = [];
   private DropdownShow: boolean = false;
-  private Placeholder = '请选择';
+  private Placeholder = this.$t('RegNPay.PleaseSelect') as string;
   //   props
   @Prop() private readonly label!: string;
   @Prop() private readonly styla!: string;

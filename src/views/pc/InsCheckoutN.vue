@@ -223,7 +223,7 @@ export default class InsCheckoutN extends Vue {
     Hyperlink () {
       this.$router.push('/account/shoppingcart');
     }
-    created () {
+    getShoping() {
       this.$store.dispatch('setShopCart', this.$Api.shoppingCart.shoppingGet());
       this.$store.dispatch('setAddress', this.$Api.checkout.getAddress2());
       let pm = this.$Api.checkout.getPaymentMethod().then(result => {
@@ -250,6 +250,9 @@ export default class InsCheckoutN extends Vue {
           });
         });
       });
+    }
+    created () {
+      this.getShoping();
     }
     get items () {
       if (this.allShopCart) return this.Shoppcart.Items.length;

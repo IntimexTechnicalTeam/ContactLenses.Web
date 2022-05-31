@@ -265,7 +265,7 @@ export default class InsLoginN extends Vue {
     .insLogin_divide{
         white-space: nowrap;
         width: 1060px;
-        margin: 20px auto;
+        margin: 0 auto;
         .divide{
             display: inline-block;
             width: 500px;

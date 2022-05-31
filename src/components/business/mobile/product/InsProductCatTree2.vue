@@ -108,7 +108,7 @@ export default class InsProductCatTree extends Vue {
 </style>
 <style lang="less">
   .productmenutree{
-    width:95%;
+    width:100%;
     margin:20px auto;
     .productMenuTree{
       border:none;
@@ -123,9 +123,11 @@ export default class InsProductCatTree extends Vue {
             width: 100%;
               height:45px;
             .el-tree-node__expand-icon{
-              color:#0e559c;
-              position: relative;
-              left: 70%;
+                color: #0e559c;
+                position: relative;
+                left: 80%;
+                font-size: 20px;
+                top: 0px;
             }
             .el-tree-node__label{
               font-size: 18px;

@@ -52,9 +52,10 @@ export default class InsLangSwitch extends Vue {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: 1rem;
     .lang_flow{
     position: absolute;
-    top: 3.8rem;
+    top: 5rem;
     left: 0px;
     width: 100%;
     background: #FFF;

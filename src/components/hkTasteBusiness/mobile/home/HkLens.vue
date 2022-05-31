@@ -114,6 +114,7 @@ export default class HkPromotion extends Vue {
   font-size: 17px;
   margin:30px auto 50px auto;
   font-weight: bold;
+  display: block;
 }
 .lensBg img{
   width: 100%;
@@ -145,5 +146,9 @@ export default class HkPromotion extends Vue {
     font-weight: bold;
     font-size: 17px;
     margin:30px auto;
+}
+.swiper-pagination{
+  left:50%;
+  margin-top:1rem;
 }
 </style>

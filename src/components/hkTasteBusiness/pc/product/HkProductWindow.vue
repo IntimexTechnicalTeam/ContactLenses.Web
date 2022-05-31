@@ -233,7 +233,8 @@ export default class InsProductWindow extends Vue {
     margin-top: 10px;
     margin-bottom: 10px;
     border:1px solid #0e559c;
-    padding: 5%;
+    height: 45px;
+    padding: 5px;
 }
 .in_pdWindow_item_code {
   color: #0e559c;

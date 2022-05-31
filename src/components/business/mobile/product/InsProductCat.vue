@@ -102,7 +102,7 @@ export default class InsProductCat extends Vue {
     }
 }
 </script>
-<style scoped lang=less>
+<style scoped lang="less">
 .products_container{
     display: flex;
     flex-wrap: wrap;
@@ -122,10 +122,13 @@ export default class InsProductCat extends Vue {
       }
     }
 .product_item{
-    width: 50%;
-    padding:0 1rem 4rem 0;
+    width: 48%;
     box-sizing:border-box;
     margin-top:1rem;
+    margin-right: 4%;
+    &:nth-child(2n) {
+      margin-right: 0px!important;
+    }
 }
 .loading{
     text-align: center;

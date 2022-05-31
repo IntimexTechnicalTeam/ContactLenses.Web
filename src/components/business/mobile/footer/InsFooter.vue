@@ -1,7 +1,7 @@
 <template>
   <div id="footer">
     <!-- <footerLayout1 /> -->
-    <component :is="layout" />
+    <!-- <component :is="layout" /> -->
   </div>
 </template>
 

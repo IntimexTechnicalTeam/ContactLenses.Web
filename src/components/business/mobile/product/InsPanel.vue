@@ -11,18 +11,18 @@
         @changePrice="AdditionalPrice"
       ></inSelect> -->
       <div style="width: 100%;" v-if="panelDetail.IsMake">
-        <span class="mobileMaterial">{{$t('product.Material')}}</span>
+        <!-- <span class="mobileMaterial">{{$t('product.Material')}}</span> -->
         <inSelect
           :items="panelDetail.LensMaterial"
-          placeholder="请选择"
+          :placeholder="$t('RegNPay.PleaseSelect')"
           v-model="MId"
           styla="padding: 0 10px;"
         ></inSelect>
-        <span class="mobileLensColor">{{$t('product.LensColor')}}</span>
+        <!-- <span class="mobileLensColor">{{$t('product.LensColor')}}</span> -->
         <colorSelect
           :items="colorList"
           v-model="LensColor"
-          placeholder="请选择"
+          :placeholder="$t('RegNPay.PleaseSelect')"
         ></colorSelect>
       </div>
       <!-- <inNum :label="$i18n.t('product.countTitle')" v-model="ProductInfor.Qty" :v="ProductInfor.Qty" :min="panelDetail.MinPurQty" :max="panelDetail.MaxPurQty" styla="text-align:center;"></inNum> -->

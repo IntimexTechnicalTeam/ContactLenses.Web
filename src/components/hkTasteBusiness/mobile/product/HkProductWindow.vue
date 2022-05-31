@@ -164,12 +164,13 @@ export default class InsProductWindow extends Vue {
   align-items: center;
 }
 .in_pdWindow_item_title {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     width: 90%;
     margin: 0 auto;
     text-align: center;
     color: #0e559c;
-    line-height: 25px;
+    line-height: 1.8rem;
+    height: 3.6rem;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;

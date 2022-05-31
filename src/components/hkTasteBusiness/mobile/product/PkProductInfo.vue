@@ -6,7 +6,7 @@
     <div class="in_unitInfo" v-if="panelDetail.UnitInfo.Desc!==null">{{$t('product.Unit')}}:{{panelDetail.UnitInfo.Desc}}</div>
     <div class="in_panel_product">
         <div class="ProductCode">
-            <span class="leftpart">{{$t("product.ProductCode")}}:{{panelDetail.Code}}</span>
+            <span class="leftpart">{{panelDetail.Code}}</span>
             <div class="rightpart"><HkProductShare></HkProductShare></div>
         </div>
     </div>

@@ -76,12 +76,9 @@ export default class InsProductCat extends Vue {
 </script>
 <style scoped lang="less">
 .mobileVersionCat{
-  width: 95%;
-  background-size: 100% 100%;
-  display: inline-block;
+  width: 90%;
   box-sizing: border-box;
   margin:0 auto;
-  padding: 0 2.5%;
 }
 .product_warpper{
   width: 100%;
@@ -100,6 +97,7 @@ export default class InsProductCat extends Vue {
 .product_list{
   color:#0e559c;
   font-size: 1.8rem;
+  margin-bottom: 1rem;
 }
 .product_item{
   width:50%;

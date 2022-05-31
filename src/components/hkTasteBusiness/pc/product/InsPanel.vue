@@ -15,7 +15,7 @@
         <span class="material">{{$t('product.Material')}}</span>
         <inSelect
           :items="panelDetail.LensMaterial"
-          :placeholder="$t('RegNPay.PleaseSelect')"
+          :Placeholder="$t('RegNPay.PleaseSelect')"
           v-model="MId"
           styla="padding: 0 10px;"
         ></inSelect>
@@ -23,7 +23,7 @@
         <colorSelect
           :items="colorList"
           v-model="LensColor"
-          :placeholder="$t('RegNPay.PleaseSelect')"
+          :Placeholder="$t('RegNPay.PleaseSelect')"
         ></colorSelect>
       </div>
       <inNum  :label="$i18n.t('product.countTitle')" v-model="ProductInfor.Qty" :v="ProductInfor.Qty" size="middle" :min="panelDetail.MinPurQty" :max="panelDetail.MaxPurQty" styla="padding: 0 10px;"></inNum>

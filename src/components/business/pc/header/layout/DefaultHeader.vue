@@ -216,6 +216,7 @@ export default class DefaultHeader extends Vue {
     display: flex;
     align-items: center;
     position: relative;
+    margin-right: 10px;
 }
 .cartTop{
     display: flex;
