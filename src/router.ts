@@ -610,10 +610,6 @@ export const mRoutes = [
       {
         path: '/account/completeCheckout/:id',
         name: 'completeCheckout',
-        meta: {
-          requiresAuth: true, // 是否进行登录验证
-          onlyFrom: '/account/checkout'
-        },
         component: () =>
           import(
             /* webpackChunkName: "checkout" */ './components/business/mobile/account/InsCompleteCheckout.vue'

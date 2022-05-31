@@ -92,6 +92,7 @@ export default class DefaultHeader extends Vue {
    @Watch('$route', { deep: true })
     onRouteChange (n, o) {
       this.$store.dispatch('isShowMenu', false);
+      this.searchBlock = false;
     }
 }
 </script>

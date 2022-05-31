@@ -864,7 +864,8 @@ boxShow(index) {
           Message({
           message: this.$t('Shoppingcart.SaveError') as string,
           type: 'error',
-          duration:3500
+          duration:3500,
+          customClass: 'messageboxNoraml'
         });
         for(var i=0;i<EditBox.length;i++){
           var testText=EditBox[i].getElementsByClassName('mobiletest')[0];
@@ -969,7 +970,8 @@ boxShow(index) {
         Message({
           message: this.$t('Shoppingcart.Savedsuccess') as string,
           type: 'success',
-          duration:3000
+          duration:3000,
+          customClass: 'messageboxNoraml'
         })
         Vue.set(this.items[index], 'boxshow', false);
       }
