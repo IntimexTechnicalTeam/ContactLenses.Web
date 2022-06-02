@@ -15,7 +15,7 @@
             </a>
             </swiperSlide>
             <!-- Optional controls -->
-            <div class="swiper-pagination" slot="pagination"></div>
+            <div class="swiper-pagination cliBtn" slot="pagination"></div>
             <div
               class="swiper-button-prev"
               slot="button-prev"
@@ -63,7 +63,7 @@ export default class InsBanner extends Vue {
       disableOnInteraction: false
     },
     pagination: {
-      el: '.swiper-pagination',
+      el: '.cliuBtn',
       clickable: true
     },
     navigation: {

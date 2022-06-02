@@ -160,6 +160,7 @@ export default class InsSelect4 extends Vue {
   z-index: 2019;
   margin:0 auto;
   overflow-y: scroll;
+  left: 22px;
 }
 ::-webkit-scrollbar{
   width:5px;

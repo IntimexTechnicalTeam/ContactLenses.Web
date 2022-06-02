@@ -31,7 +31,7 @@
             <p class="shop_email">hk@eandeoptics.com</p>
         </div>
     </div>
-  <span class="currentyear">Copyright © {{currentYear}} | Dreimlens Corporation LTD | Powered by Eventizer Limited
+  <span class="currentyear">Copyright {{currentYear}} © Dreimlens Corporation LTD | Powered by Eventizer Limited
     <a href="https://eventizer.hk/" target="_blank">
     </a>
   </span>

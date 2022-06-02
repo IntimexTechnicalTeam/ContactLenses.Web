@@ -586,7 +586,7 @@ export default class InsExpressWay extends Vue {
                 this.$message({
                   message: this.$t('Message.SucceedInOperating') as string,
                   type: 'success',
-                  duration: 3000
+                  duration: 1000
                 });
                 (this.$refs.adderform as InsForm).reset();
                 this.showEdit = false;

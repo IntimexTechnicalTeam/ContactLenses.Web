@@ -132,7 +132,7 @@ export default class InsSlideMenu extends Vue {
   }
 
   .el-scrollbar {
-    height: 100%;
+    height: 100vh;
   }
 }
 
@@ -162,6 +162,25 @@ span {
             text-align: left;
           }
         }
+      }
+    }
+    .el-submenu{
+      .el-submenu__title{
+        border:none;
+        background: #0e559c!important;
+        padding-left: 0!important;
+        padding-right: 0;
+        text-align: left;
+        span{
+          color:#fff;
+        }
+      }
+      .el-submenu__icon-arrow {
+        background: url(/images/mobile/open.png) center center no-repeat;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+}
       }
     }
   }

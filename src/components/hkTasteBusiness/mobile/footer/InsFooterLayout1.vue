@@ -29,7 +29,7 @@
       </ul>
     </div>
     <div class="footer-box">
-      <p>Copyright {{currentYear}} | Dreimlens Corporation LTD | Powered by Eventizer Limited</p>
+      <p>Copyright {{currentYear}} © Dreimlens Corporation LTD | Powered by Eventizer Limited</p>
     </div>
 </div>
 </template>

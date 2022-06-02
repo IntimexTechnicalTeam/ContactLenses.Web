@@ -1807,7 +1807,9 @@ boxShow(index) {
   }
   .mobile-editform-box:nth-child(1),
   .mobile-editform-box:nth-child(2),
+  .mobile-editform-box:nth-child(3),
   .mobile-editform-box:nth-child(4),
+  .mobile-editform-box:nth-child(5),
   .mobile-editform-box:nth-child(6){
     .item-name{
       background: url(/images/mobile/iov-required.png) left center no-repeat;

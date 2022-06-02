@@ -111,74 +111,86 @@ export default class InsProductCatTree extends Vue {
 </style>
 <style lang="less" scoped>
 .productTreepc{
+  margin-top:1rem;
+  width:250px;
+  overflow: hidden;
     .productMenuTree{
       border:none;
-      margin-top: 40px;
       /deep/ .el-tree{
-        background: none;
-        color:#fff;
-        width:250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        display: -webkit-flex;
+        -webkit-flex-direction: column;
+        -webkit-justify-content: center;
+        -webkit-align-items: center;
         .el-tree-node{
-          text-align: center;
           width:100%;
           .el-tree-node__content{
-            width: 100%;
-              height:45px;
-            .el-tree-node__expand-icon{
-              color:#0e559c;
-              position: relative;
-              left: 80%;
-            }
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            display: -webkit-flex;
+            -webkit-flex-direction: row;
+            -webkit-justify-content: center;
+            -webkit-align-items: center;
+            height: 50px;
+            line-height: 50px;
+            overflow: hidden;
             .el-tree-node__label{
               font-size: 18px;
-              color:#0e559c;
+              color:#0e579c;
+              font-weight: bold;
               display: block;
               width: 100%;
-              text-align: center;
-              font-weight: bold;
-              height:45px;
-              line-height: 45px;
-              padding: 0 10px;
             }
-          }
-          .el-tree-node__children{
-            .el-tree-node__expand-icon{
-              color: #fff;
-              display: none;
+            .el-icon-caret-right{
+              position: absolute;
+              left:70%;
+              color:#0e579c;
+            }
+            &:hover{
+              border-radius: 12px;
+              .el-tree-node__label{
+                background: #0e579c;
+                color:#fff;
+              }
+              .el-icon-caret-right{
+                color: #fff;
+              }
             }
           }
         }
-        .is-expanded{
-          .el-tree-node__children{
-            .el-tree-node__expand-icon{
-              display: none;
+        .is-expanded {
+          .el-tree-node__content {
+            background: #0e579c;
+            border-radius: 12px;
+            .el-tree-node__label,
+            .expanded{
+              color:#fff;
             }
+          }
+          .el-tree-node__children{
             .el-tree-node__content{
-              padding-left: 0!important;
+              background: #fff;
+              padding: 0!important;
+              .el-icon-caret-right{
+                display: none;
+              }
+              .el-tree-node__label{
+                color: #0e579c;
+              }
+              &:hover{
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+                .el-tree-node__label{
+                  color: #fff;
+                }
+              }
             }
-          }
-        }
-        .el-tree-node__content:hover{
-          border-radius: 15px;
-          overflow: hidden;
-        }
-        .el-tree-node__content:hover .el-tree-node__expand-icon{
-          color:#fff;
-        }
-        .el-tree-node:focus>.el-tree-node__content{
-          background-color: #0e559c;
-          border-radius: 15px;
-        }
-        .el-tree-node:focus>.el-tree-node__content>.el-tree-node__label{
-          color: #fff;
-        }
-        .el-tree-node:focus>.el-tree-node__content>.el-tree-node__expand-icon{
-          color: #fff;
-        }
-        .el-tree-node__content:hover{
-          background-color: #0e559c;
-          .el-tree-node__label{
-            color:#fff;
           }
         }
       }
