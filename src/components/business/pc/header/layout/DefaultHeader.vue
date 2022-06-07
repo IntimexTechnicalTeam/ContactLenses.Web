@@ -257,7 +257,6 @@ export default class DefaultHeader extends Vue {
 // new css
 .header-layout {
  /deep/ .header_menu {
-   /* width: 1464px; */
    width:1200px;
    margin: 30px auto 10px;
    > ul {
@@ -270,7 +269,7 @@ export default class DefaultHeader extends Vue {
       display: flex;
       align-items: center;
       position: relative;
-      /* width: 14.28%; */
+      width:106px;
 
       > a {
         width: 100%;
@@ -313,6 +312,9 @@ export default class DefaultHeader extends Vue {
           }
         }
       }
+     }
+     > .eLi{
+       width:auto;
      }
    }
  }

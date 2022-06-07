@@ -90,7 +90,7 @@ export default class InsSlideMenu extends Vue {
 .drawer-bg {
   width: 100%;
   top: 0;
-  height: 100%;
+  height: 100%!important;
   position: fixed;
   z-index: 999;
 }
@@ -104,6 +104,7 @@ export default class InsSlideMenu extends Vue {
   background-color: #0e559c!important;
   z-index: 1000;
   width: 100%!important;
+  height: 100%!important;
 
   &.left {
     top: 0;
@@ -132,7 +133,7 @@ export default class InsSlideMenu extends Vue {
   }
 
   .el-scrollbar {
-    height: 100vh;
+    height: 100%;
   }
 }
 
@@ -171,16 +172,26 @@ span {
         padding-left: 0!important;
         padding-right: 0;
         text-align: left;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
         span{
           color:#fff;
         }
-      }
-      .el-submenu__icon-arrow {
-        background: url(/images/mobile/open.png) center center no-repeat;
-    width: 20px;
-    height: 20px;
-    background-color: #fff;
-}
+        .el-submenu__icon-arrow {
+          background: url(/images/mobile/open.png) center center no-repeat;
+          width: 20px;
+          height: 20px;
+          background-color: #fff;
+          background-size: contain;
+          border-radius: 50%;
+          position: static;
+          margin:auto 0 auto 1rem;
+          &:before{
+            content: '';
+          }
+        }
       }
     }
   }

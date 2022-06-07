@@ -2,7 +2,7 @@
   <div class="particulars">
     <div class="mobile-lens-box">
       <div class="title title1">
-        <span>{{$t('home.LookFor')}}</span>
+        <span>{{$t('home.LookFor')}}<div :class="lang === 'E' ? 'espot' : ''"></div></span>
       </div>
       <div class="lensBg">
         <img src="/images/pc/lens.png" alt="" class="right-lens" />
@@ -14,7 +14,7 @@
     </div>
     <div class="about">
       <div class="title title2">
-        <span>{{$t('Cms.AboutUS')}}</span>
+        <span>{{$t('Cms.AboutUS')}}<div :class="lang === 'E' ? 'espot' : ''"></div></span>
       </div>
       <div class="aboutcontent">
         <div class="about-swiper">
@@ -101,13 +101,16 @@ export default class HkPromotion extends Vue {
     color:#0e559c;
     font-weight: bold;
     font-size: 2rem;
-    border-bottom: 8px dotted #3f9ed8;
-  }
-}
-.title1{
-  span{
-    display: block;
-    width: 100%;
+    display: inline-block;
+    div{
+      width:100%;
+      height: 20px;
+      background: url(/images/mobile/spot.png) 0 center;
+      display: inline-block;
+    }
+    .espot{
+      background: url(/images/mobile/spot.png) center center;
+    }
   }
 }
 .about{

@@ -81,7 +81,7 @@ div{
 }
 .product_warpper{
   width: 1000px;
-  margin:50px auto;
+  margin:50px auto 50px 30px;
 }
 .products_container{
   display: flex;

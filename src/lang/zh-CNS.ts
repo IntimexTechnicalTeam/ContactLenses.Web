@@ -5,7 +5,7 @@ export default {
   changeLangSuccess: '语言切换成功！',
   changeCurSuccess: '货币切换成功！',
   HkMap: {
-    Address: '爱健视有限公司沙田源顺围5-7号沙田工业中心B座地下7室'
+    Address: '沙田源顺围5-7号沙田工业中心B座地下7室'
   },
   Input: {
     email: '请输入正确的邮箱',

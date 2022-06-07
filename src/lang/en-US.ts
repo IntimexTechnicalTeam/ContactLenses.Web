@@ -5,7 +5,10 @@ export default {
   changeLangSuccess: 'Language switch successful !',
   changeCurSuccess: 'Currency switch successful !',
   HkMap: {
-    Address: 'DREIMLENS CORPORATION LIMITED Rm 7, Blk B, G/F, Shatin Industrial Centre 5-7 Yuen Shun Circuit, Shatin, N.T, Hong Kong'
+    Address: 'Rm7, Blk B, G/F, Shatin Industrial Centre,5-7 Yuen Shun Circuit,Sha Tin, N.T.,Hong Kong',
+    Rm: 'Rm7, Blk B, G/F, Shatin Industrial Centre,',
+    Yuen: '5-7 Yuen Shun Circuit,Sha Tin, N.T.,',
+    Sha: ' Hong Kong'
   },
   Input: {
     email: 'Please enter the correct email',

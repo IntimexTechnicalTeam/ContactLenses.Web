@@ -40,7 +40,7 @@
                 <!-- <div class="shoppingcart_item_price">
                     <div>{{Currency.Code}} {{(one.Product.SalePrice) | PriceFormat}}</div>
                 </div> -->
-                <div class="merchant-box">
+                <div class="merchant-box" :class="one.IsMake === false ? 'IsClick' : ''">
                   <button @click="boxShow(index)" class="edit" v-show="one.IsMake">{{$t('product.EditDetails')}}</button>
                   <button class="close"  v-on:click="removeItem(index)">
                     {{$t('product.Delete')}}
@@ -689,7 +689,8 @@ boxShow(index) {
           }
         }
       }else if(EditBox[i].id === '1'){
-        var Rvalue=/^((?:-(?:([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20)))|([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20))$/;
+        // var Rvalue=/^((?:-(?:([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20)))|([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20))$/;
+        var Rvalue=/^((?:-(?:([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9])|([2][0].[0][0])|[2][0]))|([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9])|([2][0].[0][0])|[2][0])$/;
         if(item.Id === 'ResultLeft'){
           if(item.Text === '' || Rvalue.test(text) === false){
             Vue.set(item,'testShow',true);
@@ -700,7 +701,7 @@ boxShow(index) {
           }
         }
       }else if(EditBox[i].id === '2'){
-        var Rvalue=/^((?:-(?:([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20)))|([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20))$/;
+        var Rvalue=/^((?:-(?:([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9])|([2][0].[0][0])|[2][0]))|([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9])|([2][0].[0][0])|[2][0])$/;
         if(item.Id === 'ResultRight'){
           if(item.Text === '' || Rvalue.test(text) === false){
             Vue.set(item,'testShow',true);
@@ -856,7 +857,8 @@ boxShow(index) {
     var EditBox=document.querySelectorAll('.mobile-editform-box');
     var Lat=this.items[index].LensExtAttrItem;
     var Cvalue= /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
-    var Rvalue=/^((?:-(?:([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20)))|([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20))$/;
+    // var Rvalue=/^((?:-(?:([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20)))|([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9]|20))$/;
+    var Rvalue=/^((?:-(?:([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9])|([2][0].[0][0])|[2][0]))|([0-9]|[1][0-9]).([0-9]{2})|([0-9]|1[0-9])|([2][0].[0][0])|[2][0])$/;
     var Corvalue=/^((3[6-9]|3[6-9].[0-9]{1,2})|(4[0-8]|4[0-7].[0-9]{1,2}))$/;
     var Lvalue=/^([8-9]|[8-9].[0-9]{2}|1[0-1]|1[0-1].[0-5]{2})$/;
     if(this.items[index].IsMake){
@@ -1442,6 +1444,7 @@ boxShow(index) {
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+      width:100%;
       .edit,
       .close{
         border:none;
@@ -1450,6 +1453,9 @@ boxShow(index) {
         padding: 0.5rem 1rem;
         border-radius: 5px;
       }
+    }
+    .IsClick {
+      justify-content: flex-end;
     }
 }
 .shoppingcart_item_name,
@@ -1491,9 +1497,11 @@ boxShow(index) {
 }
 .shoppingcart_item_qty{
     display: flex;
-    width:32%;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    display: -webkit-flex;
+    -webkit-justify-content: flex-start;
+    -webkit-align-items: center;
     .qty_count{
         line-height: 26px;
         font-size: 1.2rem
@@ -1555,7 +1563,7 @@ boxShow(index) {
   text-align: center;
   background: #fff;
   border:none;
-  color:#000;
+  color: #000 !important;
   font-weight: bold;
   font-size: 1.2rem;
 }

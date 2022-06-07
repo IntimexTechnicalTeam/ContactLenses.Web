@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <li v-for="(n,index) in navData" :key="index">
+    <li :class="lang === 'E' ? 'eLi' : ''" v-for="(n,index) in navData" :key="index">
       <router-link :to="{path: To(n)}" v-if="n.Type > 0">{{n.Name}}</router-link>
       <a href="javascript:;" @click="toUrl(n)" v-else>{{n.Name}}</a>
       <navLayout :navData="n.Childs" v-if="n.Childs && n.Childs.length" />
@@ -16,6 +16,10 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 })
 export default class InsNavLayout2 extends Vue {
   @Prop() private navData!: object;
+
+  get lang() {
+    return this.$Storage.get('locale');
+  }
 
   toUrl (n) {
     if (n.Type < 0) {

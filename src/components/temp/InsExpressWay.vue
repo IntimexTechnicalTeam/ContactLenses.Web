@@ -531,7 +531,12 @@ export default class InsExpressWay extends Vue {
       this.loading = true;
       this.SelectedAddress = this.addressList[index];
       this.$store.dispatch('setSelectAddress', this.SelectedAddress);
-      this.$message(this.$t('Message.SucceedInOperating') as string);
+      // this.$message(this.$t('Message.SucceedInOperating') as string);
+      this.$message({
+        message: this.$t('Message.SucceedInOperating') as string,
+        type: 'success',
+        customClass: 'messageboxNoraml'
+      });
     }
     addAddr () {
       this.editAddress = new Address(this.countryList[0], this.provinceList[0]);

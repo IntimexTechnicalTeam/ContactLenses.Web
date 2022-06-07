@@ -4,7 +4,7 @@
     <div class="InnerSide">
       <div class="main">
         <div class="title title1">
-          <span>{{$t('home.Choices')}}</span>
+          <span>{{$t('home.Choices')}}<div :class="lang === 'E' ? 'eSpot' : ''"></div></span>
         </div>
         <div class="swiperBg swipermain">
           <button class="s1-btn s1-next">&lt;</button>
@@ -198,13 +198,17 @@ export default class HkPromotion extends Vue {
           color: #0e559c;
           font-weight: bold;
           font-size: 2rem;
-          border-bottom: 8px dotted #3f9ed8;
-          display: block;
-          width: 100%;
+          display: inline-block;
+          div {
+            width:100%;
+            height: 20px;
+            background: url(/images/mobile/spot.png) center center;
+            display: inline-block;
+          }
+          .eSpot{
+            background: url(/images/mobile/spot.png) 0 center;
+          }
         }
-      }
-      .title1 {
-        width: 14rem;
       }
       .content {
         font-size: 2rem;

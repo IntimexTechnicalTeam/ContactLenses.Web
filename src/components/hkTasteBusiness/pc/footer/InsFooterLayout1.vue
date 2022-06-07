@@ -25,7 +25,14 @@
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3689.1861947863495!2d114.20403351536899!3d22.384337145494694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34040645abb09ba3%3A0x4c46848ccf55c7bd!2sShatin%20Industrial%20Center!5e0!3m2!1szh-TW!2shk!4v1650419025774!5m2!1szh-TW!2shk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
         <div class="pc-information">
-            <p class="shop_address">{{$t('HkMap.Address')}}</p>
+          <p class="shop_address" v-show="lang != 'E'">
+            {{$t('HkMap.Address')}}
+          </p>
+            <p class="shop_address" :class="lang === 'E' ? 'Saddress' : ''" v-show="lang === 'E'">
+              <span>{{$t('HkMap.Rm')}}</span>
+              <span>{{$t('HkMap.Yuen')}}</span>
+              <span>{{$t('HkMap.Sha')}}</span>
+            </p>
             <p class="shop_tel">+852 26372000</p>
             <p class="shop_fax">+852 26374000</p>
             <p class="shop_email">hk@eandeoptics.com</p>
@@ -89,6 +96,9 @@ export default class InsFooterLayout1 extends Vue {
       }
     }
     console.log('111');
+  }
+  get lang() {
+    return this.$Storage.get('locale');
   }
   created () {
     var date = new Date();
@@ -193,8 +203,18 @@ export default class InsFooterLayout1 extends Vue {
 }
 .shop_address{
     background: url(/images/pc/address.png) no-repeat left center;
-    width:261px!important;
+    height: 30px;
+    line-height: 30px;
     text-align: left;
+}
+.Saddress{
+  height: auto!important;
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  line-height: 30px!important;
 }
 .shop_tel{
     background: url(/images/pc/phone.png) no-repeat left center;

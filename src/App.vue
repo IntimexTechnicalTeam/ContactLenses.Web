@@ -70,9 +70,9 @@ export default class App extends Vue {
     }
   }
 }
-.el-message {
+/* .el-message {
   top: 5rem !important;
-}
+} */
 .el-scrollbar{
   >.el-scrollbar__bar{
     opacity: 1!important;

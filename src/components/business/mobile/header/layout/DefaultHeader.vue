@@ -43,6 +43,14 @@ export default class DefaultHeader extends Vue {
   searchKey: string = '';
   searchBlock = false;
 
+  /* mounted () {
+    document.addEventListener('click', this.HiddenClick);
+  }
+
+  HiddenClick () {
+    this.searchBlock = false;
+  } */
+
   showSearch () {
     /* let isShow = !JSON.parse(JSON.stringify(this.menuShow));
     this.$store.dispatch('isShowMenu', isShow); */
@@ -166,11 +174,11 @@ export default class DefaultHeader extends Vue {
   margin:0 0.5rem;
 }
 .searchbox{
-  width: 100%;
+  width: 98%;
   position: absolute;
   z-index: 99999;
   top:7rem;
-  left:0;
+  left:0.3rem;
   background: #fff;
   border-radius: 15px;
   padding: .5rem 0;
@@ -180,6 +188,8 @@ export default class DefaultHeader extends Vue {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 0 5px #dedbdb;
+  margin:0 auto;
   input{
     width: 80%;
     border:none;
