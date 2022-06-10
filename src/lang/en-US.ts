@@ -99,7 +99,7 @@ export default {
     ProductCode: 'Product Code',
     buy: 'Buy Now',
     addToCart: 'Add To Cart',
-    buyNow: 'Buy now',
+    buyNow: 'Order now',
     favorite: 'Favorite',
     priceTitle: 'Price',
     countTitle: 'Qty',

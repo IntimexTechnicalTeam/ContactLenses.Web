@@ -96,7 +96,7 @@ export default {
     ProductCode: '產品代碼',
     buy: '立即購買',
     addToCart: '加入購物車',
-    buyNow: '立即購買',
+    buyNow: '立即訂購',
     favorite: '加入我的清單',
     priceTitle: '價格',
     countTitle: '數量',

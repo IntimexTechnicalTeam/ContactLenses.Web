@@ -96,7 +96,7 @@ export default {
     ProductCode: '产品代码',
     buy: '立即购买',
     addToCart: '加入购物车',
-    buyNow: '立即购买',
+    buyNow: '立即订购',
     favorite: '加入我的清单',
     priceTitle: '价格',
     countTitle: '数量',

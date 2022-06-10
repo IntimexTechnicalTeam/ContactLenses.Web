@@ -4,6 +4,7 @@
     <div class="CmsOther">
         <p class="HeadTitle">{{TitleName}}</p>
         <div class="NormalContent" v-html="content.Body"></div>
+        <button class="toProduct" @click="toProduct()">{{$t('product.buyNow')}}</button>
     </div>
 
   </div>
@@ -62,6 +63,9 @@ export default class InsCmsContent extends Vue {
     if (result.CMS.Title) document.title = result.CMS.Title;
   });
 }
+  toProduct () {
+    this.$router.push('/product/cat/23');
+  }
   // 根据设备类型获取CMSCategory信息
   @Watch('$route', { deep: true })
   onIdChange () {
@@ -77,6 +81,7 @@ export default class InsCmsContent extends Vue {
 </script>
 <style lang="less" scoped>
 .CmsOther {
+  text-align: center;
     .HeadTitle {
     font-size: 25px;
     color: #0e579c;
@@ -92,8 +97,19 @@ export default class InsCmsContent extends Vue {
     display: flex;
     flex-wrap: wrap;
     /deep/ .NormalText {
-      padding-top: 50px;
-      padding-bottom: 50px;
+      /* padding-top: 50px;
+      padding-bottom: 50px; */
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .tList{
+        margin-bottom: 1rem;
+        img{
+          width: 50%;
+        }
+      }
       p{
         line-height: 30px;
         color: #0e579c;
@@ -169,6 +185,15 @@ export default class InsCmsContent extends Vue {
       }
     }
     }
+  }
+  .toProduct{
+    padding: 1rem 1.5rem;
+    margin:1rem auto;
+    border:none;
+    font-size: 16px;
+    font-weight: bold;
+    background: #0e579c;
+    color: #fff;
   }
 }
 </style>
