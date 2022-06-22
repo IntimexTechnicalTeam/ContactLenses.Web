@@ -15,7 +15,15 @@
       <PkProductInfo :panelDetail="PanelDetail"  :ProductSku="ProductSku" :AddPrice="getNewsPrice" width="100%" style="margin-top:2rem;"></PkProductInfo>
       <!-- <div class="ProductRate"><Rate  v-model="Score" disabled  disabled-void-color="#5f6548" disabled-void-icon-class="el-icon-star-off"></Rate></div> -->
       <inPanel :panelDetail="PanelDetail" width="100%" :ProductSku="ProductSku"  @getPrice="showPrice" itemscopestyle="margin-top:2rem;"></inPanel>
-      <PkProductDetailCate :source="ExtAttrList" :cateTree="CatalogTree" width="100%" style="margin-top:2rem;"></PkProductDetailCate>
+      <!-- <PkProductDetailCate :source="ExtAttrList" :cateTree="CatalogTree" width="100%" style="margin-top:2rem;"></PkProductDetailCate> -->
+      <div class="M_productDetail">
+        <h1 class="product_info">{{ $t("product.ProductInformation") }}</h1>
+        <div class="detail-header">
+          <div class="detail-products detail-title">{{ $t("product.Products") }}</div>
+          <div class="detail-parameter detail-title">{{ $t("product.Parameter") }}</div>
+        </div>
+        <div class="detailHtml" v-html="Detail"></div>
+      </div>
     </div>
     <!-- <div class="tab_warpper">
       <div class="tab_header">
@@ -72,6 +80,7 @@ import { Rate } from 'element-ui';
 export default class ProductDetail extends Vue {
   private Slider: YouWouldLike[] = [];
   private Tabs: Tab = new Tab('none');
+  private Detail: string = '';
   private PanelDetail: PanelDetail = new PanelDetail('', '', '', '', 0, 0, 0, 0, '');
   private Src: string = '';
   private ImgList: string[] = [];
@@ -94,6 +103,7 @@ export default class ProductDetail extends Vue {
           this.PanelDetail = result.PanelDetail;
           console.log(result, 'this.PanelDetailthis.PanelDetail');
           this.ExtAttrList = result.PanelDetail.ExtAttrList;
+          this.Detail = result.Tab.Detail;
           this.CatalogTree = result.PanelDetail.CatalogTree;
           this.ImgList = result.AdditionalImage;
           this.Tabs = result.Tab;
@@ -231,6 +241,40 @@ export default class ProductDetail extends Vue {
     }
   }
 }
+.M_productDetail{
+  .detailHtml{
+    table{
+      width:100%;
+      margin: 0 auto;
+      border-bottom: 1px solid #808080;
+      border-collapse: collapse;
+      td{
+        border-bottom: 1px solid #808080;
+        padding: 1rem .5rem!important;
+        font-family: 'Arial', 'Microsoft YaHei'!important;
+        text-align: center;
+        p{
+          font-size: 16px!important;
+          color:#000;
+          font-family: 'Arial', 'Microsoft YaHei'!important;
+          font-weight: bold;
+          text-align: left!important;
+          span{
+            font-size: 16px!important;
+            color:#000;
+            font-family: 'Arial', 'Microsoft YaHei'!important;
+            text-align: left!important;
+          }
+        }
+      }
+      .firstRow{
+        td{
+          border-top: none;
+        }
+      }
+    }
+  }
+}
 </style>
 <style scoped lang="less">
 .ProducBanner{
@@ -346,6 +390,44 @@ export default class ProductDetail extends Vue {
   img {
     width: 3rem;
     cursor: pointer;
+  }
+}
+.M_productDetail{
+  width:95%;
+  margin:1rem auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .product_info{
+    text-align: center;
+    margin:.5rem auto;
+    font-size: 2rem;
+  }
+  .detail-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width:100%;
+    .detail-title{
+      background-color: #808080;
+      color:#fff;
+      height: 45px;
+      line-height: 45px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .detail-products{
+      width:59%;
+    }
+    .detail-parameter{
+      width: 40%;
+    }
+  }
+  .detailHtml{
+    width:100%;
   }
 }
 </style>

@@ -16,7 +16,15 @@
           <inPanel :panelDetail.sync="PanelDetail" :ProductSku="ProductCode" @getPrice="showPrice" width="100%"></inPanel>
       </div>
     </div>
-    <PkProductDetailCate :source="ExtAttrList" :cateTree="CatalogTree"  width="100%" style="margin-top:2rem;"></PkProductDetailCate>
+    <!-- <PkProductDetailCate :source="ExtAttrList" :cateTree="CatalogTree"  width="100%" style="margin-top:2rem;"></PkProductDetailCate> -->
+    <div class="productDetail">
+      <h1 class="product_info">{{ $t("product.ProductInformation") }}</h1>
+      <div class="detail-header">
+        <div class="detail-products detail-title">{{ $t("product.Products") }}</div>
+        <div class="detail-parameter detail-title">{{ $t("product.Parameter") }}</div>
+      </div>
+      <div class="detailHtml" v-html="Detail"></div>
+    </div>
   </div>
     <div class="commentsLine"></div>
     <div class="maincontent">
@@ -69,6 +77,7 @@ export default class InsProductDetail extends Vue {
   private ImgList: string[] = [];
   private ProductCode:string = '0';
   private ExtAttrList: any[] = [];
+  private Detail: string = '';
   private ProductSku:string = '0';
   private Score:number=0;
   private CatalogTree: any[] = [];
@@ -136,11 +145,11 @@ export default class InsProductDetail extends Vue {
       });
       that.PanelDetail = result.PanelDetail;
       that.ExtAttrList = result.PanelDetail.ExtAttrList;
+      that.Detail = result.Tab.Detail;
       that.CatalogTree = result.PanelDetail.CatalogTree;
       that.Score = result.PanelDetail.Score;
       that.ImgList = result.AdditionalImage;
       that.Permission = result.PanelDetail.Permission;
-      console.log(result, 'evvvv');
       if (that.Permission === '2') {
         if (this.$Storage.get('isLogin') === 0) {
         this.$Confirm(this.$t('Message.Logout'), this.$t('product.loginow'), () => { this.$router.push('/account/login'); }, () => { this.$router.push('/'); });
@@ -231,6 +240,69 @@ export default class InsProductDetail extends Vue {
         font-size: 1rem;
         color: #999;
         text-decoration: line-through;
+      }
+    }
+  }
+}
+.productDetail{
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .detail-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    .detail-title{
+      background: #808080;
+      color:#fff;
+      height: 45px;
+      line-height: 45px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .detail-products{
+      width: 59%;
+    }
+    .detail-parameter{
+      width:40%;
+    }
+  }
+  .detailHtml{
+    width:100%;
+    table{
+      width:100%;
+      margin: 0 auto;
+      border-bottom: 1px solid #808080;
+      border-collapse: collapse;
+      td{
+        border:1px solid #808080;
+        text-align: center;
+        padding: 10px 0!important;
+        font-family: 'Arial', 'Microsoft YaHei'!important;
+        border-right: none;
+        border-left: none;
+        p{
+          font-size: 17px!important;
+          color:#000;
+          font-family: 'Arial', 'Microsoft YaHei'!important;
+          font-weight: bold;
+          span{
+            font-size: 17px!important;
+            color:#000;
+            font-family: 'Arial', 'Microsoft YaHei'!important;
+          }
+        }
+      }
+      .firstRow{
+        td{
+          border-top: none;
+        }
       }
     }
   }
