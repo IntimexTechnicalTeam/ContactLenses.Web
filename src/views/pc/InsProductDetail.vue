@@ -292,11 +292,13 @@ export default class InsProductDetail extends Vue {
           color:#000;
           font-family: 'Arial', 'Microsoft YaHei'!important;
           font-weight: bold;
-          span{
-            font-size: 17px!important;
-            color:#000;
-            font-family: 'Arial', 'Microsoft YaHei'!important;
-          }
+        }
+        span{
+          font-size: 17px!important;
+          color:#000;
+          font-family: 'Arial', 'Microsoft YaHei'!important;
+          font-weight: bold;
+          text-align: center;
         }
       }
       .firstRow{

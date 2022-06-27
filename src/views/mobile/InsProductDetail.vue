@@ -266,6 +266,13 @@ export default class ProductDetail extends Vue {
             text-align: left!important;
           }
         }
+        span{
+          font-size: 17px!important;
+          color:#000;
+          font-family: 'Arial', 'Microsoft YaHei'!important;
+          font-weight: bold;
+          text-align: center;
+        }
       }
       .firstRow{
         td{
