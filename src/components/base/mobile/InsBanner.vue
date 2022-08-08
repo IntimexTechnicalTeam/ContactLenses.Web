@@ -3,8 +3,17 @@
     <transition name="slide">
       <div key="1" v-if="!waiting" style="display:flex;">
         <div class="header-index">
-          <swiper :options="swiperOption" v-if="bannerList.length>0 && initSwiper">
-            <!-- slides -->
+          <div class="showImg" @mouseover="changeInterval(true)" @mouseleave="changeInterval(false)">
+          <a :href="slide.Url || 'javascript:;'" :target="slide.Url ? '_blank' : '_self'" v-for="(slide, index) in bannerList" :key="index" v-show="index === currentIndex">
+            <img :src="slide.Image">
+          </a>
+          <div class="banner-circle">
+            <ul>
+              <li @click="changeImg(index)" v-for="(slide, index) in bannerList" :key="index" :class="index === currentIndex ? 'active' : ''"></li>
+            </ul>
+          </div>
+        </div>
+          <!-- <swiper :options="swiperOption" v-if="bannerList.length>0 && initSwiper">
             <swiperSlide
               v-for="(slide, index) in bannerList"
               :key="index"
@@ -13,7 +22,6 @@
                 <img :src="slide.Image" />
               </a>
             </swiperSlide>
-            <!-- Optional controls -->
             <div class="swiper-pagination cliBtn" slot="pagination"></div>
             <div
               class="swiper-button-prev"
@@ -25,7 +33,7 @@
               slot="button-next"
               v-if="swiperOption.navigation && swiperOption.navigation.prevEl"
             ></div>
-          </swiper>
+          </swiper> -->
           <!-- <img :src="bannerImg" v-else /> -->
         </div>
       </div>
@@ -57,7 +65,9 @@ export default class InsBanner extends Vue {
   bannerList: object[] = [];
   bannerImg: string = '';
   isload: boolean = false;
-  swiperOption: object = {
+  currentIndex = 0;
+  timer: any = null;
+  /* swiperOption: object = {
     autoplay: {
       disableOnInteraction: false
     },
@@ -69,7 +79,7 @@ export default class InsBanner extends Vue {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev'
     }
-  };
+  }; */
   getBanner () {
     let _this = this;
     sdk.api.promotion.getHeaderBanner(this.page).then(
@@ -86,10 +96,32 @@ export default class InsBanner extends Vue {
     );
   }
 
-  created () {
-    if (this.initOptions) {
-      this.swiperOption = this.initOptions;
+  startInterval() {
+    clearInterval(this.timer);
+    this.timer = setInterval(() => {
+      this.currentIndex++;
+      if (this.currentIndex > this.bannerList.length - 1) {
+        this.currentIndex = 0;
+      }
+    }, 4000);
+  }
+
+  changeImg(index) {
+    this.currentIndex = index;
+  }
+
+  changeInterval(val) {
+    if (val) {
+      clearInterval(this.timer);
+    } else {
+      this.startInterval();
     }
+  }
+
+  created () {
+    /* if (this.initOptions) {
+      this.swiperOption = this.initOptions;
+    } */
   }
 
   mounted () {
@@ -112,6 +144,7 @@ export default class InsBanner extends Vue {
         }
       }
     }
+    this.startInterval();
   }
 }
 </script>
@@ -217,6 +250,41 @@ export default class InsBanner extends Vue {
 .swiper-slide {
   img {
     width: 100%;
+  }
+}
+</style>
+<style lang="less" scoped>
+.showImg{
+  width:100%;
+  overflow: hidden;
+  position: relative;
+  a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .banner-circle ul{
+    position: absolute;
+    bottom: 0;
+    width:100%;
+    height: 20px;
+    text-align: center;
+    li{
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      margin:0 5px;
+      border-radius: 7px;
+      background-color: #fff;
+      cursor: pointer;
+    }
+    .active{
+      background-color: rgba(125, 125, 125, .8);
+    }
   }
 }
 </style>

@@ -19,15 +19,23 @@
       <div class="aboutcontent">
         <div class="about-swiper">
           <div class="indexRecommendInner">
-          <div class="RecommendBg">
-            <swiper :options="swiperOptionT2">
-              <swiperSlide v-for="(slide, index2) in banner2" :key="index2">
-                <router-link :to="slide.Url"><img :src="slide.Image" /></router-link>
-              </swiperSlide>
-            </swiper>
-            <div class="swiper-pagination" slot="pagination"></div>
-        </div>
-      </div>
+            <div class="RecommendBg">
+              <div class="aboutImg" @mouseover="changeInt(true)" @mouseleave="changeInt(false)">
+                <router-link v-for="(slide, index2) in banner2" :key="index2" :to="slide.Url" v-show="index2 === currentIndex2"><img :src="slide.Image" /></router-link>
+              </div>
+              <div class="about-circle">
+                <ul>
+                  <li @click="imgChange(index2)" v-for="(slide, index2) in banner2" :key="index2" :class="index2 === currentIndex2 ? 'change' : ''"></li>
+                </ul>
+              </div>
+              <!-- <swiper :options="swiperOptionT2">
+                <swiperSlide v-for="(slide, index2) in banner2" :key="index2">
+                  <router-link :to="slide.Url"><img :src="slide.Image" /></router-link>
+                </swiperSlide>
+              </swiper>
+              <div class="swiper-pagination" slot="pagination"></div> -->
+            </div>
+          </div>
         </div>
         <div class="aboutInformation">
           <p>{{$t('home.MoreText')}}</p>
@@ -50,7 +58,9 @@ export default class HkPromotion extends Vue {
   banner2: any[] = [];
   content2: string = '';
   current: boolean = false;
-  swiperOptionT2: object = {
+  currentIndex2 = 0;
+  timer2: any = null;
+  /* swiperOptionT2: object = {
     autoplay: {
       disableOnInteraction: false
     },
@@ -62,7 +72,7 @@ export default class HkPromotion extends Vue {
       nextEl: '.s2-next',
       prevEl: '.s2-next'
     }
-  };
+  }; */
   el: number = 0;
   getHeaderBannerLst() {
     var _this = this;
@@ -71,8 +81,28 @@ export default class HkPromotion extends Vue {
       _this.content2 = result.Promotion._BannerList[0].Content;
     });
   }
+  startImg() {
+    clearInterval(this.timer2);
+    this.timer2 = setInterval(() => {
+      this.currentIndex2++;
+      if (this.currentIndex2 > this.banner2.length - 1) {
+        this.currentIndex2 = 0;
+      }
+    }, 3000);
+  }
+  imgChange(index2) {
+    this.currentIndex2 = index2;
+  }
+  changeInt(val) {
+    if (val) {
+      clearInterval(this.timer2);
+    } else {
+      this.startImg();
+    }
+  }
   created() {
     this.getHeaderBannerLst();
+    this.startImg();
   }
   get lang() {
     return this.$Storage.get('locale');
@@ -138,6 +168,43 @@ export default class HkPromotion extends Vue {
   margin: 30px auto 30px auto;
   border: none;
   display: block;
+}
+.RecommendBg{
+  position: relative;
+  .aboutImg{
+    a{
+      display: block;
+      width: 100%;
+      height: 100%;
+      img{
+        width:100%;
+        height: 100%;
+      }
+    }
+  }
+  .about-circle {
+    position: absolute;
+    bottom: -25px;
+    width:100%;
+    text-align: center;
+    ul {
+      width:100%;
+      height: 20px;
+      text-align: center;
+      li{
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        margin: 0 5px;
+        border-radius: 7px;
+        border: 1px solid #075796;
+        cursor: pointer;
+      }
+      .change{
+        background-color: #075796;
+      }
+    }
+  }
 }
 .about-swiper{
   width:90%;
