@@ -31,6 +31,12 @@ export const pRoutes = [
         component: () => import(/* webpackChunkName: "home" */ './views/pc/InsHome.vue')
       },
       {
+        path: '/cms/404',
+        name: '404',
+        component: () =>
+          import(/* webpackChunkName: "product" */ './components/service/InsNotFound.vue')
+      },
+      {
         path: '/building',
         name: 'building',
         component: () =>
@@ -362,6 +368,12 @@ export const mRoutes = [
         path: '',
         name: 'home',
         component: () => import(/* webpackChunkName: "home" */'./views/mobile/InsHome.vue')
+      },
+      {
+        path: '/cms/404',
+        name: '404',
+        component: () =>
+          import(/* webpackChunkName: "product" */ './components/service/InsNotFound.vue')
       },
       {
         path: '/building',

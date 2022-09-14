@@ -123,7 +123,7 @@ export default class Result extends Vue {
     // 立即支付
     pay () {
       if (!this.paymentMethod.Id || this.paymentMethod.Id === '') {
-        alert('请选择付款方式');
+        alert(this.$t('Input.selectPayment') as string);
       } else {
         this.$Api.regAndPay.savePayMethod(this.paymentMethod.Id, this.result.Id).then(result => {
           if (result.data.Succeeded) {

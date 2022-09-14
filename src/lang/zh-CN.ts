@@ -19,6 +19,7 @@ export default {
     logopassword: '請輸入密碼',
     confirmpassword: '兩次輸入密碼不一致',
     nomessage: '暫無數據',
+    PAGENOTFOUND: '抱歉，您所訪問的頁面不存在～',
     phoneincorrect: '電話號碼格式不正確'
   },
   Message: {

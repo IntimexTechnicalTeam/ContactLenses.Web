@@ -22,6 +22,7 @@ export default {
     logopassword: 'Please input passwords',
     confirmpassword: 'Two inconsistent input passwords',
     nomessage: 'No Message',
+    PAGENOTFOUND: 'Sorry, the page you are looking for does not exist',
     phoneincorrect: 'The phone number format is incorrect'
   },
   Message: {
