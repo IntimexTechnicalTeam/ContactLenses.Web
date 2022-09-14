@@ -19,7 +19,7 @@ export default {
     logopassword: '请输入密码',
     confirmpassword: '两次输入密码不一致',
     nomessage: '暂无数据',
-    PAGENOTFOUND: '抱歉，您所訪問的頁面不存在～',
+    PAGENOTFOUND: '抱歉，您所访问的页面不存在～',
     phoneincorrect: '电话号码格式不正确'
   },
   Message: {
