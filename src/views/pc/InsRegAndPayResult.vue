@@ -98,7 +98,8 @@ export default class Result extends Vue {
         console.log(this.keycontent, 'this.keycontentthis.keycontent');
         if (result.data.ReturnValue.IsPayed) this.$Confirm(this.$t('Message.Message'), this.$t('Order.Paid'));
         if (result.data.ReturnValue.Amount > 0 && !result.data.ReturnValue.IsPayed) {
-          this.loadPaymentMethod();
+          // this.loadPaymentMethod();
+          this.paymentMethods = result.data.ReturnValue.PaymentType;
         } else if (this.result.NextFormKey) {
           let NextFormKey = this.result.NextFormKey;
           setTimeout(() => {
